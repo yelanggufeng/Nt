@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.netintech.park.mapper.OverviewExtMapper">
+    <select id="selectPriseInfo" resultType="com.netintech.park.domain.OverviewBean">
+        select IFNULL(round(sum(a.employee_number/10000 ),2), 0 ) enterPerson, IFNULL(count(*),0) enterPark,
+        IFNULL( b.land_space , 0 ) area, IFNULL( b.enterprise_quantity , 0 ) enterParkRemark,b.park_name parkName, b.land_space landSpace, b.build_unit_name buildUnitName,
+        b.build_contact_name buildContactName, b.build_contact_tel buildContactTel, b.build_contact_mail buildContactMail,
+        b.operation_unit_name operationUnitName, b.operation_contact_name operationContactName, b.operation_contact_tel operationContactTel,
+        b.operation_contact_mail operationContactMail,b.park_desc parkDesc,b.live_view liveView from sys_enterprise a
+        left join sys_small_park b on a.small_id = b.id where a.del_flag = '0' and b.del_flag = '0'
+        <if test="parkId !=null and parkId !='' and parkId !=0 ">
+            and a.small_id = #{parkId}
+        </if>
+    </select>
+
+    <select id="incomeAndTax" resultType="map">
+        SELECT IFNULL(round(sum( a.income/10000 ),2), 0 ) income, IFNULL(  round(sum( a.tax/10000 ),2), 0 ) taxRevenue,
+        IFNULL(round(sum( a.output/10000 ),2), 0 ) output
+        FROM sys_enterprise_benefit a LEFT JOIN sys_enterprise b ON a.enterprise_id = b.id
+        WHERE a.del_flag = '0' AND b.del_flag = '0' and a.year = YEAR(now())
+        <if test="parkId !=null and parkId !='' and parkId !=0 ">
+            and b.small_id = #{parkId}
+        </if>
+    </select>
+
+    <select id="taxAverage" resultType="map">
+        select IFNULL(round(sum(b.tax),2),0) tax,IFNULL(round(sum(b.output),2),0) output from sys_enterprise a left join
+        sys_enterprise_benefit b on a.id = b.enterprise_id
+        where a.del_flag = '0' and b.del_flag = '0' and year= #{year}
+        <if test="type == 1 ">
+            <if test="quarter == 1">
+                 and month in(1,2,3)
+            </if>
+            <if test="quarter == 2">
+                 and month in(4,5,6)
+            </if>
+            <if test="quarter == 3">
+                and month in(7,8,9)
+            </if>
+            <if test="quarter == 4">
+                and month in(10,11,12)
+            </if>
+        </if>
+    </select>
+
+    <select id="getParkInfo" resultType="map">
+        select id,park_name name, IFNULL(park_level,0) level from sys_small_park where  del_flag = '0'
+        <if test="deptId != null ">
+           and id = #{deptId}
+        </if>
+    </select>
+
+    <select id="getSumCount" resultType="map">
+        select IFNULL( sum( talents_number ), 0 ) talentsCount, IFNULL( sum( patent_number ), 0 ) patentCount,
+        IFNULL(sum(is_foreign = 1), 0 ) foreignCount,IFNULL(sum(employee_number), 0 ) employeeCount,
+        IFNULL(sum(brand_ownership), 0 ) ownership,IFNULL(count(*), 0 ) count from sys_enterprise where del_flag = '0'
+        <if test="deptId != null ">
+            and small_id = #{deptId}
+        </if>
+    </select>
+
+    <select id="obtainEmployment" resultType="map">
+        select IFNULL( sum( b.employee_number ), 0 ) count,a.park_name name from sys_small_park a left join sys_enterprise b
+        on a.id = b.small_id where a.del_flag='0' and b.del_flag = '0'
+        <if test="deptId != null ">
+            and a.id = #{deptId}
+        </if>
+        group by a.id order by count desc limit 8
+    </select>
+
+
+    <select id="incomeTax" resultType="map">
+        <if test="type == 1 ">
+            select IFNULL( round( SUM(income/100) , 2 ), 0 ) income , year from sys_enterprise_benefit where enterprise_id in
+            ( select id from sys_enterprise where small_id = #{deptId} and del_flag = '0') 	and del_flag = '0' group by year
+        </if>
+
+        <if test="type == 2 ">
+            select IFNULL( round( SUM(tax/100) , 2 ), 0 ) tax , year from sys_enterprise_benefit where enterprise_id
+            in( select id from sys_enterprise where small_id =  #{deptId} and del_flag = '0') 	and del_flag = '0' group by year
+        </if>
+
+    </select>
+
+
+    <select id="priseTrain" resultType="map">
+        select IFNULL(sum(is_regulated = 1), 0 ) regulated, IFNULL(sum(is_high_tech = 1), 0 ) highTech,
+        IFNULL(sum(is_technology = 1), 0 ) technology, IFNULL(sum(is_special = 1), 0 ) special from sys_enterprise where del_flag = '0'
+        <if test="deptId != null ">
+            and small_id = #{deptId}
+        </if>
+    </select>
+
+
+    <select id="enterpriseType" resultType="map">
+        select d.dict_label name, (select count(*) from sys_enterprise a where a.enterprise_type = d.dict_value and a.del_flag = '0' and a.small_id = #{deptId}) value
+        from sys_dict_data d  WHERE d.dict_type = 'sys_enterprise_type'
+
+    </select>
+
+
+
+
+
+
+</mapper>

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.netintech.requirement.mapper.TechnologyRequirementMapper">
+
+    <resultMap type="TechnologyRequirement" id="TechnologyRequirementResult">
+        <result property="id" column="id"/>
+        <result property="fileUuid" column="file_uuid"/>
+        <result property="title" column="title"/>
+        <result property="fieldId" column="field_id"/>
+        <result property="summary" column="summary"/>
+        <result property="detail" column="detail"/>
+        <result property="projectStageId" column="project_stage_id"/>
+        <result property="reasonId" column="reason_id"/>
+        <result property="cooperationMethodId" column="cooperation_method_id"/>
+        <result property="isFace" column="is_face"/>
+        <result property="price" column="price"/>
+        <result property="expectBenefit" column="expect_benefit"/>
+        <result property="contactPeople" column="contact_people"/>
+        <result property="contactTel" column="contact_tel"/>
+        <result property="contactEmail" column="contact__email"/>
+        <result property="contactAddress" column="contact_address"/>
+        <result property="parkId" column="park_id"/>
+        <result property="enterpriseId" column="enterprise_id"/>
+        <result property="status" column="status"/>
+        <result property="delFlag" column="del_flag"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <sql id="selectTechnologyRequirementVo">
+        select id, file_uuid, title, field_id, summary, detail, project_stage_id, reason_id, cooperation_method_id, is_face, price, expect_benefit, contact_people, contact_tel, contact__email, contact_address, park_id, enterprise_id, status, del_flag, create_by, create_time, update_by, update_time from sys_technology_requirement
+    </sql>
+
+    <select id="selectTechnologyRequirementList" parameterType="TechnologyRequirement"
+            resultMap="TechnologyRequirementResult">
+        <include refid="selectTechnologyRequirementVo"/>
+        where del_flag=0
+        <if test="fileUuid != null  and fileUuid != ''">and file_uuid = #{fileUuid}</if>
+        <if test="title != null  and title != ''">and title like concat('%', #{title}, '%')</if>
+        <if test="fieldId != null ">and field_id = #{fieldId}</if>
+        <if test="summary != null  and summary != ''">and summary = #{summary}</if>
+        <if test="detail != null  and detail != ''">and detail = #{detail}</if>
+        <if test="projectStageId != null ">and project_stage_id = #{projectStageId}</if>
+        <if test="reasonId != null ">and reason_id = #{reasonId}</if>
+        <if test="cooperationMethodId != null ">and cooperation_method_id = #{cooperationMethodId}</if>
+        <if test="isFace != null  and isFace != ''">and is_face = #{isFace}</if>
+        <if test="price != null ">and price = #{price}</if>
+        <if test="expectBenefit != null  and expectBenefit != ''">and expect_benefit = #{expectBenefit}</if>
+        <if test="contactPeople != null  and contactPeople != ''">and contact_people = #{contactPeople}</if>
+        <if test="contactTel != null  and contactTel != ''">and contact_tel = #{contactTel}</if>
+        <if test="contactEmail != null  and contactEmail != ''">and contact__email = #{contactEmail}</if>
+        <if test="contactAddress != null  and contactAddress != ''">and contact_address = #{contactAddress}</if>
+        <if test="parkId != null ">and park_id = #{parkId}</if>
+        <if test="enterpriseId != null ">and enterprise_id = #{enterpriseId}</if>
+        <if test="status != null  and status != ''">and status = #{status}</if>
+        order by id desc
+    </select>
+
+    <select id="selectTechnologyRequirementById" parameterType="Long" resultMap="TechnologyRequirementResult">
+        <include refid="selectTechnologyRequirementVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertTechnologyRequirement" parameterType="TechnologyRequirement" useGeneratedKeys="true"
+            keyProperty="id">
+        insert into sys_technology_requirement
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="fileUuid != null  and fileUuid != ''">file_uuid,</if>
+            <if test="title != null  and title != ''">title,</if>
+            <if test="fieldId != null ">field_id,</if>
+            <if test="summary != null  and summary != ''">summary,</if>
+            <if test="detail != null  and detail != ''">detail,</if>
+            <if test="projectStageId != null ">project_stage_id,</if>
+            <if test="reasonId != null ">reason_id,</if>
+            <if test="cooperationMethodId != null ">cooperation_method_id,</if>
+            <if test="isFace != null  and isFace != ''">is_face,</if>
+            <if test="price != null ">price,</if>
+            <if test="expectBenefit != null  and expectBenefit != ''">expect_benefit,</if>
+            <if test="contactPeople != null  and contactPeople != ''">contact_people,</if>
+            <if test="contactTel != null  and contactTel != ''">contact_tel,</if>
+            <if test="contactEmail != null  and contactEmail != ''">contact__email,</if>
+            <if test="contactAddress != null  and contactAddress != ''">contact_address,</if>
+            <if test="parkId != null ">park_id,</if>
+            <if test="enterpriseId != null ">enterprise_id,</if>
+            <if test="status != null  and status != ''">status,</if>
+            <if test="delFlag != null  and delFlag != ''">del_flag,</if>
+            <if test="createBy != null  and createBy != ''">create_by,</if>
+            <if test="createTime != null ">create_time,</if>
+            <if test="updateBy != null  and updateBy != ''">update_by,</if>
+            <if test="updateTime != null ">update_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="fileUuid != null  and fileUuid != ''">#{fileUuid},</if>
+            <if test="title != null  and title != ''">#{title},</if>
+            <if test="fieldId != null ">#{fieldId},</if>
+            <if test="summary != null  and summary != ''">#{summary},</if>
+            <if test="detail != null  and detail != ''">#{detail},</if>
+            <if test="projectStageId != null ">#{projectStageId},</if>
+            <if test="reasonId != null ">#{reasonId},</if>
+            <if test="cooperationMethodId != null ">#{cooperationMethodId},</if>
+            <if test="isFace != null  and isFace != ''">#{isFace},</if>
+            <if test="price != null ">#{price},</if>
+            <if test="expectBenefit != null  and expectBenefit != ''">#{expectBenefit},</if>
+            <if test="contactPeople != null  and contactPeople != ''">#{contactPeople},</if>
+            <if test="contactTel != null  and contactTel != ''">#{contactTel},</if>
+            <if test="contactEmail != null  and contactEmail != ''">#{contactEmail},</if>
+            <if test="contactAddress != null  and contactAddress != ''">#{contactAddress},</if>
+            <if test="parkId != null ">#{parkId},</if>
+            <if test="enterpriseId != null ">#{enterpriseId},</if>
+            <if test="status != null  and status != ''">#{status},</if>
+            <if test="delFlag != null  and delFlag != ''">#{delFlag},</if>
+            <if test="createBy != null  and createBy != ''">#{createBy},</if>
+            <if test="createTime != null ">#{createTime},</if>
+            <if test="updateBy != null  and updateBy != ''">#{updateBy},</if>
+            <if test="updateTime != null ">#{updateTime},</if>
+        </trim>
+    </insert>
+
+    <update id="updateTechnologyRequirement" parameterType="TechnologyRequirement">
+        update sys_technology_requirement
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="fileUuid != null  and fileUuid != ''">file_uuid = #{fileUuid},</if>
+            <if test="title != null  and title != ''">title = #{title},</if>
+            <if test="fieldId != null ">field_id = #{fieldId},</if>
+            <if test="summary != null  and summary != ''">summary = #{summary},</if>
+            <if test="detail != null  and detail != ''">detail = #{detail},</if>
+            <if test="projectStageId != null ">project_stage_id = #{projectStageId},</if>
+            <if test="reasonId != null ">reason_id = #{reasonId},</if>
+            <if test="cooperationMethodId != null ">cooperation_method_id = #{cooperationMethodId},</if>
+            <if test="isFace != null  and isFace != ''">is_face = #{isFace},</if>
+            <if test="price != null ">price = #{price},</if>
+            <if test="expectBenefit != null  and expectBenefit != ''">expect_benefit = #{expectBenefit},</if>
+            <if test="contactPeople != null  and contactPeople != ''">contact_people = #{contactPeople},</if>
+            <if test="contactTel != null  and contactTel != ''">contact_tel = #{contactTel},</if>
+            <if test="contactEmail != null  and contactEmail != ''">contact__email = #{contactEmail},</if>
+            <if test="contactAddress != null  and contactAddress != ''">contact_address = #{contactAddress},</if>
+            <if test="parkId != null ">park_id = #{parkId},</if>
+            <if test="enterpriseId != null ">enterprise_id = #{enterpriseId},</if>
+            <if test="status != null  and status != ''">status = #{status},</if>
+            <if test="delFlag != null  and delFlag != ''">del_flag = #{delFlag},</if>
+            <if test="createBy != null  and createBy != ''">create_by = #{createBy},</if>
+            <if test="createTime != null ">create_time = #{createTime},</if>
+            <if test="updateBy != null  and updateBy != ''">update_by = #{updateBy},</if>
+            <if test="updateTime != null ">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTechnologyRequirementById" parameterType="Long">
+        delete from sys_technology_requirement where id = #{id}
+    </delete>
+
+    <delete id="deleteTechnologyRequirementByIds" parameterType="String">
+        update sys_technology_requirement set del_flag=2 where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

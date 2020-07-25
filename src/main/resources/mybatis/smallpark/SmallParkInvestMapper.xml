@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.netintech.park.mapper.SmallParkInvestMapper">
+
+    <resultMap type="SmallParkInvest" id="SmallParkInvestResult">
+        <result property="id"    column="id"    />
+        <result property="smallId"    column="small_id"    />
+        <result property="year"    column="year"    />
+        <result property="month"    column="month"    />
+        <result property="investment"    column="investment"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="name" column="name"/>
+    </resultMap>
+
+    <sql id="selectSmallParkInvestVo">
+        select id, small_id, year, month, investment, del_flag, create_by, create_time, update_by, update_time from sys_small_park_invest
+    </sql>
+
+    <sql id="selectSmallParkInvestVoExt">
+        select a.id, a.small_id, a.year, a.month, a.investment, a.del_flag, a.create_by, a.create_time, a.update_by, a.update_time, b.park_name name from sys_small_park_invest a
+        left join sys_small_park b on a.small_id = b.id
+    </sql>
+
+    <select id="selectSmallParkInvestList" parameterType="SmallParkInvest" resultMap="SmallParkInvestResult">
+        <include refid="selectSmallParkInvestVoExt"/>
+        <where>
+            <if test="smallId != null "> and small_id = #{smallId}</if>
+            <if test="year != null "> and year = #{year}</if>
+            <if test="month != null "> and month = #{month}</if>
+            <if test="investment != null "> and investment = #{investment}</if>
+        </where>
+    </select>
+
+    <select id="selectSmallParkInvestById" parameterType="Long" resultMap="SmallParkInvestResult">
+        <include refid="selectSmallParkInvestVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertSmallParkInvest" parameterType="SmallParkInvest" useGeneratedKeys="true" keyProperty="id">
+        insert into sys_small_park_invest
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="smallId != null ">small_id,</if>
+            <if test="year != null ">year,</if>
+            <if test="month != null ">month,</if>
+            <if test="investment != null ">investment,</if>
+            <if test="delFlag != null  and delFlag != ''">del_flag,</if>
+            <if test="createBy != null  and createBy != ''">create_by,</if>
+            <if test="createTime != null ">create_time,</if>
+            <if test="updateBy != null  and updateBy != ''">update_by,</if>
+            <if test="updateTime != null ">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="smallId != null ">#{smallId},</if>
+            <if test="year != null ">#{year},</if>
+            <if test="month != null ">#{month},</if>
+            <if test="investment != null ">#{investment},</if>
+            <if test="delFlag != null  and delFlag != ''">#{delFlag},</if>
+            <if test="createBy != null  and createBy != ''">#{createBy},</if>
+            <if test="createTime != null ">#{createTime},</if>
+            <if test="updateBy != null  and updateBy != ''">#{updateBy},</if>
+            <if test="updateTime != null ">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSmallParkInvest" parameterType="SmallParkInvest">
+        update sys_small_park_invest
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="smallId != null ">small_id = #{smallId},</if>
+            <if test="year != null ">year = #{year},</if>
+            <if test="month != null ">month = #{month},</if>
+            <if test="investment != null ">investment = #{investment},</if>
+            <if test="delFlag != null  and delFlag != ''">del_flag = #{delFlag},</if>
+            <if test="createBy != null  and createBy != ''">create_by = #{createBy},</if>
+            <if test="createTime != null ">create_time = #{createTime},</if>
+            <if test="updateBy != null  and updateBy != ''">update_by = #{updateBy},</if>
+            <if test="updateTime != null ">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteSmallParkInvestById" parameterType="Long">
+        delete from sys_small_park_invest where id = #{id}
+    </delete>
+
+    <delete id="deleteSmallParkInvestByIds" parameterType="String">
+        delete from sys_small_park_invest where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    <select id="checkExit" parameterType="SmallParkInvest" resultType="int">
+        <if test="id != null">
+            select count(1) from sys_small_park_invest where del_flag = '0' and id != #{id} and year = #{year}
+            and month = #{month} and small_id = #{smallId}
+        </if>
+        <if test="id == null">
+            select count(1) from sys_small_park_invest where del_flag = '0' and year = #{year} and month = #{month}
+            and small_id = #{smallId}
+        </if>
+    </select>
+
+
+</mapper>

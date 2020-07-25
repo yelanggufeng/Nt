@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.netintech.achievement.mapper.TechnologyAchievementMapper">
+
+    <resultMap type="TechnologyAchievement" id="TechnologyAchievementResult">
+        <result property="id"    column="id"    />
+        <result property="fileUuid"    column="file_uuid"    />
+        <result property="title"    column="title"    />
+        <result property="fieldId"    column="field_id"    />
+        <result property="summary"    column="summary"    />
+        <result property="detail"    column="detail"    />
+        <result property="technologyTypeId"    column="technology_type_id"    />
+        <result property="isExcellent"    column="is_excellent"    />
+        <result property="cooperationMethodId"    column="cooperation_method_id"    />
+        <result property="transactionMethodId"    column="transaction_method_id"    />
+        <result property="isFace"    column="is_face"    />
+        <result property="price"    column="price"    />
+        <result property="maturityId"    column="maturity_id"    />
+        <result property="vrUrl"    column="vr_url"    />
+        <result property="contactPeople"    column="contact_people"    />
+        <result property="contactTel"    column="contact_tel"    />
+        <result property="contactEmail"    column="contact__email"    />
+        <result property="contactAddress"    column="contact_address"    />
+        <result property="parkId"    column="park_id"    />
+        <result property="enterpriseId"    column="enterprise_id"    />
+        <result property="status"    column="status"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectTechnologyAchievementVo">
+        select id, file_uuid, title, field_id, summary, detail, technology_type_id, is_excellent, cooperation_method_id, transaction_method_id, is_face, price, maturity_id, vr_url, contact_people, contact_tel, contact__email, contact_address, park_id, enterprise_id, status, del_flag, create_by, create_time, update_by, update_time from sys_technology_achievement
+    </sql>
+
+    <select id="selectTechnologyAchievementList" parameterType="TechnologyAchievement" resultMap="TechnologyAchievementResult">
+        <include refid="selectTechnologyAchievementVo"/>
+        where del_flag=0
+        <if test="fileUuid != null  and fileUuid != ''"> and file_uuid = #{fileUuid}</if>
+        <if test="title != null  and title != ''"> and title = #{title}</if>
+        <if test="fieldId != null "> and field_id = #{fieldId}</if>
+        <if test="summary != null  and summary != ''"> and summary = #{summary}</if>
+        <if test="detail != null  and detail != ''"> and detail = #{detail}</if>
+        <if test="technologyTypeId != null "> and technology_type_id = #{technologyTypeId}</if>
+        <if test="isExcellent != null  and isExcellent != ''"> and is_excellent = #{isExcellent}</if>
+        <if test="cooperationMethodId != null "> and cooperation_method_id = #{cooperationMethodId}</if>
+        <if test="transactionMethodId != null "> and transaction_method_id = #{transactionMethodId}</if>
+        <if test="isFace != null  and isFace != ''"> and is_face = #{isFace}</if>
+        <if test="price != null "> and price = #{price}</if>
+        <if test="maturityId != null "> and maturity_id = #{maturityId}</if>
+        <if test="vrUrl != null  and vrUrl != ''"> and vr_url = #{vrUrl}</if>
+        <if test="contactPeople != null  and contactPeople != ''"> and contact_people = #{contactPeople}</if>
+        <if test="contactTel != null  and contactTel != ''"> and contact_tel = #{contactTel}</if>
+        <if test="contactEmail != null  and contactEmail != ''"> and contact__email = #{contactEmail}</if>
+        <if test="contactAddress != null  and contactAddress != ''"> and contact_address = #{contactAddress}</if>
+        <if test="parkId != null "> and park_id = #{parkId}</if>
+        <if test="enterpriseId != null "> and enterprise_id = #{enterpriseId}</if>
+        <if test="status != null  and status != ''"> and status = #{status}</if>
+         order by id desc
+    </select>
+
+    <select id="selectTechnologyAchievementById" parameterType="Long" resultMap="TechnologyAchievementResult">
+        <include refid="selectTechnologyAchievementVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertTechnologyAchievement" parameterType="TechnologyAchievement" useGeneratedKeys="true" keyProperty="id">
+        insert into sys_technology_achievement
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="fileUuid != null  and fileUuid != ''">file_uuid,</if>
+            <if test="title != null  and title != ''">title,</if>
+            <if test="fieldId != null ">field_id,</if>
+            <if test="summary != null  and summary != ''">summary,</if>
+            <if test="detail != null  and detail != ''">detail,</if>
+            <if test="technologyTypeId != null ">technology_type_id,</if>
+            <if test="isExcellent != null  and isExcellent != ''">is_excellent,</if>
+            <if test="cooperationMethodId != null ">cooperation_method_id,</if>
+            <if test="transactionMethodId != null ">transaction_method_id,</if>
+            <if test="isFace != null  and isFace != ''">is_face,</if>
+            <if test="price != null ">price,</if>
+            <if test="maturityId != null ">maturity_id,</if>
+            <if test="vrUrl != null  and vrUrl != ''">vr_url,</if>
+            <if test="contactPeople != null  and contactPeople != ''">contact_people,</if>
+            <if test="contactTel != null  and contactTel != ''">contact_tel,</if>
+            <if test="contactEmail != null  and contactEmail != ''">contact__email,</if>
+            <if test="contactAddress != null  and contactAddress != ''">contact_address,</if>
+            <if test="parkId != null ">park_id,</if>
+            <if test="enterpriseId != null ">enterprise_id,</if>
+            <if test="status != null  and status != ''">status,</if>
+            <if test="delFlag != null  and delFlag != ''">del_flag,</if>
+            <if test="createBy != null  and createBy != ''">create_by,</if>
+            <if test="createTime != null ">create_time,</if>
+            <if test="updateBy != null  and updateBy != ''">update_by,</if>
+            <if test="updateTime != null ">update_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="fileUuid != null  and fileUuid != ''">#{fileUuid},</if>
+            <if test="title != null  and title != ''">#{title},</if>
+            <if test="fieldId != null ">#{fieldId},</if>
+            <if test="summary != null  and summary != ''">#{summary},</if>
+            <if test="detail != null  and detail != ''">#{detail},</if>
+            <if test="technologyTypeId != null ">#{technologyTypeId},</if>
+            <if test="isExcellent != null  and isExcellent != ''">#{isExcellent},</if>
+            <if test="cooperationMethodId != null ">#{cooperationMethodId},</if>
+            <if test="transactionMethodId != null ">#{transactionMethodId},</if>
+            <if test="isFace != null  and isFace != ''">#{isFace},</if>
+            <if test="price != null ">#{price},</if>
+            <if test="maturityId != null ">#{maturityId},</if>
+            <if test="vrUrl != null  and vrUrl != ''">#{vrUrl},</if>
+            <if test="contactPeople != null  and contactPeople != ''">#{contactPeople},</if>
+            <if test="contactTel != null  and contactTel != ''">#{contactTel},</if>
+            <if test="contactEmail != null  and contactEmail != ''">#{contactEmail},</if>
+            <if test="contactAddress != null  and contactAddress != ''">#{contactAddress},</if>
+            <if test="parkId != null ">#{parkId},</if>
+            <if test="enterpriseId != null ">#{enterpriseId},</if>
+            <if test="status != null  and status != ''">#{status},</if>
+            <if test="delFlag != null  and delFlag != ''">#{delFlag},</if>
+            <if test="createBy != null  and createBy != ''">#{createBy},</if>
+            <if test="createTime != null ">#{createTime},</if>
+            <if test="updateBy != null  and updateBy != ''">#{updateBy},</if>
+            <if test="updateTime != null ">#{updateTime},</if>
+        </trim>
+    </insert>
+
+    <update id="updateTechnologyAchievement" parameterType="TechnologyAchievement">
+        update sys_technology_achievement
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="fileUuid != null  and fileUuid != ''">file_uuid = #{fileUuid},</if>
+            <if test="title != null  and title != ''">title = #{title},</if>
+            <if test="fieldId != null ">field_id = #{fieldId},</if>
+            <if test="summary != null  and summary != ''">summary = #{summary},</if>
+            <if test="detail != null  and detail != ''">detail = #{detail},</if>
+            <if test="technologyTypeId != null ">technology_type_id = #{technologyTypeId},</if>
+            <if test="isExcellent != null  and isExcellent != ''">is_excellent = #{isExcellent},</if>
+            <if test="cooperationMethodId != null ">cooperation_method_id = #{cooperationMethodId},</if>
+            <if test="transactionMethodId != null ">transaction_method_id = #{transactionMethodId},</if>
+            <if test="isFace != null  and isFace != ''">is_face = #{isFace},</if>
+            <if test="price != null ">price = #{price},</if>
+            <if test="maturityId != null ">maturity_id = #{maturityId},</if>
+            <if test="vrUrl != null  and vrUrl != ''">vr_url = #{vrUrl},</if>
+            <if test="contactPeople != null  and contactPeople != ''">contact_people = #{contactPeople},</if>
+            <if test="contactTel != null  and contactTel != ''">contact_tel = #{contactTel},</if>
+            <if test="contactEmail != null  and contactEmail != ''">contact__email = #{contactEmail},</if>
+            <if test="contactAddress != null  and contactAddress != ''">contact_address = #{contactAddress},</if>
+            <if test="parkId != null ">park_id = #{parkId},</if>
+            <if test="enterpriseId != null ">enterprise_id = #{enterpriseId},</if>
+            <if test="status != null  and status != ''">status = #{status},</if>
+            <if test="delFlag != null  and delFlag != ''">del_flag = #{delFlag},</if>
+            <if test="createBy != null  and createBy != ''">create_by = #{createBy},</if>
+            <if test="createTime != null ">create_time = #{createTime},</if>
+            <if test="updateBy != null  and updateBy != ''">update_by = #{updateBy},</if>
+            <if test="updateTime != null ">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTechnologyAchievementById" parameterType="Long">
+        delete from sys_technology_achievement where id = #{id}
+    </delete>
+
+    <delete id="deleteTechnologyAchievementByIds" parameterType="String">
+        update sys_technology_achievement set del_flag=2 where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

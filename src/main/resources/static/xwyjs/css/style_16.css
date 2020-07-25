@@ -1,0 +1,511 @@
+@font-face {
+    font-family: DS-DIGI;
+    src: url(../font30/DS-DIGI.TTF) format("truetype");
+}
+
+@font-face {
+    font-family: DS-DIGIB;
+    src: url(../font30/DS-DIGIB.TTF) format("truetype");
+}
+
+@font-face {
+    font-family: DS-DIGII;
+    src: url(../font30/DS-DIGII.TTF) format("truetype");
+}
+
+.I016_wapper {
+    width: 100%;
+    margin: 0 auto;
+    padding: 30px;
+    border: 1px solid #ccc;
+    background: #f3f9fd;
+    letter-spacing: 1px;
+    text-align: center;
+}
+
+.I016_wapper .I016_header {
+    font-size: 2rem;
+}
+
+.I016_wapper .I016_myTable {
+    margin: 1rem 0;
+    border-collapse: collapse;
+    font-size: 1.2rem;
+    table-layout: fixed;
+}
+
+.I016_wapper .I016_myTable td {
+    border: 1px solid #ccc;
+    padding: 0.5rem 0;
+    width: 12.5%;
+    min-width: 12rem;
+}
+
+.I016_wapper .I016_myTable td input[type="text"] {
+    width: 90%;
+    height: 2rem;
+    background: #fff;
+}
+
+.I016_wapper .I016_myTable .I016_checkboxLine {
+    width: 8rem;
+}
+
+input[type="checkbox"] {
+    display: inline-block;
+    height: 1.3rem;
+    vertical-align: middle;
+}
+
+.I016_wapper .I016_myTable .I016_checkboxLine .I016_checkboxLineOne {
+    border-bottom: 1px solid #ccc;
+}
+
+.I016_wapper .I016_kcjg {
+    border: 1px solid #ccc;
+    padding: 30px;
+    width: 96%;
+    min-width: 84rem;
+}
+
+.I016_wapper .I016_kcjg .I016_kcjgRadio {
+    display: flex;
+    margin: 2rem 0;
+}
+
+.I016_wapper .I016_kcjg .I016_kcjgRadio p {
+    width: 10%;
+}
+
+.I016_wapper .I016_kcjg textarea {
+    flex: 1;
+    resize: none;
+    padding: 1rem;
+    text-indent: 2rem;
+    line-height: 1.5rem;
+}
+
+.I016_wapper .I016_btns button {
+    width: 6rem;
+    height: 2.5rem;
+    border: none;
+    color: #fff;
+    border-radius: 0.3rem;
+    background: #169bd5;
+    margin: 3rem 1rem;
+}
+
+.I016_wapper .I016_btns .I016_btnlast {
+    color: #f00;
+}
+
+/* 项目推进 */
+
+.D126_wapper .D126_content .R126_top .P016l_left {
+    width: 29%;
+    z-index: 99;
+}
+
+.D126_wapper .D126_content .R126_top .R126_map .R126_mapContain {
+    border: none;
+}
+
+.R126_mapContain {
+    /*padding: 1rem;*/
+}
+
+.P016_xmtjOne {
+    padding: 3%;
+    height: 17%;
+    line-height: 2.5rem;
+    display: flex;
+    background: url(../images/26/P126_project_item.png) no-repeat;
+    background-size: 100% 100%;
+    margin: 0.5% 0;
+    text-align: center;
+    cursor: pointer;;
+    transition: all 0.3s;
+}
+.P016_xmtjOne:hover{
+    background: url("../images/26/P126_project_itemactive.png") no-repeat;
+    background-size: 100% 100%;
+}
+
+.P016_xmtjOne .P016_xmtjLabel {
+    width: 45%;
+    font-size: 0.9rem;
+}
+
+.P016_xmtjOne .P016_xmtjTxt {
+    flex: 1;
+    text-align: center;
+    background: #103e7b;
+    font-family: "DS-DIGIB";
+    font-size: 2rem;
+    color: #0aff9a;
+}
+
+.P016_xmtjOne .P016_xmtjTxt1 {
+    background: none;
+}
+
+.P016_xmtjTxt1 {
+    display: flex;
+    justify-content: space-between;
+}
+
+.P016_xmtjTxt1 p {
+    height: 100%;
+    width: 48%;
+    background: #103e7b;
+}
+
+.P016_xmtjTxt p .P016_xmtjTxt1Small {
+    font-size: 0.5rem;
+}
+
+.P016_xmtjTxt p .P016_xmtjTxt1Big {
+    font-family: "DS-DIGIB";
+    font-size: 2rem;
+    color: #0aff9a;
+}
+
+.P016_xmtjCards {
+    margin-top: 3%;
+    height: 30%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.P016_xmtjCards .P016_xmtjCardsOne {
+    width: 20%;
+    text-align: center;
+}
+
+.P016_xmtjCards .P016_xmtjCardsOne:hover{
+    text-shadow: 0px 0px 10px #23fff7, 0px 0px 20px #23fff7;
+}
+
+.P016_xmtjCards .P016_xmtjCardsOneImg {
+    width: 10vh;
+    height: 9vh;
+    line-height: 9vh;
+    margin: 0 auto;
+    color: #f00;
+    font-size: 1.4rem;
+    background: url("../images/26/P126_project_top.png") no-repeat;
+    background-size: 100% 100%;
+    cursor: pointer;
+}
+
+.P016_xmtjCards .P016_xmtjCardsOneTxt {
+    color: #01AFE6;
+    width: 80%;
+    height: 21%;
+    font-size: 0.9rem;
+    /*line-height: 2rem;*/
+    background: url("../images/26/P126_project_bottom.png") no-repeat;
+    background-size: 100% 100%;
+    cursor: pointer;
+    margin: 6% 10%;
+}
+
+.D126_wapper .D126_content .R126_top .P016l_middle {
+    width: 45%;
+}
+
+.D126_wapper .D126_content .R126_top .P016l_Right {
+    width: 25%;
+    height: 100%;
+    background: url("../images/26/D126_economic_map.png") no-repeat;
+    background-size: 100% 100%;
+    padding: 0.8rem 1.3rem;
+    z-index: 99;
+}
+.P016l_Right .D126_left_title{
+    color: #00ECFC;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.D126_wapper .D126_content .R126_top .R126_top_right .R126_top {
+    height: 59%;
+}
+
+.D126_wapper .D126_content .R126_top .R126_top_right .R126_right_bottom {
+    height: 40%;
+}
+
+.D126_wapper .D126_content .D126_bottom .D126_bottom_middle,
+.D126_wapper .D126_content .D126_bottom .D126_bottom_right {
+    width: 35%;
+}
+
+.P016_middleContent {
+    height: 91%;
+    margin-top: 1%;
+    display: flex;
+}
+
+.P016_middleContent .P016_middleItem {
+    width: 50%;
+    height: 100%;
+    text-align: center;
+}
+
+.P016_middleContent .P016_middleItem .P016_middleItemTop {
+    width: 100%;
+    height: 30%;
+    display: flex;
+    line-height: 4.5rem;
+    font-size: 0.9rem;
+    padding: 3% 14%;
+}
+
+.P016_middleContent .P016_middleItem .P016_middleItemTop p {
+    width: 2rem;
+    height: 3rem;
+    margin: 0 0.2rem;
+    line-height: 3rem;
+    font-family: DS-DIGII;
+    font-weight: bold;
+    font-size: 2rem;
+    background: url("../images/26/P126_project_fontbg.png") no-repeat;
+    background-size: 100% 100%;
+}
+
+.P016_middleContent .P016_middleItem .P016_middleItemBottom {
+    width: 100%;
+    height: 75%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.P016_middleContent .P016_middleItem .P016_middleItemBottom div {
+    width: 49%;
+}
+.D126_top_center{
+    background: url("../images/26/P126_project_topcenter.png") no-repeat;
+    background-size: 100% 100%;
+    width: 100%;
+    height: 59%;
+    padding: 0.8rem 1.5rem;
+    z-index: 9;
+    margin-bottom: 1%;
+}
+.D126_top_center .D126_left_title{
+    color: #00ECFC;
+    font-size: 1rem;
+    font-weight: bold;
+}
+.P126_earth{
+    width: 100%;
+    height: 100%;
+    background: url("../images/26/P126_earth_bg.png") no-repeat;
+    background-size: 100% 105%;
+    position: relative;
+}
+.R126_earth{
+    position: absolute;
+    width: 50%;
+    left: 50%;
+    top: -10%;
+    transform: translateX(-54%);
+}
+.P126_right_content{
+    width: 100%;
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    padding: 1% 5%;
+}
+.P126_right_content .P126_contenItem{
+    width: 100%;
+    height: 20%;
+    margin-bottom: 0.5rem;
+}
+.P126_contenItem span{
+    font-size: 0.8rem;
+    cursor: pointer;
+}
+.P126_contenItem span:hover{
+    text-shadow: 0px 0px 10px #23fff7, 0px 0px 20px #23fff7;
+}
+.P126_contenItem span:first-child{
+    color: #00B7EF;
+}
+.P126_contenItem div{
+    display: flex;
+    justify-content: space-between;
+}
+.P126_contenItem .R126_process{
+    margin-top: 1%;
+    background: #242A65;
+}
+.P126_contenItem .layui-progress-bar{
+    background: #05C88B;
+}
+.P126_rightBottom{
+    position: relative;
+}
+.P126_rightBottom .P126_bottombg{
+    position: absolute;
+    width: 80%;
+    height: 40%;
+    top: 30%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.P126_bottomItem{
+    text-align: center;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+}
+.P126_bottomItem .P126_bottomitem{
+    width: 3.5vw;
+    margin-top: 1vh;
+    margin-bottom: 6vh;
+    cursor: pointer;
+    z-index: 99;
+    transition: all 0.2s ease-in-out 0s;
+}
+.P126_bottomItem:hover .P126_bottomitem{
+    /*transform: scale(1.2);*/
+    z-index: 100;
+    -webkit-animation-name: heartBeat;
+    animation-name: heartBeat;
+    -webkit-animation-duration: 1.3s;
+    animation-duration: 1.3s;
+    -webkit-animation-timing-function: ease-in-out;
+    animation-timing-function: ease-in-out;
+}
+.P126_bottomItem p:before{
+    content: '';
+    width: 1px;
+    height: 5.5vh;
+    border-left: 1px dashed #5D6987;
+    position: absolute;
+    top: 17vh;
+    left: 1.68vw;
+}
+.P126_bottomItem div span{
+    font-size: 1rem;
+    cursor: pointer;
+}
+.P126_bottomItem div span:first-child{
+    font-size: 1.4rem;
+}
+.P126_bottomItem p{
+    cursor: pointer;
+    font-size: 1rem;
+    color: #0098F9;
+}
+.P126_bottomItem1{
+    left: 55%;
+    top: 8%;
+}
+.P126_bottomItem2{
+    left: 19%;
+    top: 4%;
+}
+.P126_bottomItem2 .P126_bottomitem{
+    width: 4vw;
+}
+.P126_bottomItem2 p:before{
+    left: 1.9vw;
+    top: 19vh;
+}
+.P126_bottomItem3{
+    left: 65%;
+    top: 5%;
+}
+.P126_bottomItem3 .P126_bottomitem{
+    width: 4.5vw;
+}
+.P126_bottomItem3 p:before{
+    left: 2.3vw;
+    top: 18vh;
+}
+.P126_bottomItem4{
+    left: 42%;
+    top: 9%;
+}
+.P126_bottomItem4 .P126_bottomitem{
+    width: 4.5vw;
+}
+.P126_bottomItem4 p:before{
+    left: 2.3vw;
+    top: 18vh;
+}
+.P126_bottomItem5{
+    left: 27%;
+    top: 4%;
+}
+.P126_bottomItem5 .P126_bottomitem{
+    width: 6vw;
+    height: auto;
+    z-index: 1;
+}
+.P126_bottomItem5 p:before{
+    left: 3vw;
+    top: 19.5vh;
+}
+/* 小微企业园星级评定申请 */
+
+.I016_wapper .I016_headerSmall {
+    display: flex;
+    margin-bottom: 1rem;
+}
+
+.I016_wapper .I016_headerSmall p {
+    width: 30%;
+    min-width: 20rem;
+}
+
+.I016_wapper .I016_headerSmall p input[type="text"] {
+    width: 50%;
+    min-width: 10rem;
+    height: 1.5rem;
+    background: #fff;
+}
+
+.I016_wapper .Q016_shyj {
+    text-align: left;
+    border-top: none;
+    margin-top: 0;
+    min-width: 70rem;
+}
+
+.I016_wapper .Q016_shyj p {
+    margin: 1rem 0;
+}
+
+.I016_wapper .Q016_shyj textarea,
+.Q016_textarea {
+    width: 100%;
+    /* min-width: 60rem; */
+}
+
+.layui-table,
+.layui-table tbody tr:hover,
+.layui-table thead tr,
+.layui-table-click,
+.layui-table-header,
+.layui-table-hover,
+.layui-table-mend,
+.layui-table-patch,
+.layui-table-tool,
+.layui-table[lay-even] tr:nth-child(even) {
+    background-color: transparent;
+}
+
+
+.layui-table,
+.layui-table-view {
+    margin: 0;
+}
+
+.layui-form-select .layui-edge {
+    right: 9%;
+}

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link th:href="@{/css/update.css}" rel="stylesheet"/>
+    <th:block th:include="include :: header('审核记录')"/>
+    <th:block th:include="include :: datetimepicker-css"/>
+</head>
+<body class="white-bg">
+<div class="main-content ">
+    <div class="col-sm-12 select-table table-striped" >
+        <table id="bootstrap-table" data-mobile-responsive="true"></table>
+    </div>
+</div>
+<th:block th:include="include :: footer"/>
+<th:block th:include="include :: datetimepicker-js"/>
+
+<script th:inline="javascript">
+    var prefix = ctx + "audit/record";
+    var transactionStatusDatas = [[${@dict.getType('sys_technical_status')}]];
+    $(function() {
+        var options = {
+            url: prefix + "/list?infoId="+[[${infoId}]]+"&typeId="+[[${typeId}]],
+            modalName: "审核记录",
+            columns: [
+                {
+                    title: '审核结果',
+                    field : 'auditResult',
+                    width : '25%',
+                    align: 'center',
+                    formatter: function (value, row, index) {
+                        return $.table.selectDictLabel(transactionStatusDatas, value);
+                    }
+                },
+                {
+                    title: '审核意见',
+                    field : 'auditOpinion',
+                    width : '25%',
+                    align: 'center'
+                },
+                {
+                    title: '审核时间',
+                    field : 'auditTime',
+                    width : '25%',
+                    align: 'center'
+                }]
+        };
+        $.table.init(options);
+
+        $(".fixed-table-toolbar").hide();
+    });
+</script>
+</body>
+</html>

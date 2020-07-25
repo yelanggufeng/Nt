@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.netintech.record.mapper.AuditRecordMapper">
+
+    <resultMap type="AuditRecord" id="AuditRecordResult">
+        <result property="id"    column="id"    />
+        <result property="infoId"    column="info_id"    />
+        <result property="typeId"    column="type_id"    />
+        <result property="auditResult"    column="audit_result"    />
+        <result property="auditTime"    column="audit_time"    />
+        <result property="auditOpinion"    column="audit_opinion"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+    </resultMap>
+
+    <sql id="selectAuditRecordVo">
+        select id, info_id, type_id, audit_result, audit_time, audit_opinion, del_flag, create_by, create_time from sys_audit_record
+    </sql>
+
+    <select id="selectAuditRecordList" parameterType="AuditRecord" resultMap="AuditRecordResult">
+        <include refid="selectAuditRecordVo"/>
+        where del_flag=0
+            <if test="infoId != null "> and info_id = #{infoId}</if>
+            <if test="typeId != null "> and type_id = #{typeId}</if>
+            <if test="auditResult != null  and auditResult != ''"> and audit_result = #{auditResult}</if>
+            <if test="auditTime != null "> and audit_time = #{auditTime}</if>
+            <if test="auditOpinion != null  and auditOpinion != ''"> and audit_opinion = #{auditOpinion}</if>
+    </select>
+
+    <select id="selectAuditRecordById" parameterType="Long" resultMap="AuditRecordResult">
+        <include refid="selectAuditRecordVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertAuditRecord" parameterType="AuditRecord" useGeneratedKeys="true" keyProperty="id">
+        insert into sys_audit_record
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="infoId != null ">info_id,</if>
+            <if test="typeId != null ">type_id,</if>
+            <if test="auditResult != null  and auditResult != ''">audit_result,</if>
+            <if test="auditTime != null ">audit_time,</if>
+            <if test="auditOpinion != null  and auditOpinion != ''">audit_opinion,</if>
+            <if test="delFlag != null  and delFlag != ''">del_flag,</if>
+            <if test="createBy != null  and createBy != ''">create_by,</if>
+            <if test="createTime != null ">create_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="infoId != null ">#{infoId},</if>
+            <if test="typeId != null ">#{typeId},</if>
+            <if test="auditResult != null  and auditResult != ''">#{auditResult},</if>
+            <if test="auditTime != null ">#{auditTime},</if>
+            <if test="auditOpinion != null  and auditOpinion != ''">#{auditOpinion},</if>
+            <if test="delFlag != null  and delFlag != ''">#{delFlag},</if>
+            <if test="createBy != null  and createBy != ''">#{createBy},</if>
+            <if test="createTime != null ">#{createTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateAuditRecord" parameterType="AuditRecord">
+        update sys_audit_record
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="infoId != null ">info_id = #{infoId},</if>
+            <if test="typeId != null ">type_id = #{typeId},</if>
+            <if test="auditResult != null  and auditResult != ''">audit_result = #{auditResult},</if>
+            <if test="auditTime != null ">audit_time = #{auditTime},</if>
+            <if test="auditOpinion != null  and auditOpinion != ''">audit_opinion = #{auditOpinion},</if>
+            <if test="delFlag != null  and delFlag != ''">del_flag = #{delFlag},</if>
+            <if test="createBy != null  and createBy != ''">create_by = #{createBy},</if>
+            <if test="createTime != null ">create_time = #{createTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteAuditRecordById" parameterType="Long">
+        delete from sys_audit_record where id = #{id}
+    </delete>
+
+    <delete id="deleteAuditRecordByIds" parameterType="String">
+        update sys_audit_record set del_flag=2 where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

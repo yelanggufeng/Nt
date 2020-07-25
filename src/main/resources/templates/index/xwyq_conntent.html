@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+    <title>小微园区</title>
+    <link rel="stylesheet" th:href="@{/xwyjs/css/all.css}">
+    <link rel="stylesheet" th:href="@{/xwyjs/css/style28.css}">
+    <link rel="stylesheet" th:href="@{/xwyjs/css/style_27.css}">
+    <link rel="stylesheet" th:href="@{/xwyjs/lib/layui/css/layui.css}">
+</head>
+<body>
+    <div class="W128_Container W127_yqxq">
+        <div class="W128_content">
+            <div class="w128_inner">
+                <div class="X228_weizhi"><img src="/xwyjs/images/28/W228_dingwei.png" alt=""> 当前位置：首页>小微园区</div>
+                <div class="X127_content" th:object="${smallPark}" >
+                    <div class="X127_c_up">
+                        <div class="X127_c_up1">
+                            <div>
+                                <div class="X127_c_up1_up">
+                                    <span>[[${smallPark.parkName}]]</span>
+                                </div>
+                                <div class="X127_c_up1_down">
+                                    <span th:text="${#strings.abbreviate(smallPark.parkDesc,240)}"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="X127_c_up2">
+                            <img th:src="${img}" alt="">
+                        </div>
+                    </div>
+                    <div class="X127_c_down">
+                        <div class="X127_c_down1">
+                            <div id="container" style="width:100%;height:100%;position: relative;"></div>
+                        </div>
+                        <div class="X127_c_down2">
+                            <div><span>小微园名称：</span><span>[[${smallPark.parkName}]]</span></div>
+                            <div><span>占地：</span><span>[[${smallPark.landSpace}]]亩</span></div>
+                            <div><span>总建筑面积：</span><span>[[${#numbers.formatDecimal(smallPark.usedBuildingSpace == null ? '0':smallPark.usedBuildingSpace,0,0)}]]万平方米</span></div>
+
+                            <div th:if="${smallPark.rentSituation ==null}" >
+                                <span>待出租面积：</span><span>[[${#numbers.formatDecimal(smallPark.usedBuildingSpace == null ? '0':smallPark.usedBuildingSpace,0,0)}]]万平方米</span>
+                            </div>
+                            <div th:if="${smallPark.usedBuildingSpace !=null && smallPark.rentSituation !=null}" >
+                                <span>待出租面积：</span><span>[[${#numbers.formatDecimal(smallPark.usedBuildingSpace - smallPark.rentSituation,0,0)}]]万平方米</span>
+                            </div>
+                            <div><span>入驻企业数量：</span><span>[[${smallPark.enterpriseQuantity == null ? '0' :smallPark.enterpriseQuantity}]]家</span></div>
+                            <div><span>主导产业：</span><span>[[${dictLabel}]]</span></div>
+                            <div><span>运营单位：</span><span>[[${smallPark.operationUnitName}]]</span></div>
+                            <div><span>联系人：</span><span>[[${smallPark.operationContactName}]]</span></div>
+                            <div><span>联系方式：</span><span>[[${smallPark.operationContactTel}]]</span></div>
+                            <div><span>联系邮箱：</span><span>[[${smallPark.operationContactMail}]]</span></div>
+                            <div><span>园区地址：</span><span>[[${smallPark.detailedAddress}]]</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script th:src="@{/xwyjs/js/jquery.min.js}"></script>
+<script th:src="@{/xwyjs/js/main.js}"></script>
+<script th:src="@{/xwyjs/lib/layui/layui.js}"></script>
+<script th:src="@{/xwyjs/js/28/W128_js.js}"></script>
+<script th:src="@{/xwyjs/js/27/jquery.backgroundSize.js}"></script>
+<script src="https://webapi.amap.com/maps?v=1.4.15&key=358df98d6a1422dc83713fddaa8d260c&plugin=AMap.Autocomplete,AMap.PlaceSearch"></script>
+<script>
+    $(function(){
+
+        setTimeout(function () {
+            var height = $('.W128_Container').position().top + $('.W128_Container')[0].scrollHeight
+            parent.changeIframe(height+'px')
+            parent.changeScroll()
+        },200)
+
+        $('.X127_content_left>ul>li').click(function(){
+            $(this).find('a').addClass('active')
+            $(this).siblings().find('a').removeClass('active')
+        })
+
+        var map = new AMap.Map('container', {
+            resizeEnable: true,
+            zoom:11,
+            center: [120.04731, 28.88851],
+
+        });
+        addMarker();
+        //添加marker标记
+        function addMarker() {
+            map.clearMap();
+            var marker = new AMap.Marker({
+                map: map,
+                position: new AMap.LngLat(parseFloat([[${smallPark.lon}]]), parseFloat([[${smallPark.lat}]])),
+                offset: new AMap.Pixel(-13, -39),
+                title:'[[${smallPark.parkName}]]'
+            });
+        }
+
+    })
+</script>
+</html>

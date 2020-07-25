@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+    <title>园区服务左侧栏</title>
+    <link rel="stylesheet" th:href="@{/xwyjs/css/all.css}">
+    <link rel="stylesheet" th:href="@{/xwyjs/css/27/style27.css}">
+    <link rel="stylesheet" th:href="@{/xwyjs/lib/layui/css/layui.css}">
+    <script th:src="@{/xwyjs/js/jquery.min.js}"></script>
+    <script th:src="@{/xwyjs/js/main.js}"></script>
+    <script th:src="@{/xwyjs/js/27/left27.js}"></script>
+    <script th:src="@{/xwyjs/js/27/jquery.backgroundSize.js}"></script>
+    <script th:src="@{/xwyjs/lib/layui/layui.js}"></script>
+    <!-- <style>
+        html{
+            overflow: hidden;
+        }
+    </style> -->
+</head>
+<body>
+<div class="L227_wrapper">
+    <div class="L227_header bg_27">
+        <div class="L227_header_left">
+            <span>永康数字小微园</span>
+        </div>
+        <div class="L227_header_right">
+            <div class="L227_header_right1">
+                <span>欢迎您：[[${user.userName}]]</span>
+            </div>
+            <div class="L227_header_right2">
+                <div>
+                        <span>
+                            <img th:href="@{/xwyjs/images/27/L227_head_icon4.png}" alt="">
+                        </span>
+                    <span>超级管理员</span>
+                    <span>
+                            <img th:href="@{/xwyjs/images/27/L227_head_icon5.png}" alt="">
+                        </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="L227_content L227_main">
+        <div class="L227_content_left">
+            <div class="L227_content_left_icon">
+                <img th:href="@{/xwyjs/images/27/left_icon127.png}" alt="">
+            </div>
+            <div class="L227_content_left_text">
+                <ul class="L227_Ul_first">
+
+                    <li class="L227_Li_first" th:each="menu : ${menus}">
+                        <div class="L127_Div_first">
+<!--                                <span class="L227_fir_span1">-->
+<!--                                    <img src="${menu.icon}" alt="">-->
+<!--                                </span>-->
+                            <a th:class="@{${menu.url != '' && menu.url != '#'} ? ${menu.target}}"
+                               th:href="@{${menu.url == ''} ? |#| : ${menu.url}}">
+                                <span class="L227_fir_span2"  th:text="${menu.menuName}">
+                                    一级菜单
+                                </span>
+                            </a>
+                            <span class="L227_fir_span3">
+                                    <img th:href="@{/xwyjs/images/27/L327_left_icon_right.png}" alt="">
+                                </span>
+                        </div>
+                        <ul class="L227_Ul_second" th:each="cmenu : ${menu.children}">
+                            <li class="L227_Li_second">
+                                <div class="L127_Div_second">
+                                    <span th:if="${not #lists.isEmpty(cmenu.children)}"   class="L227_sec_span1">
+                                            <img th:src="@{/xwyjs/images/27/L327_left_icon_circle.png}" alt="">
+                                        </span>
+
+                                    <a th:if="${#lists.isEmpty(cmenu.children)}"
+                                       th:class="${cmenu.target == ''} ? |menuItem| : ${cmenu.target}"
+                                       th:utext="${cmenu.menuName}" th:href="@{${cmenu.url}}">
+                                        <span class="L227_sec_span2">二级菜单</span>
+                                    </a>
+                                    <a th:if="${not #lists.isEmpty(cmenu.children)}" href="#">
+                                        <span class="L227_sec_span2">[[${cmenu.menuName}]]</span>
+                                    </a>
+                                </div>
+
+                                <ul class="L227_Ul_third" th:if="${not #lists.isEmpty(cmenu.children)}">
+                                    <li class="L227_Li_third" th:each="emenu : ${cmenu.children}">
+                                        <a th:class="${emenu.target == ''} ? |menuItem| : ${emenu.target}"
+                                           th:text="${emenu.menuName}" th:href="@{${emenu.url}}"><span>[[${emenu.menuName}]]</span></a>
+                                    </li>
+                                </ul>
+                            </li>
+
+
+                        </ul>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+
+
+            <div class="row mainContent" id="content-main">
+            <iframe class="Nt_iframe" name="iframe0" width="100%" height="100%" data-id="/system/main"
+                    th:src="@{/system/main}" frameborder="0" seamless></iframe>
+            </div>
+
+    </div>
+</div>
+
+<script th:inline="javascript">
+</script>
+</body>
+</html>

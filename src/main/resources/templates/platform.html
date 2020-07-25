@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+    <title>首页</title>
+    <link rel="stylesheet" th:href="@{/xwyjs/css/particle.css}">
+    <link rel="stylesheet" th:href="@{/xwyjs/css/all.css}">
+    <link rel="stylesheet" th:href="@{/xwyjs/css/style_24.css}">
+
+</head>
+<body>
+<div class="I124_content">
+    <div msg-data="css漂浮的粒子" class="R121_cr_particle">
+        <div class="container">
+        </div>
+    </div>
+    <div class="I124_head f-cl24">
+        <div class="I124_title">
+            <!--            <img src="/xwyjs/images/24/24_title.png" alt=""/>-->
+            <span>[[${dept.deptName}]]</span>
+        </div>
+        <div class="I124_h_right f-cl24">
+            <div>
+                <span id="time"> </span>
+                <span class="I124_weather"><img id="weatherIcon" src="#" alt=""/></span>
+                <span id="weather"></span><span id="temp">  </span>
+            </div>
+            <div class="I124_user">
+                <span class="I124_user_head"><img src="/xwyjs/images/24/24_head.png" alt=""/></span>
+                <span style="max-width: 14em;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">
+              <span>欢迎您!</span><span class="I124_user_name">[[${user.userName}]]</span>
+            </span>
+
+            </div>
+        </div>
+    </div>
+    <div class="I124_main">
+        <div class="I124_park_manage I124_block_left f-cl24">
+            <!-- 圆圈 -->
+            <div class="I124_c_icon">
+                <!-- 圆圈里的图标 -->
+                <div class="I124_c_in_icon"></div>
+            </div>
+            <div class="I124_font">园区总览</div>
+            <div class="I124_line">
+
+            </div>
+        </div>
+        <div class="I124_common_serve I124_block_left">
+            <!-- 圆圈 -->
+            <div class="I124_c_icon">
+                <!-- 圆圈里的图标 -->
+                <div class="I124_c_in_icon"></div>
+            </div>
+            <div class="I124_font">园区管理</div>
+            <div class="I124_line">
+
+            </div>
+        </div>
+        <div class="I124_park_serve I124_block_left">
+            <!-- 圆圈 -->
+            <div class="I124_c_icon">
+                <!-- 圆圈里的图标 -->
+                <div class="I124_c_in_icon"></div>
+            </div>
+            <div class="I124_font">园区服务</div>
+            <div class="I124_line">
+
+            </div>
+        </div>
+        <div class="I124_data_platform I124_block_left">
+            <!-- 圆圈 -->
+            <div class="I124_c_icon">
+                <!-- 圆圈里的图标 -->
+                <div class="I124_c_in_icon"></div>
+            </div>
+            <div class="I124_font">公共服务</div>
+            <div class="I124_line">
+
+            </div>
+        </div>
+        <div class="I124_park_pivot I124_block_right">
+            <!-- 圆圈 -->
+            <div class="I124_c_icon">
+                <!-- 圆圈里的图标 -->
+                <div class="I124_c_in_icon"></div>
+            </div>
+            <div class="I124_font">应急管理</div>
+            <div class="I124_line">
+
+            </div>
+        </div>
+        <div class="I124_safe_produce I124_block_right">
+            <!-- 圆圈 -->
+            <div class="I124_c_icon">
+                <!-- 圆圈里的图标 -->
+                <div class="I124_c_in_icon"></div>
+            </div>
+            <div class="I124_font">预警中心</div>
+            <div class="I124_line">
+
+            </div>
+        </div>
+        <div class="I124_warning_center I124_block_right">
+            <!-- 圆圈 -->
+            <div class="I124_c_icon">
+                <!-- 圆圈里的图标 -->
+                <div class="I124_c_in_icon"></div>
+
+            </div>
+            <div class="I124_font">物业管理</div>
+            <div class="I124_line">
+
+            </div>
+        </div>
+        <div class="I124_emergency_manage I124_block_right">
+            <!-- 圆圈 -->
+            <div class="I124_c_icon">
+                <!-- 圆圈里的图标 -->
+                <div class="I124_c_in_icon"></div>
+            </div>
+            <div class="I124_font">招商管理</div>
+            <div class="I124_line">
+
+            </div>
+        </div>
+        <div class="I124_window">
+            <div class="I124_close">
+
+            </div>
+            <div class="I124_w_title">
+                园区总览
+            </div>
+            <div class="I124_table_area">
+                <table class="I124_table1 I124_table">
+                    <tr>
+                        <td><span class="I124_circle">●</span><a onclick="parent.AddTab('/statistics/dimension')">园区总览</a></td>
+                        <td><span class="I124_circle">●</span><a onclick="parent.AddTab('/statistics/dimension')">经济运行</a></td>
+                    </tr>
+                    <tr>
+                        <td><span class="I124_circle">●</span><a onclick="parent.AddTab('/statistics/dimension')">运营服务</a></td>
+                        <td><span class="I124_circle">●</span><a onclick="parent.AddTab('/statistics/dimension')">设备监控</a></td>
+                    </tr>
+                </table>
+                <table class="I124_table2 I124_table">
+                    <tr>
+                        <td><span class="I124_circle">●</span><a onclick="parent.AddTab('/smallpark/park')">园区档案</a></td>
+                        <td><span class="I124_circle">●</span><a onclick="parent.AddTab('/notice/publish')">通知公告</a></td>
+                        <td><span class="I124_circle">●</span><a onclick="parent.AddTab('/partyactivity/partyactivity')">党建服务</a></td>
+                    </tr>
+                    <tr>
+                        <td><span class="I124_circle">●</span><a onclick="parent.AddTab('/space/leveldict')">资产管理</a></td>
+                        <td><span class="I124_circle">●</span><a onclick="parent.AddTab('/finance/salary')">财务管理</a></td>
+                        <td><span class="I124_circle">●</span><a onclick="parent.AddTab('/smallpark/invest')">园区投资额</a></td>
+                    </tr>
+                </table>
+                <table class="I124_table3 I124_table">
+                    <tr>
+                        <td><span class="I124_circle">●</span><a onclick="parent.AddTab('/complaint/complaintadmin')">投诉管理</a>
+                        </td>
+                        <td><span class="I124_circle">●</span><a onclick="parent.AddTab('/process/todoitem')">审批管理</a></td>
+                        <td><span class="I124_circle">●</span><span>水电缴费</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><span class="I124_circle">●</span><a onclick="parent.AddTab('/guide/guide')">办事指南</a>
+                        </td>
+                        <td><span class="I124_circle">●</span><a onclick="parent.AddTab('/visitor/visitor')">访客预约</a></td>
+                    </tr>
+                </table>
+                <table class="I124_table4 I124_table">
+                    <tr>
+                        <td><span class="I124_circle">●</span><span>双创服务</span></td>
+                        <td><span class="I124_circle">●</span><span>人才服务</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="I124_circle">●</span><span>金融服务</span></td>
+                        <td><span class="I124_circle">●</span><span>转型升级</span></td>
+                    </tr>
+                </table>
+                <table class="I124_table5 I124_table">
+                    <tr>
+                        <td><span class="I124_circle">●</span><a onclick="parent.AddTab('/enterprise/enterprise')">企业档案</a></td>
+                    </tr>
+                </table>
+                <table class="I124_table6 I124_table">
+                    <tr>
+                        <td><span class="I124_circle">●</span><a onclick="parent.AddTab('/repair/repair')">物业管理</a></td>
+                    </tr>
+
+                </table>
+                <table class="I124_table7 I124_table">
+                    <tr>
+                        <td><span class="I124_circle">●</span><span>设备监控</span></td>
+                    </tr>
+                </table>
+                <table class="I124_table8 I124_table">
+                    <tr>
+                        <td><span class="I124_circle">●</span><a onclick="parent.AddTab('/emergency/plan')">应急预案</a> </td>
+                        <td><span class="I124_circle">●</span><a onclick="parent.AddTab('/train/train')">培训管理</a></td>
+                        <td><span class="I124_circle">●</span><a onclick="parent.AddTab('/emergency/team')">救援小组</a></td>
+                    </tr>
+                    <tr>
+                        <td><span class="I124_circle">●</span><a onclick="parent.AddTab('/emergency/haven')">应急避险</a></td>
+                        <td><span class="I124_circle">●</span><a onclick="parent.AddTab('/emergency/equipment')">应急物资信息</a></td>
+                        <td><span class="I124_circle">●</span><a onclick="parent.AddTab('/emergency/addressbook')">应急通讯录</a></td>
+                    </tr>
+                    <tr>
+                        <td><span class="I124_circle">●</span><a onclick="parent.AddTab('/emergency/expert')">应急专家信息</a></td>
+                        <td><span class="I124_circle">●</span><a onclick="parent.AddTab('/emergency/org')">应急指挥机构</a></td>
+                        <td><span class="I124_circle">●</span><a onclick="parent.AddTab('/emergency/directory')">内部通讯录</a></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="I124_earth">
+            <div class="W126_c1_div"></div>
+            <div class="W126_c2_div"></div>
+        </div>
+    </div>
+</div>
+</body>
+<script th:src="@{/xwyjs/js/jquery.min.js}"></script>
+<script th:src="@{/xwyjs/js/jquery.backgroundSize.js}"></script>
+<script th:src="@{/xwyjs/js/main.js}"></script>
+<script>
+    $(function () {
+        var myDate = new Date;
+        var year = myDate.getFullYear(); //获取当前年
+        var mon = myDate.getMonth() + 1; //获取当前月
+        var date = myDate.getDate(); //获取当前日
+        var week = myDate.getDay();
+        var weeks = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"];
+        $("#time").html(year + "年" + mon + "月" + date + "日" + "  " + weeks[week]);
+
+        //background兼容ie8
+        $('.I124_c_icon').css('backgroundSize', '100% 100%')
+        $('.I124_content').css('backgroundSize', '100% 100%')
+        $('.I124_c_in_icon').css('backgroundSize', '100% 100%')
+        $('.I124_window').css('backgroundSize', '100% 100%')
+        $('.I124_down').css('backgroundSize', '100% 100%')
+        $('.I124_earth').css('backgroundSize', '100% 100%')
+        $('.I124_line').css('backgroundSize', '100% 100%')
+        $('.I124_close').css('backgroundSize', '100% 100%')
+
+        // 点击叉叉窗口消失
+        function disAppear() {
+            $('.I124_window').css('display', 'none')
+            $('.I124_table').css('display', 'none')
+            $('.I124_c_icon_active').removeClass('I124_c_icon_active')
+            $('.I124_c_in_icon_active').removeClass('I124_c_in_icon_active')
+            $('.I124_line').css('display', 'none')
+            $('.I124_font').css('color', '#ffffff')
+        }
+
+        $('.I124_close').on('click', disAppear)
+        // 窗口弹出
+        $('.I124_park_manage').on('click', function () {
+            disAppear()
+            $('.I124_window').css('display', 'block')
+            $('.I124_table1').css('display', 'table')
+            $(this).children('.I124_c_icon').addClass('I124_c_icon_active')
+            $(this).find('.I124_c_in_icon').addClass('I124_c_in_icon_active')
+            $(this).children('.I124_font').css('color', '#fee58d')
+            $(this).children('.I124_line').css('display', 'block')
+            $('.I124_w_title').text($('.I124_park_manage>.I124_font').text())
+        })
+        $('.I124_common_serve').on('click', function () {
+            disAppear()
+            $('.I124_window').css('display', 'block')
+            $('.I124_table2').css('display', 'table')
+            $(this).children('.I124_c_icon').addClass('I124_c_icon_active')
+            $(this).find('.I124_c_in_icon').addClass('I124_c_in_icon_active')
+            $(this).children('.I124_font').css('color', '#fee58d')
+            $(this).children('.I124_line').css('display', 'block')
+            $('.I124_w_title').text($('.I124_common_serve>.I124_font').text())
+        })
+        $('.I124_park_serve').on('click', function () {
+            disAppear()
+            $('.I124_window').css('display', 'block')
+            $('.I124_table3').css('display', 'table')
+            $(this).children('.I124_c_icon').addClass('I124_c_icon_active')
+            $(this).find('.I124_c_in_icon').addClass('I124_c_in_icon_active')
+            $(this).children('.I124_font').css('color', '#fee58d')
+            $(this).children('.I124_line').css('display', 'block')
+            $('.I124_w_title').text($('.I124_park_serve>.I124_font').text())
+        })
+        $('.I124_data_platform').on('click', function () {
+            disAppear()
+            $('.I124_window').css('display', 'block')
+            $('.I124_table4').css('display', 'table')
+            $(this).children('.I124_c_icon').addClass('I124_c_icon_active')
+            $(this).find('.I124_c_in_icon').addClass('I124_c_in_icon_active')
+            $(this).children('.I124_font').css('color', '#fee58d')
+            $(this).children('.I124_line').css('display', 'block')
+            $('.I124_w_title').text($('.I124_data_platform>.I124_font').text())
+        })
+        $('.I124_emergency_manage').on('click', function () {
+            disAppear()
+            $('.I124_window').css('display', 'block')
+            $('.I124_table5').css('display', 'table')
+            $(this).children('.I124_c_icon').addClass('I124_c_icon_active')
+            $(this).find('.I124_c_in_icon').addClass('I124_c_in_icon_active')
+            $(this).children('.I124_font').css('color', '#fee58d')
+            $(this).children('.I124_line').css('display', 'block')
+            $('.I124_w_title').text($('.I124_emergency_manage>.I124_font').text())
+        })
+        $('.I124_warning_center').on('click', function () {
+            disAppear()
+            $('.I124_window').css('display', 'block')
+            $('.I124_table6').css('display', 'table')
+            $(this).children('.I124_c_icon').addClass('I124_c_icon_active')
+            $(this).find('.I124_c_in_icon').addClass('I124_c_in_icon_active')
+            $(this).children('.I124_font').css('color', '#fee58d')
+            $(this).children('.I124_line').css('display', 'block')
+            $('.I124_w_title').text($('.I124_warning_center>.I124_font').text())
+        })
+        $('.I124_safe_produce').on('click', function () {
+            disAppear()
+            $('.I124_window').css('display', 'block')
+            $('.I124_table7').css('display', 'table')
+            $(this).children('.I124_c_icon').addClass('I124_c_icon_active')
+            $(this).find('.I124_c_in_icon').addClass('I124_c_in_icon_active')
+            $(this).children('.I124_font').css('color', '#fee58d')
+            $(this).children('.I124_line').css('display', 'block')
+            $('.I124_w_title').text($('.I124_safe_produce>.I124_font').text())
+        })
+        $('.I124_park_pivot').on('click', function () {
+            disAppear()
+            $('.I124_window').css('display', 'block')
+            $('.I124_table8').css('display', 'table')
+            $(this).children('.I124_c_icon').addClass('I124_c_icon_active')
+            $(this).find('.I124_c_in_icon').addClass('I124_c_in_icon_active')
+            $(this).children('.I124_font').css('color', '#fee58d')
+            $(this).children('.I124_line').css('display', 'block')
+            $('.I124_w_title').text($('.I124_park_pivot>.I124_font').text())
+        })
+
+        weather();
+    });
+
+    function weather() {
+        /** 天气 */
+        var data = {
+            appid: 74836413,
+            appsecret: 'vYTXC99M ',
+            version: 'v1',
+            cityid: 101210907
+        }
+
+        $.get('https://www.tianqiapi.com/api/', data, function (result) {
+            $('#temp').text(result.data[0].tem);
+            $('#weather').text(result.data[0].wea);
+            $('#weatherIcon').attr('src', '../../../xwyjs/images/26/' + result.data[0].wea_img + '.png')
+
+        })
+
+    }
+</script>
+</html>

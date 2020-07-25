@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link th:href="@{/css/update.css}" rel="stylesheet"/>
+    <th:block th:include="include :: header('新增小微园投资额信息')"/>
+    <style>
+        .control-label {
+            padding-right: 0 !important;;
+            padding-left: 0 !important;
+            font-size: 15px;
+            color: #3e434a;
+        }
+
+        .form-group > div {
+            padding-left: 4px !important;
+            padding-right: 4px !important;;
+        }
+
+        .form-control {
+            border-radius: 4px !important;
+            border: 1px solid #c5cbee;
+        }
+
+        form {
+            background-color: #eaf4fe;
+            padding: 20px 40px !important;
+            margin: 10px 0 !important;
+            border: 1px solid #cbdff4;
+        }
+
+        .content-title {
+            display: flex;
+            height: 20px;
+            align-items: center;
+        }
+
+        .content-title > span {
+            font-size: 16px;
+            color: #3e434a;
+            font-family: "Microsoft YaHei";
+            font-weight: bold;
+            margin-left: 6px;
+        }
+
+        .content-icon {
+            height: 15px;
+            width: 5px;
+            background-color: #2a7bf2;
+        }
+
+        .ibox-content {
+            padding: 20px 40px !important;
+        }
+    </style>
+</head>
+<body class="white-bg">
+<div class="wrapper wrapper-content animated fadeInRight ibox-content">
+    <div class="content-title">
+        <div class="content-icon"></div>
+        <span>小微园投资额信息</span>
+    </div>
+    <form class="form-horizontal m" id="form-invest-add">
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label is-required">年份：</label>
+                    <div class="col-sm-9">
+                        <input name="year" id="laydate-demo-10" class="form-control" placeholder="请输入年份" >
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label is-required">月份：</label>
+                    <div class="col-sm-9">
+                        <select name="month" class="form-control m-b" th:with="type=${@dict.getType('sys_month')}">
+                            <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}" ></option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label is-required">投资额(万元)：</label>
+                    <div class="col-sm-9">
+                        <input name="investment" class="form-control" placeholder="请输入投资额" type="text">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>
+<th:block th:include="include :: footer"/>
+<script type="text/javascript">
+    var prefix = ctx + "smallpark/invest"
+    $("#form-invest-add").validate({
+        focusCleanup: true
+    });
+
+    function submitHandler() {
+        if ($.validate.form()) {
+            $.operate.save(prefix + "/add", $('#form-invest-add').serialize());
+        }
+    }
+
+    $(function(){
+        layui.use('laydate', function() {
+            var laydate = layui.laydate;
+
+            laydate.render({
+                elem: '#laydate-demo-10',
+                type: 'year'
+            });
+        });
+    })
+</script>
+</body>
+</html>

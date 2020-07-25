@@ -1,0 +1,231 @@
+/* 永康市道明安防产业园首页 */
+.I127_wapper .I126_header{
+    background: url('../../images/27/I127_header_yqzl.png') no-repeat;
+    background-size: 100% 100%;
+}
+.I127_wapper .I127_center{
+    width: 29em;
+    height: 100%;
+    margin: 0 auto;
+    text-align: center;
+    box-sizing: content-box;
+    padding-left: 2em;
+}
+.I127_wapper .I127_center .I127_center_sp1{
+    letter-spacing: 4px;
+    font-size: 2em;
+    line-height: 2em;
+    font-family: '微软雅黑';
+    background: linear-gradient(to bottom, #fff, #5fa9f6);
+    -webkit-background-clip: text;
+    color: transparent;
+    font-family: TITLE;
+}
+.I127_center_sp2{
+    position: relative;
+    top: -15%;
+}
+.I126_wapper .I126_footer{
+    padding: 0 29em;
+}
+/* 园区总览 */
+.D126_wapper .Y127_main{
+    width: 100%;
+    height: 100%;
+    background: url('../../images/27/I127_dt_bk_yqzl.png') no-repeat;
+    background-size: 100% 100%;
+    box-sizing: border-box;
+    padding: 1.5px;
+}
+.D126_wapper .Y127_main>div{
+    width: 100%;
+    height: 100%;
+    /*background: url('../../images/27/I127_dt_yqzl.png') no-repeat;*/
+    background-size: 100% 100%;
+    box-sizing: border-box;
+    padding: 1.3em 1.8em;
+}
+.D126_wapper .Y127_main>div::after{
+    display: block;
+    clear: both;
+    content: '';
+}
+.Y127_main_left{
+    width: 22.5%;
+    height: 100%;
+    float: left;
+}
+.Y127_main_right{
+    width: 22.5%;
+    height: 100%;
+    float: right;
+}
+.Y127_main_left1{
+    width: 100%;
+    height: 35%;
+    background: url('../../images/27/Y127_bg1.png') no-repeat;
+    background-size: 100% 100%;
+    margin-bottom: 3.5%;
+    box-sizing: border-box;
+    padding: 0 0 0.5em 0;
+}
+.Y127_main_left1::after{
+    clear: both;
+    content: '';
+    display: block;
+}
+.Y127_main_left2{
+    width: 100%;
+    height: 63%;
+    background: url('../../images/27/Y127_bg3.png') no-repeat;
+    background-size: 100% 100%;
+    box-sizing: border-box;
+    padding: 1em 0.8em;
+}
+.Y127_main_left1>div{
+    width: 32%;
+    height: 48%;
+    box-sizing: border-box;
+    padding: 1.2em 0 0 1.2em;
+    float: left;
+}
+.Y127_main_left1>div>div{
+    width: 100%;
+    height: 100%;
+    background: url('../../images/27/Y127_bg2.png') no-repeat;
+    background-size: 100% 100%;
+}
+.Y127_m_l1_div1{
+    width: 100%;
+    height: 50%;
+    text-align: center;
+    line-height: 2.4em;
+    font-size: 1.8em;
+    color: #d6ff1f;
+}
+.Y127_m_l1_div2{
+    color: #079ec3;
+    font-size: 0.95em;
+    text-align: center;
+    width: 100%;
+    font-family: '微软雅黑';
+}
+.Y127_m_l1_div3{
+    color: #079ec3;
+    font-size: 0.9em;
+    line-height: 1.5em;
+    text-align: center;
+    width: 100%;
+    font-family: '微软雅黑';
+}
+.Y127_m_l2_div1{
+    width: 100%;
+    height: 3em;
+}
+.Y127_m_l2_div1>span{
+    display: block;
+    width: 5.2em;
+    height: 2.4em;
+    background-color: #1d5099;
+    border: 1px solid #2c6cb5;
+    box-shadow: inset 0 0 0.2em #2c6cb5;
+    text-align: center;
+    line-height: 2.2em;
+}
+.Y127_m_l2_div1>span{
+    font-size: 0.95em;
+}
+.Y127_m_l2_div2{
+    width: 100%;
+    height: 44vh;
+    background-color: #0c234d;
+    box-sizing: border-box;
+    padding: 1.2em 1em;
+    border-radius: 2px;
+    overflow: auto;
+}
+.Y127_m_l2_div2_d1{
+    font-size: 0.9em;
+    color: #02aee3;
+    line-height: 1.7em;
+    margin-bottom: 0.9em;
+}
+.Y127_main_right1{
+    width: 100%;
+    height: 55%;
+    background: url('../../images/27/Y127_bg4.png') no-repeat;
+    background-size: 100% 100%;
+    margin-bottom: 3.5%;
+    box-sizing: border-box;
+    padding: 0 0 0.5em 0;
+}
+.Y127_main_right2{
+    width: 100%;
+    height: 43%;
+    background: url('../../images/27/Y127_bg4.png') no-repeat;
+    background-size: 100% 100%;
+    box-sizing: border-box;
+    padding: 0 0 0.5em 0;
+}
+.Y127_m_r1_div1{
+    width: 100%;
+    height: 10%;
+    background: url('../../images/27/Y127_bg9.png') no-repeat;
+    background-size: 100% 100%;
+    box-sizing: border-box;
+    padding: 0.55em 0.8em;
+    font-size: 0.95em;
+    color: #00ecfc;
+}
+.Y127_m_r1_div2{
+    width: 100%;
+    height: 90%;
+    box-sizing: border-box;
+    padding: 0.5em 0.5em 0.2em 0.5em;
+}
+.Y127_m_r1_div2>div{
+    width: 100%;
+    height: 100%;
+    background: url('../../images/27/Y127_bg5.png') no-repeat;
+    background-size: 100% 100%;
+}
+.Y127_m_r1_div2>div::after{
+    clear: both;
+    display: block;
+    content: '';
+}
+.Y127_m_r1_div2_div{
+    width: 50%;
+    height: 46.5%;
+    float: left;
+    box-sizing: border-box;
+    padding: 1.6em 2.5em 0 2.5em;
+}
+.Y127_m_r1_div2_div>div{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    /* background: url('../../images/27/Y127_bg8.png') no-repeat;
+    background-size: 100% 100%; */
+}
+.Y127_m_r1_div2_div>div>img{
+    width: 76%;
+    position: relative;
+    left: 12%;
+}
+.Y127_m_r1_div2_div1{
+    font-size: 1.1em;
+    width: 100%;
+    text-align: center;
+    background: linear-gradient(to right,#43f0de, #1ec5fa);
+    -webkit-background-clip: text;
+    color: transparent;
+    font-weight: 600;
+}
+.Y127_m_r1_div2_div2{
+    position: absolute;
+    top: 58%;
+    left: 40%;
+    font-size: 1.6em;
+    color: #3affe4;
+}

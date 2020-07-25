@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+    <title>运营服务</title>
+    <link rel="stylesheet" th:href="@{/xwyjs/css/all.css}">
+    <link rel="stylesheet" th:href="@{/xwyjs/css/particle.css}">
+    <link rel="stylesheet" th:href="@{/xwyjs/css/animate.css}">
+    <link rel="stylesheet" th:href="@{/xwyjs/css/style_26.css}">
+    <link rel="stylesheet" th:href="@{/xwyjs/css/27/service.css}">
+    <link rel="stylesheet" th:href="@{/xwyjs/lib/layui/css/layui.css}">
+</head>
+<body>
+<div class="D126_wapper">
+    <div class="D126_content animated bounceIn">
+        <div msg-data="css漂浮的粒子" class="R126_cr_particle">
+            <div class="container">
+            </div>
+        </div>
+        <div class="S127_main">
+            <div class="S127_left">
+                <div class="S127_left_up">
+                    <div class="bg_27 S127_con">
+                        <div class="S127_header">
+                            <span class="S127_header_sp1">双创服务云</span>
+                            <span class="S127_header_sp2"><img th:src="@{/xwyjs/images/27/S127_icon1.png}" alt=""></span>
+                        </div>
+                        <div class="S127_main_down S127_left_up_down">
+                            <div>
+                                <div class="S127_l_u_d1">
+                                    <img th:src="@{/xwyjs/images/27/S127_icon2.png}"  alt="">
+                                    <span class="S127_l_u_d1_sp1">45</span>
+                                </div>
+                                <div class="S127_l_u_d2">技术成果</div>
+                            </div>
+                            <div>
+                                <div class="S127_l_u_d1">
+                                    <img th:src="@{/xwyjs/images/27/S127_icon3.png}" alt="">
+                                    <span class="S127_l_u_d1_sp2">23</span>
+                                </div>
+                                <div class="S127_l_u_d2">技术需求</div>
+                            </div>
+                            <div>
+                                <div class="S127_l_u_d1">
+                                    <img th:src="@{/xwyjs/images/27/S127_icon4.png}" alt="">
+                                    <span class="S127_l_u_d1_sp3">18</span>
+                                </div>
+                                <div class="S127_l_u_d2">知识产权</div>
+                            </div>
+                            <div>
+                                <div class="S127_l_u_d1">
+                                    <img th:src="@{/xwyjs/images/27/S127_icon5.png}" alt="">
+                                    <span class="S127_l_u_d1_sp4">44</span>
+                                </div>
+                                <div class="S127_l_u_d2">创新众包</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="S127_left_down">
+                    <div class="bg_27 S127_con">
+                        <div class="S127_header">
+                            <span class="S127_header_sp1">人才服务云</span>
+                            <span class="S127_header_sp2"><img th:src="@{/xwyjs/images/27/S127_icon1.png}" alt=""></span>
+                        </div>
+                        <div class="S127_main_down">
+                            <div class="S127_main_down_up">
+                                <div>
+                                    <span class="S127_m_d_up1">专家人数</span>
+                                    <span class="S127_m_d_up2 bg_27"><span>0</span></span>
+                                    <span class="S127_m_d_up2 bg_27"><span>0</span></span>
+                                    <span class="S127_m_d_up3 bg_27"><span>3</span></span>
+                                    <span class="S127_m_d_up3 bg_27"><span>3</span></span>
+                                    <span class="S127_m_d_up4">人</span>
+                                </div>
+                                <div>
+                                    <span class="S127_m_d_up1">人才人数</span>
+                                    <span class="S127_m_d_up2 bg_27"><span>0</span></span>
+                                    <span class="S127_m_d_up2 bg_27"><span>0</span></span>
+                                    <span class="S127_m_d_up3 bg_27"><span>6</span></span>
+                                    <span class="S127_m_d_up3 bg_27"><span>7</span></span>
+                                    <span class="S127_m_d_up4">人</span>
+                                </div>
+                            </div>
+                            <div class="S127_main_down_down">
+                                <div class="S127_m_d_d_up">
+                                    <span class="bg_27"><span>招聘需求趋势</span></span>
+                                </div>
+                                <div class="S127_m_d_d_down">
+                                    <div id="S127_echart1"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="S127_center">
+                <div class="bg_27">
+                    <div class="S127_center1">
+                        <div class="S127_center1_left">
+                            <div class="S127_center1_left1">
+                                <div id="S127_echart3"></div>
+                            </div>
+                        </div>
+                        <div class="S127_center1_left">
+                            <div class="S127_center1_left1">
+                                <div id="S127_echart4"></div>
+                            </div>
+                            <div class="S127_center1_left1_down">
+                                <span class="S127_c1_l1_d_sp1">同比</span>
+                                <span class="S127_c1_l1_d_sp2">11.9%↑</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="S127_center2">
+                        <div id="S127_echart2"></div>
+                    </div>
+                    <div class="S127_center3">
+                        <div class="S127_center3_up">
+                            <span class="bg_27"><span>实时服务一览</span></span>
+                        </div>
+                        <div class="S127_center3_down">
+                            <div id="table"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="S127_right">
+                <div class="S127_right_up">
+                    <div class="bg_27 S127_con">
+                        <div class="S127_header">
+                            <span class="S127_header_sp1">金融服务业</span>
+                            <span class="S127_header_sp2"><img th:src="@{/xwyjs/images/27/S127_icon1.png}" alt=""></span>
+                        </div>
+                        <div class="S127_main_down">
+                            <div class="S127_m_d1_up">
+                                <div>
+                                    <div>
+                                        <div class="S127_m_d1_up1 bg_27">
+                                            <div>45个</div>
+                                            <div>融资项目</div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="S127_m_d1_up2 bg_27">
+                                            <div>45个</div>
+                                            <div>贷款需求</div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="S127_m_d1_up3 bg_27">
+                                            <div>45个</div>
+                                            <div>金融机构</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div>
+                                        <div class="S127_m_d1_up1 bg_27">
+                                            <div>45个</div>
+                                            <div>融资项目</div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="S127_m_d1_up2 bg_27">
+                                            <div>45个</div>
+                                            <div>贷款需求</div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="S127_m_d1_up3 bg_27">
+                                            <div>45个</div>
+                                            <div>金融机构</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="S127_m_d1_down">
+                                <div class="S127_m_d1_d_up">
+                                    <span class="bg_27"><span>金融机构(5)</span></span>
+                                </div>
+                                <div class="S127_m_d1_d_down">
+                                    <div>
+                                        <div>
+                                            <div>
+                                                <span class="S127_m_d1_d_down1">
+                                                    <span>1</span>
+                                                </span>
+                                                <span class="S127_m_d1_d_down2">永康邮政储蓄银行</span>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div>
+                                                <span class="S127_m_d1_d_down1">
+                                                    <span>2</span>
+                                                </span>
+                                                <span class="S127_m_d1_d_down2">永康农商银行</span>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div>
+                                                <span class="S127_m_d1_d_down1">
+                                                    <span>3</span>
+                                                </span>
+                                                <span class="S127_m_d1_d_down2">浙江永康农村合作银行</span>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div>
+                                                <span class="S127_m_d1_d_down1">
+                                                    <span>4</span>
+                                                </span>
+                                                <span class="S127_m_d1_d_down2">中信银行金华永康支行</span>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div>
+                                                <span class="S127_m_d1_d_down1">
+                                                    <span>5</span>
+                                                </span>
+                                                <span class="S127_m_d1_d_down2">中国银行</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="S127_right_down">
+                    <div class="bg_27 S127_con">
+                        <div class="S127_header">
+                            <span class="S127_header_sp1">转型服务业</span>
+                            <span class="S127_header_sp2"><img th:src="@{/xwyjs/images/27/S127_icon1.png}" alt=""></span>
+                        </div>
+                        <div class="S127_main_down">
+                            <div class="S127_m_d2">
+                                <div>
+                                    <div>
+                                        <div>
+                                            <div class="S127_m_d2_div1">
+                                                <div>
+                                                    <div class="bg_27">
+                                                        <span>55</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="S127_m_d2_div2 S127_m_d2_div6">
+                                                <img th:src="@{/xwyjs/images/27/S127_icon8.png}" alt="">
+                                            </div>
+                                            <div class="S127_m_d2_div3">技术服务</div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div>
+                                            <div class="S127_m_d2_div1 S127_m_d2_div4">
+                                                <div>
+                                                    <div class="bg_27">
+                                                        <span>34</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="S127_m_d2_div2 S127_m_d2_div5">
+                                                <img th:src="@{/xwyjs/images/27/S127_icon9.png}" alt="">
+                                            </div>
+                                            <div class="S127_m_d2_div3">设备租赁</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script th:src="@{/xwyjs/js/jquery.min.js}"></script>
+<script th:src="@{/xwyjs/js/main.js}"></script>
+<script th:src="@{/xwyjs/js/jquery.backgroundSize.js}"></script>
+<script th:src="@{/xwyjs/js/echarts/echarts.js}"></script>
+<script th:src="@{/xwyjs/lib/layui/layui.js}"></script>
+
+<script th:src="@{/xwyjs/js/27/left27.js}"></script>
+<script th:src="@{/xwyjs/js/echarts/S127_echart1.js}"></script>
+<script th:src="@{/xwyjs/js/echarts/S127_echart2.js}"></script>
+<script th:src="@{/xwyjs/js/echarts/S127_echart3.js}"></script>
+
+<script type="text/javascript">
+    layui.use(['element','table'], function(){
+        var element = layui.element;
+        var table = layui.table;
+
+        table.render({
+            elem: '#table',
+            height: $('.S127_center3_down').height()*0.96,
+            cols: [
+                [
+                {field: 'name', title: '企业名称',align: 'center',width: '30%'},
+                {field: 'service', title: '服务项目',align: 'center',width: '18%'},
+                {field: 'content', title: '服务内容',align: 'center',width: '22%'},
+                {field: 'time', title: '发布时间',align: 'center',width: '30%'},
+                ]
+            ],
+            data: [
+                {'name': '义乌市华艺塑料有限公司','service': '金融服务','content': '人才引进服务','time': '2019-06-18 19:00'},
+                {'name': '浙江高鑫安全检测科技有限公司','service': '金融服务','content': '人才引进服务','time': '2019-06-18 19:00'},
+                {'name': '办杰国际贸易','service': '金融服务','content': '人才引进服务','time': '2019-06-18 19:00'},
+                {'name': '浙江新量进出口有限公司','service': '金融服务','content': '人才引进服务','time': '2019-06-18 19:00'},
+                {'name': '义乌市华艺塑料有限公司','service': '金融服务','content': '人才引进服务','time': '2019-06-18 19:00'},
+                {'name': '浙江高鑫安全检测科技有限公司','service': '金融服务','content': '人才引进服务','time': '2019-06-18 19:00'},
+                {'name': '办杰国际贸易','service': '金融服务','content': '人才引进服务','time': '2019-06-18 19:00'},
+                {'name': '浙江新量进出口有限公司','service': '金融服务','content': '人才引进服务','time': '2019-06-18 19:00'},
+                {'name': '义乌市华艺塑料有限公司','service': '金融服务','content': '人才引进服务','time': '2019-06-18 19:00'}
+            ],
+            done:function () {
+                var speed = 50
+                var html = $('.layui-table-body').find('tbody').html()
+                function marQueen(){
+                    if ($('.layui-table-body')[0].scrollTop>=($('.layui-table-body')[0].scrollHeight/3)) {
+                        $('.layui-table-body').find('tbody').append(html)
+                    } else {
+                        $('.layui-table-body')[0].scrollTop++;
+                    }
+                }
+                var MyMar = setInterval(marQueen, speed);
+                $('.layui-table-body > tbody').mouseover(function () {
+                    clearInterval(MyMar);
+                })
+
+                $('.layui-table-body > tbody').mouseout(function () {
+                    MyMar = setInterval(marQueen, speed);
+                })
+            }
+        })
+
+        window.addEventListener('resize', function() {
+            table.reload("table", {height: $('.D126_bottom_middle').height()*0.88})
+        })
+    });
+
+    $('.S127_m_d2_div5').mouseenter(function(){
+        $(this).removeClass('animated bounce').addClass('animated flip');
+    })
+    $('.S127_m_d2_div5').mouseleave(function(){
+        $(this).removeClass('animated flip').addClass('animated bounce');
+    })
+    $('.S127_m_d2_div6').mouseenter(function(){
+        $(this).removeClass('animated bounce').addClass('animated flip');
+    })
+    $('.S127_m_d2_div6').mouseleave(function(){
+        $(this).removeClass('animated flip').addClass('animated bounce');
+    })
+</script>
+</html>

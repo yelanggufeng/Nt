@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.netintech.park.mapper.SmallParkMapper">
+
+    <resultMap type="SmallPark" id="SmallParkResult">
+        <result property="id" column="id"/>
+        <result property="parkName" column="park_name"/>
+        <result property="constructionState" column="construction_state"/>
+        <result property="areaId" column="area_id"/>
+        <result property="detailedAddress" column="detailed_address"/>
+        <result property="startTime" column="start_time"/>
+        <result property="completionTime" column="completion_time"/>
+        <result property="commissioningTime" column="commissioning_time"/>
+        <result property="leadingIndustryId" column="leading_industry_id"/>
+        <result property="enterpriseQuantity" column="enterprise_quantity"/>
+        <result property="planBuildingSpace" column="plan_building_space"/>
+        <result property="landSpace" column="land_space"/>
+        <result property="usedBuildingSpace" column="used_building_space"/>
+        <result property="dormitorySpace" column="dormitory_space"/>
+        <result property="progress" column="progress"/>
+        <result property="buildMode" column="build_mode"/>
+        <result property="rentSituation" column="rent_situation"/>
+        <result property="planInvestmentTotal" column="plan_investment_total"/>
+        <result property="stateOwnedInvestment" column="state_owned_investment"/>
+        <result property="collectiveInvestment" column="collective_investment"/>
+        <result property="privateInvestment" column="private_investment"/>
+        <result property="otherInvestment" column="other_investment"/>
+        <result property="actualInvestmentTotal" column="actual_investment_total"/>
+        <result property="buildUnitName" column="build_unit_name"/>
+        <result property="buildContactName" column="build_contact_name"/>
+        <result property="buildContactTel" column="build_contact_tel"/>
+        <result property="buildContactMail" column="build_contact_mail"/>
+        <result property="operationUnitName" column="operation_unit_name"/>
+        <result property="operationContactName" column="operation_contact_name"/>
+        <result property="operationContactTel" column="operation_contact_tel"/>
+        <result property="operationContactMail" column="operation_contact_mail"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="lon" column="lon"/>
+        <result property="lat" column="lat"/>
+        <result property="parkLevel" column="park_level"/>
+        <result property="parkDesc" column="park_desc"/>
+        <result property="fileUuid" column="file_uuid"/>
+        <result property="estimatedSalesRevenue" column="estimated_sales_revenue"/>
+        <result property="estimatedProfitTax" column="estimated_profit_tax"/>
+        <result property="developmentConstructionMode" column="development_construction_mode"/>
+        <result property="newWay" column="new_way"/>
+        <result property="liveView" column="live_view"/>
+    </resultMap>
+
+    <sql id="selectSmallParkVo">
+        select id, park_desc,park_name, construction_state, area_id, detailed_address, start_time, completion_time, commissioning_time, leading_industry_id, enterprise_quantity, plan_building_space,
+        land_space, used_building_space, dormitory_space, progress, build_mode, rent_situation, plan_investment_total, state_owned_investment, collective_investment, private_investment, other_investment,
+        actual_investment_total, build_unit_name, build_contact_name, build_contact_tel, build_contact_mail, operation_unit_name, operation_contact_name, operation_contact_tel, operation_contact_mail,
+        file_uuid,create_by, create_time, update_by, update_time,lon,lat,park_level,estimated_sales_revenue,estimated_profit_tax,development_construction_mode,new_way,live_view from sys_small_park
+    </sql>
+
+    <select id="selectSmallParkList" parameterType="SmallPark" resultMap="SmallParkResult">
+        <include refid="selectSmallParkVo"/>
+        where del_flag='0'
+        <if test="id!=null">and id =#{id}</if>
+        <if test="parkName != null  and parkName != ''">and park_name like concat('%', #{parkName}, '%')</if>
+        <if test="constructionState != null ">and construction_state = #{constructionState}</if>
+        <if test="areaId != null ">and area_id = #{areaId}</if>
+        <if test="detailedAddress != null  and detailedAddress != ''">and detailed_address = #{detailedAddress}</if>
+        <if test="startTime != null ">and start_time = #{startTime}</if>
+        <if test="completionTime != null ">and completion_time = #{completionTime}</if>
+        <if test="commissioningTime != null ">and commissioning_time = #{commissioningTime}</if>
+        <if test="leadingIndustryId != null ">and leading_industry_id = #{leadingIndustryId}</if>
+        <if test="enterpriseQuantity != null ">and enterprise_quantity = #{enterpriseQuantity}</if>
+        <if test="planBuildingSpace != null ">and plan_building_space = #{planBuildingSpace}</if>
+        <if test="landSpace != null ">and land_space = #{landSpace}</if>
+        <if test="usedBuildingSpace != null ">and used_building_space = #{usedBuildingSpace}</if>
+        <if test="dormitorySpace != null ">and dormitory_space = #{dormitorySpace}</if>
+        <if test="progress != null  and progress != ''">and progress = #{progress}</if>
+        <if test="buildMode != null  and buildMode != ''">and build_mode = #{buildMode}</if>
+        <if test="rentSituation != null ">and rent_situation = #{rentSituation}</if>
+        <if test="planInvestmentTotal != null ">and plan_investment_total = #{planInvestmentTotal}</if>
+        <if test="stateOwnedInvestment != null ">and state_owned_investment = #{stateOwnedInvestment}</if>
+        <if test="collectiveInvestment != null ">and collective_investment = #{collectiveInvestment}</if>
+        <if test="privateInvestment != null ">and private_investment = #{privateInvestment}</if>
+        <if test="otherInvestment != null ">and other_investment = #{otherInvestment}</if>
+        <if test="actualInvestmentTotal != null ">and actual_investment_total = #{actualInvestmentTotal}</if>
+        <if test="buildUnitName != null  and buildUnitName != ''">and build_unit_name like concat('%', #{buildUnitName},
+            '%')
+        </if>
+        <if test="buildContactName != null  and buildContactName != ''">and build_contact_name like concat('%',
+            #{buildContactName}, '%')
+        </if>
+        <if test="buildContactTel != null  and buildContactTel != ''">and build_contact_tel = #{buildContactTel}</if>
+        <if test="buildContactMail != null  and buildContactMail != ''">and build_contact_mail = #{buildContactMail}
+        </if>
+        <if test="operationUnitName != null  and operationUnitName != ''">and operation_unit_name like concat('%',
+            #{operationUnitName}, '%')
+        </if>
+        <if test="operationContactName != null  and operationContactName != ''">and operation_contact_name like
+            concat('%', #{operationContactName}, '%')
+        </if>
+        <if test="operationContactTel != null  and operationContactTel != ''">and operation_contact_tel =
+            #{operationContactTel}
+        </if>
+        <if test="operationContactMail != null  and operationContactMail != ''">and operation_contact_mail =
+            #{operationContactMail}
+        </if>
+        <if test="lon != null  and lon != ''">and lon = #{lon}</if>
+        <if test="lat != null  and lat != ''">and lat = #{lat}</if>
+        <if test="parkLevel != null  and parkLevel != ''">and park_level = #{parkLevel}</if>
+
+    </select>
+
+    <select id="selectParkList" parameterType="SmallPark" resultMap="SmallParkResult">
+        select id ,park_name,area_id,detailed_address,construction_state,enterprise_quantity,plan_building_space, rent_situation,land_space,used_building_space
+        from sys_small_park
+        where del_flag='0'
+        <if test="parkName != null  and parkName != ''">and park_name like concat('%', #{parkName}, '%')</if>
+        <if test="constructionState != null ">and construction_state = #{constructionState}</if>
+        <if test="areaId != null ">and area_id = #{areaId}</if>
+        <if test="id !=null">and id = #{id}</if>
+    </select>
+
+    <select id="selectSmallParkById" parameterType="Long" resultMap="SmallParkResult">
+        <include refid="selectSmallParkVo"/>
+        where id = #{id} and del_flag='0'
+    </select>
+
+    <select id="checkParkNameUnique" resultType="java.lang.Integer" parameterType="String">
+        select count(1) from sys_small_park where del_flag = '0'  and  park_name=#{value}
+    </select>
+
+    <select id="selectUserById" resultType="java.lang.Integer" parameterType="Long">
+        select count(1) from sys_user where dept_id=#{value} and del_flag ='0'
+    </select>
+
+    <select id="selectEnterpriseByPid" resultType="java.lang.Integer" parameterType="Long">
+        select count(1) from sys_enterprise   where small_id = #{value}  and del_flag = '0'
+
+    </select>
+    <select id="countPark" resultType="int" parameterType="Long">
+        select count(*) from sys_small_park where id =#{value}
+    </select>
+
+    <select id="queryFileByUuid" resultType="com.netintech.park.domain.SmallParkAttach" parameterType="String">
+      select  id,file_uuid fileUuid,file_name fileName,file_alias fileAlias,file_path filePath from  attachment_small_park where del_flag = '0' and file_uuid=#{value}
+    </select>
+
+    <select id="queryFileByParkId" resultType="com.netintech.park.domain.SmallParkAttach" parameterType="long">
+      select  id,file_uuid fileUuid,file_name fileName,file_alias fileAlias,file_path filePath from attachment_small_park where del_flag = '0' and park_id=#{value}  order by id desc
+    </select>
+
+    <insert id="insertSmallPark" parameterType="SmallPark" keyProperty="id" useGeneratedKeys="true">
+        insert into sys_small_park
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null ">id,</if>
+            <if test="parkName != null  and parkName != ''">park_name,</if>
+            <if test="parkDesc != null  and parkDesc != ''">park_desc,</if>
+            <if test="constructionState != null ">construction_state,</if>
+            <if test="areaId != null ">area_id,</if>
+            <if test="detailedAddress != null  and detailedAddress != ''">detailed_address,</if>
+            <if test="startTime != null ">start_time,</if>
+            <if test="completionTime != null ">completion_time,</if>
+            <if test="commissioningTime != null ">commissioning_time,</if>
+            <if test="leadingIndustryId != null ">leading_industry_id,</if>
+            <if test="enterpriseQuantity != null ">enterprise_quantity,</if>
+            <if test="planBuildingSpace != null ">plan_building_space,</if>
+            <if test="landSpace != null ">land_space,</if>
+            <if test="usedBuildingSpace != null ">used_building_space,</if>
+            <if test="dormitorySpace != null ">dormitory_space,</if>
+            <if test="progress != null  and progress != ''">progress,</if>
+            <if test="buildMode != null  and buildMode != ''">build_mode,</if>
+            <if test="rentSituation != null ">rent_situation,</if>
+            <if test="planInvestmentTotal != null ">plan_investment_total,</if>
+            <if test="stateOwnedInvestment != null ">state_owned_investment,</if>
+            <if test="collectiveInvestment != null ">collective_investment,</if>
+            <if test="privateInvestment != null ">private_investment,</if>
+            <if test="otherInvestment != null ">other_investment,</if>
+            <if test="actualInvestmentTotal != null ">actual_investment_total,</if>
+            <if test="buildUnitName != null  and buildUnitName != ''">build_unit_name,</if>
+            <if test="buildContactName != null  and buildContactName != ''">build_contact_name,</if>
+            <if test="buildContactTel != null  and buildContactTel != ''">build_contact_tel,</if>
+            <if test="buildContactMail != null  and buildContactMail != ''">build_contact_mail,</if>
+            <if test="operationUnitName != null  and operationUnitName != ''">operation_unit_name,</if>
+            <if test="operationContactName != null  and operationContactName != ''">operation_contact_name,</if>
+            <if test="operationContactTel != null  and operationContactTel != ''">operation_contact_tel,</if>
+            <if test="operationContactMail != null  and operationContactMail != ''">operation_contact_mail,</if>
+            <if test="createBy != null  and createBy != ''">create_by,</if>
+            <if test="createTime != null ">create_time,</if>
+            <if test="updateBy != null  and updateBy != ''">update_by,</if>
+            <if test="updateTime != null ">update_time,</if>
+            <if test="lon != null and lon !=''">lon,</if>
+            <if test="lat != null  and lat != ''">lat,</if>
+            <if test="parkLevel != null ">park_level,</if>
+            <if test="fileUuid != null and fileUuid!=''">file_uuid,</if>
+            <if test="estimatedSalesRevenue != null and estimatedSalesRevenue!=''">estimated_sales_revenue,</if>
+            <if test="estimatedProfitTax != null and estimatedProfitTax!=''">estimated_profit_tax,</if>
+            <if test="developmentConstructionMode != null and developmentConstructionMode!=''">development_construction_mode,</if>
+            <if test="newWay != null and newWay!=''">new_way,</if>
+            <if test="liveView != null and liveView!=''">live_view,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null ">#{id},</if>
+            <if test="parkName != null  and parkName != ''">#{parkName},</if>
+            <if test="parkDesc != null  and parkDesc != ''">#{parkDesc},</if>
+            <if test="constructionState != null ">#{constructionState},</if>
+            <if test="areaId != null ">#{areaId},</if>
+            <if test="detailedAddress != null  and detailedAddress != ''">#{detailedAddress},</if>
+            <if test="startTime != null ">#{startTime},</if>
+            <if test="completionTime != null ">#{completionTime},</if>
+            <if test="commissioningTime != null ">#{commissioningTime},</if>
+            <if test="leadingIndustryId != null ">#{leadingIndustryId},</if>
+            <if test="enterpriseQuantity != null ">#{enterpriseQuantity},</if>
+            <if test="planBuildingSpace != null ">#{planBuildingSpace},</if>
+            <if test="landSpace != null ">#{landSpace},</if>
+            <if test="usedBuildingSpace != null ">#{usedBuildingSpace},</if>
+            <if test="dormitorySpace != null ">#{dormitorySpace},</if>
+            <if test="progress != null  and progress != ''">#{progress},</if>
+            <if test="buildMode != null  and buildMode != ''">#{buildMode},</if>
+            <if test="rentSituation != null  ">#{rentSituation},</if>
+            <if test="planInvestmentTotal != null ">#{planInvestmentTotal},</if>
+            <if test="stateOwnedInvestment != null ">#{stateOwnedInvestment},</if>
+            <if test="collectiveInvestment != null ">#{collectiveInvestment},</if>
+            <if test="privateInvestment != null ">#{privateInvestment},</if>
+            <if test="otherInvestment != null ">#{otherInvestment},</if>
+            <if test="actualInvestmentTotal != null ">#{actualInvestmentTotal},</if>
+            <if test="buildUnitName != null  and buildUnitName != ''">#{buildUnitName},</if>
+            <if test="buildContactName != null  and buildContactName != ''">#{buildContactName},</if>
+            <if test="buildContactTel != null  and buildContactTel != ''">#{buildContactTel},</if>
+            <if test="buildContactMail != null  and buildContactMail != ''">#{buildContactMail},</if>
+            <if test="operationUnitName != null  and operationUnitName != ''">#{operationUnitName},</if>
+            <if test="operationContactName != null  and operationContactName != ''">#{operationContactName},</if>
+            <if test="operationContactTel != null  and operationContactTel != ''">#{operationContactTel},</if>
+            <if test="operationContactMail != null  and operationContactMail != ''">#{operationContactMail},</if>
+            <if test="createBy != null  and createBy != ''">#{createBy},</if>
+            <if test="createTime != null ">#{createTime},</if>
+            <if test="updateBy != null  and updateBy != ''">#{updateBy},</if>
+            <if test="updateTime != null ">#{updateTime},</if>
+            <if test="lon != null  and lon != ''">#{lon},</if>
+            <if test="lat != null  and lat != ''">#{lat},</if>
+            <if test="parkLevel != null  and parkLevel != ''">#{parkLevel},</if>
+            <if test="fileUuid != null  and fileUuid != ''">#{fileUuid},</if>
+            <if test="estimatedSalesRevenue != null  and estimatedSalesRevenue != ''">#{estimatedSalesRevenue},</if>
+            <if test="estimatedProfitTax != null  and estimatedProfitTax != ''">#{estimatedProfitTax},</if>
+            <if test="developmentConstructionMode != null  and developmentConstructionMode != ''">#{developmentConstructionMode},</if>
+            <if test="newWay != null  and newWay != ''">#{newWay},</if>
+            <if test="liveView != null  and liveView != ''">#{liveView},</if>
+        </trim>
+    </insert>
+
+    <insert id="insertAttach" parameterType="com.netintech.park.domain.SmallParkAttach">
+        insert into attachment_small_park (park_id,file_uuid,file_name,file_alias,file_path,del_flag,create_by,create_time)
+        values (#{parkId},#{fileUuid},#{fileName},#{fileAlias},#{filePath},#{delFlag},#{createBy},#{createTime})
+    </insert>
+
+    <update id="updateSmallPark" parameterType="SmallPark">
+        update sys_small_park
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="parkName != null  and parkName != ''">park_name = #{parkName},</if>
+            <if test="parkDesc != null  and parkDesc != ''">park_desc = #{parkDesc},</if>
+            <if test="constructionState != null ">construction_state = #{constructionState},</if>
+            <if test="areaId != null ">area_id = #{areaId},</if>
+            <if test="detailedAddress != null  and detailedAddress != ''">detailed_address = #{detailedAddress},</if>
+            <if test="startTime != null ">start_time = #{startTime},</if>
+            <if test="completionTime != null ">completion_time = #{completionTime},</if>
+            <if test="commissioningTime != null ">commissioning_time = #{commissioningTime},</if>
+            <if test="leadingIndustryId != null ">leading_industry_id = #{leadingIndustryId},</if>
+            <if test="enterpriseQuantity != null ">enterprise_quantity = #{enterpriseQuantity},</if>
+            <if test="planBuildingSpace != null ">plan_building_space = #{planBuildingSpace},</if>
+            <if test="landSpace != null ">land_space = #{landSpace},</if>
+            <if test="usedBuildingSpace != null ">used_building_space = #{usedBuildingSpace},</if>
+            <if test="dormitorySpace != null ">dormitory_space = #{dormitorySpace},</if>
+            <if test="progress != null  and progress != ''">progress = #{progress},</if>
+            <if test="buildMode != null  and buildMode != ''">build_mode = #{buildMode},</if>
+            <if test="rentSituation != null ">rent_situation = #{rentSituation},</if>
+            <if test="planInvestmentTotal != null ">plan_investment_total = #{planInvestmentTotal},</if>
+            <if test="stateOwnedInvestment != null ">state_owned_investment = #{stateOwnedInvestment},</if>
+            <if test="collectiveInvestment != null ">collective_investment = #{collectiveInvestment},</if>
+            <if test="privateInvestment != null ">private_investment = #{privateInvestment},</if>
+            <if test="otherInvestment != null ">other_investment = #{otherInvestment},</if>
+            <if test="actualInvestmentTotal != null ">actual_investment_total = #{actualInvestmentTotal},</if>
+            <if test="buildUnitName != null  and buildUnitName != ''">build_unit_name = #{buildUnitName},</if>
+            <if test="buildContactName != null  and buildContactName != ''">build_contact_name = #{buildContactName},
+            </if>
+            <if test="buildContactTel != null  and buildContactTel != ''">build_contact_tel = #{buildContactTel},</if>
+            <if test="buildContactMail != null  and buildContactMail != ''">build_contact_mail = #{buildContactMail},
+            </if>
+            <if test="operationUnitName != null  and operationUnitName != ''">operation_unit_name =
+                #{operationUnitName},
+            </if>
+            <if test="operationContactName != null  and operationContactName != ''">operation_contact_name =
+                #{operationContactName},
+            </if>
+            <if test="operationContactTel != null  and operationContactTel != ''">operation_contact_tel =
+                #{operationContactTel},
+            </if>
+            <if test="operationContactMail != null  and operationContactMail != ''">operation_contact_mail =
+                #{operationContactMail},
+            </if>
+            <if test="createBy != null  and createBy != ''">create_by = #{createBy},</if>
+            <if test="createTime != null ">create_time = #{createTime},</if>
+            <if test="updateBy != null  and updateBy != ''">update_by = #{updateBy},</if>
+            <if test="updateTime != null ">update_time = #{updateTime},</if>
+            <if test="lon != null  and lon != ''">lon = #{lon},</if>
+            <if test="lat != null  and lat != ''">lat = #{lat},</if>
+            <if test="parkLevel != null  and parkLevel != ''">park_level = #{parkLevel},</if>
+            <if test="fileUuid != null  and fileUuid != ''">file_uuid = #{fileUuid},</if>
+            <if test="estimatedSalesRevenue != null  and estimatedSalesRevenue != ''">estimated_sales_revenue = #{estimatedSalesRevenue},</if>
+            <if test="estimatedProfitTax != null  and estimatedProfitTax != ''">estimated_profit_tax = #{estimatedProfitTax},</if>
+            <if test="developmentConstructionMode != null  and developmentConstructionMode != ''">development_construction_mode = #{developmentConstructionMode},</if>
+            <if test="newWay != null  and newWay != ''">new_way = #{newWay},</if>
+            <if test="liveView != null  and liveView != ''">live_view = #{liveView},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <update id="deleteSmallParkById" parameterType="Long">
+        update   sys_small_park set del_flag ='2' where id = #{id}
+    </update>
+
+    <delete id="deleteSmallParkByIds" parameterType="String">
+        update sys_small_park set del_flag ='2' where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <update id="delfile" parameterType="Integer">
+        update attachment_small_park set del_flag='2' where id=#{value}
+    </update>
+
+    <update id="updateattachlist" parameterType="SmallPark">
+         update attachment_small_park set park_id = #{id} where  file_uuid=#{fileUuid}
+    </update>
+
+    <select id="selectParkByLimit"  resultMap="SmallParkResult">
+        select id ,park_name,area_id,detailed_address,construction_state,rent_situation,enterprise_quantity,plan_building_space,land_space,used_building_space
+        from sys_small_park
+        where del_flag='0' order by id desc limit 4
+    </select>
+
+</mapper>

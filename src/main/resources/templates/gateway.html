@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+    <title>永康市数字小微园</title>
+    <link rel="stylesheet" th:href="@{/xwyjs/lib/layui/css/layui.css}">
+    <link rel="stylesheet" th:href="@{/xwyjs/css/all.css}">
+    <link rel="stylesheet" th:href="@{/xwyjs/css/style28.css}">
+
+    <link th:href="@{/css/font-awesome.min.css}" rel="stylesheet"/>
+    <link th:href="@{/css/style.css}" rel="stylesheet"/>
+    <link th:href="@{/css/login.min.css}" rel="stylesheet"/>
+    <link th:href="@{/netintech/css/nt-admin.css}" rel="stylesheet"/>
+</head>
+<style>
+    .I126_indexIfr{
+
+    }
+    .W128_t2 .W128_zc{
+        padding-top: 1px;
+    }
+    .W128_zc .layui-form-select{
+        border: none !important;
+        height: 97%;
+        width: 45%;
+        font-size: 1.4em;
+    }
+    .W128_zc .layui-form-select .layui-edge{
+        right: 25px;
+    }
+    .W128_zc .layui-form-select dl {
+        left: -13px;
+    }
+    html{
+        overflow: hidden;
+    }
+</style>
+<body>
+<div class="W128_Container layui-form">
+    <div class="W128_person">
+        <div class="W128_p1" id="time"></div>
+        <div class="W128_p2">您好 <span style="color:#ff5722;"> </span>, <a href="#"> </a> <a id="login" th:if="${user==null}">请登录</a><span   th:if="${user!=null}">[[${user.userName}]] &nbsp;&nbsp;&nbsp;&nbsp;<a href="index" target="_blank">个人中心</a> <a th:href="@{logout}">注销</a></span></div>
+    </div>
+    <div class="W128_title">
+        <div class="W128_t1"><img src="/xwyjs/images/28/W128_title.png" alt=""></div>
+        <div class="W128_t2">
+            <div class="W128_zc">
+                  <select  id="xiala" lay-verify="required" lay-search="">
+                      <option value ="1" >政策</option>
+                      <option value ="2">新闻</option>
+                      <option value="3">通知</option>
+                  </select>
+            </div>
+            <div class="W128_search">
+                <input type="text" id="search">
+                <img src="/xwyjs/images/28/w128_search.png" onclick="query()">
+            </div>
+        </div>
+    </div>
+    <div class="W128_imgBg">
+        <div class="W128_daohang">
+            <ul>
+                <li id="index" class="W128_current"> 首页</li>
+                <li id="news">新闻资讯</li>
+                <li id="notice">通知公告</li>
+                <li id="policy">政策服务</li>
+                <li id="park">小微园区</li>
+                <li id="party">党建服务</li>
+            </ul>
+        </div>
+    </div>
+    <div class="I126_indexIfr">
+<!--        <iframe name="ifd" id="I126_indexIfr" src="/index/home" height="100%" scrolling="no" frameborder="0" width="100%"></iframe>-->
+    </div>
+    <div class="W128_bottom">
+        <a href="javascript:;" onclick="this.style.behavior='url(#default#homepage)';this.setHomePage(window.location.href);return(false)">设为首页</a> |
+        <a href="javascript:;" onclick="AddFavorite(window.location.href,'加入收藏');">加入收藏</a> |
+        <a  onclick="gywm()">关于我们</a> | <a onclick="yssm()">隐私声明</a>
+    </div>
+    <div class="W128_bcontent1">
+        <p class="p1">主办单位：浙江省永康大数据局</p>
+        <p>地址：永康市金城路25号</p>
+        <p>浙IPC备06048641 网站标识码 3205900024</p>
+        <p> 浙公网安备 32059002001771号</p>
+        <img src="/xwyjs/images/28/W128_bicon.png" alt="">
+    </div>
+    <div class="X328_modalDiv" id="W128_loginModal" style="display: none;">
+        <div class="W128_modal">
+            <img src="/xwyjs/images/28/X328_close.png" alt="" class="X328_close" id="W128_close">
+            <p class="X328_p">用户登录</p>
+            <form id="signupForm">
+                <div class=" W128_m_content">
+                    <!--                    <ul class="W128_m_ul">-->
+                    <!--                        <li class="W128_li_current">政府用户</li>-->
+                    <!--                        <li>园区用户</li>-->
+                    <!--                        <li style="margin-right:0;">园企业户</li>-->
+                    <!--                    </ul>-->
+                    <div>
+                        <img src="/xwyjs/images/28/W128_loginName.png" alt="" class="W128_m_img1">
+                        <input type="text" class="X328_m_input W128_m_id" placeholder="请输入账号" name="username">
+                    </div>
+                    <div>
+                        <img src="/xwyjs/images/28/W128_loginTel.png" alt="" class="W128_m_img2">
+                        <input type="password" class="X328_m_input W128_m_pwd" placeholder="请输入密码" name="password" ></input>
+                    </div>
+
+                    <div th:if="${captchaEnabled==true}">
+
+                        <input type="text" name="validateCode" class="form-control code" placeholder="验证码" maxlength="5"
+                               autocomplete="off"
+                               style="width:40%;height: 4em;margin-top: 8%;display:inline;float: left;">
+
+                        <a href="javascript:void(0);" title="点击更换验证码">
+                            <img th:src="@{captcha/captchaImage(type=${captchaType})}" class="imgcode"
+                                 style="width:40%;height: 3em;margin-top: 8%;display: inline;float: right;"/>
+                        </a>
+                    </div>
+
+
+                    <!--<div class="checkbox-custom" th:classappend="${captchaEnabled==false} ? 'm-t'">
+                        <input type="checkbox" id="rememberme" name="rememberme"><label for="rememberme">记住我</label>
+                    </div>-->
+                </div>
+
+                <div class="m_bottom">
+                    <button class="yes" id="btnSubmit" data-loading="正在验证登录，请稍后...">登录</button>
+                    <button type="button" class="no" id="W128_no">取消</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+
+<!-- 全局js -->
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/ajax/libs/layer/layer.min.js}"></script>
+<script th:src="@{/xwyjs/lib/layui/layui.js}"></script>
+<!-- 验证插件 -->
+
+<script th:src="@{/xwyjs/js/main.js}"></script>
+<script th:src="@{/xwyjs/js/28/W128_js.js}"></script>
+<script th:src="@{/xwyjs/js/27/jquery.backgroundSize.js}"></script>
+<script th:src="@{/ajax/libs/validate/jquery.validate.min.js}"></script>
+<script th:src="@{/ajax/libs/validate/messages_zh.min.js}"></script>
+<script th:src="@{/ajax/libs/blockUI/jquery.blockUI.js}"></script>
+<script th:src="@{/netintech/js/nt-admin.js}"></script>
+<script th:src="@{/netintech/login.js}"></script>
+<script th:inline="javascript">
+    var ctx = [[@{/}]];
+    var captchaType = [[${captchaType}]];
+
+</script>
+<script>
+    //iframe防嵌套
+    if(window.parent != window){
+        window.parent.location.href = window.location.href;
+    }
+
+    function GetRequest() {
+
+        console.log("aaa");
+        var url = location.search;
+        if (url.indexOf("?") != -1) {
+            var str = url.substr(1);
+            $(".Nt_iframe").attr("src",str);
+        }
+    }
+
+    layui.use(['form'], function(){
+        var form = layui.form;
+    })
+    $(function(){
+        GetRequest;
+        var myDate = new Date;
+        var year = myDate.getFullYear(); //获取当前年
+        var mon = myDate.getMonth() + 1; //获取当前月
+        var date = myDate.getDate(); //获取当前日
+        var week = myDate.getDay();
+        var weeks = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"];
+        $("#time").html(year + "年" + mon + "月" + date + "日" + weeks[week]);
+
+        $('.W128_daohang > ul > li').click(function(){
+            $('.W128_daohang > ul > li').removeClass('W128_current')
+            $(this).addClass('W128_current')
+            if($(this).text() == '新闻资讯'){
+               $('#I126_indexIfr').attr('src','/index/newInfo/3')
+            }
+            if($(this).text() == ' 首页'){
+                $('#I126_indexIfr').attr('src','/index/home')
+            }
+            if($(this).text() == '通知公告'){
+                $('#I126_indexIfr').attr('src','/index/noticeInfo')
+            }
+            if($(this).text() == '政策服务'){
+                $('#I126_indexIfr').attr('src','/index/policyService')
+            }
+            if($(this).text() == '小微园区'){
+                $('#I126_indexIfr').attr('src','/index/parks')
+            }
+            if($(this).text() == '党建服务'){
+                $('#I126_indexIfr').attr('src','/index/parkService')
+            }
+        })
+    })
+    function changeIframe(height) {
+        $('.I126_indexIfr').attr('style','height:'+height)
+    }
+
+    function changeScroll() {
+        $('html,body').animate({scrollTop: 0}, 200);
+    }
+
+    function changHead(head) {
+        $('.W128_daohang > ul > li').removeClass('W128_current')
+        if(head == '新闻资讯'){
+            $('#news').addClass('W128_current')
+        }
+        if(head == '通知公告'){
+            $('#notice').addClass('W128_current')
+        }
+        if(head == '政策服务'){
+            $('#policy').addClass('W128_current')
+        }
+        if(head == '小微园区'){
+            $('#park').addClass('W128_current')
+        }
+    }
+
+    //关于我们
+    function gywm() {
+        $('.W128_daohang > ul > li').removeClass('W128_current')
+        $('#index').addClass('W128_current');
+        $('#I126_indexIfr').attr('src','/index/gywm')
+    }
+    //隐私声明
+    function yssm() {
+        $('.W128_daohang > ul > li').removeClass('W128_current')
+        $('#index').addClass('W128_current');
+        $('#I126_indexIfr').attr('src','/index/yssm')
+    }
+
+    function query() {
+        //获取类型
+        var type = $("#xiala").val();
+        console.log(type)
+        console.log($("#search").val() == "" );
+        //取key值
+        var keyword = '0';
+        if ($("#search").val() != "") {
+            keyword = $("#search").val()
+        }
+
+        $('.W128_daohang > ul > li').removeClass('W128_current')
+        if (type == 1) { //政策服务
+            $('#policy').addClass('W128_current')
+        }
+        if (type == 2) { //新闻
+            $('#news').addClass('W128_current')
+        }
+        if (type == 3) { //通知
+            $('#notice').addClass('W128_current')
+        }
+        console.log('/index/search/' + type + "/" + keyword)
+        $('#I126_indexIfr').attr('src','/index/search/' + type + "/" + keyword)
+    }
+
+    /**
+     * 加入收藏
+     */
+    function AddFavorite(url,title){
+        try
+        {
+            window.external.addFavorite(sURL, sTitle);
+        }
+    catch (e)
+        {
+            try
+            {
+                window.sidebar.addPanel(sTitle, sURL, "");
+            }
+            catch (e)
+            {
+                alert("加入收藏失败，请使用Ctrl+D进行添加");
+            }
+        }
+    }
+
+    function setHome(obj,url){
+        try{
+            obj.style.behavior = 'url(#default#homepage)';
+            obj.setHomePage(url);
+        }catch(e){
+            if(window.netscape){
+                try{
+                    netscape.security.PrivilegeManager.enablePrivilege('UniversalXPConnect');
+                }catch(e){
+                    alert('抱歉，此操作被浏览器拒绝！\n\n请在浏览器地址栏输入“about:config”并回车\n\n然后将[signed.applets.codebase_principal_support]的值设置为true，双击即可。');
+                }
+                var prefs = Components.classes['@mozilla.org/preferences-service;1'].getService(Components.interfaces.nsIPrefBranch);
+                prefs.setCharPref('browser.startup.homepage',url);
+            }else{
+                alert('抱歉，您所使用的浏览器无法完成此操作。\n\n您需要手动将【' + url + '】设置为首页。');
+            }
+        }
+    }
+
+
+</script>
+</html>

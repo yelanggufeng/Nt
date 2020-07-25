@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <link th:href="@{/css/update.css}" rel="stylesheet"/>
+    <th:block th:include="include :: header('查看【请填写功能名称】')" />
+</head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-gen-edit" th:object="${testGen}">
+            <input name="id" th:field="*{id}" type="hidden">
+
+        <div class="row">
+    <div class="col-sm-6">
+                    <div class="form-group">    
+                <label class="col-sm-3 control-label">${comment}：</label>
+                <div class="col-sm-8">
+                    <input name="name" th:field="*{name}" class="form-control" readonly="true" type="text">
+                </div>
+            </div>
+    </div>
+    
+            <div class="col-sm-6">
+                <div class="form-group">    
+                <label class="col-sm-3 control-label">${comment}：</label>
+                <div class="col-sm-8">
+                    <input name="age" th:field="*{age}" class="form-control" readonly="true" type="text">
+                </div>
+            </div>
+        </div>
+    </div>
+            </form>
+    </div>
+    <th:block th:include="include :: footer" />
+    <script type="text/javascript">
+        var prefix = ctx + "netintech/gen";
+        $("#form-gen-edit").validate({
+            focusCleanup: true
+        });
+
+        function submitHandler() {
+            if ($.validate.form()) {
+                $.operate.save(prefix + "/edit", $('#form-gen-edit').serialize());
+            }
+        }
+    </script>
+</body>
+</html>

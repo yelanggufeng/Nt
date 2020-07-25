@@ -1,0 +1,163 @@
+.N130_mapper {
+  width: 100%;
+  height: 100%;
+  min-height: 800px;
+  min-width: 1280px;
+  overflow: auto; }
+  .N130_mapper .N130_btn {
+    width: 100px;
+    height: 50px;
+    background-color: palevioletred;
+    border-radius: 5px;
+    margin: 100px auto;
+    color: #fff;
+    line-height: 50px;
+    text-align: center; }
+
+.N130_modal {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: #fff;
+  padding: 0em 4em 0em;
+  min-width: 960px;
+  min-height: 570px; }
+  .N130_modal .N130_top_content {
+    height: 49%;
+    border: 1px solid #cae0f3;
+    background-color: #e9f5fe;
+    padding: 2em; }
+    .N130_modal .N130_top_content .layui-form-label {
+      width: 8em;
+      letter-spacing: 2px;
+      text-align: right;
+      padding: 0;
+      line-height: 30px; }
+    .N130_modal .N130_top_content .layui-input,
+    .N130_modal .N130_top_content .layui-textarea {
+      width: 95%;
+      border-color: #c4ccee; }
+    .N130_modal .N130_top_content .layui-input,
+    .N130_modal .N130_top_content .layui-select,
+    .N130_modal .N130_top_content .layui-textarea {
+      height: 30px; }
+    .N130_modal .N130_top_content .layui-input-block {
+      min-height: 50px; }
+    .N130_modal .N130_top_content .layui-form-select .layui-edge {
+      right: 60px;
+      border-top-color: #6ba7e0; }
+    .N130_modal .N130_top_content .layui-form-select dl dd.layui-this {
+      background-color: #4ba6fe !important; }
+    .N130_modal .N130_top_content .N130_times {
+      width: 100%; }
+      .N130_modal .N130_top_content .N130_times .N130_1 {
+        width: 50%;
+        display: inline-block;
+        position: relative; }
+        .N130_modal .N130_top_content .N130_times .N130_1 #test1 {
+          width: 23em;
+          position: absolute;
+          right: 1.8em;
+          display: inline-block; }
+        .N130_modal .N130_top_content .N130_times .N130_1 .N130_1_tubiao {
+          position: absolute;
+          right: 2.5em;
+          top: 0.5em; }
+      .N130_modal .N130_top_content .N130_times .N130_2 {
+        width: 50%;
+        display: inline-block;
+        float: right;
+        position: relative; }
+        .N130_modal .N130_top_content .N130_times .N130_2 #test2 {
+          width: 23em;
+          display: inline-block; }
+        .N130_modal .N130_top_content .N130_times .N130_2 .N130_2_tubiao {
+          position: absolute;
+          right: 3.2em;
+          top: 0.5em; }
+  .N130_modal .N130_top_tip {
+    height: 7%;
+    line-height: 3.5em; }
+    .N130_modal .N130_top_tip .N130_tubiao {
+      display: inline-block;
+      width: 0.3em;
+      height: 1.2em;
+      background-color: #297bf1;
+      vertical-align: middle; }
+    .N130_modal .N130_top_tip .N130_zcfb {
+      font-size: 15px;
+      color: #3c4449;
+      vertical-align: middle;
+      margin-left: 0.5em; }
+  .N130_modal .N130_bottom_table {
+    height: 37%;
+    border: 1px solid #cae0f3;
+    background-color: #e9f5fe;
+    padding: 0em 2em; }
+    .N130_modal .N130_bottom_table .N130_bottom_btn {
+      height: 40px;
+      line-height: 40px; }
+      .N130_modal .N130_bottom_table .N130_bottom_btn .layui-btn {
+        height: 28px;
+        line-height: 28px;
+        width: 6em;
+        margin-left: 0px;
+        margin-right: 10px;
+        float: right;
+        margin-top: 1.2em; }
+    .N130_modal .N130_bottom_table .N130_bottom_biaoge .layui-table-sort {
+      display: none; }
+    .N130_modal .N130_bottom_table .N130_bottom_biaoge .layui-table-page {
+      display: none; }
+    .N130_modal .N130_bottom_table .N130_bottom_biaoge .layui-table-view {
+      margin: 15px 0; }
+    .N130_modal .N130_bottom_table .N130_bottom_biaoge .layui-table thead tr {
+      background-color: #d2eaff; }
+    .N130_modal .N130_bottom_table .N130_bottom_biaoge .layui-table td,
+    .N130_modal .N130_bottom_table .N130_bottom_biaoge .layui-table th,
+    .N130_modal .N130_bottom_table .N130_bottom_biaoge .layui-table-col-set,
+    .N130_modal .N130_bottom_table .N130_bottom_biaoge .layui-table-fixed-r,
+    .N130_modal .N130_bottom_table .N130_bottom_biaoge .layui-table-grid-down,
+    .N130_modal .N130_bottom_table .N130_bottom_biaoge .layui-table-header,
+    .N130_modal .N130_bottom_table .N130_bottom_biaoge .layui-table-page,
+    .N130_modal .N130_bottom_table .N130_bottom_biaoge .layui-table-tips-main,
+    .N130_modal .N130_bottom_table .N130_bottom_biaoge .layui-table-tool,
+    .N130_modal .N130_bottom_table .N130_bottom_biaoge .layui-table-total,
+    .N130_modal .N130_bottom_table .N130_bottom_biaoge .layui-table-view,
+    .N130_modal .N130_bottom_table .N130_bottom_biaoge .layui-table[lay-skin=line],
+    .N130_modal .N130_bottom_table .N130_bottom_biaoge .layui-table[lay-skin=row] {
+      border-color: #cae0f3; }
+  .N130_modal .N130_panduan .layui-form-radio div {
+    margin-right: 2em; }
+  .N130_modal .N130_panduan .layui-form-radio > i {
+    font-size: 14px; }
+  .N130_modal .layui-form-radio > i:hover,
+  .N130_modal .layui-form-radioed > i {
+    color: #3e9ffe; }
+  .N130_modal .layui-form-radio > i {
+    font-size: 14px; }
+  .N130_modal .layui-form-radio {
+    padding-right: 38px; }
+
+.layui-layer .layui-layer-btn {
+  text-align: center;
+  height: 60px;
+  padding: 0;
+  margin: 0; }
+  .layui-layer .layui-layer-btn .layui-layer-btn0 {
+    width: 105px;
+    height: 37px;
+    line-height: 37px;
+    background-color: #2a7bf2;
+    color: #fff;
+    border: none;
+    font-size: 14px;
+    margin-right: 141px; }
+  .layui-layer .layui-layer-btn .layui-layer-btn1 {
+    width: 105px;
+    height: 37px;
+    line-height: 37px;
+    background-color: #fff;
+    color: #2a7bf2;
+    font-size: 14px;
+    border: 1px solid #2a7bf2; }

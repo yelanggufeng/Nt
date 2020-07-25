@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <link th:href="@{/css/update.css}" rel="stylesheet"/>
+    <th:block th:include="include :: header('查看数字小微园信息')" />
+</head>
+<body class="white-bg" style="overflow: hidden;">
+
+    <div class="Y128_ditu" id="ditu" tabindex="0">
+        <div class="Y128_ditucx">
+            <input type="text" class="Y128_dituSearch" id="shuru"><img src="/xwyjs/images/28/Y128_search.png" alt="" class="Y128_icon"><button class="Y128_search" id="btn" >查询</button>
+            <span class="Y128_jin" >经度</span>
+            <input type="text" style="color: #101010;" id="lon" name="lon" required>
+            <span class="Y128_jin" >纬度</span>
+            <input type="text" style="color: #101010;" id="lat" name="lat" required>
+            <button class="Y128_search Y128_baocun" id="btn2" >定位</button>
+            <input id='address' type="text" disabled style="display: none;">
+        </div>
+    </div>
+
+    <script type="text/javascript" src="https://cache.amap.com/lbs/static/addToolbar.js"></script>
+    <script src="https://a.amap.com/jsapi_demos/static/demo-center/js/demoutils.js"></script>
+    <script src="https://webapi.amap.com/maps?v=1.4.15&key=358df98d6a1422dc83713fddaa8d260c&plugin=AMap.Autocomplete,AMap.PlaceSearch,AMap.Geocoder"></script>
+    <script type="text/javascript">
+        var map = new AMap.Map('ditu', {
+            center:[120.027622,28.882803],
+            zoom:11
+        });
+
+        //输入提示
+        var autoOptions = {
+            input: "shuru"
+        };
+        var auto = new AMap.Autocomplete(autoOptions);
+        AMap.event.addListener(auto,'select',function (e) {
+            placeSearch.setCity(e.poi.adcode);
+            placeSearch.search(e.poi.name);
+        })  //搜索建议点击事件
+
+        var placeSearch = new AMap.PlaceSearch({
+            map: map
+        });  //构造地点查询类
+        AMap.event.addListener(placeSearch,'markerClick',function (e) {
+            console.log(e)
+            document.getElementById("lon").value = e.data.location.lng
+            document.getElementById("lat").value = e.data.location.lat
+        })  //地点查询marker点击事件
+
+        var btn=document.getElementById("btn")
+        // //注册监听，当选中某条记录时会触发
+        btn.onclick=function(){
+            var key = document.getElementById("shuru").value;
+
+            placeSearch.setCity(key);
+            placeSearch.search(key);
+        }
+
+        var btn2 = document.getElementById("btn2")
+        var geocoder = new AMap.Geocoder({
+            city: "010", //城市设为北京，默认：“全国”
+            radius: 1000 //范围，默认：500
+        });
+        btn2.onclick=function(){
+            var jindu=document.getElementById("lon").value;
+            var weidu=document.getElementById("lat").value;
+            var str = jindu+','+weidu
+            var arr = str.split(","); //转数组
+            var marker = new AMap.Marker();
+            map.add(marker);
+            marker.setPosition(arr);
+            geocoder.getAddress(arr, function(status, result) {
+                if (status === 'complete'&&result.regeocode) {
+                    var address = result.regeocode.formattedAddress;
+                    document.getElementById('address').value = address;
+                    map.add(marker);
+                    map.setFitView(marker);
+                }else{
+                    log.error('根据经纬度查询地址失败')
+                }
+            });
+        }
+    </script>
+</body>
+</html>

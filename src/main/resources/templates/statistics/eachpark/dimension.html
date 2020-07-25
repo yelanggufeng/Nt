@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+    <title>永康市数字小微园政府监管应用</title>
+    <link rel="stylesheet" th:href="@{/xwyjs/css/all.css}">
+    <link rel="stylesheet" th:href="@{/xwyjs/css/style_10.css}">
+    <link rel="stylesheet" th:href="@{/xwyjs/lib/layui/css/layui.css}">
+    <style>
+        html {
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+<div class="P210_content">
+    <div class="P210_title">
+        <div class="P210_title_text">
+            <input id="id" name="id" th:value="*{id}" type="hidden">
+            <span>园区总览>总览>
+                <select id="parkId" name="parkId" th:onchange="changePark(this.options[this.options.selectedIndex].value)"  th:with="type=${@dict.getParkList()}">
+                    <option th:each="ParamEntity : ${type}" th:text="${ParamEntity.key}"  th:value="${ParamEntity.value}" th:selected="${ParamEntity.value} eq *{id}" ></option>
+                </select>
+                </span>
+        </div>
+    </div>
+    <iframe class="P110_iframe"  th:src='@{/statistics/eachpark/ndimension/{parkId}(parkId=${id})}'  frameborder="0"></iframe>
+</div>
+<script src="//webapi.amap.com/maps?v=1.4.15&key=358df98d6a1422dc83713fddaa8d260c&plugin=AMap.DistrictSearch"></script>
+<script th:src="@{/xwyjs/js/jquery.min.js}"></script>
+<script th:src="@{/xwyjs/js/main.js}"></script>
+<script th:src="@{/xwyjs/js/27/jquery.backgroundSize.js}"></script>
+<script th:src="@{/xwyjs/js/echarts/echarts.js}"></script>
+<script th:src="@{/xwyjs/lib/layui/layui.js}"></script>
+<script  th:inline="javascript">
+    var id = $("#id").val();
+    console.log(id) ;
+    function changePark(id) {
+        console.log(id)
+        var url = '/statistics/eachpark/ndimension/'+id;
+        $('.P110_iframe').attr('src',url);
+
+    }
+
+</script>
+</body>
+</html>

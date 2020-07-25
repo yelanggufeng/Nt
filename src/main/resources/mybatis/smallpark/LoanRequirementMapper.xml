@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.netintech.park.mapper.LoanRequirementMapper">
+
+
+    <resultMap type="com.netintech.park.domain.LoanRequirement" id="LoanRequirementResult">
+        <result property="id"    column="id"    />
+        <result property="fileUuid"    column="file_uuid"    />
+        <result property="requirementName"    column="requirement_name"    />
+        <result property="loanLimit"    column="loan_limit"    />
+        <result property="loanTerm"    column="loan_term"    />
+        <result property="totalAsset"    column="total_asset"    />
+        <result property="totalDebt"    column="total_debt"    />
+        <result property="purpose"    column="purpose"    />
+        <result property="guaranteeMethodId"    column="guarantee_method_id"    />
+        <result property="parkId"    column="park_id"    />
+        <result property="enterpriseId"    column="enterprise_id"    />
+        <result property="status"    column="status"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+    <resultMap type="com.netintech.park.domain.dto.LoanRequirementDto" id="LoanRequirementResultList">
+        <result property="id"    column="id"    />
+        <result property="fileUuid"    column="file_uuid"    />
+        <result property="requirementName"    column="requirement_name"    />
+        <result property="loanLimit"    column="loan_limit"    />
+        <result property="loanTerm"    column="loan_term"    />
+        <result property="totalAsset"    column="total_asset"    />
+        <result property="totalDebt"    column="total_debt"    />
+        <result property="purpose"    column="purpose"    />
+        <result property="guaranteeMethodId"    column="guarantee_method_id"    />
+        <result property="parkId"    column="park_id"    />
+        <result property="enterpriseId"    column="enterprise_id"    />
+        <result property="status"    column="status"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+      <!--  <association property="smallPark"    column="id" javaType="com.netintech.park.domain.SmallPark" resultMap="SmallParkResult" />-->
+        <collection  property="attachmentLoanRequirementList"   javaType="java.util.List"  ofType="com.netintech.park.domain.AttachmentLoanRequirement" >
+            <result property="id"    column="attachmentLoanRequirementId"    />
+            <result property="requirementId"    column="requirement_id"    />
+            <result property="fileUuid"    column="file_uuid"    />
+            <result property="fileName"    column="file_name"    />
+            <result property="fileAlias"    column="file_alias"    />
+            <result property="filePath"    column="file_path"    />
+            <result property="delFlag"    column="del_flag"    />
+            <result property="createBy"    column="create_by"    />
+            <result property="createTime"    column="create_time"    />
+        </collection>
+        <collection property="loanFinanceDataList" javaType="java.util.List" ofType="com.netintech.park.domain.LoanFinanceData">
+            <result property="id"    column="loanFinanceDataId"    />
+            <result property="requirementId"    column="requirement_id"    />
+            <result property="year"    column="year"    />
+            <result property="businessIncome"    column="business_income"    />
+            <result property="netProfit"    column="net_profit"    />
+            <result property="delFlag"    column="del_flag"    />
+            <result property="createBy"    column="create_by"    />
+            <result property="createTime"    column="create_time"    />
+        </collection>
+    </resultMap>
+
+    <resultMap type="com.netintech.park.domain.SmallPark" id="SmallParkResult">
+        <result property="id" column="id"/>
+        <result property="parkName" column="park_name"/>
+        <result property="constructionState" column="construction_state"/>
+        <result property="areaId" column="area_id"/>
+        <result property="detailedAddress" column="detailed_address"/>
+        <result property="startTime" column="start_time"/>
+        <result property="completionTime" column="completion_time"/>
+        <result property="commissioningTime" column="commissioning_time"/>
+        <result property="leadingIndustryId" column="leading_industry_id"/>
+        <result property="enterpriseQuantity" column="enterprise_quantity"/>
+        <result property="planBuildingSpace" column="plan_building_space"/>
+        <result property="landSpace" column="land_space"/>
+        <result property="usedBuildingSpace" column="used_building_space"/>
+        <result property="dormitorySpace" column="dormitory_space"/>
+        <result property="progress" column="progress"/>
+        <result property="buildMode" column="build_mode"/>
+        <result property="rentSituation" column="rent_situation"/>
+        <result property="planInvestmentTotal" column="plan_investment_total"/>
+        <result property="stateOwnedInvestment" column="state_owned_investment"/>
+        <result property="collectiveInvestment" column="collective_investment"/>
+        <result property="privateInvestment" column="private_investment"/>
+        <result property="otherInvestment" column="other_investment"/>
+        <result property="actualInvestmentTotal" column="actual_investment_total"/>
+        <result property="buildUnitName" column="build_unit_name"/>
+        <result property="buildContactName" column="build_contact_name"/>
+        <result property="buildContactTel" column="build_contact_tel"/>
+        <result property="buildContactMail" column="build_contact_mail"/>
+        <result property="operationUnitName" column="operation_unit_name"/>
+        <result property="operationContactName" column="operation_contact_name"/>
+        <result property="operationContactTel" column="operation_contact_tel"/>
+        <result property="operationContactMail" column="operation_contact_mail"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="lon" column="lon"/>
+        <result property="lat" column="lat"/>
+        <result property="parkLevel" column="park_level"/>
+        <result property="parkDesc" column="park_desc"/>
+        <result property="fileUuid" column="file_uuid"/>
+        <result property="estimatedSalesRevenue" column="estimated_sales_revenue"/>
+        <result property="estimatedProfitTax" column="estimated_profit_tax"/>
+        <result property="developmentConstructionMode" column="development_construction_mode"/>
+        <result property="newWay" column="new_way"/>
+        <result property="liveView" column="live_view"/>
+    </resultMap>
+
+
+    <sql id="selectResultLoanRequirementVo">
+        SELECT
+	a.id,
+	a.file_uuid AS fileUuid,
+	a.requirement_name,
+	a.loan_limit,
+	a.loan_term,
+	a.total_asset,
+	a.total_debt,
+	a.purpose,
+	a.guarantee_method_id,
+	a.park_id,
+	a.enterprise_id,
+	a.STATUS,
+	a.del_flag,
+	a.create_by,
+	a.create_time,
+	a.update_by,
+	a.update_time,
+	b.id AS loanFinanceDataId,
+	b.requirement_id,
+	b.YEAR,
+	b.business_income,
+	b.net_profit,
+	c.id AS attachmentLoanRequirementId,
+	c.file_uuid,
+	c.file_name,
+	c.file_alias,
+	c.file_path
+FROM
+	sys_loan_requirement a
+	LEFT JOIN sys_loan_finance_data b ON a.id = b.requirement_id
+	LEFT JOIN attachment_loan_requirement c ON a.id = c.requirement_id
+    </sql>
+
+    <sql id="selectLoanRequirementVo">
+        select id, file_uuid, requirement_name, loan_limit, loan_term, total_asset, total_debt, purpose, guarantee_method_id, park_id, enterprise_id, status, del_flag, create_by, create_time, update_by, update_time from sys_loan_requirement
+    </sql>
+
+    <select id="findByLoanRequirement" parameterType="com.netintech.park.domain.dto.LoanRequirementDto" resultMap="LoanRequirementResultList">
+        SELECT
+        a.id,
+        a.file_uuid AS fileUuid,
+        a.requirement_name,
+        a.loan_limit,
+        a.loan_term,
+        a.total_asset,
+        a.total_debt,
+        a.purpose,
+        a.guarantee_method_id,
+        a.park_id,
+        a.enterprise_id,
+        a.STATUS,
+        a.del_flag,
+        a.create_by,
+        a.create_time,
+        a.update_by,
+        a.update_time,
+        b.id AS loanFinanceDataId,
+        b.requirement_id,
+        b.YEAR,
+        b.business_income,
+        b.net_profit,
+        c.id AS attachmentLoanRequirementId,
+        c.file_uuid,
+        c.file_name,
+        c.file_alias,
+        c.file_path
+        FROM
+        sys_loan_requirement a
+        LEFT JOIN sys_loan_finance_data b ON a.id = b.requirement_id
+        LEFT JOIN attachment_loan_requirement c ON a.id = c.requirement_id
+        WHERE
+        a.del_flag = 0
+        AND b.del_flag = 0
+        AND c.del_flag = 0
+        <if test="fileUuid != null  and fileUuid != ''"> and a.file_uuid = #{fileUuid}</if>
+        <if test="requirementName != null  and requirementName != ''"> and a.requirement_name like concat('%', #{requirementName}, '%')</if>
+        <if test="loanLimit != null "> and a.loan_limit = #{loanLimit}</if>
+        <if test="loanTerm != null "> and a.loan_term = #{loanTerm}</if>
+        <if test="totalAsset != null "> and a.total_asset = #{totalAsset}</if>
+        <if test="totalDebt != null "> and a.total_debt = #{totalDebt}</if>
+        <if test="purpose != null  and purpose != ''"> and a.purpose = #{purpose}</if>
+        <if test="guaranteeMethodId != null "> and a.guarantee_method_id = #{guaranteeMethodId}</if>
+        <if test="parkId != null "> and a.park_id = #{parkId}</if>
+        <if test="enterpriseId != null "> and a.enterprise_id = #{enterpriseId}</if>
+        <if test="status != null  and status != ''"> and a.status = #{status}</if>
+    </select>
+
+    <select id="selectLoanRequirementList" parameterType="com.netintech.park.domain.LoanRequirement" resultMap="LoanRequirementResult">
+        <include refid="selectLoanRequirementVo"/>
+        where del_flag=0
+        <if test="fileUuid != null  and fileUuid != ''"> and file_uuid = #{fileUuid}</if>
+        <if test="requirementName != null  and requirementName != ''"> and requirement_name like concat('%', #{requirementName}, '%')</if>
+        <if test="loanLimit != null "> and loan_limit = #{loanLimit}</if>
+        <if test="loanTerm != null "> and loan_term = #{loanTerm}</if>
+        <if test="totalAsset != null "> and total_asset = #{totalAsset}</if>
+        <if test="totalDebt != null "> and total_debt = #{totalDebt}</if>
+        <if test="purpose != null  and purpose != ''"> and purpose = #{purpose}</if>
+        <if test="guaranteeMethodId != null "> and guarantee_method_id = #{guaranteeMethodId}</if>
+        <if test="parkId != null "> and park_id = #{parkId}</if>
+        <if test="enterpriseId != null "> and enterprise_id = #{enterpriseId}</if>
+        <if test="status != null  and status != ''"> and status = #{status}</if>
+    </select>
+
+    <select id="findById" parameterType="Long" resultMap="LoanRequirementResultList">
+        <include refid="selectLoanRequirementVo"/>
+        where id = #{id}
+    </select>
+
+    <select id="selectLoanRequirementById" parameterType="Long" resultMap="LoanRequirementResult">
+        <include refid="selectLoanRequirementVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertLoanRequirement" parameterType="com.netintech.park.domain.LoanRequirement" useGeneratedKeys="true" keyProperty="id">
+        insert into sys_loan_requirement
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="fileUuid != null  and fileUuid != ''">file_uuid,</if>
+            <if test="requirementName != null  and requirementName != ''">requirement_name,</if>
+            <if test="loanLimit != null ">loan_limit,</if>
+            <if test="loanTerm != null ">loan_term,</if>
+            <if test="totalAsset != null ">total_asset,</if>
+            <if test="totalDebt != null ">total_debt,</if>
+            <if test="purpose != null  and purpose != ''">purpose,</if>
+            <if test="guaranteeMethodId != null ">guarantee_method_id,</if>
+            <if test="parkId != null ">park_id,</if>
+            <if test="enterpriseId != null ">enterprise_id,</if>
+            <if test="status != null  and status != ''">status,</if>
+            <if test="delFlag != null  and delFlag != ''">del_flag,</if>
+            <if test="createBy != null  and createBy != ''">create_by,</if>
+            <if test="createTime != null ">create_time,</if>
+            <if test="updateBy != null  and updateBy != ''">update_by,</if>
+            <if test="updateTime != null ">update_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="fileUuid != null  and fileUuid != ''">#{fileUuid},</if>
+            <if test="requirementName != null  and requirementName != ''">#{requirementName},</if>
+            <if test="loanLimit != null ">#{loanLimit},</if>
+            <if test="loanTerm != null ">#{loanTerm},</if>
+            <if test="totalAsset != null ">#{totalAsset},</if>
+            <if test="totalDebt != null ">#{totalDebt},</if>
+            <if test="purpose != null  and purpose != ''">#{purpose},</if>
+            <if test="guaranteeMethodId != null ">#{guaranteeMethodId},</if>
+            <if test="parkId != null ">#{parkId},</if>
+            <if test="enterpriseId != null ">#{enterpriseId},</if>
+            <if test="status != null  and status != ''">#{status},</if>
+            <if test="delFlag != null  and delFlag != ''">#{delFlag},</if>
+            <if test="createBy != null  and createBy != ''">#{createBy},</if>
+            <if test="createTime != null ">#{createTime},</if>
+            <if test="updateBy != null  and updateBy != ''">#{updateBy},</if>
+            <if test="updateTime != null ">#{updateTime},</if>
+        </trim>
+    </insert>
+
+    <update id="updateLoanRequirement" parameterType="com.netintech.park.domain.LoanRequirement">
+        update sys_loan_requirement
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="fileUuid != null  and fileUuid != ''">file_uuid = #{fileUuid},</if>
+            <if test="requirementName != null  and requirementName != ''">requirement_name = #{requirementName},</if>
+            <if test="loanLimit != null ">loan_limit = #{loanLimit},</if>
+            <if test="loanTerm != null ">loan_term = #{loanTerm},</if>
+            <if test="totalAsset != null ">total_asset = #{totalAsset},</if>
+            <if test="totalDebt != null ">total_debt = #{totalDebt},</if>
+            <if test="purpose != null  and purpose != ''">purpose = #{purpose},</if>
+            <if test="guaranteeMethodId != null ">guarantee_method_id = #{guaranteeMethodId},</if>
+            <if test="parkId != null ">park_id = #{parkId},</if>
+            <if test="enterpriseId != null ">enterprise_id = #{enterpriseId},</if>
+            <if test="status != null  and status != ''">status = #{status},</if>
+            <if test="delFlag != null  and delFlag != ''">del_flag = #{delFlag},</if>
+            <if test="createBy != null  and createBy != ''">create_by = #{createBy},</if>
+            <if test="createTime != null ">create_time = #{createTime},</if>
+            <if test="updateBy != null  and updateBy != ''">update_by = #{updateBy},</if>
+            <if test="updateTime != null ">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteLoanRequirementById" parameterType="Long">
+        delete from sys_loan_requirement where id = #{id}
+    </delete>
+
+    <delete id="deleteLoanRequirementByIds" parameterType="String">
+        update sys_loan_requirement set del_flag=2 where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

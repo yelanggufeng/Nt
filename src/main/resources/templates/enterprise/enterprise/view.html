@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link th:href="@{/css/update.css}" rel="stylesheet"/>
+    <th:block th:include="include :: header('查看企业信息')"/>
+    <th:block th:include="include :: datetimepicker-css"/>
+</head>
+<body class="white-bg">
+<div class="wrapper wrapper-content animated fadeInRight ibox-content">
+    <form class="form-horizontal m" id="form-enterprise-edit" th:object="${enterprise}">
+        <input name="id" th:field="*{id}" type="hidden">
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">企业名称：</label>
+                    <div class="col-sm-8">
+                        <input name="enterpriseName" th:field="*{enterpriseName}" class="form-control" readonly="true"
+                               type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">所属数字小微园ID：</label>
+                    <div class="col-sm-8">
+                        <select name="smallId" class="form-control m-b">
+                            <option value="">所有</option>
+                        </select>
+                        <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 代码生成请选择字典属性</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">统一社会信用代码：</label>
+                    <div class="col-sm-8">
+                        <input name="creditCode" th:field="*{creditCode}" class="form-control" readonly="true"
+                               type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">所属区域ID：</label>
+                    <div class="col-sm-8">
+                        <select name="areaId" class="form-control m-b">
+                            <option value="">所有</option>
+                        </select>
+                        <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 代码生成请选择字典属性</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">所属区域ID子级：</label>
+                    <div class="col-sm-8">
+                        <select name="areaChildId" class="form-control m-b">
+                            <option value="">所有</option>
+                        </select>
+                        <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 代码生成请选择字典属性</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">行业代码：</label>
+                    <div class="col-sm-8">
+                        <input name="industryCode" th:field="*{industryCode}" class="form-control" readonly="true"
+                               type="text">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">纳税人识别号：</label>
+                    <div class="col-sm-8">
+                        <input name="taxpayerCode" th:field="*{taxpayerCode}" class="form-control" readonly="true"
+                               type="text">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">负责人：</label>
+                    <div class="col-sm-8">
+                        <input name="chargePerson" th:field="*{chargePerson}" class="form-control" readonly="true"
+                               type="text">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">联系电话：</label>
+                    <div class="col-sm-8">
+                        <input name="contactTel" th:field="*{contactTel}" class="form-control" readonly="true"
+                               type="text">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">所在楼栋：</label>
+                    <div class="col-sm-8">
+                        <input name="buildingNo" th:field="*{buildingNo}" class="form-control" readonly="true"
+                               type="text">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">所在楼层：</label>
+                    <div class="col-sm-8">
+                        <input name="floorNo" th:field="*{floorNo}" class="form-control" readonly="true" type="text">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">详细地址：</label>
+                    <div class="col-sm-8">
+                        <input name="detailedAddress" th:field="*{detailedAddress}" class="form-control" readonly="true"
+                               type="text">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">主导产品：</label>
+                    <div class="col-sm-8">
+                        <input name="leadingProducts" th:field="*{leadingProducts}" class="form-control" readonly="true"
+                               type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">入驻形式：</label>
+                    <div class="col-sm-8">
+                        <select name="intoForm" class="form-control m-b" readonly="true"
+                                th:with="type=${@dict.getType('sys_residence_form')}">
+                            <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"
+                                    th:field="*{intoForm}"></option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">入驻时间：</label>
+                    <div class="col-sm-8">
+                        <div class="input-group date">
+                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                            <input name="intoTime" th:value="${#dates.format(enterprise.intoTime, 'yyyy-MM-dd')}"
+                                   readonly="true" class="form-control" placeholder="yyyy-MM-dd" type="text">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">占地面积：</label>
+                    <div class="col-sm-8">
+                        <input name="landSpace" th:field="*{landSpace}" class="form-control" readonly="true"
+                               type="text">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">建筑面积：</label>
+                    <div class="col-sm-8">
+                        <input name="buildingSpace" th:field="*{buildingSpace}" class="form-control" readonly="true"
+                               type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">是否规上企业：</label>
+                    <div class="col-sm-8">
+                        <div class="radio-box" th:each="dict : ${@dict.getType('yesorno')}">
+                            <input type="radio" th:id="${'isRegulated_' + dict.dictCode}" name="isRegulated"
+                                   readonly="true" th:value="${dict.dictValue}" th:field="*{isRegulated}">
+                            <label th:for="${'isRegulated_' + dict.dictCode}" th:text="${dict.dictLabel}"></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">是否科技型企业：</label>
+                    <div class="col-sm-8">
+                        <div class="radio-box" th:each="dict : ${@dict.getType('yesorno')}">
+                            <input type="radio" th:id="${'isTechnology_' + dict.dictCode}" name="isTechnology"
+                                   readonly="true" th:value="${dict.dictValue}" th:field="*{isTechnology}">
+                            <label th:for="${'isTechnology_' + dict.dictCode}" th:text="${dict.dictLabel}"></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">是否高新企业：</label>
+                    <div class="col-sm-8">
+                        <div class="radio-box" th:each="dict : ${@dict.getType('yesorno')}">
+                            <input type="radio" th:id="${'isHighTech_' + dict.dictCode}" name="isHighTech"
+                                   readonly="true" th:value="${dict.dictValue}" th:field="*{isHighTech}">
+                            <label th:for="${'isHighTech_' + dict.dictCode}" th:text="${dict.dictLabel}"></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">经度：</label>
+                    <div class="col-sm-8">
+                        <input name="lon" th:field="*{lon}" class="form-control" readonly="true" type="text">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">纬度：</label>
+                    <div class="col-sm-8">
+                        <input name="lat" th:field="*{lat}" class="form-control" readonly="true" type="text">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<th:block th:include="include :: footer"/>
+<th:block th:include="include :: datetimepicker-js"/>
+<script type="text/javascript">
+    var prefix = ctx + "enterprise/enterprise";
+    $("#form-enterprise-edit").validate({
+        focusCleanup: true
+    });
+
+    function submitHandler() {
+        if ($.validate.form()) {
+            $.operate.save(prefix + "/edit", $('#form-enterprise-edit').serialize());
+        }
+    }
+
+    $("input[name='intoTime']").datetimepicker({
+        format: "yyyy-mm-dd",
+        minView: "month",
+        autoclose: true
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+        <title>项目推进</title>
+        <link rel="stylesheet" th:href="@{/xwyjs/css/all.css}">
+        <link rel="stylesheet" th:href="@{/xwyjs/css/particle.css}">
+        <link rel="stylesheet" th:href="@{/xwyjs/css/animate.css}">
+        <link rel="stylesheet" th:href="@{/xwyjs/css/style_26.css}">
+        <link rel="stylesheet" th:href="@{/xwyjs/css/style_16.css}">
+        <link rel="stylesheet" th:href="@{/xwyjs/lib/layui/css/layui.css}">
+    </head>
+
+    <style>
+        .P016_xmtjTxt p .P016_xmtjTxt1Big{
+            font-size: 1.5rem;
+        }
+        .P016_xmtjOne .P016_xmtjTxt1{
+            line-height: 3vh;
+        }
+        .P016_xmtjOne{
+            line-height: 4.5vh;
+        }
+    </style>
+
+    <body>
+        <div class="D126_wapper">
+            <div class="D126_content animated bounceIn" th:object="${bean}">
+                <div msg-data="css漂浮的粒子" class="R126_cr_particle">
+                    <div class="container">
+                    </div>
+                </div>
+                <div class="R126_top" >
+                    <div class="R126_map P016l_left">
+                        <div class="D126_left_title">项目推进情况</div>
+                        <div class="R126_mapContain">
+                            <div class="P016_xmtjOne">
+                                <div class="P016_xmtjLabel">项目总数（个）</div>
+                                <div class="P016_xmtjTxt">[[${bean.sumCount}]]</div>
+                            </div>
+                            <div class="P016_xmtjOne">
+                                <div class="P016_xmtjLabel">投资额（百万元）</div>
+                                <div class="P016_xmtjTxt P016_xmtjTxt1">
+                                    <p>
+                                        <span class="P016_xmtjTxt1Small" style="color: #ffffff;">总额</span>
+                                        <span class="P016_xmtjTxt1Big">[[${#numbers.formatDecimal(bean.planInvestmentTotal/100,1,0,'POINT')}]]</span>
+                                    </p>
+                                    <p>
+                                        <span class="P016_xmtjTxt1Small" style="color: #ffffff;">已完成</span>
+                                        <span class="P016_xmtjTxt1Big" style="color: #F39800;">[[${#numbers.formatDecimal(bean.actualInvestmentTotal/100,1,0,'POINT')}]]</span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="P016_xmtjOne">
+                                <div class="P016_xmtjLabel">
+                                    预计销售收入（百万元）
+                                </div>
+                                <div class="P016_xmtjTxt">[[${#numbers.formatDecimal(bean.estimatedSalesRevenue/100,1,0,'POINT')}]]</div>
+                            </div>
+                            <div class="P016_xmtjOne">
+                                <div class="P016_xmtjLabel">
+                                    预计形成总利税（百万元）
+                                </div>
+                                <div class="P016_xmtjTxt">[[${#numbers.formatDecimal(bean.estimatedProfitTax/100,1,0,'POINT')}]]</div>
+                            </div>
+                            <div class="P016_xmtjCards">
+                                <div class="P016_xmtjCardsOne">
+                                    <p class="P016_xmtjCardsOneImg" style="color: #3CFF00;">[[${bean.start}]]</p>
+                                    <p class="P016_xmtjCardsOneTxt">开工</p>
+                                </div>
+                                <div class="P016_xmtjCardsOne">
+                                    <p class="P016_xmtjCardsOneImg" style="color: #00FFFF">[[${bean.operate}]]</p>
+                                    <p class="P016_xmtjCardsOneTxt">运营</p>
+                                </div>
+                                <div class="P016_xmtjCardsOne">
+                                    <p class="P016_xmtjCardsOneImg" style="color: #f00;">[[${bean.proposed}]]</p>
+                                    <p class="P016_xmtjCardsOneTxt">拟建</p>
+                                </div>
+                                <div class="P016_xmtjCardsOne">
+                                    <p class="P016_xmtjCardsOneImg" style="color: #DA00FF;">[[${bean.listing}]]</p>
+                                    <p class="P016_xmtjCardsOneTxt">挂牌</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="R126_top_right P016l_middle">
+                        <div class="D126_top_center">
+                            <div class="D126_left_title">建设规模</div>
+                            <div class="P016_middleContent">
+                                <div class="P016_middleItem">
+                                    <div class="P016_middleItemTop">
+                                        <span id="zdmj">占地面积</span>
+                                        <span>亩</span>
+                                    </div>
+                                    <div class="P016_middleItemBottom">
+                                        <div class="P016_middleItemBottomGh" id="P016_middleItemBottomGh" style="width: 100%;height: 100%;"></div>
+                                        <div class="P016_middleItemBottomywc" id="P016_middleItemBottomywc" style="width: 100%;height: 100%;"></div>
+                                    </div>
+                                </div>
+                                <div class="P016_middleItem">
+                                    <div class="P126_earth">
+                                        <img th:src="@{/xwyjs/images/26/P126_earth.png}" class="R126_earth" />
+                                        <div class="star-animate">
+                                            <div class="out_circle">
+                                                <div class="nav_circle r1">
+<!--                                                    <img class="center-img1" th:src="@{/xwyjs/images/26/P126_earth.png}" />-->
+                                                    <div class="img_top img">
+                                                        <img th:src="@{/xwyjs/images/26/P126_circle.png}" />
+                                                    </div>
+                                                    <div class="img_bottom img">
+                                                        <img th:src="@{/xwyjs/images/26/P126_circle.png}" />
+                                                    </div>
+                                                    <div class="img_bottom2 img">
+                                                        <img th:src="@{/xwyjs/images/26/P126_circle.png}" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="R126_right_bottom">
+                            <div class="R126_tax">
+                                <div class="D126_left_title">新增方式</div>
+                                <div
+                                    id="R126_taxChart"
+                                    class="R126_taxChart"
+                                    style="width: 100%;height: 75%;"
+                                ></div>
+                            </div>
+                            <div class="R126_output">
+                                <div class="D126_left_title">开发建设模式</div>
+                                <div
+                                    id="R126_outputChart"
+                                    class="R126_outputChart"
+                                    style="width: 100%;height: 75%;"
+                                ></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="R126_top_right P016l_Right" style="overflow: hidden;">
+                        <div class="D126_left_title">园区建设进度</div>
+                        <div id="P126_projectChart" style="width: 100%;height: 45%;"></div>
+                        <div class="P126_right_content" style="overflow-y: auto;">
+                            <div class="P126_contenItem" th:each="item,itemStat : ${list}" >
+                                <div>
+                                    <span>[[${item.name}]]</span>
+                                    <span>[[${item.progess}]]%</span>
+                                </div>
+                                <div class="layui-progress R126_process">
+                                    <div class="layui-progress-bar" th:lay-percent="${item.progess+'%'}"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="D126_bottom" style="height: 38%;">
+                    <div class="D126_bottom_left">
+                        <div class="D126_left_title">主导产业</div>
+                        <div
+                            id="P016_zdcy"
+                            class="P016_zdcy"
+                            style="width: 100%;height: 90%;"
+                        ></div>
+                    </div>
+                    <div class="D126_bottom_middle">
+                        <div class="D126_left_title">历年投资（百万元）</div>
+                        <div
+                            id="P016_lntz"
+                            class="P016_lntz"
+                            style="width: 100%;height: 90%;"
+                        ></div>
+                    </div>
+                    <div class="D126_bottom_right">
+                        <div class="D126_left_title">项目星级</div>
+                        <div class="R126_rightContent P126_rightBottom">
+                            <img th:src="@{/xwyjs/images/26/P126_project_bottombg.png}" class="P126_bottombg" />
+                            <div class="P126_bottomItem P126_bottomItem1">
+                                <div>
+                                    <span>[[${bean.levelThree}]]</span>
+                                    <span>家</span>
+                                </div>
+                                <img th:src="@{/xwyjs/images/26/P126_project_bottomitem1.png}"  class="P126_bottomitem"/>
+                                <p>3星级</p>
+                            </div>
+                            <div class="P126_bottomItem P126_bottomItem2">
+                                <div>
+                                    <span>[[${bean.levelTwo}]]</span>
+                                    <span>家</span>
+                                </div>
+                                <img th:src="@{/xwyjs/images/26/P126_project_bottomitem2.png}" class="P126_bottomitem"/>
+                                <p>2星级</p>
+                            </div>
+                            <div class="P126_bottomItem P126_bottomItem3">
+                                <div>
+                                    <span>[[${bean.levelOne}]]</span>
+                                    <span>家</span>
+                                </div>
+                                <img th:src="@{/xwyjs/images/26/P126_project_bottomitem3.png}" class="P126_bottomitem"/>
+                                <p>1星级</p>
+                            </div>
+                            <div class="P126_bottomItem P126_bottomItem4">
+                                <div>
+                                    <span>[[${bean.levelFive}]]</span>
+                                    <span>家</span>
+                                </div>
+                                <img th:src="@{/xwyjs/images/26/P126_project_bottomitem4.png}"  class="P126_bottomitem"/>
+                                <p>5星级</p>
+                            </div>
+                            <div class="P126_bottomItem P126_bottomItem5">
+                                <div>
+                                    <span>[[${bean.levelFour}]]</span>
+                                    <span>家</span>
+                                </div>
+                                <img th:src="@{/xwyjs/images/26/P126_project_bottomitem5.png}" class="P126_bottomitem"/>
+                                <p>4星级</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+
+    <script src="https://webapi.amap.com/maps?v=1.4.15&key=358df98d6a1422dc83713fddaa8d260c&plugin=AMap.Autocomplete,AMap.PlaceSearch,AMap.Geocoder"></script>
+    <script th:src="@{/xwyjs/js/jquery.min.js}"></script>
+    <script th:src="@{/xwyjs/js/main.js}"></script>
+    <script th:src="@{/xwyjs/js/jquery.backgroundSize.js}"></script>
+    <script th:src="@{/xwyjs/js/echarts/echarts.js}"></script>
+    <script th:src="@{/xwyjs/lib/layui/layui.js}"></script>
+    <script type="text/javascript">
+        // 循环粒子100个dom
+        var htmlDom = '<div class="circle-container"><div class="circle"></div></div>';
+        for (var i = 0; i < 100; i++) {
+            $('.R126_cr_particle .container').append(htmlDom);
+        }
+
+
+        layui.use(['element','table'], function(){
+            var element = layui.element;
+        });
+        initCircle();
+
+        var zdmj = Math.round([[${bean.coverdArea}]]);
+
+        zdmj = formatZero(zdmj, 4);
+        var arr =String(zdmj).split('');
+
+        var htmls = [];
+        for (var i=0; i<arr.length; i++){
+            if (arr[i] == 0) {
+                htmls.push("<p> " + arr[i] +"</p>");
+            } else {
+                htmls.push("<p style=\"color: #E4FF00;\"> " + arr[i] +"</p>");
+            }
+        }
+        $('#zdmj').after(htmls.join(''));
+
+        function initCircle() {
+            const outWidth = $(".out_circle").width();
+            // $(".out_circle").height(outWidth)
+            // 获取半径
+            const rWidth = outWidth / 2;
+            // 获得弧度
+            const radian = 2 * Math.PI / 360 * 60;
+            // 长边
+            const langWidth = Math.sin(radian) * rWidth;
+
+            // icon的长度
+            const iconWidth = $(".img_top").width();
+
+            $(".img_top").css({
+                top: 0 - iconWidth / 2,
+                left: rWidth - iconWidth / 2
+            });
+
+            $(".img_bottom").css({
+                top: rWidth * 1 - iconWidth / 2,
+                left: rWidth - langWidth - iconWidth / 2
+            });
+
+            $(".img_bottom2").css({
+                top: rWidth * 1 - iconWidth / 2,
+                left: outWidth - (rWidth - langWidth) - iconWidth / 2
+            })
+        }
+
+        window.addEventListener("resize", function() {
+            mychart1.resize();
+            mychart2.resize();
+            mychart3.resize();
+            mychart4.resize();
+            mychart5.resize();
+            mychart6.resize();
+            mychart7.resize();
+            initCircle();
+        });
+
+        var option1data;
+        $.ajax({
+            cache: true,
+            contentType: "application/json",
+            dataType: "json",
+            type: "POST",
+            url: "/index/newway",
+            async: false,
+            error: function (request) {
+                $.modal.alertError("系统错误");
+            },
+            success: function (data) {
+                option1data = data;
+            }
+        });
+
+        var option1 = {
+            tooltip: {
+                show: false
+                // trigger: "item",
+                // formatter: "{a} <br/>{b} : {c} ({d}%)"
+            },
+            color: ["#F39800", "#00FFFF", "#faf591", "#4da8ad"],
+            series: [
+                {
+                    name: "",
+                    type: "pie",
+                    radius: [10, 35],
+                    center: ["50%", "40%"],
+                    roseType: "area",
+                    label: {
+                        normal: {
+                            show: true,
+                            position: "outside",
+                            // formatter: '{name|{b}}  {value1|{c}}',
+                            formatter: "{name|{b}}\n{value1|{c}个/{d}%}",
+                            // 防止标签重叠策略
+                            color: "#000",
+                            rich: {
+                                name: {
+                                    color: "#00fff6",
+                                    fontSize: 16
+                                },
+                                value1: {
+                                    color: "#fff",
+                                    align: "left",
+                                    fontSize: 16
+                                }
+                            }
+                        }
+                    },
+                    labelLine: {
+                        lineStyle: {
+                            color: "#00fff6"
+                        },
+                        smooth: 0.2,
+                        length: 5,
+                        length2: 10
+                    },
+                    data:option1data
+                }
+            ],
+        };
+
+       var option2data;
+        $.ajax({
+            cache: true,
+            contentType: "application/json",
+            dataType: "json",
+            type: "POST",
+            url: "/index/developmentMode",
+            async: false,
+            error: function (request) {
+                $.modal.alertError("系统错误");
+            },
+            success: function (data) {
+                option2data = data;
+            }
+        });
+
+        var option2 = {
+            tooltip: {
+                show: false,
+                // trigger: "item",
+                // formatter: "{a} <br/>{b} : {c} ({d}%)"
+            },
+            color: ["#06F300", "#0096FF", "#faf591", "#4da8ad"],
+            series: [
+                {
+                    name: "",
+                    type: "pie",
+                    radius: [10, 35],
+                    center: ["50%", "40%"],
+                    roseType: "area",
+                    label: {
+                        normal: {
+                            show: true,
+                            position: "outside",
+                            // formatter: '{name|{b}}  {value1|{c}}',
+                            formatter: "{name|{b}}\n{value1|{c}个{d}%}",
+                            // 防止标签重叠策略
+                            color: "#00fff6",
+                            rich: {
+                                name: {
+                                    color: "#00fff6",
+                                    fontSize: 16
+                                },
+                                value1: {
+                                    color: "#fff",
+                                    align: "center",
+                                    fontSize: 16
+                                }
+                            }
+                        }
+                    },
+                    labelLine: {
+                        lineStyle: {
+                            color: "#00fff6"
+                        },
+                        smooth: 0.2,
+                        length: 5,
+                        length2: 10
+                    },
+                    data: option2data
+                }
+            ],
+
+        };
+
+        var mychart1 = echarts.init(document.getElementById("R126_taxChart"));
+        mychart1.setOption(option1);
+        var mychart2 = echarts.init(
+            document.getElementById("R126_outputChart")
+        );
+        mychart2.setOption(option2);
+
+        var option3Data;
+        $.ajax({
+            cache: true,
+            contentType: "application/json",
+            dataType: "json",
+            type: "POST",
+            url: "/index/industry",
+            async: false,
+            error: function (request) {
+                $.modal.alertError("系统错误");
+            },
+            success: function (data) {
+                option3Data = data;
+            }
+        });
+        var option3 = {
+            color: ["#3838E5", "#3687E8", "#1A4EB7", "#2FADBA","#EF5BDD","#A96ACE","#CCCC6A"],
+            series: [
+                {
+                    name: "",
+                    type: "pie",
+                    radius: [30, 90],
+                    center: ["50%", "50%"],
+                    roseType: "area",
+                    label: {
+                        normal: {
+                            show: true,
+                            position: "outside",
+                            formatter: '{name|{b}}  {value1|{d}%}',
+                            // 防止标签重叠策略
+                            color: "#00fff6",
+                            rich: {
+                                name: {
+                                    color: "#00fff6",
+                                    fontSize: 16
+                                },
+                                value1: {
+                                    color: "#00fff6",
+                                    align: "center",
+                                    fontSize: 16
+                                }
+                            }
+                        }
+                    },
+                    // labelLine: {
+                    //     lineStyle: {
+                    //         color: "#00fff6"
+                    //     },
+                    //     smooth: 0.2,
+                    //     length: 5,
+                    //     length2: 10
+                    // },
+                    data: option3Data
+                }
+            ],
+        };
+
+        var mychart3 = echarts.init(document.getElementById("P016_zdcy"));
+        mychart3.setOption(option3);
+
+
+        var yearData2 =[];
+        var countData2 = [];
+        var countData2_2 = [];
+        $.ajax({
+            cache: true,
+            contentType: "application/json",
+            dataType: "json",
+            type: "POST",
+            url: "/index/investment",
+            async: false,
+            error: function (request) {
+                $.modal.alertError("系统错误");
+            },
+            success: function (data) {
+                for(var i = 0; i < data.length; i++) {
+                    yearData2.push(data[i].year);
+                    countData2.push(data[i].invest)
+                    // countData2_2.push(data[i].invest > 5 ?  data[i].invest-5 : data[i].invest)
+                }
+            }
+        });
+        var option4 = {
+            grid: {
+                left: '5%',
+                top: '5%',
+                right: '5%',
+                bottom: '0%',
+                containLabel: true
+            },
+            backgroundColor: "transparent",
+            tooltip: {
+                backgroundColor: "rgb(255,153,255,0.5)",
+                // padding: [10, 20, 10, 10],
+                textStyle: {
+                    fontSize: 12,
+                    lineHeight: 24
+                },
+                trigger: "axis",
+                axisPointer: {
+                    type: "line",
+                    lineStyle: {
+                        type: "dashed",
+                        color: "#ff99ff"
+                    }
+                }
+            },
+            xAxis: {
+                type: "category",
+                boundaryGap: false,
+                // 改变x轴颜色
+                axisLine: {
+                    lineStyle: {
+                        color: "#009cff",
+                        width: 0.3
+                    }
+                },
+                data: yearData2,
+                // 轴刻度
+                axisTick: {
+                    show: false
+                },
+                // 轴网格
+                splitLine: {
+                    show: false
+                },
+                axisLabel: {
+                    show: true,
+                    interval: 0, //横轴信息全部显示
+                    textStyle: {
+                        color: "#009cff",
+                        fontSize: 15
+                    }
+                }
+            },
+            yAxis: {
+                axisTick: {
+                    show: false //轴刻度不显示
+                },
+                // max: 100,
+                min: 0,
+                // 改变y轴颜色
+                axisLine: {
+                    lineStyle: {
+                        color: "#009cff",
+                        width: 0.3
+                    }
+                },
+                // 轴网格
+                splitLine: {
+                    show: true,
+                    lineStyle: {
+                        color: "#009cff",
+                        width: 0.3
+                    }
+                },
+                //坐标轴文字样式
+                axisLabel: {
+                    show: true,
+                    textStyle: {
+                        color: "#009cff",
+                        fontSize: 14
+                    }
+                }
+            },
+            series: [
+                {
+                    name:"投资额",
+                    type: "line",
+                    areaStyle: {
+                        color: "#30bade"
+                    },
+                    symbol: "none", // 折线无拐点
+                    lineStyle: {
+                        normal: {
+                            width: 0 //折线宽度
+                        }
+                    },
+                    smooth: true,
+                    data: countData2
+                }
+                // ,
+                // {
+                //     name: "投资额2",
+                //     type: "line",
+                //     areaStyle: {
+                //         color: "#30bade"
+                //     },
+                //     symbol: "none", // 折线无拐点
+                //     lineStyle: {
+                //         normal: {
+                //             width: 0 //折线宽度
+                //         }
+                //     },
+                //     smooth: true,
+                //     data: countData2_2
+                // }
+            ],
+
+        };
+
+        var mychart4 = echarts.init(document.getElementById("P016_lntz"));
+        mychart4.setOption(option4);
+
+        var jzmj = 0;
+        if ([[${bean.planBuildingSpace}]] !=0) {
+            jzmj = ([[${bean.bulidArea}]] / [[${bean.planBuildingSpace}]]).toFixed(2) * 100;
+        }
+
+        var option5 = {
+            series: [
+                {
+                    type: 'gauge',
+                    radius: '90%',
+                    clockwise: true,
+                    startAngle: '180',
+                    endAngle: '0',
+                    splitNumber: 30,
+                    detail: {
+                        offsetCenter: [0, -5],
+                        formatter: function () {
+                            return '{a|100}{b|%}'
+                        },
+                        rich: {
+                            a: {
+                                fontSize: 20,
+                                color: '#fff'
+                            },
+                            b: {
+                                fontSize: 14,
+                                color: '#fff'
+                            }
+                        }
+                    },
+                    pointer: {
+                        show: false
+                    },
+                    axisLine: {
+                        show: true,
+                        lineStyle: {
+                            color: [
+                                [0, '#2CFAFC'],
+                                [100 / 100, '#03DCFE'],
+                                [1, 'rgba(32,187,252,0.15)']
+                            ],
+                            width: 5
+                        }
+                    },
+                    axisTick: {
+                        show: false
+                    },
+                    splitLine: {
+                        show: true,
+                        length: 6,
+                        lineStyle: {
+                            color: '#0C2C68',
+                            width: 5
+                        }
+                    },
+                    axisLabel: {
+                        show: false
+                    }
+                },
+                {
+                    type: 'gauge',
+                    radius: '75%',
+                    clockwise: true,
+                    startAngle: '180',
+                    endAngle: '0',
+                    detail: {
+                        offsetCenter: [0, 30],
+                        formatter: function () {
+                            return '{a|规划建筑面积}\n{b|[[${bean.planBuildingSpace}]]}{c|万平方米}'
+                        },
+                        rich: {
+                            a:{
+                                fontSize: 14,
+                                color: '#fff',
+                                padding: [5,0,0,0]
+                            },
+                            b:{
+                                fontSize: 22,
+                                color: '#3CFF3A',
+                            },
+                            c: {
+                                fontSize: 14,
+                                color: '#fff',
+                            }
+                        }
+                    },
+                    pointer: {
+                        show: false
+                    },
+                    axisLine: {
+                        show: true,
+                        lineStyle: {
+                            color: [
+                                [0, '#2CFAFC'],
+                                [100 / 100, new echarts.graphic.LinearGradient(
+                                    0, 0, 1, 0, [{
+                                        offset: 0,
+                                        color: '#50FF50'
+                                    }, {
+                                        offset: 0.5,
+                                        color: '#9FFFA5'
+                                    },
+                                        {
+                                            offset: 1,
+                                            color: '#50FF50'
+                                        }
+                                    ]
+                                )],
+                                [1, 'rgba(32,187,252,0.15)']
+                            ],
+                            width: 8
+                        }
+                    },
+                    axisTick: {
+                        show: false
+                    },
+                    splitLine: {
+                        show: false
+                    },
+                    axisLabel: {
+                        show: false
+                    }
+                },
+            ]
+        };
+        var mychart5 = echarts.init(document.getElementById("P016_middleItemBottomGh"));
+        mychart5.setOption(option5);
+
+        var option7 = {
+            series: [
+                {
+                    type: 'gauge',
+                    radius: '90%',
+                    clockwise: true,
+                    startAngle: '180',
+                    endAngle: '0',
+                    splitNumber: 30,
+                    detail: {
+                        offsetCenter: [0, -5],
+                        formatter: function () {
+                            return '{a|' + jzmj + '}{b|%}'
+                        },
+                        rich: {
+                            a: {
+                                fontSize: 20,
+                                color: '#fff'
+                            },
+                            b: {
+                                fontSize: 14,
+                                color: '#fff'
+                            }
+                        }
+                    },
+                    pointer: {
+                        show: false
+                    },
+                    axisLine: {
+                        show: true,
+                        lineStyle: {
+                            color: [
+                                [0, '#2CFAFC'],
+                                [100 / 100, '#03DCFE'],
+                                [1, 'rgba(32,187,252,0.15)']
+                            ],
+                            width: 5
+                        }
+                    },
+                    axisTick: {
+                        show: false
+                    },
+                    splitLine: {
+                        show: true,
+                        length: 6,
+                        lineStyle: {
+                            color: '#0C2C68',
+                            width: 5
+                        }
+                    },
+                    axisLabel: {
+                        show: false
+                    }
+                },
+                {
+                    type: 'gauge',
+                    radius: '75%',
+                    clockwise: true,
+                    startAngle: '180',
+                    endAngle: '0',
+                    detail: {
+                        offsetCenter: [0, 30],
+                        formatter: function () {
+                            return '{a|完成建筑面积}\n{b|[[${bean.bulidArea}]]}{c|万平方米}'
+                        },
+                        rich: {
+                            a:{
+                                fontSize: 14,
+                                color: '#fff',
+                                padding: [5,0,0,0]
+                            },
+                            b:{
+                                fontSize: 22,
+                                color: '#FBCE34',
+                            },
+                            c: {
+                                fontSize: 14,
+                                color: '#fff',
+                            }
+                        }
+                    },
+                    pointer: {
+                        show: false
+                    },
+                    axisLine: {
+                        show: true,
+                        lineStyle: {
+                            color: [
+                                [0, '#2CFAFC'],
+                                [jzmj / 100, new echarts.graphic.LinearGradient(
+                                    0, 0, 1, 0, [{
+                                        offset: 0,
+                                        color: '#FBCE34'
+                                    }, {
+                                        offset: 0.5,
+                                        color: '#F7F55E'
+                                    },
+                                        {
+                                            offset: 1,
+                                            color: '#FBCE34'
+                                        }
+                                    ]
+                                )],
+                                [1, 'rgba(32,187,252,0.15)']
+                            ],
+                            width: 8
+                        }
+                    },
+                    axisTick: {
+                        show: false
+                    },
+                    splitLine: {
+                        show: false
+                    },
+                    axisLabel: {
+                        show: false
+                    }
+                },
+            ]
+        };
+        var mychart7 = echarts.init(document.getElementById("P016_middleItemBottomywc"));
+        mychart7.setOption(option7);
+
+        let value = [[${avageProgess}]];
+        let title = '总体建设进度';
+        let int = value.toFixed(2).split('.')[0];
+        let float = value.toFixed(2).split('.')[1];
+
+        var option6 = {
+            title: {
+                text: '{a|'+ int +'}{b|%'+'}\n{c|'+ title +'}',
+                x: 'center',
+                y: 'center',
+                textStyle: {
+                    rich:{
+                        a: {
+                            fontSize: 40,
+                            color: '#00FF24',
+                            fontFamily: 'DS-DIGII',
+                            fontWeight: 'bold'
+                        },
+                        b: {
+                            fontSize: 20,
+                            color: '#00FF24',
+                            padding: [0,0,14,0]
+                        },
+                        c: {
+                            fontSize: 14,
+                            color: '#00FF24',
+                            padding: [5,0]
+                        }
+                    }
+                }
+            },
+            series: [
+                {
+                    type: 'gauge',
+                    radius: '95%',
+                    clockwise: false,
+                    startAngle: '90',
+                    endAngle: '-269.9999',
+                    splitNumber: 20,
+                    detail: {
+                        offsetCenter: [0, -20],
+                        formatter: ' '
+                    },
+                    pointer: {
+                        show: false
+                    },
+                    axisLine: {
+                        show: true,
+                        lineStyle: {
+                            color: [
+                                [0, '#2CFAFC'],
+                                [
+                                    (100-[[${avageProgess}]]) / 100, '#03DCFE'
+                                ],
+                                [1, 'rgba(32,187,252,0.15)']
+                            ],
+                            width: 5
+                        }
+                    },
+                    axisTick: {
+                        show: false
+                    },
+                    splitLine: {
+                        show: true,
+                        length: 7,
+                        lineStyle: {
+                            color: '#051F54',
+                            width: 6
+                        }
+                    },
+                    axisLabel: {
+                        show: false
+                    }
+                },
+                {
+                    type: 'gauge',
+                    radius: '80%',
+                    clockwise: false,
+                    startAngle: '90',
+                    endAngle: '-269.9999',
+                    splitNumber: 120,
+                    detail: {
+                        offsetCenter: [0, -20],
+                        formatter: ' '
+                    },
+                    pointer: {
+                        show: false
+                    },
+                    axisLine: {
+                        show: true,
+                        lineStyle: {
+                            color: [
+                                [0, '#2CFAFC'],
+                                [
+                                    (100-[[${avageProgess}]]) / 100, '#03DCFE'
+                                ],
+                                [1, 'rgba(32,187,252,0.15)']
+                            ],
+                            width: 5
+                        }
+                    },
+                    axisTick: {
+                        show: false
+                    },
+                    splitLine: {
+                        show: true,
+                        length: 32,
+                        lineStyle: {
+                            color: '#051F54',
+                            width: 2
+                        }
+                    },
+                    axisLabel: {
+                        show: false
+                    }
+                },
+            ]
+        };
+        var mychart6 = echarts.init(document.getElementById("P126_projectChart"));
+        mychart6.setOption(option6);
+
+        function formatZero(num, len) {
+            if(String(num).length > len) return num;
+            return (Array(len).join(0) + num).slice(-len);
+        }
+    </script>
+</html>

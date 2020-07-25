@@ -1,0 +1,1687 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+    <title>小微圆总览</title>
+    <link rel="stylesheet" th:href="@{/xwyjs/css/all.css}">
+    <link rel="stylesheet" th:href="@{/xwyjs/css/particle.css}">
+    <link rel="stylesheet" th:href="@{/xwyjs/css/animate.css}">
+    <link rel="stylesheet" th:href="@{/xwyjs/css/style_26.css}">
+    <link rel="stylesheet" th:href="@{/xwyjs/lib/layui/css/layui.css}">
+
+
+</head>
+<style>
+    .R226_list .R226_listItem{
+        height: 38vh;
+    }
+    .R226_botList .R226_botItem{
+        height: 13vh;
+    }
+    .R226_tabList .R226_afLeft>.R226_afTitle{
+        height: 5vh;
+        line-height: 5vh;
+    }
+</style>
+<body>
+<div class="R126_wapper">
+    <div msg-data="css漂浮的粒子" class="R126_cr_particle">
+        <div class="container">
+        </div>
+    </div>
+    <div class="R126_content animated fadeInDownBig" style="background: url('../../../xwyjs/images/26/R226_mapBg.png') no-repeat;background-size: 100% 100%;">
+        <div class="R226_yqSelect layui-form">
+            <input id="id" name="id" th:value="*{id}" type="hidden">
+            <div class="layui-input-block">
+                <select lay-filter="park" id="parkId" th:with="type=${@dict.getParkList()}">
+                    <option value="">所有</option>
+                    <option th:each="ParamEntity : ${type}" th:text="${ParamEntity.key}"  th:value="${ParamEntity.value}" th:selected="${ParamEntity.value} eq *{id}"></option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-tab R226_tabList">
+            <ul class="layui-tab-title">
+                <li class="layui-this">首页</li>
+                <li class="">视频监控</li>
+                <li>消防监控</li>
+                <li>车行管理</li>
+                <li class="">安防监控</li>
+                <li>环保监测</li>
+<!--                <li>人行管理</li>-->
+                <li>能效管理</li>
+            </ul>
+            <div class="layui-tab-content">
+                <div class="layui-tab-item layui-show">
+                    <div class="R226_list" style="height: 100%;padding: 0;margin: 0;width: 100%;">
+                        <div class="R226_listItem">
+                            <p>视频监控</p>
+                            <div class="R226_listContent">
+                                <div class="R226_topList">
+                                    <div>总数</div>
+                                    <div>
+                                        <span>0</span>
+                                        <span>7</span>
+                                        <span>0</span>
+                                        <span>0</span>
+                                    </div>
+                                    <div>个</div>
+                                </div>
+                                <div class="R226_botList">
+                                    <div class="R226_botItem">
+                                        <div>在线</div>
+                                        <p style="color: #1EF901;">
+                                            <span>560</span>
+                                            <span>个</span>
+                                        </p>
+                                    </div>
+                                    <div class="R226_botItem">
+                                        <div>离线</div>
+                                        <p style="color: #C9C9C9;">
+                                            <span>8</span>
+                                            <span>个</span>
+                                        </p>
+                                    </div>
+                                    <div class="R226_botItem">
+                                        <div>报警</div>
+                                        <p style="color: #F60103;">
+                                            <span>8</span>
+                                            <span>个</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="R226_listItem">
+                            <p>消防监控</p>
+                            <div class="R226_listContent">
+                                <div class="R226_topList">
+                                    <div>总数</div>
+                                    <div>
+                                        <span>0</span>
+                                        <span>7</span>
+                                        <span>0</span>
+                                        <span>0</span>
+                                    </div>
+                                    <div>个</div>
+                                </div>
+                                <div class="R226_botList">
+                                    <div class="R226_botItem">
+                                        <div>在线</div>
+                                        <p style="color: #1EF901;">
+                                            <span>560</span>
+                                            <span>个</span>
+                                        </p>
+                                    </div>
+                                    <div class="R226_botItem">
+                                        <div>离线</div>
+                                        <p style="color: #C9C9C9;">
+                                            <span>8</span>
+                                            <span>个</span>
+                                        </p>
+                                    </div>
+                                    <div class="R226_botItem">
+                                        <div>报警</div>
+                                        <p style="color: #F60103;">
+                                            <span>8</span>
+                                            <span>个</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="R226_listItem">
+                            <p>环保监测</p>
+                            <div class="R226_listContent">
+                                <div class="R226_topList">
+                                    <div>总数</div>
+                                    <div>
+                                        <span>0</span>
+                                        <span>7</span>
+                                        <span>0</span>
+                                        <span>0</span>
+                                    </div>
+                                    <div>个</div>
+                                </div>
+                                <div class="R226_botList">
+                                    <div class="R226_botItem">
+                                        <div>在线</div>
+                                        <p style="color: #1EF901;">
+                                            <span>560</span>
+                                            <span>个</span>
+                                        </p>
+                                    </div>
+                                    <div class="R226_botItem">
+                                        <div>离线</div>
+                                        <p style="color: #C9C9C9;">
+                                            <span>8</span>
+                                            <span>个</span>
+                                        </p>
+                                    </div>
+                                    <div class="R226_botItem">
+                                        <div>报警</div>
+                                        <p style="color: #F60103;">
+                                            <span>8</span>
+                                            <span>个</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="R226_listItem">
+                            <p>安防管理</p>
+                            <div class="R226_listContent">
+                                <div class="R226_topList">
+                                    <div>总数</div>
+                                    <div>
+                                        <span>0</span>
+                                        <span>7</span>
+                                        <span>0</span>
+                                        <span>0</span>
+                                    </div>
+                                    <div>个</div>
+                                </div>
+                                <div class="R226_botList">
+                                    <div class="R226_botItem">
+                                        <div>在线</div>
+                                        <p style="color: #1EF901;">
+                                            <span>560</span>
+                                            <span>个</span>
+                                        </p>
+                                    </div>
+                                    <div class="R226_botItem">
+                                        <div>离线</div>
+                                        <p style="color: #C9C9C9;">
+                                            <span>8</span>
+                                            <span>个</span>
+                                        </p>
+                                    </div>
+                                    <div class="R226_botItem">
+                                        <div>报警</div>
+                                        <p style="color: #F60103;">
+                                            <span>8</span>
+                                            <span>个</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="R226_listItem">
+                            <p>智慧用水</p>
+                            <div class="R226_listContent">
+                                <div class="R226_topList">
+                                    <div>总数</div>
+                                    <div>
+                                        <span>0</span>
+                                        <span>7</span>
+                                        <span>0</span>
+                                        <span>0</span>
+                                    </div>
+                                    <div>个</div>
+                                </div>
+                                <div class="R226_botList">
+                                    <div class="R226_botItem">
+                                        <div>在线</div>
+                                        <p style="color: #1EF901;">
+                                            <span>560</span>
+                                            <span>个</span>
+                                        </p>
+                                    </div>
+                                    <div class="R226_botItem">
+                                        <div>离线</div>
+                                        <p style="color: #C9C9C9;">
+                                            <span>8</span>
+                                            <span>个</span>
+                                        </p>
+                                    </div>
+                                    <div class="R226_botItem">
+                                        <div>报警</div>
+                                        <p style="color: #F60103;">
+                                            <span>8</span>
+                                            <span>个</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="R226_listItem">
+                            <p>智慧用电</p>
+                            <div class="R226_listContent">
+                                <div class="R226_topList">
+                                    <div>总数</div>
+                                    <div>
+                                        <span>0</span>
+                                        <span>7</span>
+                                        <span>0</span>
+                                        <span>0</span>
+                                    </div>
+                                    <div>个</div>
+                                </div>
+                                <div class="R226_botList">
+                                    <div class="R226_botItem">
+                                        <div>在线</div>
+                                        <p style="color: #1EF901;">
+                                            <span>560</span>
+                                            <span>个</span>
+                                        </p>
+                                    </div>
+                                    <div class="R226_botItem">
+                                        <div>离线</div>
+                                        <p style="color: #C9C9C9;">
+                                            <span>8</span>
+                                            <span>个</span>
+                                        </p>
+                                    </div>
+                                    <div class="R226_botItem">
+                                        <div>报警</div>
+                                        <p style="color: #F60103;">
+                                            <span>8</span>
+                                            <span>个</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-tab-item ">
+                    <div class="R226_spLeft">
+                        <div class="R226_spLeft_item">
+                            <p class="R226_itemTitle">
+                                <img th:src="@{/xwyjs/images/26/R226_camera.png}" />
+                                <span>道明安防产业园-东大门</span>
+                            </p>
+                            <div class="R226_itemPic"></div>
+                        </div>
+                        <div class="R226_spLeft_item">
+                            <p class="R226_itemTitle">
+                                <img th:src="@{/xwyjs/images/26/R226_camera.png}" />
+                                <span>道明安防产业园-东大门</span>
+                            </p>
+                            <div class="R226_itemPic"></div>
+                        </div>
+                        <div class="R226_spLeft_item">
+                            <p class="R226_itemTitle">
+                                <img th:src="@{/xwyjs/images/26/R226_camera.png}"/>
+                                <span>道明安防产业园-东大门</span>
+                            </p>
+                            <div class="R226_itemPic"></div>
+                        </div>
+                    </div>
+                    <div class="R226_spMiddle">
+                        <div class="R226_bg"></div>
+                    </div>
+                    <div class="R226_spLeft">
+                        <div class="R226_spLeft_item">
+                            <p class="R226_itemTitle">
+                                <img th:src="@{/xwyjs/images/26/R226_camera.png}"/>
+                                <span>道明安防产业园-东大门</span>
+                            </p>
+                            <div class="R226_itemPic"></div>
+                        </div>
+                        <div class="R226_spLeft_item">
+                            <p class="R226_itemTitle">
+                                <img th:src="@{/xwyjs/images/26/R226_camera.png}" />
+                                <span>道明安防产业园-东大门</span>
+                            </p>
+                            <div class="R226_itemPic"></div>
+                        </div>
+                        <div class="R226_spLeft_item">
+                            <p class="R226_itemTitle">
+                                <img th:src="@{/xwyjs/images/26/R226_camera.png}"/>
+                                <span>道明安防产业园-东大门</span>
+                            </p>
+                            <div class="R226_itemPic"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-tab-item T226_xf">
+                    <div class="T226_xfLeft">
+                        <div class="T226_xfLeft1">
+                            <p class="T226_xfTitle">消防主机</p>
+                            <div class="T226_xfContent">
+                                <div class="T226_xfItem">
+                                    <p>总数</p>
+                                    <p style="color: #FFE400;">6</p>
+                                </div>
+                                <div class="T226_xfItem">
+                                    <p>正常</p>
+                                    <p style="color: #00C0FF;">5</p>
+                                </div>
+                                <div class="T226_xfItem">
+                                    <p>报警</p>
+                                    <p style="color: #FF0000;">1</p>
+                                </div>
+                                <div class="T226_xfItem">
+                                    <p>离线</p>
+                                    <p style="color: #08C497;">0</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="T226_xfLeft1">
+                            <p class="T226_xfTitle">智慧用电</p>
+                            <div class="T226_xfContent">
+                                <div class="T226_xfItem">
+                                    <p>总数</p>
+                                    <p style="color: #FFE400;">6</p>
+                                </div>
+                                <div class="T226_xfItem">
+                                    <p>正常</p>
+                                    <p style="color: #00C0FF;">5</p>
+                                </div>
+                                <div class="T226_xfItem">
+                                    <p>报警</p>
+                                    <p style="color: #FF0000;">1</p>
+                                </div>
+                                <div class="T226_xfItem">
+                                    <p>离线</p>
+                                    <p style="color: #08C497;">0</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="T226_xfLeft1">
+                            <p class="T226_xfTitle">智能烟感</p>
+                            <div class="T226_xfContent">
+                                <div class="T226_xfItem">
+                                    <p>总数</p>
+                                    <p style="color: #FFE400;">6</p>
+                                </div>
+                                <div class="T226_xfItem">
+                                    <p>正常</p>
+                                    <p style="color: #00C0FF;">5</p>
+                                </div>
+                                <div class="T226_xfItem">
+                                    <p>报警</p>
+                                    <p style="color: #FF0000;">1</p>
+                                </div>
+                                <div class="T226_xfItem">
+                                    <p>离线</p>
+                                    <p style="color: #08C497;">0</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="T226_xfLeft1">
+                            <p class="T226_xfTitle">智慧井盖</p>
+                            <div class="T226_xfContent">
+                                <div class="T226_xfItem">
+                                    <p>总数</p>
+                                    <p style="color: #FFE400;">6</p>
+                                </div>
+                                <div class="T226_xfItem">
+                                    <p>正常</p>
+                                    <p style="color: #00C0FF;">5</p>
+                                </div>
+                                <div class="T226_xfItem">
+                                    <p>报警</p>
+                                    <p style="color: #FF0000;">1</p>
+                                </div>
+                                <div class="T226_xfItem">
+                                    <p>离线</p>
+                                    <p style="color: #08C497;">0</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="T226_xfRight">
+                        <div class="T226_xfRight1">
+                            <p class="T226_xfTitle">报警信息</p>
+                            <div class="T226_xfContent">
+                                <div id="table"></div>
+                            </div>
+                        </div>
+                        <div class="T226_xfRight2">
+                            <p class="T226_xfTitle">报警数量趋势</p>
+                            <div class="T226_xfContent">
+                                <div id="T226_chart6" style="width: 44rem;height: 26vh;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-tab-item">
+                    <div class="T226_cxTop">
+                        <div class="T226_cxTop_item">
+                            <p>车位</p>
+                            <p style="color: #FFE400;">3000</p>
+                        </div>
+                        <div class="T226_cxTop_item">
+                            <p>已用</p>
+                            <p style="color: #00C0FF;">1812</p>
+                        </div>
+                        <div class="T226_cxTop_item">
+                            <p>空闲</p>
+                            <p style="color: #FF0000;">1188</p>
+                        </div>
+                        <div class="T226_cxTop_item">
+                            <p>今日入园车辆</p>
+                            <p style="color: #08CB9B;">2091</p>
+                        </div>
+                        <div class="T226_cxTop_item">
+                            <p>今日离园车辆</p>
+                            <p style="color: #FE9191;">2091</p>
+                        </div>
+                    </div>
+                    <div class="T226_cxMid">
+                        <div class="T226_cxMid_header">
+                            <img th:src="@{/xwyjs/images/26/R226_camera.png}" />
+                            <span>1号车库-入口</span>
+                        </div>
+                        <div class="T226_cxMid_photo">
+                            <img th:src="@{/xwyjs/images/26/T226_cxPic1.png}" />
+                            <p>2020年6月24日 08：52：07</p>
+                        </div>
+                        <div class="T226_cxMid_desc">
+                            <button class="layui-btn T226_cxMid_cp">浙G1928F</button>
+                            <p>车辆颜色：黑色</p>
+                            <p>车   型：小型车</p>
+                        </div>
+                    </div>
+                    <div class="T226_cxMid" style="margin-left: 2%;">
+                        <div class="T226_cxMid_header">
+                            <img th:src="@{/xwyjs/images/26/R226_camera.png}" />
+                            <span>1号车库-出口</span>
+                        </div>
+                        <div class="T226_cxMid_photo">
+                            <img th:src="@{/xwyjs/images/26/T226_cxPic1.png}" />
+                            <p>2020年6月24日 08：52：07</p>
+                        </div>
+                        <div class="T226_cxMid_desc">
+                            <button class="layui-btn T226_cxMid_cp">浙G1928F</button>
+                            <p>车辆颜色：黑色</p>
+                            <p>车   型：小型车</p>
+                        </div>
+                    </div>
+                    <div class="T226_cxBot">
+                        <div class="T226_cxBot_item">
+                            <div class="T226_cxBot_pic">
+                                <img th:src="@{/xwyjs/images/26/T226_cxPic1.png}" />
+                                <span>浙G1905F</span>
+                            </div>
+                            <p>2号车库-出口</p>
+                            <p>2020.6.24 08:58:27</p>
+                        </div>
+                        <div class="T226_cxBot_item">
+                            <div class="T226_cxBot_pic">
+                                <img th:src="@{/xwyjs/images/26/T226_cxPic1.png}" />
+                                <span>浙G1905F</span>
+                            </div>
+                            <p>2号车库-出口</p>
+                            <p>2020.6.24 08:58:27</p>
+                        </div>
+                        <div class="T226_cxBot_item">
+                            <div class="T226_cxBot_pic">
+                                <img th:src="@{/xwyjs/images/26/T226_cxPic1.png}" />
+                                <span>浙G1905F</span>
+                            </div>
+                            <p>2号车库-出口</p>
+                            <p>2020.6.24 08:58:27</p>
+                        </div>
+                        <div class="T226_cxBot_item">
+                            <div class="T226_cxBot_pic">
+                                <img th:src="@{/xwyjs/images/26/T226_cxPic1.png}" />
+                                <span>浙G1905F</span>
+                            </div>
+                            <p>2号车库-出口</p>
+                            <p>2020.6.24 08:58:27</p>
+                        </div>
+                        <div class="T226_cxBot_item">
+                            <div class="T226_cxBot_pic">
+                                <img th:src="@{/xwyjs/images/26/T226_cxPic1.png}" />
+                                <span>浙G1905F</span>
+                            </div>
+                            <p>2号车库-出口</p>
+                            <p>2020.6.24 08:58:27</p>
+                        </div>
+                        <div class="T226_cxBot_item">
+                            <div class="T226_cxBot_pic">
+                                <img th:src="@{/xwyjs/images/26/T226_cxPic1.png}" />
+                                <span>浙G1905F</span>
+                            </div>
+                            <p>2号车库-出口</p>
+                            <p>2020.6.24 08:58:27</p>
+                        </div>
+                        <div class="T226_cxBot_item">
+                            <div class="T226_cxBot_pic">
+                                <img th:src="@{/xwyjs/images/26/T226_cxPic1.png}" />
+                                <span>浙G1905F</span>
+                            </div>
+                            <p>2号车库-出口</p>
+                            <p>2020.6.24 08:58:27</p>
+                        </div>
+                        <div class="T226_cxBot_item">
+                            <div class="T226_cxBot_pic">
+                                <img th:src="@{/xwyjs/images/26/T226_cxPic1.png}" />
+                                <span>浙G1905F</span>
+                            </div>
+                            <p>2号车库-出口</p>
+                            <p>2020.6.24 08:58:27</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-tab-item">
+                    <div class="R226_afLeft">
+                        <div class="R226_afTitle">非法入侵</div>
+                        <div class="R226_listItem R226_yclItem">
+                            <p class="R226_itemTitle">
+                                <img th:src="@{/xwyjs/images/26/R226_camera.png}"/>
+                                <span>道明安防产业园-东大门</span>
+                            </p>
+                            <div class="R226_itemPic"></div>
+                        </div>
+                        <div class="R226_listItem R226_wclItem">
+                            <p class="R226_itemTitle">
+                                <img th:src="@{/xwyjs/images/26/R226_camera.png}"/>
+                                <span>道明安防产业园-东大门</span>
+                            </p>
+                            <div class="R226_itemPic"></div>
+                        </div>
+                        <div class="R226_listItem R226_wclItem">
+                            <p class="R226_itemTitle">
+                                <img th:src="@{/xwyjs/images/26/R226_camera.png}"/>
+                                <span>道明安防产业园-东大门</span>
+                            </p>
+                            <div class="R226_itemPic"></div>
+                        </div>
+                    </div>
+                    <div class="R226_afMiddle">
+                        <div class="R226_middleTop">
+                            <div class="R226_middleItem" style="margin-left: 12%;">
+                                <p>今日报警</p>
+                                <p style="color: #FFE400;">2</p>
+                            </div>
+                            <div class="R226_middleItem">
+                                <p>本月报警</p>
+                                <p style="color: #00C0FF;">19</p>
+                            </div>
+                            <div class="R226_middleItem">
+                                <p>本年报警</p>
+                                <p style="color: #FF0000;">67</p>
+                            </div>
+                        </div>
+                        <div class="R226_middleBot"></div>
+                    </div>
+                    <div class="R226_afLeft">
+                        <div class="R226_afTitle">逗留徘徊</div>
+                        <div class="R226_listItem R226_yclItem">
+                            <p class="R226_itemTitle">
+                                <img th:src="@{/xwyjs/images/26/R226_camera.png}"/>
+                                <span>道明安防产业园-东大门</span>
+                            </p>
+                            <div class="R226_itemPic"></div>
+                        </div>
+                        <div class="R226_listItem R226_wclItem">
+                            <p class="R226_itemTitle">
+                                <img th:src="@{/xwyjs/images/26/R226_camera.png}"/>
+                                <span>道明安防产业园-东大门</span>
+                            </p>
+                            <div class="R226_itemPic"></div>
+                        </div>
+                        <div class="R226_listItem R226_wclItem">
+                            <p class="R226_itemTitle">
+                                <img th:src="@{/xwyjs/images/26/R226_camera.png}"/>
+                                <span>道明安防产业园-东大门</span>
+                            </p>
+                            <div class="R226_itemPic"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-tab-item">
+                    <div class="R226_afLeft">
+                        <div class="R226_afTitle" style="margin: 1vh 5%;">
+                            <span>温度趋势</span>
+                            <span>单位：℃</span>
+                        </div>
+                        <div id="T226_echart1" style="width: 22rem;height: 19vh;"></div>
+                        <div class="R226_afTitle" style="margin: 1vh 5%;">
+                            <span>湿度趋势</span>
+                            <span>单位：℃</span>
+                        </div>
+                        <div id="T226_echart2" style="width: 22rem;height: 19vh;"></div>
+                        <div class="R226_afTitle" style="margin: 1vh 5%;">
+                            <span>风速趋势</span>
+                            <span>单位：m/S</span>
+                        </div>
+                        <div id="T226_echart3" style="width: 22rem;height: 19vh;"></div>
+                    </div>
+                    <div class="R226_afMiddle">
+                        <div class="R226_middleTop" style="height: 10rem;padding: 0 2rem;">
+                            <div class="T226_middleTop_item">
+                                <span>空气质量</span>
+                                <span style="color: #FFB400;">优</span>
+                            </div>
+                            <div class="T226_middleTop_item">
+                                <span>温度</span>
+                                <span style="color: #00C0FF;">36</span>
+                                <span>℃</span>
+                            </div>
+                            <div class="T226_middleTop_item">
+                                <span>湿度</span>
+                                <span style="color: #00C0FF;">65</span>
+                                <span>℃</span>
+                            </div>
+                            <div class="T226_middleTop_item">
+                                <span>PM2.5</span>
+                                <span style="color: #FFB400;">优</span>
+                            </div>
+                            <div class="T226_middleTop_item">
+                                <span>风速</span>
+                                <span style="color: #00C0FF;">5</span>
+                                <span>m/S</span>
+                            </div>
+                            <div class="T226_middleTop_item">
+                                <span>噪音</span>
+                                <span style="color: #00C0FF;">50</span>
+                                <span>分贝</span>
+                            </div>
+                        </div>
+                        <div class="R226_middleBot" style="background: url('../../../xwyjs/images/26/T226_pic1.png') no-repeat;height: calc(100% - 10.33rem);"></div>
+                    </div>
+                    <div class="R226_afLeft">
+                        <div class="R226_afTitle" style="margin: 1vh 5%;">
+                            <span>空气质量趋势</span>
+                        </div>
+                        <div id="T226_echart4" style="width: 22rem;height: 19vh;"></div>
+                        <div class="R226_afTitle" style="margin: 1vh 5%;">
+                            <span>PM2.5趋势</span>
+                        </div>
+                        <div id="T226_echart5" style="width: 22rem;height: 19vh;"></div>
+                        <div class="R226_afTitle" style="margin: 1vh 5%;">
+                            <span>噪音趋势</span>
+                            <span>单位：分贝</span>
+                        </div>
+                        <div id="T226_echart6" style="width: 22rem;height: 19vh;"></div>
+                    </div>
+                </div>
+<!--                <div class="layui-tab-item">内容3</div>-->
+                <div class="layui-tab-item">
+                    <div class="T226_nxLeft">
+                        <div class="T226_yqSelect layui-form">
+                            <select name="park" lay-verify="required">
+                                <option value="">点击选择企业</option>
+                                <option value="0">北京</option>
+                                <option value="1">上海</option>
+                                <option value="2">广州</option>
+                                <option value="3">深圳</option>
+                                <option value="4">杭州</option>
+                            </select>
+                        </div>
+                        <div class="T226_topItem">
+                            <div class="T226_header">
+                                <span>用电</span>
+                                <img th:src="@{/xwyjs/images/26/T226_itempic.png}" />
+                                <div class="T226_butItem">年</div>
+                                <div class="T226_butItem">月</div>
+                                <div class="T226_butItem T226_butItem_active">日</div>
+                            </div>
+                            <div class="T226_chart1">
+                                <div id="T226_chart1" style="width: 25.5rem;height: 23vh;"></div>
+                            </div>
+                        </div>
+                        <div class="T226_topItem" style="margin-left: 2%;">
+                            <div class="T226_header">
+                                <span>用水</span>
+                                <img th:src="@{/xwyjs/images/26/T226_itempic.png}"  />
+                                <div class="T226_butItem">年</div>
+                                <div class="T226_butItem">月</div>
+                                <div class="T226_butItem T226_butItem_active">日</div>
+                            </div>
+                            <div class="T226_chart1">
+                                <div id="T226_chart2" style="width: 25.5rem;height: 23vh;"></div>
+                            </div>
+                        </div>
+                        <div class="T226_botItem">
+                            <div class="T226_header">
+                                <span>用电</span>
+                                <img th:src="@{/xwyjs/images/26/T226_itempic.png}" />
+                                <button class="layui-btn T226_resize">重置</button>
+                                <button class="layui-btn">查询</button>
+                                <div class="T226_dateSel">
+                                    <input type="text" class="layui-input T226_endDate" id="endDate" placeholder="开始时间">
+                                    <span>--</span>
+                                    <input type="text" class="layui-input T226_endDate" id="startDate" placeholder="结束时间">
+                                </div>
+                            </div>
+                            <div class="T226_botCont">
+                                <div id="T226_chart3" style="width: 54rem;height: 28vh;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="T226_nxRight" style="margin-bottom: 0.75%;">
+                        <div class="T226_header">
+                            <span>园区用电排行</span>
+                            <img th:src="@{/xwyjs/images/26/T226_itempic.png}" />
+                        </div>
+                        <div class="T226_botCont">
+                            <div id="T226_chart4" style="width: 34.5rem;height: 33vh;"></div>
+                        </div>
+                    </div>
+                    <div class="T226_nxRight">
+                        <div class="T226_header">
+                            <span>园区用水排行</span>
+                            <img th:src="@{/xwyjs/images/26/T226_itempic.png}" />
+                        </div>
+                        <div class="T226_botCont">
+                            <div id="T226_chart5" style="width: 34.5rem;height: 33vh;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script th:src="@{/xwyjs/js/jquery.min.js}"></script>
+<script th:src="@{/xwyjs/js/main.js}"></script>
+<script th:src="@{/xwyjs/js/jquery.backgroundSize.js}"></script>
+<script th:src="@{/xwyjs/js/echarts/echarts.js}"></script>
+<script th:src="@{/xwyjs/lib/layui/layui.js}"></script>
+<script th:src="@{/xwyjs/js/echarts/echarts-liquidfill.js}"></script>
+
+<script type="text/javascript">
+
+
+    $(document).ready(function() {
+        if ([[${user}]] != null) {
+            if ([[${user.userLevel}]] =='2') {
+                // $(".R226_yqSelect").hidden;
+                $('.R226_yqSelect').addClass('R226_active');
+            }
+        }
+
+        // 循环粒子100个dom
+        var htmlDom = '<div class="circle-container"><div class="circle"></div></div>';
+        for (var i = 0; i < 100; i++) {
+            $('.R126_cr_particle .container').append(htmlDom);
+        }
+
+        parent.showReturn();
+        parent.changeTitle('[[${name}]]');
+
+        $('.R226_topList div span').mouseenter(function(){
+            $(this).removeClass('animated bounce').addClass('animated flip');
+        });
+        $('.R226_topList div span').mouseleave(function(){
+            $(this).removeClass('animated flip').addClass('animated bounce');
+        });
+
+        $('.T226_butItem').on('click',function () {
+            $('.T226_butItem').removeClass('T226_butItem_active');
+            $(this).addClass('T226_butItem_active')
+        });
+
+        layui.use(['element', 'form', 'laydate', 'table'], function() {
+            var $ = layui.jquery,
+                element = layui.element,
+                form = layui.form,
+                laydate = layui.laydate,
+                table = layui.table;
+
+            form.on('select(park)',function(obj){
+                var x = obj.elem[obj.elem.selectedIndex].text;
+                parent.changeTitle(x)
+            });
+
+            laydate.render({
+                elem: '#endDate'
+            });
+
+            laydate.render({
+                elem: '#startDate'
+            });
+
+            table.render({
+                elem: '#table',
+                height: ($('.T226_xfRight1').height() - $('.T226_xfTitle').height())*0.95,
+                cols: [
+                    [
+                    {field: 'name', title: '序号',align: 'center',width: '30%'},
+                    {field: 'service', title: '设备类型',align: 'center',width: '18%'},
+                    {field: 'content', title: '报警信息',align: 'center',width: '22%'},
+                    {field: 'time', title: '报警时间',align: 'center',width: '30%'},
+                ]
+                ],
+                data: [
+                    {'name': '义乌市华艺塑料有限公司','service': '金融服务','content': '人才引进服务','time': '2019-06-18 19:00'},
+                    {'name': '浙江高鑫安全检测科技有限公司','service': '金融服务','content': '人才引进服务','time': '2019-06-18 19:00'},
+                    {'name': '办杰国际贸易','service': '金融服务','content': '人才引进服务','time': '2019-06-18 19:00'},
+                    {'name': '浙江新量进出口有限公司','service': '金融服务','content': '人才引进服务','time': '2019-06-18 19:00'},
+                    {'name': '义乌市华艺塑料有限公司','service': '金融服务','content': '人才引进服务','time': '2019-06-18 19:00'},
+                    {'name': '浙江高鑫安全检测科技有限公司','service': '金融服务','content': '人才引进服务','time': '2019-06-18 19:00'},
+                    {'name': '办杰国际贸易','service': '金融服务','content': '人才引进服务','time': '2019-06-18 19:00'},
+                    {'name': '浙江新量进出口有限公司','service': '金融服务','content': '人才引进服务','time': '2019-06-18 19:00'},
+                    {'name': '义乌市华艺塑料有限公司','service': '金融服务','content': '人才引进服务','time': '2019-06-18 19:00'}
+                ],
+                done: function () {
+                    var speed = 80;
+                    var html = $('.layui-table-body').find('tbody').html();
+                    function marQueen(){
+                        if ($('.layui-table-body')[0].scrollTop>=($('.layui-table-body')[0].scrollHeight/3)) {
+                            $('.layui-table-body').find('tbody').append(html)
+                        } else {
+                            $('.layui-table-body')[0].scrollTop++;
+                        }
+                    }
+                    var MyMar = setInterval(marQueen, speed);
+                    $('.layui-table-body > tbody').mouseover(function () {
+                        clearInterval(MyMar);
+                    });
+
+                    $('.layui-table-body > tbody').mouseout(function () {
+                        MyMar = setInterval(marQueen, speed);
+                    })
+                }
+            });
+
+            $('.R226_tabList>ul>li').on('click',function () {
+                if($(this).text() == '消防监控'){
+                    setTimeout(function () {
+                        table.reload("table", {height: ($('.T226_xfRight1').height() - $('.T226_xfTitle').height())*0.95})
+                    },50)
+                }
+            });
+
+            window.addEventListener('resize', function() {
+                table.reload("table", {height: ($('.T226_xfRight1').height() - $('.T226_xfTitle').height())*0.95})
+            })
+        });
+
+        function eChartInit(el, name) {
+            var option = {
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        lineStyle: {
+                            color: {
+                                type: 'linear',
+                                x: 0,
+                                y: 0,
+                                x2: 0,
+                                y2: 1,
+                                colorStops: [{
+                                    offset: 0,
+                                    color: 'rgba(0, 255, 233,0)'
+                                }, {
+                                    offset: 0.5,
+                                    color: 'rgba(255, 255, 255,1)',
+                                }, {
+                                    offset: 1,
+                                    color: 'rgba(0, 255, 233,0)'
+                                }],
+                                global: false
+                            }
+                        },
+                    },
+                },
+                grid: {
+                    top: '5%',
+                    left: '5%',
+                    right: '10%',
+                    bottom: '0%',
+                    containLabel: true
+                },
+                xAxis: [{
+                    type: 'category',
+                    axisLine: {
+                        show: true,
+                        lineStyle: {
+                            color: '#2AA2FA'
+                        },
+                    },
+                    splitArea: {
+                        // show: true,
+                        color: '#f00',
+                        lineStyle: {
+                            color: '#f00'
+                        },
+                    },
+                    axisLabel: {
+                        color: '#2AA2FA'
+                    },
+                    splitLine: {
+                        show: false
+                    },
+                    boundaryGap: false,
+                    data: ['6/15', '6/16', '6/17', '6/18', '6/19', '6/20'],
+
+                }],
+
+                yAxis: [{
+                    type: 'value',
+                    min: 0,
+                    splitNumber: 4,
+                    splitLine: {
+                        show: true,
+                        lineStyle: {
+                            color: 'rgba(11,50,104,0.6)'
+                        }
+                    },
+                    axisLine: {
+                        show: true,
+                        lineStyle: {
+                            color: '#2AA2FA'
+                        },
+                    },
+                    axisLabel: {
+                        show: true,
+                        margin: 20,
+                        textStyle: {
+                            color: '#2AA2FA',
+
+                        },
+                    },
+                    axisTick: {
+                        show: true,
+                    },
+                }],
+                series: [{
+                    name: name,
+                    type: 'line',
+                    showAllSymbol: true,
+                    symbol: 'circle',
+                    symbolSize: 10,
+                    lineStyle: {
+                        normal: {
+                            color: "#8AECFC",
+                        },
+                    },
+                    label: {
+                        show: true,
+                        position: 'top',
+                        textStyle: {
+                            color: '#fff',
+                        }
+                    },
+                    itemStyle: {
+                        color: "#01DDFF",
+                        borderColor: "#fff",
+                        borderWidth: 1
+                    },
+                    tooltip: {
+                        show: true
+                    },
+                    areaStyle: {
+                        normal: {
+                            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                offset: 0,
+                                color: 'rgba(9,54,97,1)'
+                            },
+                                {
+                                    offset: 1,
+                                    color: 'rgba(9,54,97,0.3)'
+                                }
+                            ], false),
+                            // shadowColor: 'rgba(108,80,243, 0.9)',
+                            // shadowBlur: 20
+                        }
+                    },
+                    data: [502.84, 205.97, 332.79, 281.55, 398.35, 214.02, ]
+                },
+                ]
+            };
+            var newCahrt = echarts.init(el);
+            newCahrt.setOption(option);
+            $(window).resize(function() {
+                newCahrt.resize()
+            })
+        }
+        var name1 = '温度趋势';
+        var dom1 = document.getElementById('T226_echart1');
+        eChartInit(dom1, name1);
+
+        var name2 = '湿度趋势';
+        var dom2 = document.getElementById('T226_echart2');
+        eChartInit(dom2, name2);
+
+        var name3 = '风速趋势';
+        var dom3 = document.getElementById('T226_echart3');
+        eChartInit(dom3, name3);
+
+        var name4 = '空气质量趋势';
+        var dom4 = document.getElementById('T226_echart4');
+        eChartInit(dom4, name4);
+
+        var name5 = 'PM2.5趋势';
+        var dom5 = document.getElementById('T226_echart5');
+        eChartInit(dom5, name5);
+
+        var name6 = '噪音趋势';
+        var dom6 = document.getElementById('T226_echart6');
+        eChartInit(dom6, name6);
+
+        function eChartInit1(el, name) {
+            var option = {
+                series: [{
+                    type: 'liquidFill',
+                    radius: '65%',
+                    center: ['50%', '50%'],
+                    color: ['rgba(80,144,174,0.6)','rgba(61,225,234,0.7)'],
+                    data: [0.5, 0.5], // data个数代表波浪数
+                    backgroundStyle: {
+                        borderWidth: 1,
+                        color: 'rgb(31,67,108,0.4)'
+                    },
+                    label: {
+                        show:false,
+                        normal: {
+                            formatter: name,
+                            rich: {
+                                a:{
+                                    color: '#fff',
+                                    fontSize: 24
+                                },
+                                b:{
+                                    color: '#fff',
+                                    fontSize: 12
+                                }
+                            }
+                        }
+                    },
+                    outline: {
+                        show: false,
+                    }
+                },
+                    {
+                        type: "pie",
+                        center: ["50%", "50%"],
+                        radius: ["75%", "80%"],
+                        hoverAnimation: false,
+                        data: [{
+                            "name": "",
+                            "value": 0,
+                            labelLine: {
+                                show: false
+                            },
+                            itemStyle: {
+                                color:{
+                                    type: 'linear',
+                                    x: 0,
+                                    y: 0,
+                                    x2: 0,
+                                    y2: 1,
+                                    colorStops: [{
+                                        offset: 0,
+                                        color: 'rgba(65,125,214, 1)'
+                                    }, {
+                                        offset: 0.5,
+                                        color: 'rgba(99,176,229, 1)'
+                                    }, {
+                                        offset: 1,
+                                        color: 'rgba(133,226,245, 1)'
+                                    }],
+                                    globalCoord: false
+                                },
+                            },
+                            emphasis: {
+                                labelLine: {
+                                    show: false
+                                },
+                            }
+                        }
+                        ]
+                    }
+
+                ]
+            };
+            var newCahrt = echarts.init(el);
+            newCahrt.setOption(option);
+            $(window).resize(function() {
+                newCahrt.resize()
+            })
+        }
+        var name7 = '{a|1.3 }{b|万度}';
+        var dom7 = document.getElementById('T226_chart1');
+        eChartInit1(dom7, name7);
+
+        var name8 = '{a|1.3 }{b|万度}';
+        var dom8 = document.getElementById('T226_chart2');
+        eChartInit1(dom8, name8);
+
+
+        window.addEventListener('resize', function() {
+            mychart1.resize();
+            mychart2.resize();
+        });
+        var mychart1 = echarts.init(document.getElementById('T226_chart3'));
+        var option = {
+            tooltip: {
+                trigger: 'axis',
+            },
+            grid: {
+                top: '25%',
+                left: '5%',
+                right: '5%',
+                bottom: '0%',
+                containLabel: true
+            },
+            xAxis: [{
+                type: 'category',
+                axisLine: {
+                    show: true,
+                    lineStyle: {
+                        color: "#132958",
+                        type: 'dotted'
+                    }
+                },
+                splitArea: {
+                    color: '#fff',
+                    lineStyle: {
+                        color: '#f00'
+                    },
+                },
+                axisLabel: {
+                    color: '#fff',
+                    fontSize: 14,
+                    lineStyle: {
+                        color: "#6c50f3"
+                    }
+                },
+                splitLine: {
+                    show: true,
+                    lineStyle: {
+                        color: '#132958'
+                    }
+                },
+                axisTick: {
+                    show: false
+                },
+                boundaryGap: false,
+                data: ['2020-02-03', '2020-02-04', '2020-02-05', '2020-02-06', '2020-02-07', '2020-02-08']
+            }],
+            yAxis: [{
+                type: 'value',
+                splitLine: {
+                    show: true,
+                    lineStyle: {
+                        color: 'rgba(255,255,255,0.1)',
+                        type: 'dotted'
+                    }
+                },
+                axisLine: {
+                    show: false
+                },
+                axisLabel: {
+                    show: true,
+                    fontSize: 14,
+                    margin: 20,
+                    textStyle: {
+                        color: '#fff',
+
+                    },
+                },
+                axisTick: {
+                    show: false
+                },
+            }],
+            series: [{
+                name: '用电',
+                type: 'line',
+                smooth: true,
+                showAllSymbol: true,
+                symbol: 'circle',
+                symbolSize: 10,
+                lineStyle: {
+                    normal: {
+                        color: "#0D97EB"
+                    },
+                },
+                label: {
+                    show: false
+                },
+                itemStyle: {
+                    color: "#0D97EB",
+                    borderColor: "#07184F",
+                    borderWidth: 5,
+                },
+                tooltip: {
+                    show: true
+                },
+                areaStyle: {
+                    normal: {
+                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                            offset: 0,
+                            color: 'rgba(39,94,126,0.8)'
+                        },
+                            {
+                                offset: 0.5,
+                                color: 'rgba(39,94,126,0.1)'
+                            },
+                            {
+                                offset: 1,
+                                color: 'rgba(39,94,126,0)'
+                            }
+                        ], false)
+                    }
+                },
+                data: [3.1, 4.6, 5.7, 5.8, 5.6, 5.8]
+            }]
+        };
+        mychart1.setOption(option);
+
+        var mychart2 = echarts.init(document.getElementById('T226_chart6'));
+        var option1 = {
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                data: ['消防主机', '智慧用电', '智能烟感', '智慧井盖'],
+                left: 'right',
+                top: 'top',
+                textStyle:{
+                    color: '#fff'
+                }
+            },
+            grid: {
+                top: '10%',
+                left: '3%',
+                right: '4%',
+                bottom: '0%',
+                containLabel: true
+            },
+            xAxis: {
+                type: 'category',
+                data: [100,200,20,30,60,89],
+                axisLine: {
+                    lineStyle: {
+                        color: "#705DFF"
+                    }
+                },
+                axisLabel:{
+                    color: '#ACAFB9'
+                },
+                axisTick:{
+                    show:false
+                }
+            },
+            yAxis: {
+                type: 'value',
+                splitLine: {
+                    lineStyle: {
+                        type: 'solid',
+                        color: 'rgba(9,46,98,0.5)'
+                    }
+                },
+                axisLine: {
+                    lineStyle: {
+                        color: "#705DFF"
+                    },
+                },
+                axisLabel:{
+                    color: '#ACAFB9'
+                },
+                axisTick:{
+                    show: false
+                },
+                splitArea: {
+                    show: false
+                }
+            },
+            series: [{
+                name: '消防主机',
+                type: 'line',
+                data: [800,900,220,130,660,289],
+                showAllSymbol: true,
+                symbol: 'circle',
+                symbolSize: 8,
+                lineStyle: {
+                    normal: {
+                        width: 2,
+                        color: '#FEF200'
+                    }
+                },
+                itemStyle: {
+                    normal: {
+                        color: '#FEF200',
+                        borderWidth: 2,
+                        borderColor: "#fff"
+                    }
+                },
+                smooth: false
+            },
+                {
+                    name: '智慧用电',
+                    type: 'line',
+                    data: [123,568,111,222,123,56],
+                    showAllSymbol: true,
+                    symbol: 'circle',
+                    symbolSize: 8,
+                    lineStyle: {
+                        normal: {
+                            width: 2,
+                            color: '#028EF0'
+                        }
+                    },
+                    itemStyle: {
+                        normal: {
+                            color: '#028EF0',
+                            borderWidth: 2,
+                            borderColor: "#fff"
+                        }
+                    },
+                    smooth: false
+                },
+                {
+                    name: '智能烟感',
+                    type: 'line',
+                    data: [150,600,25,36,784,56],
+                    showAllSymbol: true,
+                    symbol: 'circle',
+                    symbolSize: 8,
+                    lineStyle: {
+                        normal: {
+                            width: 2,
+                            color: '#00A709'
+                        }
+                    },
+                    itemStyle: {
+                        normal: {
+                            color: '#00A709',
+                            borderWidth: 2,
+                            borderColor: "#fff"
+                        }
+                    },
+                    smooth: false
+                },
+                {
+                    name: '智慧井盖',
+                    type: 'line',
+                    data: [200,400,10,96,900,99],
+                    showAllSymbol: true,
+                    symbol: 'circle',
+                    symbolSize: 8,
+                    lineStyle: {
+                        normal: {
+                            width: 2,
+                            color: '#DD6969'
+                        }
+                    },
+                    itemStyle: {
+                        normal: {
+                            color: '#DD6969',
+                            borderWidth: 2,
+                            borderColor: "#fff"
+                        }
+                    },
+                    smooth: false
+                }
+            ]
+        };
+        mychart2.setOption(option1);
+
+        var category = [
+            {
+                name: '义乌市华艺塑料有限公司',
+                value: 80
+            },
+            {
+                name: '浙江高鑫安全检测科技有限公司',
+                value: 61
+            },
+            {
+                name: '亦杰国际贸易',
+                value: 47
+            },
+            {
+                name: '浙江新景进出口有限公司',
+                value: 40
+            },
+            {
+                name: '星柏毅科技',
+                value: 39
+            }
+        ]; // 类别
+        function eChartInit2(el) {
+            var option = {
+                xAxis: {
+                    splitLine: {
+                        show: false
+                    },
+                    axisLine: {
+                        show: false
+                    },
+                    axisLabel: {
+                        show: false
+                    },
+                    axisTick: {
+                        show: false
+                    }
+                },
+                grid: {
+                    left: '15%',
+                    top: '5%',
+                    right: '5%',
+                    bottom: '0%',
+                    containLabel: true
+                },
+                yAxis: [{
+                    type: "category",
+                    inverse: true,
+                    data: category,
+                    axisLine: {
+                        show: false
+                    },
+                    axisTick: {
+                        show: false
+                    },
+                    axisLabel: {
+                        show: false,
+                    }
+                },
+                    {
+                        type: "category",
+                        inverse: true,
+                        data: category,
+                        axisLine: {
+                            show: false
+                        },
+                        axisTick: {
+                            show: false
+                        },
+                        axisLabel: {
+                            show: true,
+                            formatter: function (params) {
+                                return '{a|'+ params + '}{b|'+ '度' + '}'
+                            },
+                            rich: {
+                                a:{
+                                    color: '#fff',
+                                    fontSize: 14
+                                },
+                                b:{
+                                    color: '#fff',
+                                    fontSize: 14
+                                }
+                            }
+                        }
+                    }],
+                series: [
+                    {
+                        // 内
+                        type: "bar",
+                        barWidth: 12,
+                        legendHoverLink: false,
+                        silent: true,
+                        itemStyle: {
+                            normal: {
+                                color: function(params) {
+                                    var color;
+                                    if(params.dataIndex == 0){
+                                        color = {
+                                            type: "linear",x: 0,y: 0,x2: 1,y2: 0,
+                                            colorStops: [{
+                                                offset: 0,
+                                                color: "#0A55C1" // 0% 处的颜色
+                                            },
+                                                {
+                                                    offset: 1,
+                                                    color: "#18CBF4" // 100% 处的颜色
+                                                }
+                                            ]
+                                        }
+                                    }else if(params.dataIndex == 1){
+                                        color = {
+                                            type: "linear",x: 0,y: 0,x2: 1,y2: 0,
+                                            colorStops: [{
+                                                offset: 0,
+                                                color: "#0ABCAF" // 0% 处的颜色
+                                            },
+                                                {
+                                                    offset: 1,
+                                                    color: "#18F374" // 100% 处的颜色
+                                                }
+                                            ]
+                                        }
+                                    }else if(params.dataIndex == 2){
+                                        color = {
+                                            type: "linear",x: 0,y: 0,x2: 1,y2: 0,
+                                            colorStops: [{
+                                                offset: 0,
+                                                color: "#FBA957" // 0% 处的颜色
+                                            },
+                                                {
+                                                    offset: 1,
+                                                    color: "#FEE865" // 100% 处的颜色
+                                                }
+                                            ]
+                                        }
+                                    }else{
+                                        color = {
+                                            type: "linear",x: 0,y: 0,x2: 1,y2: 0,
+                                            colorStops: [{
+                                                offset: 0,
+                                                color: "#0D294F" // 0% 处的颜色
+                                            },
+                                                {
+                                                    offset: 1,
+                                                    color: "#5258CF" // 100% 处的颜色
+                                                }
+                                            ]
+                                        }
+                                    }
+                                    return color;
+                                },
+                            }
+                        },
+                        label: {
+                            normal: {
+                                show: true,
+                                position: ['-60', '-25'],
+                                padding: [0,0,10,0],
+                                rich: {
+                                    a1: {
+                                        width: 50,
+                                        height: 20,
+                                        color: '#ff9e0a',
+                                        fontSize: 16,
+                                        fontWeight: 'bold',
+                                        align: 'center',
+                                        padding: [10,0],
+                                        backgroundColor: {
+                                            image: '../../../xwyjs/images/26/T226_echart_icon1.png'
+                                        }
+                                    },
+                                    a2: {
+                                        width: 50,
+                                        height: 18,
+                                        color: '#06e07c',
+                                        fontSize: 16,
+                                        fontWeight: 'bold',
+                                        align: 'center',
+                                        padding: [10,0],
+                                        backgroundColor: {
+                                            image: '../../../xwyjs/images/26/T226_echart_icon1.png'
+                                        }
+                                    },
+                                    a3: {
+                                        width: 50,
+                                        height: 18,
+                                        color: '#ff8484',
+                                        fontSize: 16,
+                                        fontWeight: 'bold',
+                                        align: 'center',
+                                        padding: [10,0],
+                                        backgroundColor: {
+                                            image: '../../../xwyjs/images/26/T226_echart_icon1.png'
+                                        }
+                                    },
+                                    b: {
+                                        width: 50,
+                                        height: 18,
+                                        color: '#3296f4',
+                                        fontSize: 16,
+                                        fontWeight: 'bold',
+                                        align: 'center',
+                                        padding: [10,0],
+                                        backgroundColor: {
+                                            image: '../../../xwyjs/images/26/T226_echart_icon1.png'
+                                        }
+                                    },
+                                    c: {
+                                        color: '#fff',
+                                        align: 'left',
+                                        fontSize: 14,
+                                        padding: [10,0,0,10]
+                                    }
+                                },
+                                formatter: function(data) {
+                                    if (data.dataIndex < 3) {
+                                        return [
+                                            '{a' + (data.dataIndex + 1) + '|NO.' + (data.dataIndex + 1) + '}' + '{c|' + data.name + '}'
+                                        ].join('\n')
+                                    } else {
+                                        return [
+                                            '{b|NO.' + (data.dataIndex + 1) + '}' + '{c|' + data.name + '}'
+                                        ].join('\n')
+                                    }
+                                }
+                            }
+                        },
+                        data: category,
+                        z: 2,
+                        animationEasing: "elasticOut"
+                    },
+                    {
+                        type: 'bar',
+                        barGap: '-120%',
+                        barWidth: 18,
+                        data: [80,80,80,80,80,80],
+                        itemStyle:{
+                            normal:{
+                                color:"rgba(17,42,91,1)"
+                            }
+                        },
+                        z:1
+                    },
+                    {
+                        // 分隔
+                        type: "pictorialBar",
+                        itemStyle: {
+                            normal:{
+                                color:"rgba(17,42,91,1)"
+                            }
+                        },
+                        symbolRepeat: "fixed",
+                        symbolMargin: 3,
+                        symbol: "rect",
+                        symbolClip: true,
+                        symbolSize: [5, 15],
+                        symbolPosition: "start",
+                        symbolOffset: [1, 0],
+                        data: category,
+                        z: 3,
+                        animationEasing: "elasticOut"
+                    }
+                ]
+            };
+            var newCahrt = echarts.init(el);
+            newCahrt.setOption(option);
+            $(window).resize(function() {
+                newCahrt.resize()
+            })
+        }
+        var dom9 = document.getElementById('T226_chart4');
+        eChartInit2(dom9);
+        var dom10 = document.getElementById('T226_chart5');
+        eChartInit2(dom10)
+    })
+</script>
+</html>

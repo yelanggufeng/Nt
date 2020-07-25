@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <link th:href="@{/css/update.css}" rel="stylesheet"/>
+    <th:block th:include="include :: header('人才需求信息列表')" />
+</head>
+<body class="gray-bg">
+<div class="container-div">
+    <div class="row">
+        <div class="col-sm-12 search-collapse">
+            <form id="formId">
+                <div class="select-list">
+                    <ul>
+                        <li>
+                            <p>标题：</p>
+                            <input type="text" name="title"/>
+                        </li>
+                        <li>
+                            <p>需求类型ID：</p>
+                            <input type="text" name="
+requireTypeId"/>
+                        </li>
+                        <li>
+                            <p>项目估价：</p>
+                            <input type="text" name="projectValuation"/>
+                        </li>
+                        <li>
+                            <p>产业分类ID：</p>
+                            <input type="text" name="industryId"/>
+                        </li>
+                        <li>
+                            <p>学历要求ID：</p>
+                            <input type="text" name="degreeId"/>
+                        </li>
+                        <li>
+                            <p>经验要求ID：</p>
+                            <input type="text" name="experienceId"/>
+                        </li>
+                        <li>
+                            <p>需求描述：</p>
+                            <input type="text" name="description"/>
+                        </li>
+                        <li>
+                            <p>所属小微园ID：</p>
+                            <input type="text" name="parkId"/>
+                        </li>
+                        <li>
+                            <p>所属企业ID：</p>
+                            <input type="text" name="enterpriseId"/>
+                        </li>
+                        <li>
+                            <p>状态 0待审核 1已发布 2审核驳回：</p>
+                            <select name="status">
+                                <option value="">所有</option>
+                            </select>
+                        </li>
+                        <li>
+                            <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i> 搜索</a>
+                            <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i> 重置</a>
+                        </li>
+                    </ul>
+                </div>
+            </form>
+        </div>
+
+        <div class="btn-group-sm" id="toolbar" role="group">
+            <a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="netintech:requirement:add">
+                <i class="fa fa-plus"></i> 添加
+            </a>
+            <a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()" shiro:hasPermission="netintech:requirement:remove">
+                <i class="fa fa-remove"></i> 删除
+            </a>
+            <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="netintech:requirement:export">
+                <i class="fa fa-download"></i> 导出
+            </a>
+        </div>
+        <div class="col-sm-12 select-table table-striped">
+            <table id="bootstrap-table" data-mobile-responsive="true"></table>
+        </div>
+    </div>
+</div>
+<th:block th:include="include :: footer" />
+<script th:inline="javascript">
+    var editFlag = [[${@permission.hasPermi('netintech:requirement:edit')}]];
+    var removeFlag = [[${@permission.hasPermi('netintech:requirement:remove')}]];
+    var detailFlag = [[${@permission.hasPermi('netintech:requirement:detail')}]];
+    var prefix = ctx + "netintech/requirement";
+
+    $(function() {
+        var options = {
+            url: prefix + "/list",
+            createUrl: prefix + "/add",
+            updateUrl: prefix + "/edit/{id}",
+            removeUrl: prefix + "/remove",
+            exportUrl: prefix + "/export",
+            detailUrl: prefix + "/detail/{id}",
+            modalName: "人才需求信息",
+            columns: [{
+                checkbox: true
+            },
+                {
+                    field : 'id',
+                    title : '人才需求ID',
+                    visible: false
+                },
+                {
+                    field : 'title',
+                    title : '标题'
+                },
+                {
+                    field : '
+                    requireTypeId',
+                    title : '需求类型ID'
+                },
+                {
+                    field : 'projectValuation',
+                    title : '项目估价'
+                },
+                {
+                    field : 'industryId',
+                    title : '产业分类ID'
+                },
+                {
+                    field : 'degreeId',
+                    title : '学历要求ID'
+                },
+                {
+                    field : 'experienceId',
+                    title : '经验要求ID'
+                },
+                {
+                    field : 'description',
+                    title : '需求描述'
+                },
+                {
+                    field : 'parkId',
+                    title : '所属小微园ID'
+                },
+                {
+                    field : 'enterpriseId',
+                    title : '所属企业ID'
+                },
+                {
+                    field : 'status',
+                    title : '状态 0待审核 1已发布 2审核驳回'
+                },
+                {
+                    title: '操作',
+                    align: 'center',
+                    formatter: function(value, row, index) {
+                        var actions = [];
+                        actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="$.operate.edit(\'' + row.id + '\')"><i class="fa fa-edit"></i>编辑</a> ');
+                        actions.push('<a class="btn btn-warning btn-xs ' + detailFlag + '" href="javascript:void(0)" onclick="$.operate.detail(\'' + row.id + '\')"><i class="fa fa-edit"></i>查看</a> ');
+                        actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.id + '\')"><i class="fa fa-remove"></i>删除</a>');
+                        return actions.join('');
+                    }
+                }]
+        };
+        $.table.init(options);
+    });
+</script>
+</body>
+</html>

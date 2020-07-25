@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+    <title>通知公告</title>
+    <link rel="stylesheet" th:href="@{/xwyjs/css/all.css}">
+    <link rel="stylesheet" th:href="@{/xwyjs/css/style28.css}">
+    <link rel="stylesheet" th:href="@{/xwyjs/lib/layui/css/layui.css}">
+</head>
+<body>
+<div class="W128_Container">
+    <div class="W128_content">
+        <div class="w128_inner">
+            <div class="X228_weizhi"><img src="/xwyjs/images/28/W228_dingwei.png" alt=""> 当前位置：首页>通知公告</div>
+            <div class="X228_top"><span>通知公告</span></div>
+            <div class="X228_content" id="biu_list">
+            </div>
+            <div id="fenye" align="center">
+
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script th:src="@{/xwyjs/js/jquery.min.js}"></script>
+<script th:src="@{/xwyjs/js/main.js}"></script>
+<script th:src="@{/xwyjs/lib/layui/layui.js}"></script>
+<script th:src="@{/xwyjs/lib/layui/lay/modules/laypage.js}"></script>
+<script>
+    $(function () {
+        var myDate = new Date;
+        var year = myDate.getFullYear(); //获取当前年
+        var mon = myDate.getMonth() + 1; //获取当前月
+        var date = myDate.getDate(); //获取当前日
+        var week = myDate.getDay();
+        var weeks = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"];
+        $("#time").html(year + "年" + mon + "月" + date + "日" + weeks[week]);
+        var data = new FormData();
+        if ('[[${keyword}]]' != '0') {
+            data.append("title", '[[${keyword}]]');
+        }
+
+        parent.changeScroll()
+        $.ajax({
+            data: data,
+            type: "POST",
+            url: "/notice/publish/public",
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                layui.use(['laypage', 'layer'], function(){
+                    var laypage = layui.laypage,
+                        layer = layui.layer;
+                    //调用分页
+                    laypage.render({
+                        elem: 'fenye',
+                        count: data.length,
+                        layout: ['count', 'prev', 'page', 'next', 'limit', 'refresh', 'skip'],
+                        jump: function(obj){
+                            //模拟渲染
+                            document.getElementById('biu_list').innerHTML = function(){
+                                var arr = [],
+                                    thisData = data.concat().splice(obj.curr*obj.limit - obj.limit, obj.limit);
+                                layui.each(thisData, function(index, item){
+                                    var dayTime = new Date(item.createTime);
+                                    var year = dayTime.getFullYear(); //获取当前年
+                                    var mon = dayTime.getMonth() + 1; //获取当前月
+                                    var date = dayTime.getDate(); //获取当前日
+                                    var newContent = item.mainBody;
+                                    if (newContent !=null && newContent !='') {
+                                        newContent = newContent.replace(/<\/?[^>]*>/g,''); //去除HTML tag
+                                        newContent = newContent.replace(/[ | ]*\n/g,'\n'); //去除行尾空白
+                                        newContent = newContent.replace(/\n[\s| | ]*\r/g,'\n'); //去除多余空行
+                                        newContent=newContent.replace(/ /ig,'');//去掉
+                                        if (newContent.length > 60) {
+                                            newContent = newContent.substring(0, 60) + ' ....';
+                                        }
+                                    }
+                                    arr.push('<div style="cursor:pointer;"><a href="/tzgg_conntent/' + item.id + ' "><div class="X228_c_time"><p class="X228_C_date" id="day">'
+                                        + date + '</p><p class="X228_c_month" id="months">' + year + '/' + mon + '</p></div>' +
+                                        '<div class="X228_c_word"><p class="X228_c_name" id="title">' + item.title + '</p>' +
+                                        '<p class="X228_c_content">' + newContent  + '</p></div></a></div>');
+                                });
+                                return arr.join('');
+                            }();
+                            var height = $('#fenye').position().top + $('#fenye')[0].scrollHeight
+                            parent.changeIframe(height+'px')
+                        }
+                    });
+                });
+            }
+        });
+
+        window.addEventListener("resize", function() {
+            setTimeout(function () {
+                var height = $('#fenye').position().top + $('#fenye')[0].scrollHeight
+                parent.changeIframe(height+'px')
+            },100)
+        });
+    })
+
+</script>
+<script>
+
+
+</script>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+    <title>小微园总览</title>
+    <link rel="stylesheet" th:href="@{/xwyjs/css/all.css}">
+    <link rel="stylesheet" th:href="@{/xwyjs/css/particle.css}">
+    <link rel="stylesheet" th:href="@{/xwyjs/css/style_26.css}">
+
+</head>
+<style>
+    .T226_title{
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translateX(-50%) translateY(-60%);
+        font-family: TITLE;
+        font-size: 2rem;
+        letter-spacing: 0.1rem;
+        background: linear-gradient(to bottom, #FCFDFE, #C9E4FF, #60AEFD);
+        -webkit-background-clip: text;
+        color: transparent;
+    }
+</style>
+<body>
+<div class="I126_wapper">
+    <div class="I126_header">
+        <span class="T226_title">永康市数字小微园</span>
+        <div class="I126_h_left">
+            <span class="I126_h_date" id="time">
+            </span>
+            <span id="temp"></span>
+            <img id="weatherIcon" src="#" />
+            <span class="I126_h_weather" id="weather">
+            </span>
+        </div>
+        <span class="P126_return" style="display: none;">返回</span>
+    </div>
+    <div class="I126_main">
+        <div class="I126_content">
+            <iframe class="I126_iframe" src="/index/park/overview" frameborder="0"></iframe>
+        </div>
+    </div>
+    <div class="I126_footer">
+        <div class="I126_navItem I126_currentItem">小微园总览</div>
+        <div class="I126_navItem">经济运行</div>
+        <div class="I126_navItem">项目推进</div>
+        <div class="I126_navItem">运营服务</div>
+        <div class="I126_navItem">设备监控</div>
+    </div>
+</div>
+</body>
+
+<script th:src="@{/xwyjs/js/jquery.min.js}"></script>
+<script th:src="@{/xwyjs/js/main.js}"></script>
+<script th:src="@{/xwyjs/js/jquery.backgroundSize.js}"></script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        var myDate = new Date;
+        var year = myDate.getFullYear(); //获取当前年
+        var mon = myDate.getMonth() + 1; //获取当前月
+        var date = myDate.getDate(); //获取当前日
+        var week = myDate.getDay();
+        var weeks = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"];
+        $("#time").html(year + "年" + mon + "月" + date + "日" + "  " + weeks[week]);
+
+        $('.I126_navItem').click(function () {
+            $('.I126_navItem').removeClass('I126_currentItem')
+            $(this).addClass('I126_currentItem')
+            if($(this).text() == '经济运行'){
+                $('.I126_iframe').attr('src','/index/economic')
+            }
+            if($(this).text() == '小微园总览'){
+                $('.I126_iframe').attr('src','/index/park/overview')
+            }
+            if($(this).text() == '项目推进'){
+                $('.I126_iframe').attr('src','/index/project/promotion')
+            }
+            if($(this).text() == '设备监控'){
+                $('.I126_iframe').attr('src','/index/alarm')
+            }
+            if($(this).text() == '运营服务'){
+                $('.I126_iframe').attr('src','/index/service')
+            }
+            $('.P126_return').attr('style','display:none')
+            $('.T226_title').text('永康市数字小微园')
+        })
+
+        weather();
+
+        $('.P126_return').click(function () {
+            window.history.go(-1)
+            $('.P126_return').attr('style','display:none')
+            $('.T226_title').text('永康市数字小微园')
+        })
+
+    })
+
+    function changeIfra(url) {
+        $('.I126_iframe').attr('src',url)
+    }
+
+    function weather() {
+        /** 天气 */
+            var data = {
+                appid: 74836413,
+                appsecret: 'vYTXC99M ',
+                version: 'v1',
+                cityid: 101210907
+            }
+
+        $.get('https://www.tianqiapi.com/api/',data, function(result) {
+            $('#temp').text(result.data[0].tem);
+            $('#weather').text(result.data[0].wea);
+            $('#weatherIcon').attr('src','../../../xwyjs/images/26/' + result.data[0].wea_img +'.png')
+        })
+    }
+
+    function showReturn() {
+        $('.P126_return').attr('style','display:block')
+    }
+
+    function changeTitle(title) {
+        $('.T226_title').text(title)
+    }
+</script>
+
+</html>

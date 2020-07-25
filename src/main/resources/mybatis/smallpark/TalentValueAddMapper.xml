@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.netintech.park.mapper.TalentValueAddMapper">
+
+    <resultMap type="com.netintech.park.domain.TalentValueAdd" id="TalentValueAddResult">
+    <result property="id"    column="id"    />
+    <result property="fileUuid"    column="file_uuid"    />
+    <result property="title"    column="title"    />
+    <result property="serviceTypeId"    column="service_type_id"    />
+    <result property="serviceObject"    column="service_object"    />
+    <result property="serviceContent"    column="service_content"    />
+    <result property="contactName"    column="contact_name"    />
+    <result property="contactTel"    column="contact_tel"    />
+    <result property="contactEmail"    column="contact__email"    />
+    <result property="parkId"    column="park_id"    />
+    <result property="enterpriseId"    column="enterprise_id"    />
+    <result property="status"    column="status"    />
+    <result property="delFlag"    column="del_flag"    />
+    <result property="createBy"    column="create_by"    />
+    <result property="createTime"    column="create_time"    />
+    <result property="updateBy"    column="update_by"    />
+    <result property="updateTime"    column="update_time"    />
+</resultMap>
+
+    <resultMap type="com.netintech.park.domain.dto.TalentValueAddDto" id="TalentValueAddDtoResult">
+        <result property="id"    column="id"    />
+        <result property="fileUuid"    column="file_uuid"    />
+        <result property="title"    column="title"    />
+        <result property="serviceTypeId"    column="service_type_id"    />
+        <result property="serviceObject"    column="service_object"    />
+        <result property="serviceContent"    column="service_content"    />
+        <result property="contactName"    column="contact_name"    />
+        <result property="contactTel"    column="contact_tel"    />
+        <result property="contactEmail"    column="contact__email"    />
+        <result property="parkId"    column="park_id"    />
+        <result property="enterpriseId"    column="enterprise_id"    />
+        <result property="status"    column="status"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <collection property="attachmentTalentValueAddList" resultMap="AttachmentTalentValueAddResult"/>
+    </resultMap>
+
+    <resultMap type="com.netintech.park.domain.AttachmentTalentValueAdd" id="AttachmentTalentValueAddResult">
+        <result property="id"    column="attachmentId"    />
+        <result property="addId"    column="add_id"    />
+        <result property="fileUuid"    column="file_uuid"    />
+        <result property="fileName"    column="file_name"    />
+        <result property="fileAlias"    column="file_alias"    />
+        <result property="filePath"    column="file_path"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+    </resultMap>
+
+
+    <sql id="selectTalentValueAddVo">
+        select id, file_uuid, title, service_type_id, service_object, service_content, contact_name, contact_tel, contact__email, park_id, enterprise_id, status, del_flag, create_by, create_time, update_by, update_time from sys_talent_value_add
+    </sql>
+
+
+
+    <select id="findAll" parameterType="com.netintech.park.domain.dto.TalentValueAddDto" resultMap="TalentValueAddDtoResult">
+        SELECT
+        a.id,
+        a.file_uuid AS fileUuid,
+        a.title,
+        a.service_type_id,
+        a.service_object,
+        a.service_content,
+        a.contact_name,
+        a.contact_tel,
+        a.contact__email,
+        a.park_id,
+        a.enterprise_id,
+        a.STATUS,
+        a.del_flag,
+        a.create_by,
+        a.create_time,
+        a.update_by,
+        a.update_time,
+        b.id AS attachmentId,
+        b.add_id,
+        b.file_uuid,
+        b.file_name,
+        b.file_alias,
+        b.file_path
+        FROM
+        sys_talent_value_add a
+        LEFT JOIN attachment_talent_value_add b ON a.id = b.add_id
+        WHERE
+        a.del_flag = 0
+        AND b.del_flag = 0
+        <if test="fileUuid != null  and fileUuid != ''"> and a.file_uuid = #{fileUuid}</if>
+        <if test="title != null  and title != ''"> and a.title = #{title}</if>
+        <if test="serviceTypeId != null "> and a.service_type_id = #{serviceTypeId}</if>
+        <if test="serviceObject != null  and serviceObject != ''"> and a.service_object = #{serviceObject}</if>
+        <if test="serviceContent != null  and serviceContent != ''"> and a.service_content = #{serviceContent}</if>
+        <if test="contactName != null  and contactName != ''"> and a.contact_name like concat('%', #{contactName}, '%')</if>
+        <if test="contactTel != null  and contactTel != ''"> and a.contact_tel = #{contactTel}</if>
+        <if test="contactEmail != null  and contactEmail != ''"> and a.contact__email = #{contactEmail}</if>
+        <if test="parkId != null "> and a.park_id = #{parkId}</if>
+        <if test="enterpriseId != null "> and a.enterprise_id = #{enterpriseId}</if>
+        <if test="status != null  and status != ''"> and a.status = #{status}</if>
+    </select>
+
+    <select id="findById" parameterType="Long" resultMap="TalentValueAddDtoResult">
+        <include refid="selectTalentValueAddVo"/>
+        where id = #{id}
+    </select>
+
+    <select id="selectTalentValueAddList" parameterType="com.netintech.park.domain.TalentValueAdd" resultMap="TalentValueAddResult">
+        <include refid="selectTalentValueAddVo"/>
+        where del_flag=0
+        <if test="fileUuid != null  and fileUuid != ''"> and file_uuid = #{fileUuid}</if>
+        <if test="title != null  and title != ''"> and title = #{title}</if>
+        <if test="serviceTypeId != null "> and service_type_id = #{serviceTypeId}</if>
+        <if test="serviceObject != null  and serviceObject != ''"> and service_object = #{serviceObject}</if>
+        <if test="serviceContent != null  and serviceContent != ''"> and service_content = #{serviceContent}</if>
+        <if test="contactName != null  and contactName != ''"> and contact_name like concat('%', #{contactName}, '%')</if>
+        <if test="contactTel != null  and contactTel != ''"> and contact_tel = #{contactTel}</if>
+        <if test="contactEmail != null  and contactEmail != ''"> and contact__email = #{contactEmail}</if>
+        <if test="parkId != null "> and park_id = #{parkId}</if>
+        <if test="enterpriseId != null "> and enterprise_id = #{enterpriseId}</if>
+        <if test="status != null  and status != ''"> and status = #{status}</if>
+    </select>
+
+    <select id="selectTalentValueAddById" parameterType="Long" resultMap="TalentValueAddResult">
+        <include refid="selectTalentValueAddVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertTalentValueAdd" parameterType="com.netintech.park.domain.TalentValueAdd" useGeneratedKeys="true" keyProperty="id">
+        insert into sys_talent_value_add
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="fileUuid != null  and fileUuid != ''">file_uuid,</if>
+            <if test="title != null  and title != ''">title,</if>
+            <if test="serviceTypeId != null ">service_type_id,</if>
+            <if test="serviceObject != null  and serviceObject != ''">service_object,</if>
+            <if test="serviceContent != null  and serviceContent != ''">service_content,</if>
+            <if test="contactName != null  and contactName != ''">contact_name,</if>
+            <if test="contactTel != null  and contactTel != ''">contact_tel,</if>
+            <if test="contactEmail != null  and contactEmail != ''">contact__email,</if>
+            <if test="parkId != null ">park_id,</if>
+            <if test="enterpriseId != null ">enterprise_id,</if>
+            <if test="status != null  and status != ''">status,</if>
+            <if test="delFlag != null  and delFlag != ''">del_flag,</if>
+            <if test="createBy != null  and createBy != ''">create_by,</if>
+            <if test="createTime != null ">create_time,</if>
+            <if test="updateBy != null  and updateBy != ''">update_by,</if>
+            <if test="updateTime != null ">update_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="fileUuid != null  and fileUuid != ''">#{fileUuid},</if>
+            <if test="title != null  and title != ''">#{title},</if>
+            <if test="serviceTypeId != null ">#{serviceTypeId},</if>
+            <if test="serviceObject != null  and serviceObject != ''">#{serviceObject},</if>
+            <if test="serviceContent != null  and serviceContent != ''">#{serviceContent},</if>
+            <if test="contactName != null  and contactName != ''">#{contactName},</if>
+            <if test="contactTel != null  and contactTel != ''">#{contactTel},</if>
+            <if test="contactEmail != null  and contactEmail != ''">#{contactEmail},</if>
+            <if test="parkId != null ">#{parkId},</if>
+            <if test="enterpriseId != null ">#{enterpriseId},</if>
+            <if test="status != null  and status != ''">#{status},</if>
+            <if test="delFlag != null  and delFlag != ''">#{delFlag},</if>
+            <if test="createBy != null  and createBy != ''">#{createBy},</if>
+            <if test="createTime != null ">#{createTime},</if>
+            <if test="updateBy != null  and updateBy != ''">#{updateBy},</if>
+            <if test="updateTime != null ">#{updateTime},</if>
+        </trim>
+    </insert>
+
+    <update id="updateTalentValueAdd" parameterType="com.netintech.park.domain.TalentValueAdd">
+        update sys_talent_value_add
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="fileUuid != null  and fileUuid != ''">file_uuid = #{fileUuid},</if>
+            <if test="title != null  and title != ''">title = #{title},</if>
+            <if test="serviceTypeId != null ">service_type_id = #{serviceTypeId},</if>
+            <if test="serviceObject != null  and serviceObject != ''">service_object = #{serviceObject},</if>
+            <if test="serviceContent != null  and serviceContent != ''">service_content = #{serviceContent},</if>
+            <if test="contactName != null  and contactName != ''">contact_name = #{contactName},</if>
+            <if test="contactTel != null  and contactTel != ''">contact_tel = #{contactTel},</if>
+            <if test="contactEmail != null  and contactEmail != ''">contact__email = #{contactEmail},</if>
+            <if test="parkId != null ">park_id = #{parkId},</if>
+            <if test="enterpriseId != null ">enterprise_id = #{enterpriseId},</if>
+            <if test="status != null  and status != ''">status = #{status},</if>
+            <if test="delFlag != null  and delFlag != ''">del_flag = #{delFlag},</if>
+            <if test="createBy != null  and createBy != ''">create_by = #{createBy},</if>
+            <if test="createTime != null ">create_time = #{createTime},</if>
+            <if test="updateBy != null  and updateBy != ''">update_by = #{updateBy},</if>
+            <if test="updateTime != null ">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTalentValueAddById" parameterType="Long">
+        delete from sys_talent_value_add where id = #{id}
+    </delete>
+
+    <delete id="deleteTalentValueAddByIds" parameterType="String">
+        update sys_talent_value_add set del_flag=2 where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

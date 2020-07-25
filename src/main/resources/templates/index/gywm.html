@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+    <title>关于我们</title>
+    <link rel="stylesheet" th:href="@{/xwyjs/css/all.css}">
+    <link rel="stylesheet" th:href="@{/xwyjs/css/style28.css}">
+    <link rel="stylesheet" th:href="@{/xwyjs/css/style_27.css}">
+    <link rel="stylesheet" th:href="@{/xwyjs/lib/layui/css/layui.css}">
+    <link rel="stylesheet" href="https://a.amap.com/jsapi_demos/static/demo-center/css/demo-center.css" />
+    <link rel="stylesheet" href="http://cache.amap.com/lbs/static/main1119.css"/>
+</head>
+<style>
+    .content-window-card {
+        box-shadow: none;
+        width: auto;
+        padding: 0;
+    }
+
+    .content-window-card p {
+        height: 2rem;
+    }
+
+    .custom-info {
+        border: solid 1px silver;
+    }
+
+    div.info-top {
+        position: relative;
+        color:#fff;
+        background: none repeat scroll 0 0 #2a7bf2;
+        border-bottom: 1px solid #CCC;
+        border-radius: 5px 5px 0 0;
+    }
+
+    div.info-top div {
+        display: inline-block;
+        font-size: 14px;
+        font-weight: bold;
+        line-height: 31px;
+        padding: 0 10px;
+
+    }
+    div.info-top img{
+        position: absolute;
+        right:10px;
+        top:10px;
+    }
+    div.info-middle {
+        font-size: 12px;
+        padding: 10px;
+        line-height: 20px;
+    }
+
+    div.info-bottom {
+        height: 0px;
+        width: 100%;
+        clear: both;
+        text-align: center;
+    }
+
+    div.info-bottom img {
+        position: relative;
+        z-index: 104;
+    }
+
+    span {
+        margin-left: 5px;
+        font-size: 11px;
+    }
+
+    .info-middle img {
+        width:8%;
+        height:70%;
+        position: relative;
+        top:5px;
+        margin-right:5px;
+    }
+
+    .input-card{
+        padding: 0!important;
+        position: relative;
+    }
+</style>
+<body>
+    <div class="W128_Container W127_gywm">
+        <div class="W128_content">
+            <div class="w128_inner">
+                <div class="X228_weizhi"><img src="/xwyjs/images/28/W228_dingwei.png" alt=""> 当前位置：首页>关于我们</div>
+                <div class="X127_content">
+                    <div class="X127_content1">
+                        <div>
+                            <div class="X127_content1_up">
+                                <span>永康数字小微园</span>
+                            </div>
+                            <div class="X127_content1_down">
+                                <span>“永康数字小微园”门户网站是平台对外的统一信息服务入口，是对外宣传小微园的重要窗口。提供政策发布、通知公告、产业资讯、园区介绍、园区运营等服务内容。</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="X127_content2">
+                        <div class="X127_content21">
+                            <img src="/xwyjs/images/27/G127_c1.png" alt="">
+                        </div>
+                        <div  class="X127_content21 X127_content22">
+                            <img src="/xwyjs/images/27/G127_c2.png"  alt="">
+                        </div>
+                    </div>
+                    <div class="X127_content3">
+                        <div>
+                            <div class="X127_content3_up">
+                                <img src="/xwyjs/images/27/G127_c3.png" alt="">
+                            </div>
+                            <div class="X127_content3_down">
+                                <span>网站管理单位：永康市大数据局</span>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="X127_content3_up">
+                                <img src="/xwyjs/images/27/G127_c4.png" alt="">
+                            </div>
+                            <div class="X127_content3_down">
+                                <span>电话：0579-88888888</span>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="X127_content3_up">
+                                <img src="/xwyjs/images/27/G127_c5.png" alt="">
+                            </div>
+                            <div class="X127_content3_down">
+                                <span>地 址：永康市金城路25号</span>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="X127_content3_up">
+                                <img src="/xwyjs/images/27/G127_c6.png" alt="">
+                            </div>
+                            <div class="X127_content3_down">
+                                <span>邮 编：321300</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="X127_content4">
+                        <div id="container" style="width:100%;height:100%;position: relative;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script th:src="@{/xwyjs/js/jquery.min.js}"></script>
+<script th:src="@{/xwyjs/js/main.js}"></script>
+<script th:src="@{/xwyjs/lib/layui/layui.js}"></script>
+<script th:src="@{/xwyjs/lib/layui/lay/modules/laypage.js}"></script>
+<script src="https://cache.amap.com/lbs/static/es5.min.js"></script>
+<script src="https://webapi.amap.com/maps?v=1.4.15&key=358df98d6a1422dc83713fddaa8d260c&plugin=AMap.Autocomplete,AMap.PlaceSearch"></script>
+<script src="//webapi.amap.com/ui/1.0/main.js?v=1.0.11"></script>
+<script>
+    $(function(){
+
+        $(document).ready(function () {
+            setTimeout(function () {
+                var height = $('.W128_Container').position().top + $('.W128_Container')[0].scrollHeight
+                parent.changeIframe(height+'px')
+                parent.changeScroll()
+            },200)
+        });
+        $('.X127_content_left>ul>li').click(function(){
+            $(this).find('a').addClass('active')
+            $(this).siblings().find('a').removeClass('active')
+        })
+
+        var map = new AMap.Map('container', {
+            resizeEnable: true,
+            zoom:11,
+            center: [120.04731, 28.888513]
+        });
+        map.plugin(["AMap.ToolBar"], function() {
+            map.addControl(new AMap.ToolBar());
+        });
+
+        addMarker();
+        //添加marker标记
+        function addMarker() {
+            map.clearMap();
+            var marker = new AMap.Marker({
+                map: map,
+                position: [120.04731, 28.888513]
+            });
+            // 鼠标点击marker弹出自定义的信息窗体
+            AMap.event.addListener(marker, 'click', function () {
+                infoWindow.open(map, marker.getPosition());
+            });
+        }
+
+        //实例化信息窗体
+        var title = '永康市大数据局',
+            content = [];
+        content.push(' <div><p style="font-weight:bold;padding-left:5px;">地址：永康市金澄路25号</p></div>');
+
+        var infoWindow = new AMap.InfoWindow({
+            isCustom: true,  //使用自定义窗体
+            content: createInfoWindow(title, content.join("<br/>")),
+            offset: new AMap.Pixel(110, 0)
+        });
+
+        //构建自定义信息窗体
+        function createInfoWindow(title, content) {
+            var info = document.createElement("div");
+            info.className = "custom-info input-card content-window-card";
+
+            //可以通过下面的方式修改自定义窗体的宽高
+            //info.style.width = "400px";
+            // 定义顶部标题
+            var top = document.createElement("div");
+            var titleD = document.createElement("div");
+            var closeX = document.createElement("img");
+            top.className = "info-top";
+            titleD.innerHTML = title;
+            closeX.src = "../../xwyjs/images/27/close.png";
+            closeX.onclick = closeInfoWindow;
+
+            top.appendChild(titleD);
+            top.appendChild(closeX);
+            info.appendChild(top);
+
+            // 定义中部内容
+            var middle = document.createElement("div");
+            middle.className = "info-middle";
+            middle.style.backgroundColor = 'white';
+            middle.innerHTML = content;
+            info.appendChild(middle);
+
+            // 定义底部内容
+            var bottom = document.createElement("div");
+            bottom.className = "info-bottom";
+            bottom.style.position = 'relative';
+            bottom.style.top = '0px';
+            bottom.style.margin = '0 auto';
+            // var sharp = document.createElement("img");
+            // sharp.src = "https://webapi.amap.com/images/sharp.png";
+            // bottom.appendChild(sharp);
+            info.appendChild(bottom);
+            return info;
+        }
+
+        //关闭信息窗体
+        function closeInfoWindow() {
+            map.clearInfoWindow();
+        }
+    })
+</script>
+</html>

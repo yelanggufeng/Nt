@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.netintech.requirement.mapper.CrowdsourcingRequirementMapper">
+
+    <resultMap type="CrowdsourcingRequirement" id="CrowdsourcingRequirementResult">
+        <result property="id" column="id"/>
+        <result property="fileUuid" column="file_uuid"/>
+        <result property="title" column="title"/>
+        <result property="fieldId" column="field_id"/>
+        <result property="closingDate" column="closing_date"/>
+        <result property="rewardAmount" column="reward_amount"/>
+        <result property="detail" column="detail"/>
+        <result property="question1" column="question_1"/>
+        <result property="question2" column="question_2"/>
+        <result property="question3" column="question_3"/>
+        <result property="parkId" column="park_id"/>
+        <result property="enterpriseId" column="enterprise_id"/>
+        <result property="pageviews" column="pageviews"/>
+        <result property="result" column="result"/>
+        <result property="status" column="status"/>
+        <result property="delFlag" column="del_flag"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <sql id="selectCrowdsourcingRequirementVo">
+        select id, file_uuid, title, field_id, closing_date, reward_amount, detail, question_1, question_2, question_3, park_id, enterprise_id, pageviews, result, status, del_flag, create_by, create_time, update_by, update_time from sys_crowdsourcing_requirement
+    </sql>
+
+    <select id="selectMyParticipateList" parameterType="CrowdsourcingRequirement"
+            resultMap="CrowdsourcingRequirementResult">
+        <include refid="selectCrowdsourcingRequirementVo"/>
+        where del_flag=0
+
+        <if test="title != null  and title != ''">and title = #{title}</if>
+
+        <if test="params.beginClosingDate != null and params.beginClosingDate != ''"><!-- 开始时间检索 -->
+            and date_format(closing_date,'%y%m%d') &gt;= date_format(#{params.beginClosingDate},'%y%m%d')
+        </if>
+        <if test="params.endClosingDate != null and params.endClosingDate != ''"><!-- 结束时间检索 -->
+            and date_format(closing_date,'%y%m%d') &lt;= date_format(#{params.endClosingDate},'%y%m%d')
+        </if>
+
+        <if test="result != null  and result != ''">and result = #{result}</if>
+
+        and id in (SELECT DISTINCT requirement_id FROM sys_crowdsourcing_solution where del_flag=0 and answer_enterprise_id = #{createBy})
+        order by id desc
+    </select>
+
+    <select id="selectCrowdsourcingRequirementList" parameterType="CrowdsourcingRequirement"
+            resultMap="CrowdsourcingRequirementResult">
+        <include refid="selectCrowdsourcingRequirementVo"/>
+        where del_flag=0
+        <if test="fileUuid != null  and fileUuid != ''">and file_uuid = #{fileUuid}</if>
+        <if test="title != null  and title != ''">and title = #{title}</if>
+        <if test="fieldId != null ">and field_id = #{fieldId}</if>
+
+        <if test="params.beginClosingDate != null and params.beginClosingDate != ''"><!-- 开始时间检索 -->
+            and date_format(closing_date,'%y%m%d') &gt;= date_format(#{params.beginClosingDate},'%y%m%d')
+        </if>
+        <if test="params.endClosingDate != null and params.endClosingDate != ''"><!-- 结束时间检索 -->
+            and date_format(closing_date,'%y%m%d') &lt;= date_format(#{params.endClosingDate},'%y%m%d')
+        </if>
+
+        <if test="rewardAmount != null ">and reward_amount = #{rewardAmount}</if>
+        <if test="detail != null  and detail != ''">and detail = #{detail}</if>
+        <if test="question1 != null  and question1 != ''">and question_1 = #{question1}</if>
+        <if test="question2 != null  and question2 != ''">and question_2 = #{question2}</if>
+        <if test="question3 != null  and question3 != ''">and question_3 = #{question3}</if>
+        <if test="parkId != null ">and park_id = #{parkId}</if>
+        <if test="enterpriseId != null ">and enterprise_id = #{enterpriseId}</if>
+        <if test="pageviews != null ">and pageviews = #{pageviews}</if>
+        <if test="result != null  and result != ''">and result = #{result}</if>
+        <if test="status != null  and status != ''">and status = #{status}</if>
+        order by id desc
+    </select>
+
+    <select id="selectCrowdsourcingRequirementById" parameterType="Long" resultMap="CrowdsourcingRequirementResult">
+        <include refid="selectCrowdsourcingRequirementVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertCrowdsourcingRequirement" parameterType="CrowdsourcingRequirement" useGeneratedKeys="true"
+            keyProperty="id">
+        insert into sys_crowdsourcing_requirement
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="fileUuid != null  and fileUuid != ''">file_uuid,</if>
+            <if test="title != null  and title != ''">title,</if>
+            <if test="fieldId != null ">field_id,</if>
+            <if test="closingDate != null ">closing_date,</if>
+            <if test="rewardAmount != null ">reward_amount,</if>
+            <if test="detail != null  and detail != ''">detail,</if>
+            <if test="question1 != null  and question1 != ''">question_1,</if>
+            <if test="question2 != null  and question2 != ''">question_2,</if>
+            <if test="question3 != null  and question3 != ''">question_3,</if>
+            <if test="parkId != null ">park_id,</if>
+            <if test="enterpriseId != null ">enterprise_id,</if>
+            <if test="pageviews != null ">pageviews,</if>
+            <if test="result != null  and result != ''">result,</if>
+            <if test="status != null  and status != ''">status,</if>
+            <if test="delFlag != null  and delFlag != ''">del_flag,</if>
+            <if test="createBy != null  and createBy != ''">create_by,</if>
+            <if test="createTime != null ">create_time,</if>
+            <if test="updateBy != null  and updateBy != ''">update_by,</if>
+            <if test="updateTime != null ">update_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="fileUuid != null  and fileUuid != ''">#{fileUuid},</if>
+            <if test="title != null  and title != ''">#{title},</if>
+            <if test="fieldId != null ">#{fieldId},</if>
+            <if test="closingDate != null ">#{closingDate},</if>
+            <if test="rewardAmount != null ">#{rewardAmount},</if>
+            <if test="detail != null  and detail != ''">#{detail},</if>
+            <if test="question1 != null  and question1 != ''">#{question1},</if>
+            <if test="question2 != null  and question2 != ''">#{question2},</if>
+            <if test="question3 != null  and question3 != ''">#{question3},</if>
+            <if test="parkId != null ">#{parkId},</if>
+            <if test="enterpriseId != null ">#{enterpriseId},</if>
+            <if test="pageviews != null ">#{pageviews},</if>
+            <if test="result != null  and result != ''">#{result},</if>
+            <if test="status != null  and status != ''">#{status},</if>
+            <if test="delFlag != null  and delFlag != ''">#{delFlag},</if>
+            <if test="createBy != null  and createBy != ''">#{createBy},</if>
+            <if test="createTime != null ">#{createTime},</if>
+            <if test="updateBy != null  and updateBy != ''">#{updateBy},</if>
+            <if test="updateTime != null ">#{updateTime},</if>
+        </trim>
+    </insert>
+
+    <update id="updateCrowdsourcingRequirement" parameterType="CrowdsourcingRequirement">
+        update sys_crowdsourcing_requirement
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="fileUuid != null  and fileUuid != ''">file_uuid = #{fileUuid},</if>
+            <if test="title != null  and title != ''">title = #{title},</if>
+            <if test="fieldId != null ">field_id = #{fieldId},</if>
+            <if test="closingDate != null ">closing_date = #{closingDate},</if>
+            <if test="rewardAmount != null ">reward_amount = #{rewardAmount},</if>
+            <if test="detail != null  and detail != ''">detail = #{detail},</if>
+            <if test="question1 != null  and question1 != ''">question_1 = #{question1},</if>
+            <if test="question2 != null  and question2 != ''">question_2 = #{question2},</if>
+            <if test="question3 != null  and question3 != ''">question_3 = #{question3},</if>
+            <if test="parkId != null ">park_id = #{parkId},</if>
+            <if test="enterpriseId != null ">enterprise_id = #{enterpriseId},</if>
+            <if test="pageviews != null ">pageviews = #{pageviews},</if>
+            <if test="result != null  and result != ''">result = #{result},</if>
+            <if test="status != null  and status != ''">status = #{status},</if>
+            <if test="delFlag != null  and delFlag != ''">del_flag = #{delFlag},</if>
+            <if test="createBy != null  and createBy != ''">create_by = #{createBy},</if>
+            <if test="createTime != null ">create_time = #{createTime},</if>
+            <if test="updateBy != null  and updateBy != ''">update_by = #{updateBy},</if>
+            <if test="updateTime != null ">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteCrowdsourcingRequirementById" parameterType="Long">
+        delete from sys_crowdsourcing_requirement where id = #{id}
+    </delete>
+
+    <delete id="deleteCrowdsourcingRequirementByIds" parameterType="String">
+        update sys_crowdsourcing_requirement set del_flag=2 where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

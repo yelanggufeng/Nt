@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.netintech.achievement.mapper.AttachmentTechnologyAchievementMapper">
+
+    <resultMap type="AttachmentTechnologyAchievement" id="AttachmentTechnologyAchievementResult">
+        <result property="id"    column="id"    />
+        <result property="fileType"    column="file_type"    />
+
+        <result property="achievementId"    column="achievement_id"    />
+        <result property="fileUuid"    column="file_uuid"    />
+        <result property="fileName"    column="file_name"    />
+        <result property="fileAlias"    column="file_alias"    />
+        <result property="filePath"    column="file_path"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+    </resultMap>
+
+    <sql id="selectAttachmentTechnologyAchievementVo">
+        select id,file_type, achievement_id, file_uuid, file_name, file_alias, file_path, del_flag, create_by, create_time from attachment_technology_achievement
+    </sql>
+
+    <select id="selectAttachmentTechnologyAchievementList" parameterType="AttachmentTechnologyAchievement" resultMap="AttachmentTechnologyAchievementResult">
+        <include refid="selectAttachmentTechnologyAchievementVo"/>
+        where del_flag=0
+            <if test="achievementId != null "> and achievement_id = #{achievementId}</if>
+            <if test="fileUuid != null  and fileUuid != ''"> and file_uuid = #{fileUuid}</if>
+            <if test="fileName != null  and fileName != ''"> and file_name like concat('%', #{fileName}, '%')</if>
+            <if test="fileAlias != null  and fileAlias != ''"> and file_alias = #{fileAlias}</if>
+            <if test="filePath != null  and filePath != ''"> and file_path = #{filePath}</if>
+    </select>
+
+    <select id="selectAttachmentTechnologyAchievementById" parameterType="Long" resultMap="AttachmentTechnologyAchievementResult">
+        <include refid="selectAttachmentTechnologyAchievementVo"/>
+        where id = #{id} order by file_type asc
+    </select>
+
+    <insert id="insertAttachmentTechnologyAchievement" parameterType="AttachmentTechnologyAchievement" useGeneratedKeys="true" keyProperty="id">
+        insert into attachment_technology_achievement
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="achievementId != null ">achievement_id,</if>
+            <if test="fileType != null  and fileType != ''">file_type,</if>
+
+            <if test="fileUuid != null  and fileUuid != ''">file_uuid,</if>
+            <if test="fileName != null  and fileName != ''">file_name,</if>
+            <if test="fileAlias != null  and fileAlias != ''">file_alias,</if>
+            <if test="filePath != null  and filePath != ''">file_path,</if>
+            <if test="delFlag != null  and delFlag != ''">del_flag,</if>
+            <if test="createBy != null  and createBy != ''">create_by,</if>
+            <if test="createTime != null ">create_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="achievementId != null ">#{achievementId},</if>
+            <if test="fileType != null  and fileType != ''">#{fileType},</if>
+
+            <if test="fileUuid != null  and fileUuid != ''">#{fileUuid},</if>
+            <if test="fileName != null  and fileName != ''">#{fileName},</if>
+            <if test="fileAlias != null  and fileAlias != ''">#{fileAlias},</if>
+            <if test="filePath != null  and filePath != ''">#{filePath},</if>
+            <if test="delFlag != null  and delFlag != ''">#{delFlag},</if>
+            <if test="createBy != null  and createBy != ''">#{createBy},</if>
+            <if test="createTime != null ">#{createTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateAttachmentTechnologyAchievement" parameterType="AttachmentTechnologyAchievement">
+        update attachment_technology_achievement
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="achievementId != null ">achievement_id = #{achievementId},</if>
+            <if test="fileType != null  and fileType != ''">file_type = #{fileType},</if>
+
+            <if test="fileUuid != null  and fileUuid != ''">file_uuid = #{fileUuid},</if>
+            <if test="fileName != null  and fileName != ''">file_name = #{fileName},</if>
+            <if test="fileAlias != null  and fileAlias != ''">file_alias = #{fileAlias},</if>
+            <if test="filePath != null  and filePath != ''">file_path = #{filePath},</if>
+            <if test="delFlag != null  and delFlag != ''">del_flag = #{delFlag},</if>
+            <if test="createBy != null  and createBy != ''">create_by = #{createBy},</if>
+            <if test="createTime != null ">create_time = #{createTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteAttachmentTechnologyAchievementById" parameterType="Long">
+        delete from attachment_technology_achievement where id = #{id}
+    </delete>
+
+    <delete id="deleteAttachmentTechnologyAchievementByIds" parameterType="String">
+        update attachment_technology_achievement set del_flag=2 where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

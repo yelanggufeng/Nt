@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <link th:href="@{/css/update.css}" rel="stylesheet"/>
+    <th:block th:include="include :: header('技术需求信息列表')"/>
+</head>
+<body class="gray-bg">
+<div class="container-div">
+    <div class="row">
+        <div class="col-sm-12 search-collapse">
+            <form id="formId">
+                <div class="select-list">
+                    <ul>
+                        <li>
+                            <p>标题：</p>
+                            <input type="text" name="title"/>
+                        </li>
+                        <li>
+                            <p>需求分类：</p>
+                            <select name="fieldId" th:with="type=${@dict.getType('sys_industry_sort')}">
+                                <option value="">所有</option>
+                                <option th:each="dict : ${type}" th:text="${dict.dictLabel}"
+                                        th:value="${dict.dictValue}"></option>
+                            </select>
+                        </li>
+                        <li shiro:hasPermission="technology:requirement:list">
+                            <p>归属人：</p>
+                            <select name="enterpriseId" th:with="type=${@dict.getCompanyList()}">
+                                <option value="">所有</option>
+                                <option th:each="dict : ${type}" th:text="${dict.key}"
+                                        th:value="${dict.value}"></option>
+                            </select>
+                        </li>
+                        <li>
+                            <p>状态</p>
+                            <select name="status"
+                                    th:with="type=${@dict.getType('sys_technical_status')}">
+                                <option value="">所有</option>
+                                <option th:each="dict : ${type}" th:text="${dict.dictLabel}"
+                                        th:value="${dict.dictValue}"></option>
+                            </select>
+                        </li>
+                        <li>
+                            <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i
+                                    class="fa fa-search"></i>&nbsp;搜索</a>
+                            <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i
+                                    class="fa fa-refresh"></i>&nbsp;重置</a>
+                        </li>
+                    </ul>
+                </div>
+            </form>
+        </div>
+
+        <div class="btn-group-sm" id="toolbar" role="group">
+            <a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="technology:requirement:add">
+                <i class="fa fa-plus"></i> 发布技术需求
+            </a>
+        </div>
+        <div class="col-sm-12 select-table table-striped">
+            <table id="bootstrap-table" data-mobile-responsive="true"></table>
+        </div>
+    </div>
+</div>
+<th:block th:include="include :: footer"/>
+<script th:inline="javascript">
+    var editFlag = [[${@permission.hasPermi('technology:requirement:edit')}]];
+    var removeFlag = [[${@permission.hasPermi('technology:requirement:remove')}]];
+    var detailFlag = [[${@permission.hasPermi('technology:requirement:detail')}]];
+
+    var switchFlag = [[${@permission.hasPermi('technology:requirement:switch')}]];
+    var auditFlag = [[${@permission.hasPermi('technology:requirement:audit')}]];
+    var auditListFlag = [[${@permission.hasPermi('technology:requirement:auditlist')}]];
+
+    //企业列表权限
+    var flagList = [[${@permission.isPermitted('technology:requirement:elist')}]];
+    //园区列表权限
+    var adminList = [[${@permission.isPermitted('technology:requirement:list')}]];
+
+    var parkData = [[${@dict.getDeptList()}]];
+    var fieldIdDatas = [[${@dict.getType('sys_industry_sort')}]];
+    var transactionStatusDatas = [[${@dict.getType('sys_technical_status')}]];
+
+    var prefix = ctx + "technology/requirement";
+
+    $(function () {
+        var listUrl = "/elist";
+        if(adminList){
+            listUrl = "/list";
+        }
+        var options = {
+            url: prefix + listUrl,
+            createUrl: prefix + "/add",
+            updateUrl: prefix + "/edit/{id}",
+            removeUrl: prefix + "/remove",
+            exportUrl: prefix + "/export",
+            detailUrl: prefix + "/view/{id}",
+            modalName: "技术需求信息",
+            columns: [{
+                checkbox: true
+            },
+                {
+                    field: 'id',
+                    title: '技术需求ID',
+                    visible: false
+                },
+                {
+                    field: 'title',
+                    title: '标题'
+                },
+                {
+                    field: 'enterpriseId',
+                    title: '归属人',
+                    visible: adminList,
+                    formatter: function (value, row, index) {
+                        return $.table.selectKey(parkData, value);
+                    }
+                },
+                {
+                    field: 'fieldId',
+                    title: '需求分类',
+                    formatter: function (value, row, index) {
+                        return $.table.selectDictLabel(fieldIdDatas, value);
+                    }
+                },
+                {
+                    field: 'status',
+                    title: '发布状态',
+                    formatter: function (value, row, index) {
+                        return $.table.selectDictLabel(transactionStatusDatas, value);
+                    }
+                },
+                {
+                    title: '操作',
+                    align: 'center',
+                    formatter: function (value, row, index) {
+
+                        var actions = [];
+                        if(row.status!="1"){//未发布
+                            actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="$.operate.edit(\'' + row.id + '\')"><i class="fa fa-edit"></i>编辑</a> ');
+                        }
+                        if(row.status==0){//待审核
+                            actions.push('<a class="btn btn-success btn-xs ' + auditFlag + '" href="javascript:void(0)" onclick="auditSave(\'' + row.id + '\')"><i class="fa fa-edit"></i>审核</a> ');
+                        }
+                        if(row.status=="0" || row.status=="3"){//待审核或失效
+                            actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.id + '\')"><i class="fa fa-remove"></i>删除</a>');
+                        }
+                        if(row.status == 1){
+                            actions.push('<a class="btn btn-success btn-xs ' + switchFlag + '" href="javascript:void(0)" onclick="editStatus(\''+row.id+'\','+3+')"><i class="fa fa-edit"></i>失效</a> ');
+                        }
+                        if(row.status == 3){
+                            actions.push('<a class="btn btn-success btn-xs ' + switchFlag + '" href="javascript:void(0)" onclick="editStatus(\''+row.id+'\','+1+')"><i class="fa fa-edit"></i>生效</a> ');
+                        }
+                        actions.push('<a class="btn btn-warning btn-xs ' + detailFlag + '" href="javascript:void(0)" onclick="$.operate.detail(\'' + row.id + '\')"><i class="fa fa-edit"></i>查看</a> ');
+                        actions.push('<a class="btn btn-warning btn-xs ' + auditListFlag + '" href="javascript:void(0)" onclick="auditList(\'' + row.id + '\')"><i class="fa fa-edit"></i>审核记录</a> ');
+
+                        return actions.join('');
+                    }
+                }]
+        };
+        $.table.init(options);
+    });
+
+
+    function auditSave(id) {
+        var callback = function(index, layero) {
+            var body = layer.getChildFrame('body', index);
+            body.find('#auditResultId').val('1')
+            var iframeWin = layero.find('iframe')[0];
+            iframeWin.contentWindow.submitHandler(index, layero);
+        }
+        layer.open({
+            type: 2,
+            area: [800 + 'px', ($(window).height() - 50) + 'px'],
+            fix: false,
+            //不固定
+            maxmin: true,
+            shade: 0.3,
+            title: "审核",
+            content: prefix+"/audit/"+id,
+            btn: ['审核' , '驳回' , '返回'],
+            // 弹层外区域关闭
+            shadeClose: true,
+            yes: callback,
+            btn2:function(index, layero){
+                var body = layer.getChildFrame('body', index);
+                body.find('#auditResultId').val('2')
+                var iframeWin = layero.find('iframe')[0];
+                iframeWin.contentWindow.submitHandler(index, layero);
+            },
+            cancel: function(index) {
+                return true;
+            }
+        });
+    }
+
+
+    function editStatus(id,achievementStatus) {
+
+        var tap = achievementStatus == 1?"发布":"失效";
+
+        $.modal.confirm("确定"+tap+"吗？", function() {
+            var formdata = new FormData();
+            formdata.append("id", id);
+            formdata.append("status", achievementStatus);
+            $.ajax({
+                url: prefix + '/switchSave',
+                data: formdata,
+                type: "post",
+                processData: false,
+                contentType: false,
+                success: function(result) {
+                    layer.alert(tap+"操作成功");
+                    $("#bootstrap-table").bootstrapTable('refresh');
+                }
+            })
+        });
+    }
+
+    function auditList(id) {
+        layer.open({
+            type: 2,
+            area: [800 + 'px', 400 + 'px'],
+            fix: false,
+            //不固定
+            maxmin: true,
+            shade: 0.3,
+            title: "审核记录",
+            content: prefix+"/auditList/"+id,
+            btn: ['关闭'],
+            // 弹层外区域关闭
+            shadeClose: true,
+            yes: function (index, layero) {
+                layer.close(index);
+            },
+            cancel: function(index) {
+                return true;
+            }
+        });
+    }
+</script>
+</body>
+</html>

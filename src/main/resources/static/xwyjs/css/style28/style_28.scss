@@ -1,0 +1,612 @@
+.H128_mapper{
+    width:100%;
+    height:100%;
+    min-height:700px;
+    min-width:1280px;
+    overflow:auto;
+    .H128_btn{
+        width:120px;
+        height:50px;
+        background-color: green;
+        border-radius: 5px;
+        margin:100px auto;
+        color:#fff;
+        line-height:50px;
+        text-align: center;
+    }
+    
+}
+//园区服务-物业服务-模态框
+.H128_modal{
+    width:100%;
+    height:100%;
+    min-width:1000px;
+    min-height:500px;
+    overflow: auto;
+    background-color:#fff;
+    .H128_top{
+        width:100%;
+        height:61%;
+        background-color: #f5f5f5;
+        &>div{
+            height:15%;
+            .formDiv{
+                display: inline-block;
+                width:33%;
+                height:100%;
+                position: relative;
+                .name{
+                    margin-left:2.2%;
+                    padding-left:2%;
+                    box-sizing: border-box;
+                    height:30px;
+                    line-height:30px;
+                    text-align: right;
+                    color: #4d4d4d;
+                    position: absolute;
+                    left:0;
+                    top:50%;
+                    margin-top:-3%;
+                }
+               
+                
+                .formInput{
+                    height:30px;
+                    position: absolute;
+                    left:20%;
+                    top:50%;
+                    right:10%;
+                    margin-top:-3%;
+                    &>input{
+                        height:100%;
+                        width:100%;
+                        color:#999999;
+                    }
+                    
+                }
+                .formInput1{
+                    left:25%;
+                }
+                
+            } 
+            
+        }
+        .H128_form1{  
+            
+        }
+        .H128_form2{
+            .layui-form-inline{
+                width: 100%;
+
+            }
+            .layui-input-block{
+                margin-left:5%;
+            }
+            .layui-form-radio>i:hover, .layui-form-radioed>i {
+                color: #b3b3b3;
+            }
+           .layui-form-radio {
+              color: #999999;
+               display: inline;
+               
+           }
+           .layui-form-radio * {
+            font-size: 12.2px;
+            margin-top:0.5%;
+           }
+           .layui-form-radio>i{
+               font-size:15px !important;
+           }
+        }
+        .H128_people{
+            height:40%;
+            box-sizing: border-box;
+            padding:0 1.5em;
+            &>div{
+                width:100%;
+                height:100%;
+                background-color: #fff;
+                border:1px solid #dedede;
+                .H128_Pnum{
+                    width:100%;
+                    padding:0 4.1em;
+                    box-sizing: border-box;
+                    &>span{
+                        color: #999999;
+                        font-size:1em;
+                        line-height:2.6em;
+                        &>input{
+                            color:#999999;
+                        }
+                    }
+                }
+                .H128_Pname{
+                    width:92%;
+                    height:70%;
+                    margin:0 auto;
+                    &>textarea{
+                        width:100%;
+                        height:100%;
+                        resize: none;
+                        overflow-y: auto;
+                        border:1px solid #dedede;
+                        background-color:#f5f5f5;
+                        padding:0.5em 2em;
+                        font-size:1em;
+                        line-height: 2em;
+                        box-sizing: border-box;
+                        color:#999999;
+                    }
+                }
+            }
+        }
+        .H128_form3{
+            position: relative;
+            .H128_f3_div{
+                width:33%;
+                box-sizing: border-box;
+                position: absolute;
+                top:38%;
+                right:0%;
+                &>span{
+                    background-color:  #e6e6e6;
+                    margin-right:1em;
+                    padding:0.2em 0.5em;
+                    color: #999999;
+                    border-radius: 3px;
+                    cursor: pointer;
+                    font-size: 1em;
+                }
+                .selectStyle{
+                    background-color: #237bbe;
+                    color:#fff;
+                }
+                .name{
+                    background: none;
+                    cursor: text;
+                    padding-left:0;
+                }
+            }
+           
+        }
+        .H128_form4{
+            position: relative;
+            .H128_f4_div{
+                width:33%;
+                position: absolute;
+                left:0.8%;
+                top:32%;
+                &>span{
+                    background-color:  #e6e6e6;
+                    margin-right:1em;
+                    padding:0.2em 0.5em;
+                    color: #999999;
+                    border-radius: 3px;
+                    cursor: pointer;
+                    
+                }
+                .selectStyle{
+                    background-color: #237bbe;
+                    color:#fff;
+                }
+                .name{
+                    background: none;
+                    color: #000;
+                    cursor: text;
+                    padding-left:1.8%;
+                }
+            }
+            .H128_f4_time{
+              position: absolute;
+              right:0;
+              left:33%;
+              top:50%;
+              height:30px;
+              margin-top:-1.3%;
+               &>span{
+                   color:#4d4d4d;
+                   margin:2.8%;
+               }
+               .span2{
+                  margin:3%;
+               }
+               &>input{
+                   border: solid 1px #c7c7c7;
+                   width:36.8%;
+                   height:100%;
+                   padding-left:1em;
+                   color: #999999;
+               }
+              
+            }
+        }
+    }
+    .H128_table{
+        height:39%;
+        padding:1.5%;
+        box-sizing: border-box;
+        &>div{
+            width:100%;
+            height:100%;
+            overflow-y: auto;
+            position: relative;
+            overflow-x: hidden;
+            .title1{
+                width:4%;
+                height:14.6em;
+                padding:4% 1%;
+                text-align: center;
+                position: absolute;
+                left:0;
+                border:1px solid #c3c3c3;
+                border-right:none;
+                box-sizing: border-box;
+                color: #332e2e;
+            }
+            .title2{
+                width:4%;
+                text-align: center;
+                box-sizing: border-box;
+                position: absolute;
+                left:4%;
+                border:1px solid #c3c3c3;
+                border-bottom: none;
+                &>div{
+                    width:100%;
+                    height:3.64em;
+                    line-height:3.64em;
+                    border-bottom:1px solid #c3c3c3;
+                    color: #332e2e;
+                }
+            }
+            .swiper-container {
+                width:92%;
+                margin-left:8%;
+                height:14.6em;
+                border:1px solid #c3c3c3;
+                border-left:none;
+                position: relative;
+                overflow: hidden;
+                box-sizing: border-box;
+                .H128_left{
+                    width:0.8em;
+                    height:1em;
+                    position: absolute;
+                    border:none;
+                    left:1em;
+                    top:1em;
+                    z-index: 99;
+                    &>img{
+                        width:100%;
+                        height:100%;
+                    }
+                }
+                .H128_right{
+                    width:0.8em;
+                    height:1em;
+                    border:none;
+                    position: absolute;
+                    right:1em;
+                    top:1em;
+                    z-index: 99;
+                    &>img{
+                        width:100%;
+                        height:100%;
+                    }
+                }
+                .swiper-wrapper{
+                    height:14.6em !important;
+                    box-sizing: border-box;
+                    .swiper-slide{
+                        width:160px !important;
+                        height:14.6em !important;
+                        border-right:1px solid #c3c3c3;
+                        box-sizing: border-box;
+                        &>div{
+                            height:3.65em;
+                            box-sizing: border-box;
+                            border-bottom: 1px solid #c3c3c3;      
+                            line-height:3.65em;
+                            text-align: center;
+                            color:#2a7bf2;
+                            
+                        }
+                        &:last-child{
+                            border-bottom: none;
+                        }
+                        .date{
+                            color:#332e2e;
+                        }
+                        .yixuan{
+                            color:#fff;
+                            background-color: #2a7bf2;
+                        }
+                        .check{
+                            color:#fff;
+                            background: #a58934;
+                        }
+                        .zhanyong{
+                            color:#fff;
+                            background-color:  #f05858;
+                        }
+                    }
+                    .last-slide{
+                        border-right:none;
+                    }
+                }
+                
+            }
+                
+            
+        }
+    }
+    .H128_bottom{
+        height:12%;
+        position: relative;
+        button{
+            width:105px;
+            height:37px;
+            background-color: #2a7bf2;
+            color:#fff;
+            border:none;
+            font-size:14px;
+        }
+        .tijiao{
+            position: absolute;
+            top:50%;
+            margin-top:-18.5px;
+            left:40%;
+        }
+        .over{
+            position: absolute;
+            top:50%;
+            margin-top:-18.5px;
+            left:57%;
+            margin-left:-52.5px;
+            background-color: #fff;
+            color:#2a7bf2;
+            border:1px solid #2a7bf2;
+        }
+    }
+}
+//发布通知公告
+.T128_modal{
+    width:100%;
+    height:100%;
+    padding:1.5% 4.5%;
+    min-width:600px;
+    min-height:500px;
+    box-sizing: border-box;
+    .T128_container{
+        width:100%;
+        height:100%;
+        background-color: #eaf4fe;
+        border:1px solid #cbdff4;
+        padding:1em;
+        box-sizing: border-box;
+        .layui-form-item{
+            width:100%;
+            margin-bottom:0.5em;
+            .layui-form-label{
+                width:18%;
+                font-size:1.1em;
+            }
+           .layui-input-inline{
+                width:76%;
+                .layui-input{
+                    height:3em;
+                    border-color: #c5cbee;
+                }
+            }
+            .T128_duixiang{
+                padding-left:40%;
+            }
+            .layui-btn{
+                background-color: #4285f5;
+            }
+        }
+        .T128_ie8_div2{
+            width:100%;
+            height:3em;
+            background-color: #fff;
+            line-height: 3em;
+            text-align: center;
+            border:1px solid #c5cbee;
+            color:#9d9fa2;
+        }
+        .T128_div4{
+            height:15%;
+            position: relative;
+            margin-bottom:1em;
+            .T128_title{
+                width:18%;
+                text-align: right;
+                height:100%;
+                padding:4% 2%;
+                box-sizing: border-box;
+                font-size:1.1em;
+            }
+            .T128_tupian{
+                width:12%;
+                height:100%;
+                position: absolute;
+                left:18%;
+                top:0;
+               &>img{
+                   position: absolute;
+                   width:100%;
+                   height:100%;
+               }
+               .uploadImg{
+                    display: inline-block;
+                    width: 100%;
+                    height: 100%;
+                    opacity: 0;
+                    filter:alpha(opacity=0); 
+                    z-index: 999;
+                }
+                .delx {
+                    position:absolute;
+                    top:2%;
+                    right:2%;
+                    width:1em;
+                    height:1em;
+                    z-index: 9999;
+                    float:right;
+                    display:none;
+                    background: url('../../images/28/28_close.png') no-repeat;
+                    background-size: 100% 100%;
+                }
+            }
+        }
+        .T128_div5{
+            position: relative;
+            height:200px;
+            margin-bottom: 1em;
+            .T128_title{
+                width:18%;
+                text-align: right;
+                padding:1% 2%;
+                font-size:1.1em;
+            }
+            .T128_editor{
+                box-sizing: border-box;
+                height:100%;
+                position: absolute;
+                left:18%;
+                top:0;
+                width:76%;
+            }
+        }
+        
+    }
+
+}
+//发布通知公告2
+.modal2{
+    background-color: #f1f6fb !important;
+}
+.T228_modal{
+    width:100%;
+    height:100%;
+    padding:3% 8%;
+    overflow: hidden;
+    box-sizing: border-box;
+    .T228_search{
+        width:100%;
+        height:10%;
+        position: relative;
+        &>input{
+            height:100%;
+            width:84%;
+            border:1px solid #c3e1ff;
+            padding-left: 1em;
+            box-sizing: border-box;
+            background-color: #fff;
+        }
+        &>div{
+            position: absolute;
+            right:0;
+            left:84%;
+            top:0;
+            bottom:0;
+            background: url('../../images/28/T228_search.png') no-repeat;
+            background-size: 100% 100%;
+            
+        }
+    }
+    .T228_tree{
+        width:100%;
+        height:75%;
+        min-height: 272px;
+        overflow-y: auto;
+        background-color: #fff;
+        border:1px solid #c3e1ff;
+        margin-top:1em;
+    }
+    
+}
+//layui日期选择器
+.layui-laydate{
+    top:-15px !important;
+}
+//layui弹窗关闭按钮
+.layui-layer-setwin .layui-layer-ico{
+    background: url('../../images/28/Y128_close.png') no-repeat !important;
+   
+ }
+  
+ .layui-layer-iframe .layui-layer-btn, .layui-layer-page .layui-layer-btn {
+    padding-top: 0px !important;
+}
+//layui按钮
+ .layui-layer .layui-layer-btn{
+     text-align: center;
+     height:60px;
+     padding:0;
+     margin:0;
+     .layui-layer-btn0{
+        width:105px;
+        height:37px;
+        line-height:37px;
+        background-color: #1998ff;
+        color:#fff;
+        border:none;
+        font-size:14px;
+        margin-right:52.5px;
+     }
+     .layui-layer-btn1{
+        width:105px;
+        height:37px;
+        line-height:37px;
+        background-color: #fff;
+        color:#2a7bf2;
+        font-size:14px;
+        border:1px solid #2a7bf2;
+     }
+ }
+ //layui模态框阴影
+.layui-layer-border{
+    box-shadow: 0px 3px 10px 0px 
+    rgba(72, 147, 255, 0.31) !important;
+    border:none !important;
+}
+//layui树形
+.layui-tree-entry {
+    padding:0 !important;
+    height:25px !important;
+}
+.layui-form-checked[lay-skin=primary] i{
+    border-color:#92bcf8 !important !important;
+    background-color:#f8fbfd !important;
+    color:#88b5f8 !important;
+    font-weight: bold;
+}
+.layui-form-checkbox[lay-skin=primary] i{
+    border-color:#92bcf8 !important;
+    background-color:#f8fbfd !important;
+}
+.layui-tree-iconArrow:after{
+    
+    border-color: transparent transparent transparent #6e6e6e !important;
+}
+/*修改滚动条样式*/
+div::-webkit-scrollbar{
+    width:5px;
+    height:5px;
+    /**/
+  }
+  div::-webkit-scrollbar-track{
+    background: #fff;
+    border-radius:2px;
+  }
+  div::-webkit-scrollbar-thumb{
+    background: #d5d5d5;;
+    border-radius:10px;
+  }
+  div::-webkit-scrollbar-thumb:hover{
+    background: #333;
+  }
+  div::-webkit-scrollbar-corner{
+    background: #179a16;
+  }

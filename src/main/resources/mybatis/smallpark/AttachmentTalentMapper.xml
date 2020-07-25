@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.netintech.park.mapper.AttachmentTalentMapper">
+
+    <resultMap type="com.netintech.park.domain.AttachmentTalent" id="AttachmentTalentResult">
+        <result property="id"    column="id"    />
+        <result property="talentId"    column="talent_id"    />
+        <result property="fileUuid"    column="file_uuid"    />
+        <result property="fileName"    column="file_name"    />
+        <result property="fileAlias"    column="file_alias"    />
+        <result property="filePath"    column="file_path"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+    </resultMap>
+
+    <sql id="selectAttachmentTalentVo">
+        select id, talent_id, file_uuid, file_name, file_alias, file_path, del_flag, create_by, create_time from attachment_talent
+    </sql>
+
+    <select id="selectAttachmentTalentList" parameterType="com.netintech.park.domain.AttachmentTalent" resultMap="AttachmentTalentResult">
+        <include refid="selectAttachmentTalentVo"/>
+        where del_flag=0
+        <if test="talentId != null "> and talent_id = #{talentId}</if>
+        <if test="fileUuid != null  and fileUuid != ''"> and file_uuid = #{fileUuid}</if>
+        <if test="fileName != null  and fileName != ''"> and file_name like concat('%', #{fileName}, '%')</if>
+        <if test="fileAlias != null  and fileAlias != ''"> and file_alias = #{fileAlias}</if>
+        <if test="filePath != null  and filePath != ''"> and file_path = #{filePath}</if>
+    </select>
+
+    <select id="selectAttachmentTalentById" parameterType="Long" resultMap="AttachmentTalentResult">
+        <include refid="selectAttachmentTalentVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertAttachmentTalent" parameterType="com.netintech.park.domain.AttachmentTalent" useGeneratedKeys="true" keyProperty="id">
+        insert into attachment_talent
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="talentId != null ">talent_id,</if>
+            <if test="fileUuid != null  and fileUuid != ''">file_uuid,</if>
+            <if test="fileName != null  and fileName != ''">file_name,</if>
+            <if test="fileAlias != null  and fileAlias != ''">file_alias,</if>
+            <if test="filePath != null  and filePath != ''">file_path,</if>
+            <if test="delFlag != null  and delFlag != ''">del_flag,</if>
+            <if test="createBy != null  and createBy != ''">create_by,</if>
+            <if test="createTime != null ">create_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="talentId != null ">#{talentId},</if>
+            <if test="fileUuid != null  and fileUuid != ''">#{fileUuid},</if>
+            <if test="fileName != null  and fileName != ''">#{fileName},</if>
+            <if test="fileAlias != null  and fileAlias != ''">#{fileAlias},</if>
+            <if test="filePath != null  and filePath != ''">#{filePath},</if>
+            <if test="delFlag != null  and delFlag != ''">#{delFlag},</if>
+            <if test="createBy != null  and createBy != ''">#{createBy},</if>
+            <if test="createTime != null ">#{createTime},</if>
+        </trim>
+    </insert>
+
+    <update id="updateAttachmentTalent" parameterType="com.netintech.park.domain.AttachmentTalent">
+        update attachment_talent
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="talentId != null ">talent_id = #{talentId},</if>
+            <if test="fileUuid != null  and fileUuid != ''">file_uuid = #{fileUuid},</if>
+            <if test="fileName != null  and fileName != ''">file_name = #{fileName},</if>
+            <if test="fileAlias != null  and fileAlias != ''">file_alias = #{fileAlias},</if>
+            <if test="filePath != null  and filePath != ''">file_path = #{filePath},</if>
+            <if test="delFlag != null  and delFlag != ''">del_flag = #{delFlag},</if>
+            <if test="createBy != null  and createBy != ''">create_by = #{createBy},</if>
+            <if test="createTime != null ">create_time = #{createTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteAttachmentTalentById" parameterType="Long">
+        delete from attachment_talent where id = #{id}
+    </delete>
+
+    <delete id="deleteAttachmentTalentByIds" parameterType="String">
+        update attachment_talent set del_flag=2 where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

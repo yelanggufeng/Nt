@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.netintech.park.mapper.TalentTrainMapper">
+
+    <resultMap type="com.netintech.park.domain.TalentTrain" id="TalentTrainResult">
+        <result property="id"    column="id"    />
+        <result property="fileUuid"    column="file_uuid"    />
+        <result property="title"    column="title"    />
+        <result property="classTypeId"    column="class_type_id"    />
+        <result property="industryId"    column="industry_id"    />
+        <result property="price"    column="price"    />
+        <result property="signupStartTime"    column="signup_start_time"    />
+        <result property="signupEndTime"    column="signup_end_time"    />
+        <result property="trainStartTime"    column="train_start_time"    />
+        <result property="trainEndTime"    column="train_end_time"    />
+        <result property="address"    column="address"    />
+        <result property="applyObject"    column="apply_object"    />
+        <result property="summary"    column="summary"    />
+        <result property="signupMethod"    column="signup_method"    />
+        <result property="parkId"    column="park_id"    />
+        <result property="enterpriseId"    column="enterprise_id"    />
+        <result property="status"    column="status"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+    <resultMap type="com.netintech.park.domain.dto.TalentTrainDto" id="ListTalentTrainResult">
+        <result property="id"    column="id"    />
+        <result property="fileUuid"    column="file_uuid"    />
+        <result property="title"    column="title"    />
+        <result property="classTypeId"    column="class_type_id"    />
+        <result property="industryId"    column="industry_id"    />
+        <result property="price"    column="price"    />
+        <result property="signupStartTime"    column="signup_start_time"    />
+        <result property="signupEndTime"    column="signup_end_time"    />
+        <result property="trainStartTime"    column="train_start_time"    />
+        <result property="trainEndTime"    column="train_end_time"    />
+        <result property="address"    column="address"    />
+        <result property="applyObject"    column="apply_object"    />
+        <result property="summary"    column="summary"    />
+        <result property="signupMethod"    column="signup_method"    />
+        <result property="parkId"    column="park_id"    />
+        <result property="enterpriseId"    column="enterprise_id"    />
+        <result property="status"    column="status"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <collection property="attachmentTalentTrainList" resultMap="AttachmentTalentTrainResult"/>
+    </resultMap>
+    <resultMap type="com.netintech.park.domain.AttachmentTalentTrain" id="AttachmentTalentTrainResult">
+        <result property="id"    column="attachmentId"    />
+        <result property="trainId"    column="train_id"    />
+        <result property="fileUuid"    column="file_uuid"    />
+        <result property="fileName"    column="file_name"    />
+        <result property="fileAlias"    column="file_alias"    />
+        <result property="filePath"    column="file_path"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+    </resultMap>
+
+    <sql id="selectTalentTrainVo">
+        select id, file_uuid, title, class_type_id, industry_id, price, signup_start_time, signup_end_time, train_start_time, train_end_time, address, apply_object, summary, signup_method, park_id, enterprise_id, status, del_flag, create_by, create_time, update_by, update_time from sys_talent_train
+    </sql>
+
+    <select id="findAll" parameterType="com.netintech.park.domain.dto.TalentTrainDto" resultMap="ListTalentTrainResult">
+        SELECT
+        a.id,
+        a.file_uuid,
+        a.title,
+        a.class_type_id,
+        a.industry_id,
+        a.price,
+        a.signup_start_time,
+        a.signup_end_time,
+        a.train_start_time,
+        a.train_end_time,
+        a.address,
+        a.apply_object,
+        a.summary,
+        a.signup_method,
+        a.park_id,
+        a.enterprise_id,
+        a.STATUS,
+        a.del_flag,
+        a.create_by,
+        a.create_time,
+        a.update_by,
+        a.update_time,
+        b.id AS attachmentId,
+        b.train_id,
+        b.file_uuid,
+        b.file_name,
+        b.file_alias,
+        b.file_path
+        FROM
+        sys_talent_train a
+        LEFT JOIN attachment_talent_train b ON a.id = b.train_id
+        WHERE
+        a.del_flag = 0
+        AND b.del_flag = 0
+        <if test="fileUuid != null  and fileUuid != ''"> and a.file_uuid = #{fileUuid}</if>
+        <if test="title != null  and title != ''"> and a.title = #{title}</if>
+        <if test="classTypeId != null "> and a.class_type_id = #{classTypeId}</if>
+        <if test="industryId != null "> and a.industry_id = #{industryId}</if>
+        <if test="price != null "> and a.price = #{price}</if>
+        <if test="signupStartTime != null "> and a.signup_start_time = #{signupStartTime}</if>
+        <if test="signupEndTime != null "> and a.signup_end_time = #{signupEndTime}</if>
+        <if test="trainStartTime != null "> and a.train_start_time = #{trainStartTime}</if>
+        <if test="trainEndTime != null "> and a.train_end_time = #{trainEndTime}</if>
+        <if test="address != null  and address != ''"> and a.address = #{address}</if>
+        <if test="applyObject != null  and applyObject != ''"> and a.apply_object = #{applyObject}</if>
+        <if test="summary != null  and summary != ''"> and a.summary = #{summary}</if>
+        <if test="signupMethod != null  and signupMethod != ''"> and a.signup_method = #{signupMethod}</if>
+        <if test="parkId != null "> and a.park_id = #{parkId}</if>
+        <if test="enterpriseId != null "> and a.enterprise_id = #{enterpriseId}</if>
+        <if test="status != null  and status != ''"> and a.status = #{status}</if>
+    </select>
+
+
+    <select id="selectTalentTrainList" parameterType="com.netintech.park.domain.TalentTrain" resultMap="TalentTrainResult">
+        <include refid="selectTalentTrainVo"/>
+        where del_flag=0
+        <if test="fileUuid != null  and fileUuid != ''"> and file_uuid = #{fileUuid}</if>
+        <if test="title != null  and title != ''"> and title = #{title}</if>
+        <if test="classTypeId != null "> and class_type_id = #{classTypeId}</if>
+        <if test="industryId != null "> and industry_id = #{industryId}</if>
+        <if test="price != null "> and price = #{price}</if>
+        <if test="signupStartTime != null "> and signup_start_time = #{signupStartTime}</if>
+        <if test="signupEndTime != null "> and signup_end_time = #{signupEndTime}</if>
+        <if test="trainStartTime != null "> and train_start_time = #{trainStartTime}</if>
+        <if test="trainEndTime != null "> and train_end_time = #{trainEndTime}</if>
+        <if test="address != null  and address != ''"> and address = #{address}</if>
+        <if test="applyObject != null  and applyObject != ''"> and apply_object = #{applyObject}</if>
+        <if test="summary != null  and summary != ''"> and summary = #{summary}</if>
+        <if test="signupMethod != null  and signupMethod != ''"> and signup_method = #{signupMethod}</if>
+        <if test="parkId != null "> and park_id = #{parkId}</if>
+        <if test="enterpriseId != null "> and enterprise_id = #{enterpriseId}</if>
+        <if test="status != null  and status != ''"> and status = #{status}</if>
+    </select>
+
+    <select id="selectTalentTrainById" parameterType="Long" resultMap="TalentTrainResult">
+        <include refid="selectTalentTrainVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertTalentTrain" parameterType="com.netintech.park.domain.TalentTrain" useGeneratedKeys="true" keyProperty="id">
+        insert into sys_talent_train
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="fileUuid != null  and fileUuid != ''">file_uuid,</if>
+            <if test="title != null  and title != ''">title,</if>
+            <if test="classTypeId != null ">class_type_id,</if>
+            <if test="industryId != null ">industry_id,</if>
+            <if test="price != null ">price,</if>
+            <if test="signupStartTime != null ">signup_start_time,</if>
+            <if test="signupEndTime != null ">signup_end_time,</if>
+            <if test="trainStartTime != null ">train_start_time,</if>
+            <if test="trainEndTime != null ">train_end_time,</if>
+            <if test="address != null  and address != ''">address,</if>
+            <if test="applyObject != null  and applyObject != ''">apply_object,</if>
+            <if test="summary != null  and summary != ''">summary,</if>
+            <if test="signupMethod != null  and signupMethod != ''">signup_method,</if>
+            <if test="parkId != null ">park_id,</if>
+            <if test="enterpriseId != null ">enterprise_id,</if>
+            <if test="status != null  and status != ''">status,</if>
+            <if test="delFlag != null  and delFlag != ''">del_flag,</if>
+            <if test="createBy != null  and createBy != ''">create_by,</if>
+            <if test="createTime != null ">create_time,</if>
+            <if test="updateBy != null  and updateBy != ''">update_by,</if>
+            <if test="updateTime != null ">update_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="fileUuid != null  and fileUuid != ''">#{fileUuid},</if>
+            <if test="title != null  and title != ''">#{title},</if>
+            <if test="classTypeId != null ">#{classTypeId},</if>
+            <if test="industryId != null ">#{industryId},</if>
+            <if test="price != null ">#{price},</if>
+            <if test="signupStartTime != null ">#{signupStartTime},</if>
+            <if test="signupEndTime != null ">#{signupEndTime},</if>
+            <if test="trainStartTime != null ">#{trainStartTime},</if>
+            <if test="trainEndTime != null ">#{trainEndTime},</if>
+            <if test="address != null  and address != ''">#{address},</if>
+            <if test="applyObject != null  and applyObject != ''">#{applyObject},</if>
+            <if test="summary != null  and summary != ''">#{summary},</if>
+            <if test="signupMethod != null  and signupMethod != ''">#{signupMethod},</if>
+            <if test="parkId != null ">#{parkId},</if>
+            <if test="enterpriseId != null ">#{enterpriseId},</if>
+            <if test="status != null  and status != ''">#{status},</if>
+            <if test="delFlag != null  and delFlag != ''">#{delFlag},</if>
+            <if test="createBy != null  and createBy != ''">#{createBy},</if>
+            <if test="createTime != null ">#{createTime},</if>
+            <if test="updateBy != null  and updateBy != ''">#{updateBy},</if>
+            <if test="updateTime != null ">#{updateTime},</if>
+        </trim>
+    </insert>
+
+    <update id="updateTalentTrain" parameterType="com.netintech.park.domain.TalentTrain">
+        update sys_talent_train
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="fileUuid != null  and fileUuid != ''">file_uuid = #{fileUuid},</if>
+            <if test="title != null  and title != ''">title = #{title},</if>
+            <if test="classTypeId != null ">class_type_id = #{classTypeId},</if>
+            <if test="industryId != null ">industry_id = #{industryId},</if>
+            <if test="price != null ">price = #{price},</if>
+            <if test="signupStartTime != null ">signup_start_time = #{signupStartTime},</if>
+            <if test="signupEndTime != null ">signup_end_time = #{signupEndTime},</if>
+            <if test="trainStartTime != null ">train_start_time = #{trainStartTime},</if>
+            <if test="trainEndTime != null ">train_end_time = #{trainEndTime},</if>
+            <if test="address != null  and address != ''">address = #{address},</if>
+            <if test="applyObject != null  and applyObject != ''">apply_object = #{applyObject},</if>
+            <if test="summary != null  and summary != ''">summary = #{summary},</if>
+            <if test="signupMethod != null  and signupMethod != ''">signup_method = #{signupMethod},</if>
+            <if test="parkId != null ">park_id = #{parkId},</if>
+            <if test="enterpriseId != null ">enterprise_id = #{enterpriseId},</if>
+            <if test="status != null  and status != ''">status = #{status},</if>
+            <if test="delFlag != null  and delFlag != ''">del_flag = #{delFlag},</if>
+            <if test="createBy != null  and createBy != ''">create_by = #{createBy},</if>
+            <if test="createTime != null ">create_time = #{createTime},</if>
+            <if test="updateBy != null  and updateBy != ''">update_by = #{updateBy},</if>
+            <if test="updateTime != null ">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTalentTrainById" parameterType="Long">
+        delete from sys_talent_train where id = #{id}
+    </delete>
+
+    <delete id="deleteTalentTrainByIds" parameterType="String">
+        update sys_talent_train set del_flag=2 where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

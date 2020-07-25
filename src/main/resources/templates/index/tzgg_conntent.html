@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>通知公告-详情</title>
+    <link rel="stylesheet" th:href="@{/xwyjs/css/all.css}">
+    <link rel="stylesheet" th:href="@{/xwyjs/css/style28.css}">
+    <link rel="stylesheet" th:href="@{/xwyjs/lib/layui/css/layui.css}">
+
+</head>
+<body>
+<div class="W128_Container X328_container">
+    <div class="W128_content">
+        <div class="w128_inner">
+            <div class="X228_weizhi"><img src="/xwyjs/images/28/W228_dingwei.png" alt=""> 当前位置：首页>通知公告</div>
+            <div class="X328_content" th:object="${noticeBean}" style="min-height: 30rem;">
+                <div class="X128_title" style="font-weight: normal;">[[${noticeBean.title}]]</div>
+                <div class="X128_fabuTime">发布时间：<span
+                        th:text="${#dates.format(noticeBean.createTime,'yyyy-MM-dd')}"></span></div>
+                <div class="X128_word X328_word">
+                    <span id ="mainBody" class="mainBody"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+<script th:src="@{/xwyjs/js/jquery.min.js}"></script>
+<script th:src="@{/xwyjs/js/main.js}"></script>
+<script th:src="@{/xwyjs/lib/layui/layui.js}"></script>
+<script th:src="@{/xwyjs/js/28/W128_js.js}"></script>
+<script th:src="@{/xwyjs/js/27/jquery.backgroundSize.js}"></script>
+<script th:src="@{/xwyjs/lib/layui/lay/modules/laypage.js}"></script>
+
+<script th:inline="javascript">
+
+    $(document).ready(function () {
+        setTimeout(function () {
+            var height = $('.W128_Container').position().top + $('.W128_Container')[0].scrollHeight
+            parent.changeIframe(height+'px');
+            parent.changeScroll()
+        },200)
+        var prf = [[${noticeBean.mainBody}]];
+        $('#mainBody').html(prf);
+    });
+    $("#baomin").click(function () {
+        $(".X328_modalDiv").show()
+    })
+    $(".no,.X328_close").click(function () {
+        $(".X328_modalDiv").hide()
+        $(".m_content input").val("")
+    })
+</script>
+</html>

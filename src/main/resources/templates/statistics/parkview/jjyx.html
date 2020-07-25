@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+    <title>园区总览</title>
+    <link rel="stylesheet" th:href="@{/xwyjs/css/all.css}">
+    <link rel="stylesheet" th:href="@{/xwyjs/css/particle.css}">
+    <link rel="stylesheet" th:href="@{/xwyjs/css/animate.css}">
+    <link rel="stylesheet" th:href="@{/xwyjs/css/style_26.css}">
+    <link rel="stylesheet" th:href="@{/xwyjs/lib/layui/css/layui.css}">
+    <link rel="stylesheet" th:href="@{/xwyjs/css/27/service.css}">
+    <link rel="stylesheet" th:href="@{/xwyjs/css/27/jjyx.css}">
+
+</head>
+<style>
+    .J127_main_right1_down_sp1{
+        max-width: 50%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    .J127_main_left1{
+        line-height: 3vh;
+    }
+    .J127_main_right1_up{
+        line-height: 3vh;
+    }
+</style>
+<body>
+<div class="D126_wapper">
+    <div msg-data="css漂浮的粒子" class="R126_cr_particle">
+        <div class="container">
+        </div>
+    </div>
+    <div class="D126_content animated bounceIn" th:object="${overviewBean}">
+        <input id="id" name="id" th:value="${id}" type="hidden">
+        <div class="J127_main">
+            <div class="J127_main_left bg_27">
+                <div>
+                    <div class="J127_main_left1">企业收入排行</div>
+                    <div class="J127_main_left2">
+                        <div id="J127_echart1"></div>
+                    </div>
+                </div>
+                <div>
+                    <div class="J127_main_left1">企业税收排行</div>
+                    <div class="J127_main_left2">
+                        <div id="J127_echart2"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="J127_main_center">
+                <div>
+                    <div class="J127_main_center1 bg_27">
+                        <div class="J127_m_c1_div">
+                            <div class="J127_main_center1_title">园区亩均税收</div>
+                            <div id="J127_echart5"></div>
+                            <div class="J127_main_center1_title1">亩均税收总额</div>
+                        </div>
+                        <div class="J127_m_c1_div">
+                            <div class="J127_main_center1_title">园区亩均产值</div>
+                            <div id="J127_echart6"></div>
+                            <div class="J127_main_center1_title1">亩均产值总额</div>
+                        </div>
+                        <div class="J127_m_c1_div">
+                            <div class="J127_main_center1_title">园区就业贡献率</div>
+                            <div id="J127_echart7"></div>
+                        </div>
+                    </div>
+                    <div class="J127_main_center2 bg_27">
+                        <div id="map" class="bg_27" style="background-size: cover;"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="J127_main_right bg_27">
+                <div class="J127_main_right1">
+                    <div class="J127_main_right1_up">园区收入趋势(百万元)</div>
+                    <div class="J127_main_right1_down0">
+                        <div id="J127_echart3"></div>
+                    </div>
+                </div>
+                <div class="J127_main_right1">
+                    <div class="J127_main_right1_up">园区税收趋势(百万元)</div>
+                    <div class="J127_main_right1_down0">
+                        <div id="J127_echart4"></div>
+                    </div>
+                </div>
+                <div class="J127_main_right1" th:object="${part}">
+                    <div class="J127_main_right1_up">高端要素聚集</div>
+                    <div class="J127_main_right1_down">
+                        <div>
+                            <div class="J127_main_right1_down1">
+                                <span class="J127_main_right1_down_sp1">人才密度</span>
+                                <span class="J127_main_right1_down_sp2">[[${part.rcmd}]] %</span>
+                            </div>
+                            <div class="J127_main_right1_down2 J127_pro1">
+                                <div class="layui-progress">
+                                    <div class="layui-progress-bar" lay-percent="60%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div>
+                                <span class="J127_main_right1_down_sp1">外资企业数</span>
+                                <span class="J127_main_right1_down_sp2">[[${part.foreignCount}]]个</span>
+                            </div>
+                            <div class="J127_main_right1_down2 J127_pro2">
+                                <div class="layui-progress">
+                                    <div class="layui-progress-bar" lay-percent="60%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div>
+                                <span class="J127_main_right1_down_sp1">获得风险投资</span>
+                                <span class="J127_main_right1_down_sp2">645亿元</span>
+                            </div>
+                            <div class="J127_main_right1_down2 J127_pro3">
+                                <div class="layui-progress">
+                                    <div class="layui-progress-bar" lay-percent="60%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div>
+                                <span class="J127_main_right1_down_sp1">产业基金投资</span>
+                                <span class="J127_main_right1_down_sp2">645亿元</span>
+                            </div>
+                            <div class="J127_main_right1_down2 J127_pro4">
+                                <div class="layui-progress">
+                                    <div class="layui-progress-bar" lay-percent="60%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div>
+                                <span class="J127_main_right1_down_sp1">企业平均专利数</span>
+                                <span class="J127_main_right1_down_sp2">[[${part.patentAverage}]]个</span>
+                            </div>
+                            <div class="J127_main_right1_down2 J127_pro5">
+                                <div class="layui-progress">
+                                    <div class="layui-progress-bar" lay-percent="60%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div>
+                                <span class="J127_main_right1_down_sp1">品牌部拥有总数</span>
+                                <span class="J127_main_right1_down_sp2">[[${part.ownership}]]个</span>
+                            </div>
+                            <div class="J127_main_right1_down2 J127_pro6">
+                                <div class="layui-progress">
+                                    <div class="layui-progress-bar" lay-percent="60%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script th:src="@{/xwyjs/js/jquery.min.js}"></script>
+<script th:src="@{/xwyjs/js/echarts/echarts.js}"></script>
+<script th:src="@{/xwyjs/js/echarts/J127_echart1.js}"></script>
+<script th:src="@{/xwyjs/js/27/left27.js}" ></script>
+<script th:src="@{/xwyjs/js/main.js}"></script>
+<script th:src="@{/xwyjs/js/jquery.backgroundSize.js}"></script>
+<script th:src="@{/xwyjs/lib/layui/layui.js}"></script>
+<script type="text/javascript">
+    var id = $("#id").val();
+    var liveView = '[[${overviewBean.liveView}]]'
+    if (liveView != '' && liveView != null) {
+        document.getElementById('map').style.background = "url(" + liveView + ") no-repeat";
+        document.getElementById('map').style.backgroundSize = "cover";
+    } else {
+        document.getElementById('map').style.background = "url('../../../xwyjs/images/28/W128_kjy.png') no-repeat ";
+        document.getElementById('map').style.backgroundSize = "cover";
+    }
+    $(document).ready(function() {
+        // 循环粒子100个dom
+        var htmlDom = '<div class="circle-container"><div class="circle"></div></div>';
+        for (var i = 0; i < 100; i++) {
+            $('.R126_cr_particle .container').append(htmlDom);
+        }
+
+        layui.use('element', function(){
+            var element = layui.element;
+        });
+    })
+
+
+    //企业收入
+    var income = [];
+    $.ajax({
+        cache: true,
+        contentType: "application/json",
+        dataType: "json",
+        type: "GET",
+        url: "/index/income/rank/"+id,
+        async: false,
+        error: function (request) {
+            $.modal.alertError("系统错误");
+        },
+        success: function (data) {
+            for(var i = 0; i < data.length; i++) {
+                var obj = {value:'',name:''}
+                obj.value = data[i].amount
+                obj.name =  data[i].name
+                income.push(obj)
+            }
+        }
+    });
+    // 类别
+    var option = {
+        xAxis: {
+            splitLine: {
+                show: false
+            },
+            axisLine: {
+                show: false
+            },
+            axisLabel: {
+                show: false
+            },
+            axisTick: {
+                show: false
+            }
+        },
+        grid: {
+            left: '17%',
+            top: '5%',
+            right: '5%',
+            bottom: '0%',
+            containLabel: true
+        },
+        yAxis: [{
+            type: "category",
+            inverse: true,
+            data: income,
+            axisLine: {
+                show: false
+            },
+            axisTick: {
+                show: false
+            },
+            axisLabel: {
+                show: false,
+            }
+        },
+            {
+                type: "category",
+                inverse: true,
+                data: income,
+                axisLine: {
+                    show: false
+                },
+                axisTick: {
+                    show: false
+                },
+                axisLabel: {
+                    show: true,
+                    formatter: function (params) {
+                        return '{a|'+ params + '}{b|'+ '万' + '}'
+                    },
+                    rich: {
+                        a:{
+                            color: '#fff',
+                            fontSize: 14
+                        },
+                        b:{
+                            color: '#fff',
+                            fontSize: 14
+                        }
+                    }
+                }
+            }],
+        series: [
+            {
+                // 内
+                type: "bar",
+                barWidth: 12,
+                legendHoverLink: false,
+                silent: true,
+                itemStyle: {
+                    normal: {
+                        color: function(params) {
+                            var color;
+                            if(params.dataIndex == 0){
+                                color = {
+                                    type: "linear",x: 0,y: 0,x2: 1,y2: 0,
+                                    colorStops: [{
+                                        offset: 0,
+                                        color: "#0A55C1" // 0% 处的颜色
+                                    },
+                                        {
+                                            offset: 1,
+                                            color: "#18CBF4" // 100% 处的颜色
+                                        }
+                                    ]
+                                }
+                            }else if(params.dataIndex == 1){
+                                color = {
+                                    type: "linear",x: 0,y: 0,x2: 1,y2: 0,
+                                    colorStops: [{
+                                        offset: 0,
+                                        color: "#0ABCAF" // 0% 处的颜色
+                                    },
+                                        {
+                                            offset: 1,
+                                            color: "#18F374" // 100% 处的颜色
+                                        }
+                                    ]
+                                }
+                            }else if(params.dataIndex == 2){
+                                color = {
+                                    type: "linear",x: 0,y: 0,x2: 1,y2: 0,
+                                    colorStops: [{
+                                        offset: 0,
+                                        color: "#FBA957" // 0% 处的颜色
+                                    },
+                                        {
+                                            offset: 1,
+                                            color: "#FEE865" // 100% 处的颜色
+                                        }
+                                    ]
+                                }
+                            }else{
+                                color = {
+                                    type: "linear",x: 0,y: 0,x2: 1,y2: 0,
+                                    colorStops: [{
+                                        offset: 0,
+                                        color: "#FBA957" // 0% 处的颜色
+                                    },
+                                        {
+                                            offset: 1,
+                                            color: "#FEE865" // 100% 处的颜色
+                                        }
+                                    ]
+                                }
+                            }
+                            return color;
+                        },
+                    }
+                },
+                label: {
+                    normal: {
+                        show: true,
+                        position: ['-60', '-25'],
+                        padding: [0,0,10,0],
+                        rich: {
+                            a1: {
+                                width: 50,
+                                height: 20,
+                                color: '#3296f4',
+                                fontSize: 14,
+                                fontWeight: '500',
+                                align: 'center',
+                                padding: [10,0],
+                                backgroundColor: {
+                                    image: '../../../xwyjs/images/26/T226_echart_icon1.png'
+                                }
+                            },
+                            a2: {
+                                width: 50,
+                                height: 18,
+                                color: '#3296f4',
+                                fontSize: 14,
+                                fontWeight: '500',
+                                align: 'center',
+                                padding: [10,0],
+                                backgroundColor: {
+                                    image: '../../../xwyjs/images/26/T226_echart_icon1.png'
+                                }
+                            },
+                            a3: {
+                                width: 50,
+                                height: 18,
+                                color: '#3296f4',
+                                fontSize: 14,
+                                fontWeight: '500',
+                                align: 'center',
+                                padding: [10,0],
+                                backgroundColor: {
+                                    image: '../../../xwyjs/images/26/T226_echart_icon1.png'
+                                }
+                            },
+                            b: {
+                                width: 50,
+                                height: 18,
+                                color: '#3296f4',
+                                fontSize: 14,
+                                fontWeight: '500',
+                                align: 'center',
+                                padding: [10,0],
+                                backgroundColor: {
+                                    image: '../../../xwyjs/images/26/T226_echart_icon1.png'
+                                }
+                            },
+                            c: {
+                                color: '#fff',
+                                align: 'left',
+                                fontSize: 14,
+                                padding: [15,0,0,10]
+                            }
+                        },
+                        formatter: function(data) {
+                            if (data.dataIndex < 3) {
+                                return [
+                                    '{a' + (data.dataIndex + 1) + '|NO.' + (data.dataIndex + 1) + '}' + '{c|' + data.name + '}'
+                                ].join('\n')
+                            } else {
+                                return [
+                                    '{b|NO.' + (data.dataIndex + 1) + '}' + '{c|' + data.name + '}'
+                                ].join('\n')
+                            }
+                        }
+                    }
+                },
+                data: income,
+                z: 2,
+                animationEasing: "elasticOut"
+            },
+            {
+                type: 'bar',
+                barGap: '-120%',
+                barWidth: 18,
+                itemStyle:{
+                    normal:{
+                        color:"rgba(17,42,91,1)"
+                    }
+                },
+                z:1
+            },
+            {
+                // 分隔
+                type: "pictorialBar",
+                itemStyle: {
+                    normal:{
+                        color:"rgba(17,42,91,1)"
+                    }
+                },
+                symbolRepeat: "fixed",
+                symbolMargin: 2,
+                symbol: "rect",
+                symbolClip: true,
+                symbolSize: [2, 15],
+                symbolPosition: "start",
+                symbolOffset: [1, 0],
+                data: income,
+                z: 3,
+                animationEasing: "elasticOut"
+            }
+        ]
+    }
+    var mychart1 = echarts.init(document.getElementById("J127_echart1"));
+    mychart1.setOption(option);
+    window.addEventListener("resize", function() {
+        mychart1.resize();
+    });
+
+    //企业税收
+    var tax = [];
+    $.ajax({
+        cache: true,
+        contentType: "application/json",
+        dataType: "json",
+        type: "GET",
+        url: "/index/tax/rank/"+id,
+        async: false,
+        error: function (request) {
+            $.modal.alertError("系统错误");
+        },
+        success: function (data) {
+            for(var i = 0; i < data.length; i++) {
+                var obj = {value:'',name:''}
+                obj.value = data[i].amount
+                obj.name =  data[i].name
+                tax.push(obj)
+            }
+        }
+    });
+
+    var option2 = {
+        xAxis: {
+            splitLine: {
+                show: false
+            },
+            axisLine: {
+                show: false
+            },
+            axisLabel: {
+                show: false
+            },
+            axisTick: {
+                show: false
+            }
+        },
+        grid: {
+            left: '17%',
+            top: '5%',
+            right: '5%',
+            bottom: '0%',
+            containLabel: true
+        },
+        yAxis: [{
+            type: "category",
+            inverse: true,
+            data: tax,
+            axisLine: {
+                show: false
+            },
+            axisTick: {
+                show: false
+            },
+            axisLabel: {
+                show: false,
+            }
+        },
+            {
+                type: "category",
+                inverse: true,
+                data: tax,
+                axisLine: {
+                    show: false
+                },
+                axisTick: {
+                    show: false
+                },
+                axisLabel: {
+                    show: true,
+                    formatter: function (params) {
+                        return '{a|'+ params + '}{b|'+ '万' + '}'
+                    },
+                    rich: {
+                        a:{
+                            color: '#fff',
+                            fontSize: 14
+                        },
+                        b:{
+                            color: '#fff',
+                            fontSize: 14
+                        }
+                    }
+                }
+            }],
+        series: [
+            {
+                // 内
+                type: "bar",
+                barWidth: 12,
+                legendHoverLink: false,
+                silent: true,
+                itemStyle: {
+                    normal: {
+                        color: function(params) {
+                            var color;
+                            if(params.dataIndex == 0){
+                                color = {
+                                    type: "linear",x: 0,y: 0,x2: 1,y2: 0,
+                                    colorStops: [{
+                                        offset: 0,
+                                        color: "#0A55C1" // 0% 处的颜色
+                                    },
+                                        {
+                                            offset: 1,
+                                            color: "#18CBF4" // 100% 处的颜色
+                                        }
+                                    ]
+                                }
+                            }else if(params.dataIndex == 1){
+                                color = {
+                                    type: "linear",x: 0,y: 0,x2: 1,y2: 0,
+                                    colorStops: [{
+                                        offset: 0,
+                                        color: "#0ABCAF" // 0% 处的颜色
+                                    },
+                                        {
+                                            offset: 1,
+                                            color: "#18F374" // 100% 处的颜色
+                                        }
+                                    ]
+                                }
+                            }else if(params.dataIndex == 2){
+                                color = {
+                                    type: "linear",x: 0,y: 0,x2: 1,y2: 0,
+                                    colorStops: [{
+                                        offset: 0,
+                                        color: "#FBA957" // 0% 处的颜色
+                                    },
+                                        {
+                                            offset: 1,
+                                            color: "#FEE865" // 100% 处的颜色
+                                        }
+                                    ]
+                                }
+                            }else{
+                                color = {
+                                    type: "linear",x: 0,y: 0,x2: 1,y2: 0,
+                                    colorStops: [{
+                                        offset: 0,
+                                        color: "#FBA957" // 0% 处的颜色
+                                    },
+                                        {
+                                            offset: 1,
+                                            color: "#FEE865" // 100% 处的颜色
+                                        }
+                                    ]
+                                }
+                            }
+                            return color;
+                        },
+                    }
+                },
+                label: {
+                    normal: {
+                        show: true,
+                        position: ['-60', '-25'],
+                        padding: [0,0,10,0],
+                        rich: {
+                            a1: {
+                                width: 50,
+                                height: 20,
+                                color: '#3296f4',
+                                fontSize: 14,
+                                fontWeight: '500',
+                                align: 'center',
+                                padding: [10,0],
+                                backgroundColor: {
+                                    image: '../../../xwyjs/images/26/T226_echart_icon1.png'
+                                }
+                            },
+                            a2: {
+                                width: 50,
+                                height: 18,
+                                color: '#3296f4',
+                                fontSize: 14,
+                                fontWeight: '500',
+                                align: 'center',
+                                padding: [10,0],
+                                backgroundColor: {
+                                    image: '../../../xwyjs/images/26/T226_echart_icon1.png'
+                                }
+                            },
+                            a3: {
+                                width: 50,
+                                height: 18,
+                                color: '#3296f4',
+                                fontSize: 14,
+                                fontWeight: '500',
+                                align: 'center',
+                                padding: [10,0],
+                                backgroundColor: {
+                                    image: '../../../xwyjs/images/26/T226_echart_icon1.png'
+                                }
+                            },
+                            b: {
+                                width: 50,
+                                height: 18,
+                                color: '#3296f4',
+                                fontSize: 14,
+                                fontWeight: '500',
+                                align: 'center',
+                                padding: [10,0],
+                                backgroundColor: {
+                                    image: '../../../xwyjs/images/26/T226_echart_icon1.png'
+                                }
+                            },
+                            c: {
+                                color: '#fff',
+                                align: 'left',
+                                fontSize: 14,
+                                padding: [15,0,0,10]
+                            }
+                        },
+                        formatter: function(data) {
+                            if (data.dataIndex < 3) {
+                                return [
+                                    '{a' + (data.dataIndex + 1) + '|NO.' + (data.dataIndex + 1) + '}' + '{c|' + data.name + '}'
+                                ].join('\n')
+                            } else {
+                                return [
+                                    '{b|NO.' + (data.dataIndex + 1) + '}' + '{c|' + data.name + '}'
+                                ].join('\n')
+                            }
+                        }
+                    }
+                },
+                data: tax,
+                z: 2,
+                animationEasing: "elasticOut"
+            },
+            {
+                type: 'bar',
+                barGap: '-120%',
+                barWidth: 18,
+                itemStyle:{
+                    normal:{
+                        color:"rgba(17,42,91,1)"
+                    }
+                },
+                z:1
+            },
+            {
+                // 分隔
+                type: "pictorialBar",
+                itemStyle: {
+                    normal:{
+                        color:"rgba(17,42,91,1)"
+                    }
+                },
+                symbolRepeat: "fixed",
+                symbolMargin: 2,
+                symbol: "rect",
+                symbolClip: true,
+                symbolSize: [2, 15],
+                symbolPosition: "start",
+                symbolOffset: [1, 0],
+                data: tax,
+                z: 3,
+                animationEasing: "elasticOut"
+            }
+        ]
+    }
+    var mychart2 = echarts.init(document.getElementById("J127_echart2"));
+    mychart2.setOption(option2);
+    window.addEventListener("resize", function() {
+        mychart2.resize();
+    });
+
+    //亩均税收
+    var option5 = {
+        title: {
+            text: [[${overviewBean.acreTax}]],
+            textStyle: {
+                color: '#fff',
+                fontSize: 22,
+                fontWeight: 'bold',
+            },
+            subtext: '亿元',
+            subtextStyle: {
+                color: '#fff',
+                fontSize: 12,
+            },
+            left: 'center',
+            bottom: '5%',
+        },
+        tooltip: {
+            show: false,
+        },
+        legend: {
+            show:false
+        },
+        series: [
+            {
+                type: 'gauge',
+                name: '1',
+                radius: '140%',
+                clockwise: true,
+                startAngle: '180',
+                endAngle: '0',
+                splitNumber: 40,
+                center: ['50%', '85%'],
+                detail: {
+                    show: false
+                },
+                pointer: {
+                    show: false
+                },
+                axisLine: {
+                    lineStyle: {
+                        width: 15,
+                        opacity: 0, //盘的颜色变成透明
+                    }
+                },
+                axisTick: {
+                    show: false
+                },
+                splitLine: {
+                    show: true,
+                    length: 8,
+                    lineStyle: {
+                        color: '#F5F704',
+                        width: 2
+                    }
+                },
+                axisLabel: {
+                    show: false
+                },
+                z: 2
+            },
+            {
+                type: 'gauge',
+                name: '2',
+                radius: '140%',
+                clockwise: true,
+                startAngle: '180',
+                endAngle: '0',
+                splitNumber: 40,
+                center: ['50%', '85%'],
+                detail: {
+                    show: false
+                },
+                pointer: {
+                    show: false
+                },
+                axisLine: {
+                    lineStyle: {
+                        width: 15,
+                        opacity: 0, //盘的颜色变成透明
+                    }
+                },
+                axisTick: {
+                    show: false
+                },
+                splitLine: {
+                    show: true,
+                    length: 8,
+                    lineStyle: {
+                        color: '#01534B',
+                        width: 2
+                    }
+                },
+                axisLabel: {
+                    show: false
+                },
+                z: 1
+            },
+            {
+                name: '外圈',
+                type: 'pie',
+                startAngle: 360,
+                hoverAnimation: false,
+                radius: ["155%", "158%"],
+                center: ['50%', '85%'],
+                label: {
+                    normal: {
+                        show: false,
+                        position: 'center'
+                    },
+                    emphasis: {
+                        show: true,
+                        textStyle: {
+                            fontSize: '10',
+                            fontWeight: 'bold'
+                        }
+                    }
+                },
+                labelLine: {
+                    normal: {
+                        show: false
+                    }
+                },
+                data: [{
+                    value: 50,
+                    itemStyle: {
+                        normal: {
+                            color: "rgba(0,0,0,0)"
+                        }
+                    }
+                },
+                    {
+                        value: 50,
+                        itemStyle: {
+                            normal: {
+                                color: "#F5F704"
+                            }
+                        }
+                    },
+                ]
+            }
+        ]
+    }
+    var mychart5 = echarts.init(document.getElementById('J127_echart5'))
+    mychart5.setOption(option5)
+    window.addEventListener("resize", function() {
+        mychart5.resize();
+    });
+
+    //亩均产值
+    var option6 = {
+        title: {
+            text: [[${overviewBean.acreOutput}]],
+            textStyle: {
+                color: '#fff',
+                fontSize: 22,
+                fontWeight: 'bold',
+            },
+            subtext: '亿元',
+            subtextStyle: {
+                color: '#fff',
+                fontSize: 12,
+            },
+            left: 'center',
+            bottom: '5%',
+        },
+        tooltip: {
+            show: false,
+        },
+        legend: {
+            show:false
+        },
+        series: [
+            {
+                type: 'gauge',
+                name: '1',
+                radius: '140%',
+                clockwise: true,
+                startAngle: '180',
+                endAngle: '0',
+                splitNumber: 40,
+                center: ['50%', '85%'],
+                detail: {
+                    show: false
+                },
+                pointer: {
+                    show: false
+                },
+                axisLine: {
+                    lineStyle: {
+                        width: 15,
+                        opacity: 0, //盘的颜色变成透明
+                    }
+                },
+                axisTick: {
+                    show: false
+                },
+                splitLine: {
+                    show: true,
+                    length: 8,
+                    lineStyle: {
+                        color: '#00F0C3',
+                        width: 2
+                    }
+                },
+                axisLabel: {
+                    show: false
+                },
+                z: 2
+            },
+            {
+                type: 'gauge',
+                name: '2',
+                radius: '140%',
+                clockwise: true,
+                startAngle: '180',
+                endAngle: '0',
+                splitNumber: 40,
+                center: ['50%', '85%'],
+                detail: {
+                    show: false
+                },
+                pointer: {
+                    show: false
+                },
+                axisLine: {
+                    lineStyle: {
+                        width: 15,
+                        opacity: 0, //盘的颜色变成透明
+                    }
+                },
+                axisTick: {
+                    show: false
+                },
+                splitLine: {
+                    show: true,
+                    length: 8,
+                    lineStyle: {
+                        color: '#01534B',
+                        width: 2
+                    }
+                },
+                axisLabel: {
+                    show: false
+                },
+                z: 1
+            },
+            {
+                name: '外圈',
+                type: 'pie',
+                startAngle: 360,
+                hoverAnimation: false,
+                radius: ["155%", "158%"],
+                center: ['50%', '85%'],
+                label: {
+                    normal: {
+                        show: false,
+                        position: 'center'
+                    },
+                    emphasis: {
+                        show: true,
+                        textStyle: {
+                            fontSize: '10',
+                            fontWeight: 'bold'
+                        }
+                    }
+                },
+                labelLine: {
+                    normal: {
+                        show: false
+                    }
+                },
+                data: [{
+                    value: 50,
+                    itemStyle: {
+                        normal: {
+                            color: "rgba(0,0,0,0)"
+                        }
+                    }
+                },
+                    {
+                        value: 50,
+                        itemStyle: {
+                            normal: {
+                                color: "#00F0C3"
+                            }
+                        }
+                    },
+                ]
+            }
+        ]
+    }
+    var mychart6 = echarts.init(document.getElementById('J127_echart6'))
+    mychart6.setOption(option6)
+    window.addEventListener("resize", function() {
+        mychart6.resize();
+    });
+
+
+    var jyl = 0;
+    $.ajax({
+        cache: true,
+        contentType: "application/json",
+        dataType: "json",
+        type: "GET",
+        url: "/statistics/overview/obtain/employment",
+        async: false,
+        error: function (request) {
+            $.modal.alertError("系统错误");
+        },
+        success: function (data) {
+            if (data.length != 0) {
+                jyl = data[0].obtainRate;
+            }
+
+        }
+    });
+
+    //园区就业贡献率
+    var option7 = {
+        series: [{
+            type: 'pie',
+            clockWise: false,
+            radius: ['73%', '95%'],
+            hoverAnimation: false,
+            silent: true,
+            center: ['50%', '50%'],
+            data: [{
+                value: jyl,
+                name: 'invisible',
+                itemStyle: {
+                    normal: {
+                        color: '#00FFE4',
+                    }
+                },
+                labelLine: {
+                    show: false
+                },
+                label: {
+                    show: false,
+                    // position: 'center'
+                },
+            },{
+                value: jyl,
+                label: {
+                    normal: {
+                        rich: {
+                            a: {
+                                color: '#00FFE4',
+                                align: 'center',
+                                fontSize: 22
+                            },
+                            b: {
+                                color: '#00FFE4',
+                                align: 'center',
+                                fontSize: 22
+                            },
+                        },
+                        formatter: function(params){
+                            return "{a|"+params.value+"}"+" {b|%}";
+                        },
+                        position: 'center',
+                        show: true,
+                    }
+                },
+                itemStyle: {
+                    normal: {
+                        color: '#263B79',
+                    }
+                }
+            }]
+        },
+            {
+                type: 'pie',
+                name: 'TypeB',  // 内层细圆环2
+                radius: ['55%', '60%'],
+                hoverAnimation: false,
+                clockWise: false,
+                itemStyle: {
+                    normal: {
+                        color: '#0697AF'
+                    }
+                },
+                label: {
+                    show: false
+                },
+                data: [100]
+            },]
+    }
+    var mychart7 = echarts.init(document.getElementById('J127_echart7'))
+    mychart7.setOption(option7)
+    window.addEventListener("resize", function() {
+        mychart7.resize();
+    });
+
+
+</script>
+</html>

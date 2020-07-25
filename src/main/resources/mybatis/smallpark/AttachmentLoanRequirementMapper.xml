@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.netintech.park.mapper.AttachmentLoanRequirementMapper">
+
+    <resultMap type="com.netintech.park.domain.AttachmentLoanRequirement" id="AttachmentLoanRequirementResult">
+        <result property="id"    column="id"    />
+        <result property="requirementId"    column="requirement_id"    />
+        <result property="fileUuid"    column="file_uuid"    />
+        <result property="fileName"    column="file_name"    />
+        <result property="fileAlias"    column="file_alias"    />
+        <result property="filePath"    column="file_path"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+    </resultMap>
+
+
+    <sql id="selectAttachmentLoanRequirementVo">
+        select id, requirement_id, file_uuid, file_name, file_alias, file_path, del_flag, create_by, create_time from attachment_loan_requirement
+    </sql>
+
+
+
+    <select id="selectAttachmentLoanRequirementList" parameterType="com.netintech.park.domain.AttachmentLoanRequirement" resultMap="AttachmentLoanRequirementResult">
+        <include refid="selectAttachmentLoanRequirementVo"/>
+        where del_flag=0
+        <if test="requirementId != null "> and requirement_id = #{requirementId}</if>
+        <if test="fileUuid != null  and fileUuid != ''"> and file_uuid = #{fileUuid}</if>
+        <if test="fileName != null  and fileName != ''"> and file_name like concat('%', #{fileName}, '%')</if>
+        <if test="fileAlias != null  and fileAlias != ''"> and file_alias = #{fileAlias}</if>
+        <if test="filePath != null  and filePath != ''"> and file_path = #{filePath}</if>
+    </select>
+
+    <select id="selectAttachmentLoanRequirementById" parameterType="Long" resultMap="AttachmentLoanRequirementResult">
+        <include refid="selectAttachmentLoanRequirementVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertAttachmentLoanRequirement" parameterType="com.netintech.park.domain.AttachmentLoanRequirement" useGeneratedKeys="true" keyProperty="id">
+        insert into attachment_loan_requirement
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="requirementId != null ">requirement_id,</if>
+            <if test="fileUuid != null  and fileUuid != ''">file_uuid,</if>
+            <if test="fileName != null  and fileName != ''">file_name,</if>
+            <if test="fileAlias != null  and fileAlias != ''">file_alias,</if>
+            <if test="filePath != null  and filePath != ''">file_path,</if>
+            <if test="delFlag != null  and delFlag != ''">del_flag,</if>
+            <if test="createBy != null  and createBy != ''">create_by,</if>
+            <if test="createTime != null ">create_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="requirementId != null ">#{requirementId},</if>
+            <if test="fileUuid != null  and fileUuid != ''">#{fileUuid},</if>
+            <if test="fileName != null  and fileName != ''">#{fileName},</if>
+            <if test="fileAlias != null  and fileAlias != ''">#{fileAlias},</if>
+            <if test="filePath != null  and filePath != ''">#{filePath},</if>
+            <if test="delFlag != null  and delFlag != ''">#{delFlag},</if>
+            <if test="createBy != null  and createBy != ''">#{createBy},</if>
+            <if test="createTime != null ">#{createTime},</if>
+        </trim>
+    </insert>
+
+    <update id="updateAttachmentLoanRequirement" parameterType="com.netintech.park.domain.AttachmentLoanRequirement">
+        update attachment_loan_requirement
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="requirementId != null ">requirement_id = #{requirementId},</if>
+            <if test="fileUuid != null  and fileUuid != ''">file_uuid = #{fileUuid},</if>
+            <if test="fileName != null  and fileName != ''">file_name = #{fileName},</if>
+            <if test="fileAlias != null  and fileAlias != ''">file_alias = #{fileAlias},</if>
+            <if test="filePath != null  and filePath != ''">file_path = #{filePath},</if>
+            <if test="delFlag != null  and delFlag != ''">del_flag = #{delFlag},</if>
+            <if test="createBy != null  and createBy != ''">create_by = #{createBy},</if>
+            <if test="createTime != null ">create_time = #{createTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteAttachmentLoanRequirementById" parameterType="Long">
+        delete from attachment_loan_requirement where id = #{id}
+    </delete>
+
+    <delete id="deleteAttachmentLoanRequirementByIds" parameterType="String">
+        update attachment_loan_requirement set del_flag=2 where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

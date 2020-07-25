@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+    <title>永康市数字小微园政府监管应用</title>
+    <link rel="stylesheet" th:href="@{/xwyjs/css/all.css}">
+    <link rel="stylesheet" th:href="@{/xwyjs/css/style_10.css}">
+    <link rel="stylesheet" th:href="@{/xwyjs/lib/layui/css/layui.css}">
+    <style>
+        html {
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+<div class="P210_content">
+    <div class="P210_title">
+        <div class="P210_title_text" th:object="${bean}">
+            <input id="id" name="id" th:value="*{id}" type="hidden">
+            <span>园区总览>总览>[[${bean.name}]]</span>
+        </div>
+    </div>
+    <div class="P210_container">
+        <div class="P210_container_padding">
+            <div id="container"></div>
+            <div class="P210_container_left clear">
+                <div class="P210_left_info fl" th:object="${overviewBean}">
+                    <div class="P210_left_infoData clear" >
+                        <div class="fl clear" style="border-bottom: none;border-right: none;">
+                            <div class="P210_left_infoIcon fl">
+                                <img th:src="@{/xwyjs/images/10/P210_left_infoIcon1.png}" alt="">
+                            </div>
+                            <div class="P210_left_infoText fl">
+                                <div class="P210_infoText_number"><span>[[${overviewBean.enterPark}]]</span></div>
+                                <div class="P210_infoText_info"><span>入园企业</span><span
+                                        style="margin-left: 0.5em;">(家)</span></div>
+                            </div>
+                        </div>
+                        <div class="fl clear" style="border-bottom: none;">
+                            <div class="P210_left_infoIcon fl">
+                                <img th:src="@{/xwyjs/images/10/P210_left_infoIcon2.png}" alt="">
+                            </div>
+                            <div class="P210_left_infoText fl">
+                                <div class="P210_infoText_number"><span>[[${overviewBean.enterPerson}]]</span></div>
+                                <div class="P210_infoText_info"><span>入园人员</span><span
+                                        style="margin-left: 0.5em;">(万)</span></div>
+                            </div>
+                        </div>
+                        <div class="fl clear" style="border-bottom: none;border-right: none;">
+                            <div class="P210_left_infoIcon fl">
+                                <img th:src="@{/xwyjs/images/10/P210_left_infoIcon3.png}" alt="">
+                            </div>
+                            <div class="P210_left_infoText fl">
+                                <div class="P210_infoText_number"><span>[[${overviewBean.income}]]</span></div>
+                                <div class="P210_infoText_info"><span>园区收入</span><span
+                                        style="margin-left: 0.5em;">(亿元)</span></div>
+                            </div>
+                        </div>
+                        <div class="fl clear" style="border-bottom: none;">
+                            <div class="P210_left_infoIcon fl">
+                                <img th:src="@{/xwyjs/images/10/P210_left_infoIcon4.png}" alt="">
+                            </div>
+                            <div class="P210_left_infoText fl">
+                                <div class="P210_infoText_number"><span>[[${overviewBean.taxRevenue}]]</span></div>
+                                <div class="P210_infoText_info"><span>园区税收</span><span
+                                        style="margin-left: 0.5em;">(亿元)</span></div>
+                            </div>
+                        </div>
+                        <div class="fl clear" style="border-right: none;">
+                            <div class="P210_left_infoIcon fl">
+                                <img th:src="@{/xwyjs/images/10/P210_left_infoIcon3.png}" alt="">
+                            </div>
+                            <div class="P210_left_infoText fl">
+                                <div class="P210_infoText_number"><span>290</span></div>
+                                <div class="P210_infoText_info"><span>亩均收入</span><span
+                                        style="margin-left: 0.5em;">(亿元)</span></div>
+                            </div>
+                        </div>
+                        <div class="fl clear">
+                            <div class="P210_left_infoIcon fl">
+                                <img th:src="@{/xwyjs/images/10/P210_left_infoIcon4.png}" alt="">
+                            </div>
+                            <div class="P210_left_infoText fl">
+                                <div class="P210_infoText_number"><span>[[${overviewBean.acreIncome}]]</span></div>
+                                <div class="P210_infoText_info"><span>亩均税收</span><span
+                                        style="margin-left: 0.5em;">(亿元)</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="P210_left_infogGeneral">
+                        <div class="P210_infogGeneral_content">
+                            <div class="layui-tab layui-tab-card">
+                                <ul class="layui-tab-title">
+                                    <li class="layui-this">园区概况</li>
+                                    <li>建设方</li>
+                                    <li>运营方</li>
+                                </ul>
+                                <div class="layui-tab-content">
+                                    <div class="layui-tab-item layui-show" th:text="${#strings.abbreviate(overviewBean.parkDesc,300)}"></div>
+                                    <div class="layui-tab-item">
+                                    <li>单位名称：[[${overviewBean.buildUnitName}]]</li>
+                                    <li>联系人：[[${overviewBean.buildContactName}]]</li>
+                                    <li>联系电话：[[${overviewBean.buildContactTel}]]</li>
+                                    <li>联系邮箱：[[${overviewBean.buildContactMail}]]</li>
+                                </div>
+                                    <div class="layui-tab-item">
+                                        <li>单位名称：[[${overviewBean.operationUnitName}]]</li>
+                                        <li>联系人：[[${overviewBean.operationContactName}]]</li>
+                                        <li>联系电话：[[${overviewBean.operationContactTel}]]</li>
+                                        <li>联系邮箱：[[${overviewBean.operationContactMail}]]</li>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="P210_left_coverage layui-collapse fl">
+                    <div class="layui-colla-item">
+                        <h2 class="layui-colla-title">图层控制</h2>
+                        <div class="layui-colla-content layui-show layui-form">
+                            <div class="P210_coverage_item P210_item_icon1">
+                                <input type="checkbox" name="" lay-skin="primary" title="视频监控" checked="">
+                            </div>
+                            <div class="P210_coverage_item P210_item_icon2">
+                                <input type="checkbox" name="" lay-skin="primary" title="消防监控">
+                            </div>
+                            <div class="P210_coverage_item P210_item_icon3">
+                                <input type="checkbox" name="" lay-skin="primary" title="车行管理">
+                            </div>
+                            <div class="P210_coverage_item P210_item_icon4">
+                                <input type="checkbox" name="" lay-skin="primary" title="电梯监测">
+                            </div>
+                            <div class="P210_coverage_item P210_item_icon5">
+                                <input type="checkbox" name="" lay-skin="primary" title="安防管理">
+                            </div>
+                            <div class="P210_coverage_item P210_item_icon6">
+                                <input type="checkbox" name="" lay-skin="primary" title="环保监测">
+                            </div>
+                            <div class="P210_coverage_item P210_item_icon7">
+                                <input type="checkbox" name="" lay-skin="primary" title="人行管理">
+                            </div>
+                            <div class="P210_coverage_item P210_item_icon8">
+                                <input type="checkbox" name="" lay-skin="primary" title="能效管理">
+                            </div>
+                            <div class="P210_coverage_item P210_item_icon9">
+                                <input type="checkbox" name="" lay-skin="primary" title="动环监测">
+                            </div>
+                            <div class="P210_coverage_item P210_item_icon10">
+                                <input type="checkbox" name="" lay-skin="primary" title="楼宇自控">
+                            </div>
+                            <div class="P210_coverage_item P210_item_icon11">
+                                <input type="checkbox" name="" lay-skin="primary" title="充电桩管理">
+                            </div>
+                            <div class="P210_coverage_item P210_item_icon12">
+                                <input type="checkbox" name="" lay-skin="primary" title="智能快递柜">
+                            </div>
+                            <div class="P210_coverage_item P210_item_icon13">
+                                <input type="checkbox" name="" lay-skin="primary" title="快递驿站">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="P210_container_right clear">
+<!--                <div class="P210_right_trigger fl clear">-->
+<!--&lt;!&ndash;                    <div class="P210_trigger_switch fl switch_this"><span>二维</span></div>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <div class="P210_trigger_switch fl"><span>三维</span></div>&ndash;&gt;-->
+<!--                </div>-->
+                <div class="P210_right_echarts fl">
+                    <div class="P210_echarts_top">
+                        <div class="P210_echarts_topTitle">
+                            <span>企业收入排行</span>
+                        </div>
+                        <div class="P210_echarts_topContent">
+                            <div id="P210_echarts_earning"></div>
+                        </div>
+                    </div>
+                    <div class="P210_echarts_bottom">
+                        <div class="P210_echarts_bottomTitle">
+                            <span>企业税收排行</span>
+                        </div>
+                        <div class="P210_echarts_bottomContent">
+                            <div id="P210_echarts_revenue"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="//webapi.amap.com/maps?v=1.4.15&key=358df98d6a1422dc83713fddaa8d260c&plugin=AMap.DistrictSearch"></script>
+<script th:src="@{/xwyjs/js/jquery.min.js}"></script>
+<script th:src="@{/xwyjs/js/main.js}"></script>
+<script th:src="@{/xwyjs/js/27/jquery.backgroundSize.js}"></script>
+<script th:src="@{/xwyjs/js/echarts/echarts.js}"></script>
+<script th:src="@{/xwyjs/lib/layui/layui.js}"></script>
+<script th:inline="javascript">
+    var id = $("#id").val();
+
+  var points = [null, null, null, null, null, null, null, null, null, null, null, null, null]
+  var markers = [
+      [
+
+      ],
+      [
+
+      ],
+      [
+
+      ]
+  ]
+  // 模拟数据
+  var pointsTest = [
+    [
+      {
+        lat: 28.92034,
+        lon: 119.97035,
+      }
+    ],
+    [
+      {
+        lat: 28.91957,
+        lon: 119.97322,
+      }
+    ],
+    [
+      {
+        lat: 28.90991,
+        lon: 119.96417,
+      }
+    ],
+    [
+      {
+        lat: 28.98404,
+        lon: 120.07781,
+      }
+    ],
+    [
+      {
+        lat: 29.02307,
+        lon: 120.1209,
+      }
+    ],
+    [
+      {
+        lat: 28.91426,
+        lon: 120.03782,
+      }
+    ],
+    [
+      {
+        lat: 28.89555,
+        lon: 120.03696,
+      }
+    ],
+    [
+      {
+        lat: 28.88939,
+        lon: 120.03112,
+      }
+    ],
+    [
+      {
+        lat: 28.94134,
+        lon: 120.13687,
+      }
+    ],
+    [
+      {
+        lat: 28.9383,
+        lon: 120.14078,
+      }
+    ],
+    [
+      {
+        lat: 28.94367,
+        lon: 120.1409,
+      }
+    ],
+    [
+      {
+        lat: 28.91811,
+        lon: 119.97051,
+      }],
+    [
+      {
+        lat: 28.92034,
+        lon: 119.97035,
+      }]
+  ]
+  var pointsName = [
+    '视频监控',
+    '消防监控',
+    '车行管理',
+    '电梯监测',
+    '安防管理',
+    '环保监测',
+    '人行管理',
+    '能效管理',
+    '动环监测',
+    '楼宇自控',
+    '充电桩管理',
+    '智能快递柜',
+    '快递驿站']
+
+  var map = new AMap.Map('container', {
+      resizeEnable: true, // 是否监控地图容器尺寸变化
+      zoom: 10, // 初始化地图层级
+      dragEnable: true, // 地图是否可通过鼠标拖拽平移，默认为true
+      keyboardEnable: true, // 地图是否可通过键盘控制，默认为true
+      doubleClickZoom: true, // 地图是否可通过双击鼠标放大地图，默认为true
+      center: [120.04731, 28.88851], // 中心点坐标
+  })
+  var district = null
+  var polygons = []
+
+  function drawBounds() {
+    //加载行政区划插件
+    if (!district) {
+      //实例化DistrictSearch
+      var opts = {
+        subdistrict: 0,   //获取边界不需要返回下级行政区
+        extensions: 'all',  //返回行政区边界坐标组等具体信息
+        level: 'district'  //查询行政级别为 市
+      }
+      district = new AMap.DistrictSearch(opts)
+    }
+    district.search('永康市', function(status, result) {
+      map.remove(polygons) // 清除上次结果
+      polygons = []
+      var bounds = result.districtList[0].boundaries
+      if (bounds) {
+        for (var i = 0, l = bounds.length; i < l; i++) {
+          // 生成行政区划polygon
+          var polygon = new AMap.Polygon({
+            strokeWeight: 2,
+            strokeStyle: 'dashed',
+            path: bounds[i],
+            fillOpacity: 0.6,
+            fillColor: '#d7e2f4',
+            strokeColor: '#6395fc'
+          })
+          polygons.push(polygon)
+        }
+      }
+      map.add(polygons)
+      map.setFitView(polygons, true, [20, 20, 20, 20], 12) // 视口自适应
+    })
+  }
+
+  drawBounds()
+  // 页面打开时默认选中第一个(即视频监控)
+  points[0] = pointsTest[0]
+  addMakers(points[0], 0)
+
+  /**
+   * 添加单个点
+   * @param data 数据源
+   * @return {AMap.Marker}
+   */
+  function addMaker(data, index) {
+    var marker = new AMap.Marker({
+      position: new AMap.LngLat(parseFloat(data.lon), parseFloat(data.lat)),
+      offset: new AMap.Pixel(-13, -45),
+      content: `<div class="P210_mapIcon"><img src="../../../xwyjs/images/10/P210_coverage_icon` + (index + 1) +
+      `-1.png"></div>`
+    })
+    return marker
+  }
+
+  /**
+   * 加标记点
+   */
+  function addMakers(pointsList, index) {
+    for (var i = 0; i < pointsList.length; i++) {
+      markers[index].push(addMaker(pointsList[i], index))
+    }
+    map.add(markers[index])
+  }
+
+  /**
+   * 删除标记点
+   * @param data 数据源
+   * @return {AMap.Marker}
+   */
+  function removeMakers(index) {
+    map.remove(markers[index])
+  }
+
+  layui.use(['element', 'form'], function() {
+    var $ = layui.jquery
+      , element = layui.element //Tab的切换功能，切换事件监听等，需要依赖element模块
+      , form = layui.form
+
+    form.on('checkbox()', function(data) {
+      var index = pointsName.indexOf(data.elem.title)
+      if (data.elem.checked) {
+        points[index] = pointsTest[index]
+        addMakers(points[index], index)
+      } else {
+        removeMakers(index)
+        points[index] = null
+      }
+    })
+  })
+  $('.P210_trigger_switch').click(function() {
+    if ($(this).hasClass('switch_this')) {
+      $(this).removeClass('switch_this')
+      $(this).siblings().addClass('switch_this')
+    } else {
+      $(this).addClass('switch_this')
+      $(this).siblings().removeClass('switch_this')
+    }
+  })
+
+  function eChartInit(el, data) {
+    var info = []
+    var option = {
+      title: {
+        show: false
+      },
+      grid: {
+        left: '20%',
+        top: '2.5%',
+        right: '10%',
+        bottom: '2.5%',
+        containLabel: true
+      },
+      xAxis: [
+        {
+          show: false,
+        },
+        //由于下边X轴已经是百分比刻度了,所以需要在顶部加一个X轴,刻度是金额,也隐藏掉
+        {
+          show: false,
+        }
+      ],
+      yAxis: {
+        type: 'category',
+        axisLabel: {
+          show: false, //让Y轴数据不显示
+        },
+        itemStyle: {},
+        axisTick: {
+          show: false, //隐藏Y轴刻度
+        },
+        axisLine: {
+          show: false, //隐藏Y轴线段
+        },
+        inverse: true,
+        data: [],
+      },
+      series: [
+        //背景色--------------------我是分割线君------------------------------//
+        {
+          show: true,
+          type: 'bar',
+          barWidth: '10',
+          barGap: '-124%',
+          silent: true,
+          itemStyle: {
+            normal: {
+              borderWidth: 0.5,
+              color: 'transparent',
+              borderColor: '#49698f',
+              barBorderRadius: 50,
+            }
+          },
+          label: {
+            normal: {
+              show: true,
+              textStyle: {
+                color: '#4c4c4c',
+                fontSize: '16'
+              },
+              position: ['85%', '-20'],
+              formatter: function(data) {
+                return info[data.dataIndex] + '万'
+              },
+            }
+          },
+          z: 1,
+          data: [],
+        },
+        //蓝条--------------------我是分割线君------------------------------//
+        {
+          show: true,
+          type: 'bar',
+          barWidth: '10',
+          itemStyle: {
+            normal: {
+              barBorderRadius: 50,
+              color: (params) => {
+                if (params.dataIndex === 0) {
+                  return new echarts.graphic.LinearGradient(0, 0, 1, 0, [
+                    {
+                      offset: 0,
+                      color: '#ffd633' // 0% 处的颜色
+                    }, {
+                      offset: 1,
+                      color: '#ff9b08' // 100% 处的颜色
+                    }], false)
+                } else if (params.dataIndex === 1) {
+                  return new echarts.graphic.LinearGradient(0, 0, 1, 0, [
+                    {
+                      offset: 0,
+                      color: '#01faa6' // 0% 处的颜色
+                    }, {
+                      offset: 1,
+                      color: '#06e17d' // 100% 处的颜色
+                    }], false)
+                } else if (params.dataIndex === 2) {
+                  return new echarts.graphic.LinearGradient(0, 0, 1, 0, [
+                    {
+                      offset: 0,
+                      color: '#fd8484' // 0% 处的颜色
+                    }, {
+                      offset: 1,
+                      color: '#f63e3e' // 100% 处的颜色
+                    }], false)
+                } else {
+                  return new echarts.graphic.LinearGradient(0, 0, 1, 0, [
+                    {
+                      offset: 0,
+                      color: '#80d0ff' // 0% 处的颜色
+                    }, {
+                      offset: 1,
+                      color: '#75adff' // 100% 处的颜色
+                    }], false)
+                }
+              },
+            },
+          },
+          label: {
+            normal: {
+              show: false,
+              textStyle: {
+                color: '#4a505f',
+                fontSize: '16'
+              },
+            }
+          },
+          labelLine: {
+            show: false,
+          },
+          z: 2,
+          data: [],
+        },
+        //数据条--------------------我是分割线君------------------------------//
+        {
+          show: true,
+          type: 'bar',
+          xAxisIndex: 1, //代表使用第二个X轴刻度!!!!!!!!!!!!!!!!!!!!!!!!
+          barGap: '-100%',
+          barWidth: '10', //统计条宽度
+          itemStyle: {
+            normal: {
+              barBorderRadius: 200,
+              color: 'rgba(22,203,115,0.05)'
+            },
+          },
+          label: {
+            normal: {
+              show: true,
+              position: ['-60', '-20'],
+              rich: {
+                a1: {
+                  width: 60,
+                  color: '#ff9e0a',
+                  align: 'left',
+                  fontSize: 16
+                },
+                a2: {
+                  width: 60,
+                  color: '#06e07c',
+                  align: 'left',
+                  fontSize: 16
+                },
+                a3: {
+                  width: 60,
+                  color: '#ff8484',
+                  align: 'left',
+                  fontSize: 16
+                },
+                b: {
+                  width: 60,
+                  color: '#3296f4',
+                  align: 'left',
+                  fontSize: 16
+                },
+                c: {
+                  color: '#4c4c4c',
+                  align: 'left',
+                  fontSize: 14
+                }
+              },
+              formatter: function(data) {
+                if (data.dataIndex < 3) {
+                  return [
+                    '{a' + (data.dataIndex + 1) + '|NO.' + (data.dataIndex + 1) + '}' + '{c|' + data.name + '}'
+                  ].join('\n')
+                } else {
+                  return [
+                    '{b|NO.' + (data.dataIndex + 1) + '}' + '{c|' + data.name + '}'
+                  ].join('\n')
+                }
+              }
+            }
+          },
+          data: []
+        }
+      ]
+    }
+    for (var i = 0; i < data.length; i++) {
+      info.push(data[i].amount)
+      option.yAxis.data.push(data[i].name)
+      option.series[0].data.push(data[0].amount)
+      option.series[1].data.push(data[i].amount)
+      option.series[2].data.push(data[i].amount)
+    }
+    var newCahrt = echarts.init(el)
+    newCahrt.setOption(option)
+    $(window).resize(function() {
+      newCahrt.resize()
+    })
+  }
+
+  var dom1 = document.getElementById('P210_echarts_earning')
+  $.ajax({
+      cache: true,
+      contentType: "application/json",
+      dataType: "json",
+      type: "GET",
+      url: "/statistics/dimension/income/rank/"+id,
+      async: false,
+      error: function (request) {
+          $.modal.alertError("系统错误");
+      },
+      success: function (data) {
+          eChartInit(dom1, data)
+      }
+  });
+
+  var dom2 = document.getElementById('P210_echarts_revenue')
+  $.ajax({
+      cache: true,
+      contentType: "application/json",
+      dataType: "json",
+      type: "GET",
+      url: "/statistics/dimension/tax/rank/"+id,
+      async: false,
+      error: function (request) {
+          $.modal.alertError("系统错误");
+      },
+      success: function (data) {
+          eChartInit(dom2, data)
+      }
+  });
+</script>
+</body>
+</html>

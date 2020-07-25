@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.netintech.enterprise.mapper.EnterpriseMapper">
+    
+    <resultMap type="Enterprise" id="EnterpriseResult">
+        <result property="id"    column="id"    />
+        <result property="enterpriseName"    column="enterprise_name"    />
+        <result property="smallId"    column="small_id"    />
+        <result property="creditCode"    column="credit_code"    />
+        <result property="areaId"    column="area_id"    />
+        <result property="areaChildId"    column="area_child_id"    />
+        <result property="industryCode"    column="industry_code"    />
+        <result property="taxpayerCode"    column="taxpayer_code"    />
+        <result property="chargePerson"    column="charge_person"    />
+        <result property="contactTel"    column="contact_tel"    />
+        <result property="buildingNo"    column="building_no"    />
+        <result property="floorNo"    column="floor_no"    />
+        <result property="detailedAddress"    column="detailed_address"    />
+        <result property="leadingProducts"    column="leading_products"    />
+        <result property="intoForm"    column="into_form"    />
+        <result property="intoTime"    column="into_time"    />
+        <result property="landSpace"    column="land_space"    />
+        <result property="buildingSpace"    column="building_space"    />
+        <result property="isRegulated"    column="is_regulated"    />
+        <result property="isTechnology"    column="is_technology"    />
+        <result property="isHighTech"    column="is_high_tech"    />
+        <result property="lon"    column="lon"    />
+        <result property="lat"    column="lat"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="lastYearOutput" column="last_year_output"/>
+
+        <result property="employeeNumber"    column="employee_number"    />
+        <result property="patentNumber"    column="patent_number"    />
+        <result property="brandOwnership"    column="brand_ownership"    />
+        <result property="isForeign"    column="is_foreign"    />
+        <result property="isSpecial"    column="is_special"    />
+        <result property="talentsNumber"    column="talents_number"    />
+        <result property="enterpriseType"    column="enterprise_type"    />
+
+
+
+
+    </resultMap>
+
+    <sql id="selectEnterpriseVo">
+        select id, enterprise_name, small_id, credit_code, area_id, area_child_id, industry_code, taxpayer_code, charge_person, contact_tel, building_no,
+        floor_no, detailed_address, leading_products, into_form, into_time, land_space, building_space, is_regulated, is_technology, is_high_tech, last_year_output,
+        lon, lat, create_by, create_time, update_by, update_time,employee_number,patent_number,brand_ownership,is_foreign,is_special,talents_number,enterprise_type from sys_enterprise
+    </sql>
+
+    <select id="selectEnterpriseList" parameterType="Enterprise" resultMap="EnterpriseResult">
+        <include refid="selectEnterpriseVo"/>
+        where  del_flag = '0'
+            <if test="id!=null"> and id =#{id}</if>
+            <if test="enterpriseName != null  and enterpriseName != ''"> and enterprise_name like concat('%', #{enterpriseName}, '%')</if>
+            <if test="smallId != null "> and small_id = #{smallId}</if>
+            <if test="creditCode != null  and creditCode != ''"> and credit_code = #{creditCode}</if>
+            <if test="areaId != null "> and area_id = #{areaId}</if>
+            <if test="areaChildId != null "> and area_child_id = #{areaChildId}</if>
+            <if test="industryCode != null  and industryCode != ''"> and industry_code = #{industryCode}</if>
+            <if test="taxpayerCode != null  and taxpayerCode != ''"> and taxpayer_code = #{taxpayerCode}</if>
+            <if test="chargePerson != null  and chargePerson != ''"> and charge_person = #{chargePerson}</if>
+            <if test="contactTel != null  and contactTel != ''"> and contact_tel = #{contactTel}</if>
+            <if test="buildingNo != null  and buildingNo != ''"> and building_no = #{buildingNo}</if>
+            <if test="floorNo != null  and floorNo != ''"> and floor_no = #{floorNo}</if>
+            <if test="detailedAddress != null  and detailedAddress != ''"> and detailed_address = #{detailedAddress}</if>
+            <if test="leadingProducts != null  and leadingProducts != ''"> and leading_products = #{leadingProducts}</if>
+            <if test="intoForm != null "> and into_form = #{intoForm}</if>
+            <if test="intoTime != null "> and into_time = #{intoTime}</if>
+            <if test="landSpace != null "> and land_space = #{landSpace}</if>
+            <if test="buildingSpace != null "> and building_space = #{buildingSpace}</if>
+            <if test="isRegulated != null "> and is_regulated = #{isRegulated}</if>
+            <if test="isTechnology != null "> and is_technology = #{isTechnology}</if>
+            <if test="isHighTech != null "> and is_high_tech = #{isHighTech}</if>
+            <if test="lon != null  and lon != ''"> and lon = #{lon}</if>
+            <if test="lat != null  and lat != ''"> and lat = #{lat}</if>
+            <if test="lastYearOutput!=null and lastYearOutput!=''"> and last_year_output =#{lastYearOutput}</if>
+            <if test="employeeNumber != null "> and employee_number = #{employeeNumber}</if>
+            <if test="patentNumber != null "> and patent_number = #{patentNumber}</if>
+            <if test="brandOwnership != null "> and brand_ownership = #{brandOwnership}</if>
+            <if test="isForeign != null "> and is_foreign = #{isForeign}</if>
+            <if test="isSpecial != null "> and is_special = #{isSpecial}</if>
+            <if test="talentsNumber != null "> and talentsNumber = #{talentsNumber}</if>
+
+    </select>
+    
+    <select id="selectEnterpriseById" parameterType="Long" resultMap="EnterpriseResult">
+        <include refid="selectEnterpriseVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertEnterprise" parameterType="Enterprise">
+        insert into sys_enterprise
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null ">id,</if>
+            <if test="enterpriseName != null  and enterpriseName != ''">enterprise_name,</if>
+            <if test="smallId != null ">small_id,</if>
+            <if test="creditCode != null  and creditCode != ''">credit_code,</if>
+            <if test="areaId != null ">area_id,</if>
+            <if test="areaChildId != null ">area_child_id,</if>
+            <if test="industryCode != null  and industryCode != ''">industry_code,</if>
+            <if test="taxpayerCode != null  and taxpayerCode != ''">taxpayer_code,</if>
+            <if test="chargePerson != null  and chargePerson != ''">charge_person,</if>
+            <if test="contactTel != null  and contactTel != ''">contact_tel,</if>
+            <if test="buildingNo != null  and buildingNo != ''">building_no,</if>
+            <if test="floorNo != null  and floorNo != ''">floor_no,</if>
+            <if test="detailedAddress != null  and detailedAddress != ''">detailed_address,</if>
+            <if test="leadingProducts != null  and leadingProducts != ''">leading_products,</if>
+            <if test="intoForm != null ">into_form,</if>
+            <if test="intoTime != null ">into_time,</if>
+            <if test="landSpace != null ">land_space,</if>
+            <if test="buildingSpace != null ">building_space,</if>
+            <if test="isRegulated != null ">is_regulated,</if>
+            <if test="isTechnology != null ">is_technology,</if>
+            <if test="isHighTech != null ">is_high_tech,</if>
+            <if test="lon != null  and lon != ''">lon,</if>
+            <if test="lat != null  and lat != ''">lat,</if>
+            <if test="createBy != null  and createBy != ''">create_by,</if>
+            <if test="createTime != null ">create_time,</if>
+            <if test="updateBy != null  and updateBy != ''">update_by,</if>
+            <if test="updateTime != null ">update_time,</if>
+            <if test="lastYearOutput!=null">last_year_output,</if>
+            <if test="employeeNumber != null ">  employee_number, </if>
+            <if test="patentNumber != null ">  patent_number, </if>
+            <if test="brandOwnership != null ">  brand_ownership ,</if>
+            <if test="isForeign != null ">  is_foreign ,</if>
+            <if test="isSpecial != null ">  is_special ,</if>
+            <if test="talentsNumber != null ">  talents_number ,</if>
+            <if test="enterpriseType != null ">  enterprise_type ,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null ">#{id},</if>
+            <if test="enterpriseName != null  and enterpriseName != ''">#{enterpriseName},</if>
+            <if test="smallId != null ">#{smallId},</if>
+            <if test="creditCode != null  and creditCode != ''">#{creditCode},</if>
+            <if test="areaId != null ">#{areaId},</if>
+            <if test="areaChildId != null ">#{areaChildId},</if>
+            <if test="industryCode != null  and industryCode != ''">#{industryCode},</if>
+            <if test="taxpayerCode != null  and taxpayerCode != ''">#{taxpayerCode},</if>
+            <if test="chargePerson != null  and chargePerson != ''">#{chargePerson},</if>
+            <if test="contactTel != null  and contactTel != ''">#{contactTel},</if>
+            <if test="buildingNo != null  and buildingNo != ''">#{buildingNo},</if>
+            <if test="floorNo != null  and floorNo != ''">#{floorNo},</if>
+            <if test="detailedAddress != null  and detailedAddress != ''">#{detailedAddress},</if>
+            <if test="leadingProducts != null  and leadingProducts != ''">#{leadingProducts},</if>
+            <if test="intoForm != null ">#{intoForm},</if>
+            <if test="intoTime != null ">#{intoTime},</if>
+            <if test="landSpace != null ">#{landSpace},</if>
+            <if test="buildingSpace != null ">#{buildingSpace},</if>
+            <if test="isRegulated != null ">#{isRegulated},</if>
+            <if test="isTechnology != null ">#{isTechnology},</if>
+            <if test="isHighTech != null ">#{isHighTech},</if>
+            <if test="lon != null  and lon != ''">#{lon},</if>
+            <if test="lat != null  and lat != ''">#{lat},</if>
+            <if test="createBy != null  and createBy != ''">#{createBy},</if>
+            <if test="createTime != null ">#{createTime},</if>
+            <if test="updateBy != null  and updateBy != ''">#{updateBy},</if>
+            <if test="updateTime != null ">#{updateTime},</if>
+            <if test="lastYearOutput!=null">#{lastYearOutput},</if>
+            <if test="employeeNumber != null ">  #{employeeNumber},</if>
+            <if test="patentNumber != null "> #{patentNumber},</if>
+            <if test="brandOwnership != null "> #{brandOwnership},</if>
+            <if test="isForeign != null "> #{isForeign},</if>
+            <if test="isSpecial != null "> #{isSpecial},</if>
+            <if test="talentsNumber != null "> #{talentsNumber},</if>
+            <if test="enterpriseType != null "> #{enterpriseType},</if>
+         </trim>
+    </insert>
+
+    <update id="updateEnterprise" parameterType="Enterprise">
+        update sys_enterprise
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="enterpriseName != null  and enterpriseName != ''">enterprise_name = #{enterpriseName},</if>
+            <if test="smallId != null ">small_id = #{smallId},</if>
+            <if test="creditCode != null  and creditCode != ''">credit_code = #{creditCode},</if>
+            <if test="areaId != null ">area_id = #{areaId},</if>
+            <if test="areaChildId != null ">area_child_id = #{areaChildId},</if>
+            <if test="industryCode != null  and industryCode != ''">industry_code = #{industryCode},</if>
+            <if test="taxpayerCode != null  and taxpayerCode != ''">taxpayer_code = #{taxpayerCode},</if>
+            <if test="chargePerson != null  and chargePerson != ''">charge_person = #{chargePerson},</if>
+            <if test="contactTel != null  and contactTel != ''">contact_tel = #{contactTel},</if>
+            <if test="buildingNo != null  and buildingNo != ''">building_no = #{buildingNo},</if>
+            <if test="floorNo != null  and floorNo != ''">floor_no = #{floorNo},</if>
+            <if test="detailedAddress != null  and detailedAddress != ''">detailed_address = #{detailedAddress},</if>
+            <if test="leadingProducts != null  and leadingProducts != ''">leading_products = #{leadingProducts},</if>
+            <if test="intoForm != null ">into_form = #{intoForm},</if>
+            <if test="intoTime != null ">into_time = #{intoTime},</if>
+            <if test="landSpace != null ">land_space = #{landSpace},</if>
+            <if test="buildingSpace != null ">building_space = #{buildingSpace},</if>
+            <if test="isRegulated != null ">is_regulated = #{isRegulated},</if>
+            <if test="isTechnology != null ">is_technology = #{isTechnology},</if>
+            <if test="isHighTech != null ">is_high_tech = #{isHighTech},</if>
+            <if test="lon != null  and lon != ''">lon = #{lon},</if>
+            <if test="lat != null  and lat != ''">lat = #{lat},</if>
+            <if test="createBy != null  and createBy != ''">create_by = #{createBy},</if>
+            <if test="createTime != null ">create_time = #{createTime},</if>
+            <if test="updateBy != null  and updateBy != ''">update_by = #{updateBy},</if>
+            <if test="updateTime != null ">update_time = #{updateTime},</if>
+            <if test="lastYearOutput !=null ">last_year_output=#{lastYearOutput},</if>
+            <if test="employeeNumber != null ">   employee_number = #{employeeNumber},</if>
+            <if test="patentNumber != null ">   patent_number = #{patentNumber},</if>
+            <if test="brandOwnership != null ">   brand_ownership = #{brandOwnership},</if>
+            <if test="isForeign != null ">   is_foreign = #{isForeign},</if>
+            <if test="isSpecial != null ">   is_special = #{isSpecial},</if>
+            <if test="talentsNumber != null ">   talents_number = #{talentsNumber},</if>
+            <if test="enterpriseType != null ">   enterprise_type = #{enterpriseType},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <update id="deleteEnterpriseById" parameterType="Long">
+        update    sys_enterprise  set del_flag = '2'   where id = #{id}
+    </update>
+
+    <update id="deleteEnterpriseByIds" parameterType="String">
+        update sys_enterprise set del_flag = '2' where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <update id="updateDeptNamebyName" parameterType="com.netintech.enterprise.domain.Enterprise">
+        update sys_dept set dept_name = #{enterpriseName}  where dept_id=#{id}
+    </update>
+
+    <select id="checkEnterpriseNameUnique" resultType="java.lang.Integer" parameterType="com.netintech.enterprise.domain.Enterprise">
+        select count(1) from sys_enterprise  where  del_flag ='0' and enterprise_name =#{enterpriseName}
+    </select>
+
+    <select id="selectUserById" parameterType="Long" resultType="int">
+        select count(1) from sys_user where dept_id=#{value} and del_flag='0'
+    </select>
+    <select id="getCountEnterprise" resultType="java.lang.Integer">
+        select count(1) from sys_enterprise where del_flag = '0'
+    </select>
+
+    <select id="getSmallNameById" resultType="java.lang.String" parameterType="Long">
+        select  park_name  from sys_small_park where id =#{value}
+    </select>
+
+    <select id="countEnterpriseByParkID" resultType="java.lang.Integer" parameterType="Long">
+        select count(*) from sys_enterprise where id=#{value}
+    </select>
+</mapper>

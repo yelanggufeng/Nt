@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+    <title>经济运行</title>
+    <link rel="stylesheet" th:href="@{/xwyjs/css/all.css}">
+    <link rel="stylesheet" th:href="@{/xwyjs/css/style_06.css}">
+    <style>
+        html{
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+<div class="J106_wrapper">
+    <div class="J106_up">
+        园区总览>经济运行
+    </div>
+    <div class="J106_content" th:object="${average}">
+        <div class="J106_top clear">
+            <div class="J106_topLeft">
+                <!--企业培育情况start-->
+                <div class="J106_item J106_qqpy" th:object="${bean}">
+                    <div class="J106_itemTop clear">
+                        <div class="J106_itemTitle">企业培育情况</div>
+                    </div>
+                    <ul class="J106_qqpyList clear">
+                        <li>
+                            <div class="J106_qqpyInfo">
+                                <img class="J106_imgBg" th:src="@{/xwyjs/images/06/J106_bg1.png}" alt="">
+                                <div class="J106_qqpyValue">
+                                    <div>
+                                        <span class="J106_qqpyNumber J106_qqpyNumber1">[[${bean.regulated}]]</span>
+                                        <span class="J106_qqpyUnit">个</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="J106_qqpyName">当年净增规上企业</div>
+                        </li>
+                        <!--            <li>-->
+                        <!--              <div class="J106_qqpyInfo">-->
+                        <!--                <img class="J106_imgBg" th:src="@{/xwyjs/images/06/J106_bg2.png}" alt="">-->
+                        <!--                <div class="J106_qqpyValue">-->
+                        <!--                  <div>-->
+                        <!--                    <span class="J106_qqpyNumber J106_qqpyNumber2">30</span>-->
+                        <!--                    <span class="J106_qqpyUnit">个</span>-->
+                        <!--                  </div>-->
+                        <!--                </div>-->
+                        <!--              </div>-->
+                        <!--              <div class="J106_qqpyName">当年净增限上企业</div>-->
+                        <!--            </li>-->
+                        <li>
+                            <div class="J106_qqpyInfo">
+                                <img class="J106_imgBg" th:src="@{/xwyjs/images/06/J106_bg3.png}" alt="">
+                                <div class="J106_qqpyValue">
+                                    <div>
+                                        <span class="J106_qqpyNumber J106_qqpyNumber3">[[${bean.highTech}]]</span>
+                                        <span class="J106_qqpyUnit">个</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="J106_qqpyName">当年净增高新技术企业</div>
+                        </li>
+                        <li>
+                            <div class="J106_qqpyInfo">
+                                <img class="J106_imgBg" th:src="@{/xwyjs/images/06/J106_bg4.png}" alt="">
+                                <div class="J106_qqpyValue">
+                                    <div>
+                                        <span class="J106_qqpyNumber J106_qqpyNumber4">[[${bean.technology}]]</span>
+                                        <span class="J106_qqpyUnit">个</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="J106_qqpyName">当年净增省科技企业</div>
+                        </li>
+                        <!--            <li>-->
+                        <!--              <div class="J106_qqpyInfo">-->
+                        <!--                <img class="J106_imgBg" th:src="@{/xwyjs/images/06/J106_bg5.png}" alt="">-->
+                        <!--                <div class="J106_qqpyValue">-->
+                        <!--                  <div>-->
+                        <!--                    <span class="J106_qqpyNumber J106_qqpyNumber5">17</span>-->
+                        <!--                    <span class="J106_qqpyUnit">个</span>-->
+                        <!--                  </div>-->
+                        <!--                </div>-->
+                        <!--              </div>-->
+                        <!--              <div class="J106_qqpyName">当年净增高新技术企业</div>-->
+                        <!--            </li>-->
+                        <li>
+                            <div class="J106_qqpyInfo">
+                                <img class="J106_imgBg" th:src="@{/xwyjs/images/06/J106_bg6.png}" alt="">
+                                <div class="J106_qqpyValue">
+                                    <div>
+                                        <span class="J106_qqpyNumber J106_qqpyNumber6">[[${bean.special}]]</span>
+                                        <span class="J106_qqpyUnit">个</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="J106_qqpyName">净增专精特新企业</div>
+                        </li>
+                    </ul>
+                </div>
+                <!--企业培育情况end-->
+                <div class="J106_middle clear">
+                    <div class="J106_middleLeft">
+                        <!--园区就业贡献率start-->
+                        <div class="J106_item J106_yqgxl">
+                            <div class="J106_itemTop clear">
+                                <div class="J106_itemTitle">园区就业贡献率</div>
+                                <div class="J106_yqgxlGo">趋势</div>
+                                <div class="J106_yqgxlDate">
+                                    <div class="J106_yqgxlDateChoose J106_yqgxlDateCur">季</div>
+                                    <div class="J106_yqgxlDateChoose">年</div>
+                                </div>
+                            </div>
+                            <div class="J106_yqgxlChart" id="yqgxl"></div>
+                        </div>
+                        <!--园区就业贡献率end-->
+                        <!--园区亩均税收start-->
+                        <div class="J106_item J106_yqmjss">
+                            <div class="J106_itemTop clear">
+                                <div class="J106_itemTitle">园区亩均税收</div>
+                                <div class="J106_yqgxlGo">趋势</div>
+                                <div class="J106_yqgxlDate">
+                                    <div class="J106_yqgxlDateChoose J106_yqgxlDateCur box box1 season">季</div>
+                                    <div class="J106_yqgxlDateChoose box box1 year">年</div>
+                                </div>
+                            </div>
+                            <div class="J106_itemContent">
+                                <div class="J106_itemInfo">
+                                    <span class="J106_itemNumber" id="season1_val">[[${average.taxRate}]]</span>
+                                    <span class="J106_itemUnit">万元</span>
+                                </div>
+                                <div class="J106_itemName">亩均税收总额</div>
+                            </div>
+                        </div>
+                        <!--园区亩均税收end-->
+                    </div>
+                    <div class="J106_middleRight">
+                        <!--区镇经济运行数据聚合start-->
+                        <div class="J106_item J106_qzjjyx">
+                            <div class="J106_itemTop clear">
+                                <div class="J106_itemTitle">区镇经济运行数据聚合</div>
+                            </div>
+                            <div class="J106_qzjjyxMap" id="qzjjyxMap"></div>
+                        </div>
+                        <!--区镇经济运行数据聚合end-->
+                    </div>
+                </div>
+            </div>
+            <div class="J106_topRight">
+                <!--园区营业收入排行start-->
+                <div class="J106_item J106_yqyysrph">
+                    <div class="J106_itemTop clear">
+                        <div class="J106_itemTitle">园区营业收入排行</div>
+                    </div>
+                    <div class="J106_yqyysrphChart" id="yqyysrph"></div>
+                </div>
+                <!--园区营业收入排行end-->
+            </div>
+        </div>
+        <div class="J106_bottom">
+            <div class="J106_bottomLeft">
+                <!--园区亩均产值start-->
+                <div class="J106_item J106_yqmjcz">
+                    <div class="J106_itemTop clear">
+                        <div class="J106_itemTitle">园区亩均产值</div>
+                        <div class="J106_yqgxlGo">趋势</div>
+                        <div class="J106_yqgxlDate">
+                            <div class="J106_yqgxlDateChoose J106_yqgxlDateCur   box box2 season">季</div>
+                            <div class="J106_yqgxlDateChoose   box box2 year">年</div>
+                        </div>
+                    </div>
+                    <div class="J106_itemContent">
+                        <div class="J106_itemInfo">
+                            <span class="J106_itemNumber" id="season2_val" >[[${average.outputRate}]]</span>
+                            <span class="J106_itemUnit">万元</span>
+                        </div>
+                        <div class="J106_itemName">亩均产值总额</div>
+                    </div>
+                </div>
+                <!--园区亩均产值end-->
+            </div>
+            <div class="J106_bottomRight">
+                <!--高端要素聚集start-->
+                <div class="J106_item J106_gdysjj">
+                    <div class="J106_itemTop clear">
+                        <div class="J106_itemTitle">高端要素聚集</div>
+                    </div>
+                    <div class="J106_gdysjjContent" th:object="${part}">
+                        <div class="J106_itemContent J106_itemContent2">
+                            <div class="J106_itemInfo">
+                                <span class="J106_itemNumber">[[${part.rcmd}]]</span>
+                                <span class="J106_itemUnit">%</span>
+                            </div>
+                            <div class="J106_itemName">人才密度</div>
+                        </div>
+                        <div class="J106_itemContent J106_itemContent2">
+                            <div class="J106_itemInfo">
+                                <span class="J106_itemNumber">[[${part.foreignCount}]]</span>
+                                <span class="J106_itemUnit">个</span>
+                            </div>
+                            <div class="J106_itemName">外资企业数</div>
+                        </div>
+                        <div class="J106_itemContent J106_itemContent2">
+                            <div class="J106_itemInfo">
+                                <span class="J106_itemNumber">654</span>
+                                <span class="J106_itemUnit">亿元</span>
+                            </div>
+                            <div class="J106_itemName">获得风险投资</div>
+                        </div>
+                        <div class="J106_itemContent J106_itemContent2">
+                            <div class="J106_itemInfo">
+                                <span class="J106_itemNumber">654</span>
+                                <span class="J106_itemUnit">亿元</span>
+                            </div>
+                            <div class="J106_itemName">产业基金投资</div>
+                        </div>
+                        <div class="J106_itemContent J106_itemContent2">
+                            <div class="J106_itemInfo">
+                                <span class="J106_itemNumber">[[${part.patentAverage}]]</span>
+                                <span class="J106_itemUnit">个</span>
+                            </div>
+                            <div class="J106_itemName">企业平均专利数</div>
+                        </div>
+                        <div class="J106_itemContent J106_itemContent2">
+                            <div class="J106_itemInfo">
+                                <span class="J106_itemNumber">[[${part.ownership}]]</span>
+                                <span class="J106_itemUnit">个</span>
+                            </div>
+                            <div class="J106_itemName">品牌部拥有总数</div>
+                        </div>
+                    </div>
+                </div>
+                <!--高端要素聚集end-->
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://webapi.amap.com/maps?v=1.4.10&key=358df98d6a1422dc83713fddaa8d260c&plugin=AMap.Geocoder&plugin=AMap.MarkerClusterer&plugin=AMap.DistrictSearch"></script>
+<script th:src="@{/xwyjs/js/jquery.min.js}"></script>
+<script th:src="@{/xwyjs/js/main.js}"></script>
+<script th:src="@{/xwyjs/js/27/jquery.backgroundSize.js}"></script>
+<script th:src="@{/xwyjs/js/echarts/echarts.js}"></script>
+<script th:src="@{/xwyjs/js/27/left27.js}"></script>
+<script th:src="@{/xwyjs/lib/layui/layui.js}"></script>
+
+<script>
+    $(document).ready(function () {
+        $(".J106_yqgxlDateChoose").click(function () {
+            $(this).addClass('J106_yqgxlDateCur').siblings().removeClass('J106_yqgxlDateCur')
+        })
+        $(".box").on("click",function (e) {
+            var flag = $(e.target).hasClass("season");//值为true代表季
+            var type = $(e.target).hasClass("box1"); // 亩均税收
+            if(type){
+                type = 1;  //税收
+            } else {
+                type = 2;
+            }
+            if(flag){//季
+                flag = 1;
+            }else{//年
+                flag = 2;
+            }
+
+            console.log(type)
+            $.ajax({
+                cache: true,
+                contentType: "application/json",
+                dataType: "json",
+                type: "GET",
+                url: "/statistics/overview/average/tax/" + flag,
+                async: false,
+                error: function (request) {
+                    $.modal.alertError("系统错误");
+                },
+                success: function (data) {
+                    if(type == 1)  {
+                        $("#season1_val").text(data.taxRate);
+                    }
+                    if (type == 2) {
+                        $("#season2_val").text(data.outputRate);
+                    }
+                }
+            });
+        })
+        // 园区就业贡献率
+        function yqgxlChartInit(el, data) {
+            var myColor = ['#eb2100', '#eb3600', '#d0570e', '#d0a00e', '#34da62', '#00e9db', '#00c0e9', '#0096f3', '#33CCFF', '#33FFCC']
+            var option = {
+                grid: {
+                    left: '8%',
+                    top: '15%',
+                    right: '5%',
+                    bottom: 0,
+                    containLabel: true
+                },
+                title: {
+                    show: true,
+                    text: '就业贡献率排行榜',
+                    left: 'center',
+                    top: '2%',
+                    textStyle: {
+                        color: '#4a505f',
+                        fontSize: 14,
+                        fontWeight: '700'
+                    }
+                },
+                xAxis: [{
+                    show: false
+                }],
+                yAxis: [{
+                    axisTick: 'none',
+                    axisLine: 'none',
+                    inverse: true,
+                    boundaryGap: true,
+                    offset: '5',
+                    axisLabel: {
+                        textStyle: {
+                            color: '#4a505f',
+                            fontSize: '14'
+                        },
+                        interval:0
+                    },
+                    data: []
+                }, {
+                    axisTick: 'none',
+                    inverse: true,
+                    boundaryGap: true,
+                    axisLine: {
+                        lineStyle: {
+                            type: 'dashed',
+                            color: '#afafb0'
+                        }
+                    },
+                    axisLabel: {
+                        textStyle: {
+                            color: '#4a505f',
+                            fontSize: '14'
+                        },
+                        formatter: '{value}%'
+                    },
+                    data: []
+                }, {
+                    name: '就业贡献率排行榜',
+                    inverse: true,
+                    nameGap: '50',
+                    boundaryGap: true,
+                    nameTextStyle: {
+                        color: '#4a505f',
+                        fontSize: '14'
+                    },
+                    axisLine: {
+                        lineStyle: {
+                            color: 'rgba(0,0,0,0)'
+                        }
+                    },
+                    data: []
+                }],
+                series: [{
+                    name: '条',
+                    type: 'bar',
+                    yAxisIndex: 0,
+                    data: [],
+                    label: {
+                        normal: {
+                            show: false,
+                            position: 'right',
+                            textStyle: {
+                                color: '#ffffff',
+                                fontSize: '14'
+                            }
+                        }
+                    },
+                    barWidth: 7,
+                    itemStyle: {
+                        normal: {
+                            color: (params) => {
+                            if(params.dataIndex === 0) {
+                return new echarts.graphic.LinearGradient(0, 0, 1, 0, [{
+                    offset: 0,
+                    color: '#ffa0a0' // 0% 处的颜色
+                }, {
+                    offset: 1,
+                    color: '#ff3939' // 100% 处的颜色
+                }], false)
+            } else if(params.dataIndex === 1) {
+                return new echarts.graphic.LinearGradient(0, 0, 1, 0, [{
+                    offset: 0,
+                    color: '#ffd689' // 0% 处的颜色
+                }, {
+                    offset: 1,
+                    color: '#ff6b22' // 100% 处的颜色
+                }], false)
+            } else if(params.dataIndex === 2) {
+                return new echarts.graphic.LinearGradient(0, 0, 1, 0, [{
+                    offset: 0,
+                    color: '#85f554' // 0% 处的颜色
+                }, {
+                    offset: 1,
+                    color: '#1aac01' // 100% 处的颜色
+                }], false)
+            } else {
+                return new echarts.graphic.LinearGradient(0, 0, 1, 0, [{
+                    offset: 0,
+                    color: '#5dbcf0' // 0% 处的颜色
+                }, {
+                    offset: 1,
+                    color: '#6567f1' // 100% 处的颜色
+                }], false)
+            }
+        },
+            barBorderRadius: 5
+        }
+        },
+            z: 2
+        }, {
+                name: '白框',
+                    type: 'bar',
+                    yAxisIndex: 1,
+                    barGap: '-100%',
+                    data: [],
+                    barWidth: 9,
+                    itemStyle: {
+                    normal: {
+                        color: '#ffffff',
+                            barBorderRadius: 5
+                    }
+                },
+                z: 1
+            }, {
+                name: '外框',
+                    type: 'bar',
+                    yAxisIndex: 1,
+                    barGap: '-100%',
+                    data: [],
+                    barWidth: 11,
+                    itemStyle: {
+                    normal: {
+                        color: '#d6d6d6',
+                            barBorderRadius: 5
+                    }
+                },
+                z: 0
+            },
+            {
+                name: '外圆',
+                    type: 'scatter',
+                hoverAnimation: false,
+                data: [],
+                yAxisIndex: 2,
+                symbolSize: 9,
+                symbol: 'image://data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJCAYAAADgkQYQAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAABmJLR0QAAAAAAAD5Q7t/AAAACXBIWXMAAAsSAAALEgHS3X78AAAAsElEQVQY042QIRKCQABFHzsWXbgAaHYP4Ba6XaqO13C4gXoOxzFCt1Ogs2RmucDOjg0t2gi++OeV9wOAoijnQA4cgBXQA3fgkmW7V1AU5QJ4JkmcKqWQUuK9x5gOa20FbGdAHsdxqrXmRxRFaL0B3qm1w0kAe6XWTKGUAjgKYBWG4aQkpQRYCqD33k9K390K4NG2ZlIypgO4CeA8DENV1w3OOcZxxDlHXTe/umvwz08fpbVHXc5FCNQAAAAASUVORK5CYII=',
+                itemStyle: {
+                normal: {
+                    color: function(params) {
+                        var num = myColor.length
+                        return myColor[params.dataIndex % num]
+                    },
+                    opacity: 1
+                }
+            },
+                z: 2
+            }
+        ]
+        }
+            for(var i = 0; i < data.length; i++) {
+                option.yAxis[0].data.push(data[i].name)
+                option.yAxis[1].data.push(data[i].obtainRate)
+                option.series[0].data.push(data[i].obtainRate)
+                option.series[1].data.push(100)
+                option.series[2].data.push(100)
+                option.series[3].data.push(0)
+            }
+            var newCahrt = echarts.init(el)
+            newCahrt.setOption(option)
+            $(window).resize(function () {
+                newCahrt.resize()
+            })
+        }
+
+        var dom1 = document.getElementById('yqgxl')
+        $.ajax({
+            cache: true,
+            contentType: "application/json",
+            dataType: "json",
+            type: "GET",
+            url: "/statistics/overview/obtain/employment",
+            async: false,
+            error: function (request) {
+                $.modal.alertError("系统错误");
+            },
+            success: function (data) {
+                yqgxlChartInit(dom1, data)
+            }
+        });
+
+
+        // 园区营业收入排行
+        function yqyysrphChartInit(el, data) {
+            var option = {
+                grid: {
+                    left: '8%',
+                    top: '10%',
+                    right: '5%',
+                    bottom: 0,
+                    containLabel: true
+                },
+                title: {
+                    show: false
+                },
+                xAxis: [{
+                    show: false
+                }],
+                yAxis: [{
+                    name: '{a|排名}{b|园区名称}',
+                    nameGap: 20,
+                    nameLocation: 'start',
+                    nameTextStyle: {
+                        fontSize: 14,
+                        color: '#000000',
+                        padding: [0, 120, 0, 0],
+                        rich: {
+                            a: {
+                                width: 50,
+                                align: 'center',
+                                fontSize: 14
+                            },
+                            b: {
+                                width: 120,
+                                align: 'center',
+                                fontSize: 14
+                            }
+                        }
+                    },
+                    axisTick: 'none',
+                    axisLine: {
+                        lineStyle: {
+                            width: 0
+                        }
+                    },
+                    inverse: true,
+                    boundaryGap: true,
+                    offset: '130',
+                    axisLabel: {
+                        textStyle: {
+                            color: '#4a505f',
+                            fontSize: '14'
+                        },
+                        align: 'left',
+                        interval:0,
+                        rich: {
+                            a1: {
+                                width: 40,
+                                color: '#ff9e0a',
+                                align: 'left',
+                                fontSize: 14
+                            },
+                            a2: {
+                                width: 40,
+                                color: '#06e07c',
+                                align: 'left',
+                                fontSize: 14
+                            },
+                            a3: {
+                                width: 40,
+                                color: '#ff8484',
+                                align: 'left',
+                                fontSize: 14
+                            },
+                            b: {
+                                width: 40,
+                                color: '#3296f4',
+                                align: 'left',
+                                fontSize: 14
+                            },
+                            c: {
+                                width: 90,
+                                align: 'right',
+                                fontSize: 14
+                            }
+                        },
+                        formatter: function(params, index) {
+                            if (index < 3) {
+                                return [
+                                    '{a' + (index + 1) + '|NO.' + (index + 1) + '}' + '{c|' + params + '}'
+                                ].join('\n')
+                            } else {
+                                return [
+                                    '{b|NO.' + (index + 1) + '}' + '{c|' + params + '}'
+                                ].join('\n')
+                            }
+                        }
+                    },
+                    data: []
+                }, {
+                    axisTick: 'none',
+                    inverse: true,
+                    boundaryGap: true,
+                    axisLine: {
+                        lineStyle: {
+                            width: 0
+                        }
+                    },
+                    axisLabel: {
+                        textStyle: {
+                            color: '#4a505f',
+                            fontSize: '14'
+                        },
+                        formatter: '{value}亿元'
+                    },
+                    data: []
+                }, {
+                    inverse: true,
+                    nameGap: '50',
+                    boundaryGap: true,
+                    nameTextStyle: {
+                        color: '#ffffff',
+                        fontSize: '14'
+                    },
+                    axisLine: {
+                        lineStyle: {
+                            color: 'rgba(0,0,0,0)'
+                        }
+                    },
+                    axisLabel: {
+                        textStyle: {
+                            color: '#4a505f',
+                            fontSize: '14'
+                        },
+                        formatter: '{value}亿元'
+                    },
+                    data: []
+                }],
+                series: [{
+                    name: '条',
+                    type: 'bar',
+                    yAxisIndex: 0,
+                    data: [],
+                    label: {
+                        normal: {
+                            show: false,
+                            position: 'right',
+                            textStyle: {
+                                color: '#ffffff',
+                                fontSize: '14'
+                            }
+                        }
+                    },
+                    barWidth: 14,
+                    itemStyle: {
+                        normal: {
+                            color: (params) => {
+                            if(params.dataIndex === 0) {
+                return new echarts.graphic.LinearGradient(0, 0, 1, 0, [{
+                    offset: 0,
+                    color: '#ffd633' // 0% 处的颜色
+                }, {
+                    offset: 1,
+                    color: '#ff9b08' // 100% 处的颜色
+                }], false)
+            } else if(params.dataIndex === 1) {
+                return new echarts.graphic.LinearGradient(0, 0, 1, 0, [{
+                    offset: 0,
+                    color: '#01faa6' // 0% 处的颜色
+                }, {
+                    offset: 1,
+                    color: '#06e17d' // 100% 处的颜色
+                }], false)
+            } else if(params.dataIndex === 2) {
+                return new echarts.graphic.LinearGradient(0, 0, 1, 0, [{
+                    offset: 0,
+                    color: '#fd8484' // 0% 处的颜色
+                }, {
+                    offset: 1,
+                    color: '#f63e3e' // 100% 处的颜色
+                }], false)
+            } else {
+                return new echarts.graphic.LinearGradient(0, 0, 1, 0, [{
+                    offset: 0,
+                    color: '#80d0ff' // 0% 处的颜色
+                }, {
+                    offset: 1,
+                    color: '#75adff' // 100% 处的颜色
+                }], false)
+            }
+        },
+            barBorderRadius: 10
+        }
+        },
+            z: 2
+        }, {
+                name: '白框',
+                type: 'bar',
+                yAxisIndex: 1,
+                barGap: '-100%',
+                data: [],
+                barWidth: 14,
+                silent: true,
+                itemStyle: {
+                normal: {
+                        color: '#eaecf2',
+                            barBorderRadius: 10
+                    }
+                },
+                z: 1
+            },
+            {
+                name: '外圆',
+                    type: 'scatter',
+                hoverAnimation: false,
+                data: [],
+                yAxisIndex: 2,
+                symbolSize: 0,
+                z: 2
+            }
+        ]
+        }
+            for(var i = 0; i < data.length; i++) {
+                var name = data[i].NAME;
+                if (name.length > 5) {
+                    name = name.substring(0,5);
+                }
+                option.yAxis[0].data.push(name)
+                option.yAxis[1].data.push(data[i].income)
+                option.series[0].data.push(data[i].income)
+                option.series[1].data.push(data[0].income)
+                option.series[2].data.push(data[0].income)
+            }
+            var newCahrt = echarts.init(el)
+            newCahrt.setOption(option)
+            $(window).resize(function () {
+                newCahrt.resize()
+            })
+        }
+        var dom2 = document.getElementById('yqyysrph')
+        $.ajax({
+            cache: true,
+            contentType: "application/json",
+            dataType: "json",
+            type: "GET",
+            url: "/statistics/overview/right/park/rank",
+            async: false,
+            error: function (request) {
+                $.modal.alertError("系统错误");
+            },
+            success: function (data) {
+                yqyysrphChartInit(dom2, data)
+            }
+        });
+
+        // 区镇经济运行数据聚合地图
+        var thisMap = null
+        var points;
+
+        $.ajax({
+            cache: true,
+            contentType: "application/json",
+            dataType: "json",
+            type: "GET",
+            url: "/statistics/overview/latitude/longitude",
+            async: false,
+            error: function (request) {
+                $.modal.alertError("系统错误");
+            },
+            success: function (data) {
+                points = data;
+            }
+        });
+        // var points = [
+        //   {
+        //     lat: 28.92034,
+        //     lon: 119.97035,
+        //     color: "#ffc13c"
+        //   },
+        //   {
+        //     lat: 28.91811,
+        //     lon: 119.97051,
+        //     color: "#3cff00"
+        //   },
+        //   {
+        //     lat: 28.91957,
+        //     lon: 119.97322,
+        //     color: "#ffc13c"
+        //   },
+        //   {
+        //     lat: 28.90991,
+        //     lon: 119.96417,
+        //     color: "#38bb54"
+        //   },
+        //   {
+        //     lat: 28.98404,
+        //     lon: 120.07781,
+        //     color: "#6bb8ca"
+        //   },
+        //   {
+        //     lat: 29.02307,
+        //     lon: 120.1209,
+        //     color: "#38bb54"
+        //   },
+        //   {
+        //     lat: 28.91426,
+        //     lon: 120.03782,
+        //     color: "#6bb8ca"
+        //   },
+        //   {
+        //     lat: 28.89555,
+        //     lon: 120.03696,
+        //     color: "#38bb54"
+        //   },
+        //   {
+        //     lat: 28.88939,
+        //     lon: 120.03112,
+        //     color: "#c18fd3"
+        //   },
+        //   {
+        //     lat: 28.94134,
+        //     lon: 120.13687,
+        //     color: "#6bb8ca"
+        //   },
+        //   {
+        //     lat: 28.9383,
+        //     lon: 120.14078,
+        //     color: "#3cff00"
+        //   },
+        //   {
+        //     lat: 28.94367,
+        //     lon: 120.1409,
+        //     color: "#c18fd3"
+        //   },
+        // ]
+        /**
+         * 地图初始化
+         */
+        function initMap() {
+            var point = [120.04731, 28.88851];
+            thisMap = new AMap.Map("qzjjyxMap", {
+                resizeEnable: true, // 是否监控地图容器尺寸变化
+                zoom: 10, // 初始化地图层级
+                dragEnable: true, // 地图是否可通过鼠标拖拽平移，默认为true
+                keyboardEnable: true, // 地图是否可通过键盘控制，默认为true
+                doubleClickZoom: true, // 地图是否可通过双击鼠标放大地图，默认为true
+                center: point, // 中心点坐标
+            });
+            drawBounds();
+            addMakers(points)
+        }
+
+        /**
+         * 加行政区划
+         */
+        function drawBounds() {
+            var district = null;
+            var polygons = [];
+            // 加载行政区划插件
+            if (!district) {
+                // 实例化DistrictSearch
+                var opts = {
+                    subdistrict: 0, // 获取边界不需要返回下级行政区
+                    extensions: "all", // 返回行政区边界坐标组等具体信息
+                    level: "district" // 查询行政级别为 市
+                };
+                district = new AMap.DistrictSearch(opts);
+            }
+            // 行政区查询
+            district.search("永康市", function(status, result) {
+                thisMap.remove(polygons); // 清除上次结果
+                polygons = [];
+                var bounds = result.districtList[0].boundaries;
+                if (bounds) {
+                    for (var i = 0, l = bounds.length; i < l; i++) {
+                        // 生成行政区划polygon
+                        var polygon = new AMap.Polygon({
+                            strokeWeight: 2,
+                            strokeStyle: "dashed",
+                            path: bounds[i],
+                            fillOpacity: 0.6,
+                            fillColor: "#d7e2f4",
+                            strokeColor: "#6395fc"
+                        });
+                        polygons.push(polygon);
+                    }
+                }
+                thisMap.add(polygons);
+                thisMap.setFitView(polygons, true, [20, 20, 20, 20], 12); // 视口自适应
+            });
+        }
+
+        /**
+         * 加标记点
+         */
+        function addMakers(pointsList) {
+            var cluster = null;
+            var markers = [];
+            for (var i = 0; i < pointsList.length; i++) {
+                markers.push(addMaker(pointsList[i]));
+            }
+            thisMap.add(markers);
+            // 聚合点
+            // thisMap.plugin(['AMap.MarkerClusterer'], function() {
+            //   cluster = new AMap.MarkerClusterer(thisMap, markers)
+            // })
+        }
+
+        /**
+         * 添加单个点
+         * @param data 数据源
+         * @return {AMap.Marker}
+         */
+        function addMaker(data) {
+            var marker = new AMap.Marker({
+                position: new AMap.LngLat(parseFloat(data.lon), parseFloat(data.lat)),
+                offset: new AMap.Pixel(-13, -39),
+                title: data.NAME,
+                content: `<div class="J106_mapIcon"><svg t="1587710885868" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1861" width="200" height="200"><path d="M466.596226 983.426415C373.856604 884.890566 207.698113 650.143396 160.362264 551.607547c-27.049057-57.962264-29.94717-72.45283-29.94717-160.362264 0-85.011321 2.898113-103.366038 26.083019-152.633962C193.207547 161.328302 269.524528 84.045283 346.807547 45.403774c58.928302-28.981132 69.554717-30.913208 165.192453-30.913208 88.875472 0 108.196226 2.898113 154.566038 25.116981 174.85283 82.113208 269.524528 280.150943 218.324528 456.935849-28.015094 94.671698-327.486792 515.864151-369.026415 516.830189-10.626415 0.966038-32.845283-13.524528-49.267925-29.94717z m119.78868-471.426415c59.89434-35.743396 82.113208-129.449057 45.403773-191.275472-21.25283-36.709434-79.215094-69.554717-119.788679-69.554717-50.233962 0-111.09434 40.573585-129.449057 86.943397-19.320755 49.267925-19.320755 62.792453 3.864151 113.026415 33.811321 75.350943 129.449057 104.332075 199.969812 60.860377z" p-id="1862" fill="${data.color}"></path></svg></div>`
+            });
+
+            marker.projectName = data.NAME;
+            marker.projectId = data.id;
+
+            marker.on('click', function (e) {
+                var url = "/statistics/eachpark/dimension/" + e.target.projectId;
+                //$.modal.openTab("园区总览二维", url);
+                parent.openTab(url);
+
+            });
+            return marker;
+        }
+        initMap()
+    })
+</script>
+</body>
+</html>

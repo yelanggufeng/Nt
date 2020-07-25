@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+    <title>永康市数字小微园</title>
+    <link rel="stylesheet" th:href="@{/xwyjs/css/all.css}">
+    <link rel="stylesheet" th:href="@{/xwyjs/css/style28.css}">
+    <link rel="stylesheet" th:href="@{/xwyjs/lib/layui/css/layui.css}">
+    <!--<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>-->
+    <link th:href="@{/css/font-awesome.min.css}" rel="stylesheet"/>
+    <link th:href="@{/css/style.css}" rel="stylesheet"/>
+    <link th:href="@{/css/login.min.css}" rel="stylesheet"/>
+    <link th:href="@{/netintech/css/nt-admin.css}" rel="stylesheet"/>
+</head>
+
+<style scoped>
+    .W128_qyDiv img{
+        width: 90%;
+         height: auto;
+        position: absolute;
+        top: 50%;
+        left: 5%;
+        transform: translateY(-50%);
+    }
+</style>
+
+<body>
+
+    <div class="W128_content" style="height: 95rem;">
+        <div class="w128_inner">
+            <div class="W128_rmzc">
+                <div class="W128_x_inner">
+                    <div class="W128_left"></div>
+                    <div class="W128_right">
+                        <div class="layui-carousel carouselBg" id="carousel1">
+                            <div carousel-item   >
+                                <div class="item" th:each="item,itemStat : ${policyList}" >
+                                    <div class="left" th:if="${item.title1 !=null}">
+                                        <p class="W128_i_p1" th:text="${#strings.abbreviate(item.title1,25)}" ></p>
+                                        <p class="W128_i_p2" th:text="${#dates.format(item.createTime1,'yyyy-MM-dd') + '|' + item.deptName1 } " 　></p>
+                                        <div class="W128_i_btn"><a class="rmzcdetail" href="#" th:onclick="rmzcdetail([[${item.id1}]])"  >查看详情</a></div>
+                                    </div>
+                                    <div th:if="${item.title2 !=null}">
+                                        <p class="W128_i_p1" th:text="${#strings.abbreviate(item.title2,25)}"></p>
+                                        <p class="W128_i_p2" th:text="${#dates.format(item.createTime2,'yyyy-MM-dd') + '|' +  item.deptName2 } "></p>
+                                        <div class="W128_i_btn"><a class="rmzcdetail" href="#" th:onclick="rmzcdetail([[${item.id2}]])" >查看详情</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="W128_xinwen">
+                <div class="W128_x_inner">
+                    <div class="W128_x_left">
+                        <div class="layui-carousel" id="carousel">
+                            <div carousel-item>
+                                <a class="item" href="#">
+                                    <img src="/xwyjs/images/28/W128_level1.png"/>
+                                    <span>征集“争先创优行动”和常态化疫情防控政策</span>
+                                </a>
+                                <a class="item" href="#">
+                                    <img src="/xwyjs/images/28/W128_level2.png"/>
+                                    <span>古山紫金广场雄姿初显</span>
+                                </a>
+                                <a class="item" href="#">
+                                    <img src="/xwyjs/images/28/W128_level3.png"/>
+                                    <span>消防安全进企业 筑牢安全“防火墙”</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="W128_x_right">
+                        <div class="W128_xr_top">
+                            <ul>
+                                <li class="W128_xr_active" id="xwzx">新闻资讯</li>
+                                <li id="tzgg">通知公告</li>
+                                <li id="xigk">信息公开</li>
+                            </ul>
+                            <span class="more"><a class="moreurl"  href="#" onclick="javascript:detail()"> 更多>> </a></span>
+                        </div>
+                        <div id="detalByNews" class="W128_xr_center" th:object="${detalByNews}">
+                                 <p class="W128_xc_title" th:text="${#strings.abbreviate(detalByNews.title,25)}"></p>
+                            <p class="W128_xc_word xw" ></p>
+                        </div>
+
+                        <div id="detalByNotice" class="W128_xr_center" th:object="${detalByNotice}" style="display: none";>
+                            <p class="W128_xc_title" th:text="${#strings.abbreviate(detalByNotice.title,25)}"></p>
+                            <p class="W128_xc_word tz"></p>
+                        </div>
+
+                        <div id="detalByInfo" class="W128_xr_center" th:object="${detalByInfo}" style="display: none";>
+                            <p class="W128_xc_title" th:text="${#strings.abbreviate(detalByInfo.title,25)}"></p>
+                            <p class="W128_xc_word xi"></p>
+                        </div>
+                        <div class="W128_xr_bottom">
+                            <ul class="news">
+                                <span th:if="${not #lists.isEmpty(newsList)}">
+                                     <li th:each="item,itemStat : ${newsList}" th:if="${itemStat.count}<=6" >
+                                    <a th:href='@{/xwzx_conntent/{id}(id=${item.id})}'>
+                                        <img src="/xwyjs/images/28/W128_liBg.png" style="margin-right:1em;">
+                                        <span>[[${item.title}]]</span>
+                                        <span th:text="${#dates.format(item.releaseTime,'yyyy-MM-dd')}"></span>
+                                    </a>
+                                </li>
+                                </span>
+
+                            </ul>
+                            <ul class="notice" style="display: none;">
+                                <span th:if="${not #lists.isEmpty(noticeList)}">
+                                    <li th:each="item,itemStat : ${noticeList}" th:if="${itemStat.count}<=6" >
+                                        <a th:href='@{/tzgg_conntent/{id}(id=${item.id})}'>
+                                            <img src="/xwyjs/images/28/W128_liBg.png" style="margin-right:1em;">
+                                            <span>[[${item.title}]]</span>
+                                            <span th:text="${#dates.format(item.createTime,'yyyy-MM-dd')}"></span>
+                                        </a>
+                                    </li>
+                                </span>
+                            </ul>
+
+                            <ul class="info" style="display: none;">
+                                <span th:if="${not #lists.isEmpty(publicList)}">
+                                    <li th:each="item,itemStat : ${publicList}" th:if="${itemStat.count}<=6" th:onclick="">
+                                        <a th:href='@{/xwzx_conntent/{id}(id=${item.id})}'>
+                                            <img src="/xwyjs/images/28/W128_liBg.png" style="margin-right:1em;">
+                                            <span>[[${item.title}]]</span>
+                                            <span th:text="${#dates.format(item.releaseTime,'yyyy-MM-dd')}"></span>
+                                        </a>
+                                    </li>
+                                </span>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="W128_fw" style="cursor:pointer;">
+                <div class="W128_fw1" >
+                    <div class="W128_fw1_1" onclick="window.open('http://222.92.116.51:50056/tech-service','_blank')">
+                        <p class="W128_fw_p1">
+                            双创服务 </p>
+                        <!--<p class="W128_fw_p2"><span>立即查看</span></p>-->
+                    </div>
+                    <div class="W128_fw1_2" onclick="window.open('http://222.92.116.51:50056/talentFront','_blank')">
+                        <p class="W128_fw_p1">人才服务</p>
+                        <!--<p class="W128_fw_p2"><span>立即查看</span></p>-->
+                    </div>
+                </div>
+                <div class="W128_fw2">
+                    <div class="W128_fw2_1" onclick="window.open('http://222.92.116.51:50056/front-finance','_blank')">
+                        <p class="W128_fw_p1">金融服务</p>
+                        <!--<p class="W128_fw_p2"><span>立即查看</span></p>-->
+                    </div>
+                    <div class="W128_fw2_2" onclick="window.open('http://222.92.116.51:50056/industry-service','_blank')">
+                        <p class="W128_fw_p1">转型升级</p>
+                        <!--<p class="W128_fw_p2"><span>立即查看</span></p>-->
+                    </div>
+                </div>
+            </div>
+            <div class="W128_xwy">
+                <div class="W128_btitle">
+                    <span class="W128_bt"></span>
+                    <span class="W128_bt_span1">数字小微园</span>
+                    <span class="W128_bt_span2">全新的数字生态系统</span>
+                    <span class="W128_bt_span3">
+                        <a class="parkUrl"  href="#" onclick="javascript:parkUrl()">更多>></a></span>
+                </div>
+                <div class="xcontent">
+                    <div class="W128_xc_left">
+                        <img src="/xwyjs/images/28/W128_kjy.png" alt="">
+                        <div>永康中央仓储物流中心</div>
+                    </div>
+                    <div class="W128_xc_right">
+                        <div class="W128_xc_r1" >
+                            <div class="W128_r1_left" th:each="item,itemStat : ${parkList}">
+                                <div class="W128_xc_img">
+                                    <a th:href='@{/xwyq_conntent/{id}(id=${item.id})}'>
+                                        <img th:if="${item.filePath !=null}" th:src="${item.filePath}" alt="">
+                                        <img th:if="${item.filePath ==null}" src="/xwyjs/images/28/W128_zwtp.png" alt="">
+                                    </a>
+                                </div>
+                                <div class="W128_xc_content">
+                                    <a th:href='@{/xwyq_conntent/{id}(id=${item.id})}'>
+                                    <p class="W128_xc_name" th:text="${item.parkName}"></p>
+                                    <p>总建筑面积：[[${#numbers.formatDecimal(item.usedBuildingSpace == null ? 0 : item.usedBuildingSpace,0,0)}]]万㎡</p>
+                                    <div th:if="${item.rentSituation ==null}" >
+                                        <p>待出租面积：[[${#numbers.formatDecimal(item.usedBuildingSpace == null ? 0 : item.usedBuildingSpace,0,0)}]]万㎡</p>
+                                    </div>
+                                        <div th:if="${item.rentSituation !=null}" >
+                                            <p>剩余面积：[[${#numbers.formatDecimal(item.usedBuildingSpace - item.rentSituation,0,0)}]]万㎡</p>
+                                        </div>
+
+                                    <p>地址：[[${item.detailedAddress}]]</p>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="W128_rzqy">
+                <div class="W128_btitle">
+                    <span class="W128_bt"></span>
+                    <span class="W128_bt_span1">入驻企业</span>
+<!--                    <span class="W128_bt_span3">更多>></span>-->
+                </div>
+                <div class="W128_qyDiv" style="color: black;">
+                    <div class="W128_div1"  >
+                        <div class="W1"><img src="/xwyjs/images/28/W128_imgDiv.png" alt="" ><span>东胜链条</span></div>
+                        <div class="W2"><img src="/xwyjs/images/28/W128_xyjt.png" alt=""></div>
+                        <div class="W1"><img src="/xwyjs/images/28/W128_imgDiv.png" alt=""><span>亚星杯业</span></div>
+                        <div class="W1"><img src="/xwyjs/images/28/W128_wjfy.png" alt=""><span></span></div>
+<!--                        <div class="W2"><img src="/xwyjs/images/28/W128_djwj.png" alt=""><span>东街五金</span></div>-->
+                        <div class="W128_kj">
+                            <img src="/xwyjs/images/28/W128_djwj.png" alt="">
+                            <span></span>
+                        </div>
+                    </div>
+                    <div class="W128_div2">
+                        <div class="W1"><img src="/xwyjs/images/28/W128_imgDiv.png" alt=""><span>铁牛集团</span></div>
+                        <div class="W2"><img src="/xwyjs/images/28/W128_zgqs.png" alt=""></div>
+                        <div class="W1"><img src="/xwyjs/images/28/W128_imgDiv.png" alt=""><span>格谱新能源</span></div>
+                        <div class="W1"><img src="/xwyjs/images/28/W128_imgDiv.png" alt=""><span>双飞运输</span></div>
+                        <div class="W128_kj">
+                            <img src="/xwyjs/images/28/W128_zxcj.png" alt="">
+                            <span></span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+<!-- 全局js -->
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/ajax/libs/layer/layer.min.js}"></script>
+<script th:src="@{/xwyjs/lib/layui/layui.js}"></script>
+<!-- 验证插件 -->
+
+<script th:src="@{/xwyjs/js/main.js}"></script>
+<script th:src="@{/xwyjs/js/28/W128_js.js}"></script>
+<script th:src="@{/xwyjs/js/27/jquery.backgroundSize.js}"></script>
+<script th:src="@{/ajax/libs/validate/jquery.validate.min.js}"></script>
+<script th:src="@{/ajax/libs/validate/messages_zh.min.js}"></script>
+<script th:src="@{/ajax/libs/blockUI/jquery.blockUI.js}"></script>
+<script th:src="@{/netintech/js/nt-admin.js}"></script>
+<script th:src="@{/netintech/login.js}"></script>
+<script th:inline="javascript">
+    var ctx = [[@{/}]];
+        var captchaType = [[${captchaType}]];
+</script>
+
+<script  th:inline="javascript">
+    $(function () {
+        setTimeout(function () {
+            var height = $('.W128_rzqy').position().top + $('.W128_rzqy')[0].scrollHeight
+            parent.changeIframe(height+'px')
+        },200)
+
+        window.addEventListener("resize", function() {
+            var height = $('.W128_rzqy').position().top + $('.W128_rzqy')[0].scrollHeight
+            parent.changeIframe(height+'px')
+        });
+
+        let user = JSON.parse(localStorage.getItem("USER"));
+
+        var myDate = new Date;
+        var year = myDate.getFullYear(); //获取当前年
+        var mon = myDate.getMonth() + 1; //获取当前月
+        var date = myDate.getDate(); //获取当前日
+        var week = myDate.getDay();
+        var weeks = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"];
+        $("#time").html(year + "年" + mon + "月" + date + "日" + weeks[week]);
+
+        layui.use('carousel',function () {
+            var carousel = layui.carousel;
+
+            carousel.render({
+                elem:'#carousel',
+                width:'100%',
+                height:'100%',
+                arrow:'none',
+                anim:'default'
+            })
+
+            carousel.render({
+                elem:'#carousel1',
+                width:'100%',
+                height:'100%',
+                arrow:'none',
+                anim:'updown',
+                indicator:'none'
+            })
+        })
+        $("#xwzx").on("click",function (e) {
+            $("#detalByNews").show();
+            $(".news").show();
+            $("#detalByNotice").hide();
+            $(".notice").hide();
+            $("#detalByInfo").hide();
+            $(".info").hide();
+        });
+
+        $("#tzgg").on("click",function (e) {
+            $("#detalByNotice").show();
+            $(".notice").show();
+            $("#detalByNews").hide();
+            $(".news").hide();
+            $("#detalByInfo").hide();
+            $(".info").hide();
+        });
+
+        $("#xigk").on("click",function (e) {
+            $("#detalByInfo").show();
+            $(".info").show();
+            $("#detalByNotice").hide();
+            $(".notice").hide();
+            $("#detalByNews").hide();
+            $(".news").hide();
+
+        });
+
+        var xw = [[${detalByNews.newsContent}]];
+        var xwId = [[${detalByNews.id}]];
+        if (xw != null && xw != '' ) {
+            xw = jiequ(xw);
+            $('.xw').text(xw).append("....").append('<a style="color:#ff4e00;font-size:0.5em;" href="/xwzx_conntent/' + xwId + ' "  >[详细内容]</a>');
+        }
+        var tz = [[${detalByNotice.mainBody}]];
+        var tzId = [[${detalByNotice.id}]];
+        if (tz != null && tz != '' ) {
+            tz = jiequ(tz);
+            $('.tz').html(tz).append("....").append('<a style="color:#ff4e00;font-size:0.5em;" href="/tzgg_conntent/' + tzId + ' "  >[详细内容]</a>');
+        }
+        var xigk = [[${detalByInfo.newsContent}]];
+        var xigkId = [[${detalByInfo.id}]];
+        if (xigk != null && xigk != '' ) {
+            xigk = jiequ(xigk);
+            $('.xi').text(xigk).append("....").append('<a style="color:#ff4e00;font-size:0.5em;" href="/xwzx_conntent/' + xigkId +' "  >[详细内容]</a>');
+        }
+
+    })
+
+    function jiequ(str) {
+        str = str.replace(/(\n)/g, "");
+        str = str.replace(/(\t)/g, "");
+        str = str.replace(/(\r)/g, "");
+        str = str.replace(/<\/?[^>]*>/g, "");
+        str = str.replace(/\s*/g, "");
+        str = str.replace(/<[^>].*?>/g,"");
+        str=str.replace(/&nbsp;/ig,"")
+        if (str.length > 100) {
+            str = str.substring(0,100)
+        }
+        return str;
+    }
+
+
+    function detail() {
+        if( $('#detalByNews').css("display")==='block') {
+            $(".moreurl").attr('href', "/index/newInfo/0");
+            parent.changHead('新闻资讯')
+        }
+        if ( $('#detalByNotice').css("display")==='block') {
+            $(".moreurl").attr('href', "/index/noticeInfo");
+            parent.changHead('通知公告')
+        }
+        if ( $('#detalByInfo').css("display")==='block') {
+            $(".moreurl").attr('href', "/index/newInfo/1");
+            parent.changHead('新闻资讯')
+        }
+    }
+    function parkUrl() {
+        $(".parkUrl").attr('href', "/index/parks");
+        parent.changHead('小微园区')
+    }
+
+    function rmzcdetail(id) {
+        $(".rmzcdetail").attr('href', '/zcfw_conntent/' + id);
+        parent.changHead('政策服务')
+    }
+
+
+</script>
+<script th:inline="javascript">
+
+    $(".W128_xr_top li").click(function () {
+        $(this).addClass("W128_xr_active").siblings().removeClass("W128_xr_active")
+    })
+    $(".W128_m_ul>li").click(function () {
+        $(this).addClass("W128_li_current").siblings().removeClass("W128_li_current")
+    })
+
+</script>
+</html>

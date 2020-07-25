@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <link th:href="@{/css/update.css}" rel="stylesheet"/>
+    <th:block th:include="include :: header('修改${functionName}')" />
+    <style>
+        .control-label {
+            padding-right: 0 !important;;
+            padding-left: 0 !important;
+            font-size: 15px;
+            color: #3e434a;
+        }
+
+        .form-group > div {
+            padding-left: 4px !important;
+            padding-right: 4px !important;;
+        }
+
+        .form-control {
+            border-radius: 4px !important;
+            border: 1px solid #c5cbee;
+        }
+        form{
+            background-color: #eaf4fe;
+            padding: 20px 40px!important;
+            margin: 10px 0 !important;
+            border: 1px solid #cbdff4;
+        }
+        .content-title{
+            display: flex;
+            height: 20px;
+            align-items: center;
+        }
+        .content-title>span{
+            font-size: 16px;
+            color: #3e434a;
+            font-family: "Microsoft YaHei";
+            font-weight: bold;
+            margin-left: 6px;
+        }
+        .content-icon{
+            height: 15px;
+            width: 5px;
+            background-color: #2a7bf2;
+        }
+        .ibox-content{
+            padding: 20px 40px!important;
+        }
+    </style>
+</head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <div class="content-title">
+            <div class="content-icon"></div>
+            <span>${functionName}</span>
+        </div>
+        <form class="form-horizontal m" id="form-${businessName}-edit" th:object="${${className}}">
+            <input name="${pkColumn.javaField}" th:field="*{${pkColumn.javaField}}" type="hidden">
+#set($index=1)
+#foreach($column in $columns)
+#if($column.edit && !$column.superColumn && !$column.pk)
+#set($parentheseIndex=$column.columnComment.indexOf("（"))
+#if($parentheseIndex != -1)
+#set($comment=$column.columnComment.substring(0, $parentheseIndex))
+#else
+#set($comment=$column.columnComment)
+#end
+#set($field=$column.javaField)
+#set($dictType=$column.dictType)
+#if("" != $treeParentCode && $column.javaField == $treeParentCode)
+            <div class="form-group">
+                <label class="col-sm-3 control-label">${comment}：</label>
+                <div class="col-sm-8">
+                    <div class="input-group">
+#set($BusinessName=$businessName.substring(0,1).toUpperCase() + ${businessName.substring(1)})
+                        <input id="treeId" name="${treeParentCode}" type="hidden" th:field="*{${treeParentCode}}" />
+                        <input class="form-control" type="text" onclick="select${BusinessName}Tree()" id="treeName" readonly="true" th:field="*{parentName}"#if($column.required) required#end>
+                        <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                    </div>
+                </div>
+            </div>
+#elseif($column.htmlType == "input")
+
+    #if($index%2==1)
+    <div class="row">
+    <div class="col-sm-6">
+    #end
+    #if($index%2==0)
+    <div class="col-sm-6">
+    #end
+            <div class="form-group">
+                <label class="col-sm-3 control-label is-required">${comment}：</label>
+                <div class="col-sm-9">
+                    <input name="${field}" th:field="*{${field}}" placeholder="请输入${comment}" class="form-control" type="text"#if($column.required) required#end>
+                </div>
+            </div>
+    #if($index%2==0)
+    </div>
+    #end
+</div>
+    #set($index=$index+1)
+#elseif($column.htmlType == "select" && "" != $dictType)
+    #if($index%2==1)
+    <div class="row">
+    <div class="col-sm-6">
+    #end
+    #if($index%2==0)
+    <div class="col-sm-6">
+    #end
+            <div class="form-group">
+                <label class="col-sm-3 control-label is-required">${comment}：</label>
+                <div class="col-sm-9">
+                    <select name="${field}" class="form-control m-b" th:with="type=${@dict.getType('${dictType}')}"#if($column.required) required#end>
+                        <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}" th:field="*{${field}}"></option>
+                    </select>
+                </div>
+            </div>
+    #if($index%2==0)
+    </div>
+    #end
+</div>
+    #set($index=$index+1)
+#elseif($column.htmlType == "select" && $dictType)
+    #if($index%2==1)
+    <div class="row">
+    <div class="col-sm-6">
+    #end
+    #if($index%2==0)
+    <div class="col-sm-6">
+    #end
+            <div class="form-group">
+                <label class="col-sm-3 control-label is-required">${comment}：</label>
+                <div class="col-sm-9">
+                    <select name="${field}" class="form-control m-b"#if($column.required) required#end>
+                        <option value="">所有</option>
+                    </select>
+                    <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 代码生成请选择字典属性</span>
+                </div>
+            </div>
+    #if($index%2==0)
+    </div>
+    #end
+</div>
+    #set($index=$index+1)
+#elseif($column.htmlType == "radio" && "" != $dictType)
+    #if($index%2==1)
+    <div class="row">
+    <div class="col-sm-6">
+    #end
+    #if($index%2==0)
+    <div class="col-sm-6">
+    #end
+            <div class="form-group">
+                <label class="col-sm-3 control-label is-required">${comment}：</label>
+                <div class="col-sm-9">
+                    <div class="radio-box" th:each="dict : ${@dict.getType('${dictType}')}">
+                        <input type="radio" th:id="${'${field}_' + dict.dictCode}" name="${field}" th:value="${dict.dictValue}" th:field="*{${field}}"#if($column.required) required#end>
+                        <label th:for="${'${field}_' + dict.dictCode}" th:text="${dict.dictLabel}"></label>
+                    </div>
+                </div>
+            </div>
+    #if($index%2==0)
+    </div>
+    #end
+</div>
+    #set($index=$index+1)
+#elseif($column.htmlType == "radio" && $dictType)
+    #if($index%2==1)
+    <div class="row">
+    <div class="col-sm-6">
+    #end
+    #if($index%2==0)
+    <div class="col-sm-6">
+    #end
+            <div class="form-group">
+                <label class="col-sm-3 control-label is-required">${comment}：</label>
+                <div class="col-sm-9">
+                    <div class="radio-box">
+                        <input type="radio" name="${field}" value=""#if($column.required) required#end>
+                        <label th:for="${field}" th:text="未知"></label>
+                    </div>
+                    <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 代码生成请选择字典属性</span>
+                </div>
+            </div>
+    #if($index%2==0)
+    </div>
+    #end
+</div>
+    #set($index=$index+1)
+#elseif($column.htmlType == "datetime")
+    #if($index%2==1)
+    <div class="row">
+    <div class="col-sm-6">
+    #end
+    #if($index%2==0)
+    <div class="col-sm-6">
+    #end
+            <div class="form-group">
+                <label class="col-sm-3 control-label is-required">${comment}：</label>
+                <div class="col-sm-9">
+                    <div class="input-group date">
+                        <input name="${field}" th:value="${#dates.format(${className}.${field}, 'yyyy-MM-dd')}" class="form-control" placeholder="yyyy-MM-dd" type="text"#if($column.required) required#end>
+                    </div>
+                </div>
+            </div>
+    #if($index%2==0)
+    </div>
+    #end
+</div>
+    #set($index=$index+1)
+#elseif($column.htmlType == "textarea")
+    #if($index%2==1)
+    <div class="row">
+    <div class="col-sm-6">
+    #end
+    #if($index%2==0)
+    <div class="col-sm-6">
+    #end
+            <div class="form-group">
+                <label class="col-sm-3 control-label is-required">${comment}：</label>
+                <div class="col-sm-9">
+                    <textarea name="${field}" placeholder="请输入${comment}" class="form-control"#if($column.required) required#end>[[*{${field}}]]</textarea>
+                </div>
+            </div>
+    #if($index%2==0)
+    </div>
+    #end
+</div>
+    #set($index=$index+1)
+#end
+#end
+#end
+        </form>
+    </div>
+    <th:block th:include="include :: footer" />
+    <script type="text/javascript">
+        var prefix = ctx + "${moduleName}/${businessName}";
+        $("#form-${businessName}-edit").validate({
+            focusCleanup: true
+        });
+
+        function submitHandler() {
+            if ($.validate.form()) {
+                $.operate.save(prefix + "/edit", $('#form-${businessName}-edit').serialize());
+            }
+        }
+#foreach($column in $columns)
+#if($column.edit && !$column.superColumn && !$column.pk && $column.htmlType == "datetime")
+
+    layui.use('laydate', function() {
+        var laydate = layui.laydate;
+
+        laydate.render({
+            elem: "input[name='$column.javaField']"
+        });
+    })
+#break
+#end
+#end
+#if($table.tree)
+
+        /*${functionName}-新增-选择父部门树*/
+        function select${BusinessName}Tree() {
+            var options = {
+                title: '${functionName}选择',
+                width: "380",
+                url: prefix + "/select${BusinessName}Tree/" + $("#treeId").val(),
+                callBack: doSubmit
+            };
+            $.modal.openOptions(options);
+        }
+
+        function doSubmit(index, layero){
+            var body = layer.getChildFrame('body', index);
+               $("#treeId").val(body.find('#treeId').val());
+               $("#treeName").val(body.find('#treeName').val());
+               layer.close(index);
+        }
+#end
+    </script>
+</body>
+</html>

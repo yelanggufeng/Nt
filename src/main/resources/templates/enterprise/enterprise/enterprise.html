@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <link th:href="@{/css/update.css}" rel="stylesheet"/>
+    <th:block th:include="include :: header('企业信息列表')"/>
+</head>
+<body class="gray-bg">
+<div class="container-div">
+    <div class="row">
+        <div class="col-sm-12 search-collapse">
+            <form id="formId">
+                <div class="select-list">
+                    <ul>
+
+                        <li>
+                            <p style="width: 11rem;">所属数字小微园：</p>
+                            <select name="smallId" th:with="type=${@dict.getParkList()}">
+                                <option value="">所有</option>
+                                <option th:each="ParamEntity : ${type}" th:text="${ParamEntity.key}"
+                                        th:value="${ParamEntity.value}"></option>
+                            </select>
+                        </li>
+
+                        <li>
+                            <p>所属区域：</p>
+                            <select name="areaId" th:with="type=${@dict.getAreaList()}">
+                                <option value="">所有</option>
+                                <option th:each="dict : ${type}" th:text="${dict.key}"
+                                        th:value="${dict.value}"></option>
+                            </select>
+                        </li>
+                        <!--                            <li>-->
+                        <!--                                <p>所属区域ID子级：</p>-->
+                        <!--                                <select name="areaChildId" th:with="type=${@dict.getType('')}">-->
+                        <!--                                    <option value="">所有</option>-->
+                        <!--                                    <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>-->
+                        <!--                                </select>-->
+                        <!--                            </li>-->
+
+                        <li>
+                            <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i
+                                    class="fa fa-search"></i>&nbsp;搜索</a>
+                            <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i
+                                    class="fa fa-refresh"></i>&nbsp;重置</a>
+                        </li>
+                    </ul>
+                </div>
+            </form>
+        </div>
+
+        <div class="btn-group-sm" id="toolbar" role="group">
+            <a class="btn btn-success" onclick="$.operate.add('',1300,750)"
+               shiro:hasPermission="enterprise:enterprise:add">
+                <i class="fa fa-plus"></i> 添加
+            </a>
+            <a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()"
+               shiro:hasPermission="enterprise:enterprise:remove">
+                <i class="fa fa-remove"></i> 删除
+            </a>
+<!--            <a class="btn btn-warning" onclick="$.table.exportExcel()"-->
+<!--               shiro:hasPermission="enterprise:enterprise:export">-->
+<!--                <i class="fa fa-download"></i> 导出-->
+<!--            </a>-->
+        </div>
+        <div class="col-sm-12 select-table table-striped">
+            <table id="bootstrap-table" data-mobile-responsive="true"></table>
+        </div>
+    </div>
+</div>
+<th:block th:include="include :: footer"/>
+<script th:inline="javascript">
+    var editFlag = [[${@permission.hasPermi('enterprise:enterprise:edit')}]];
+    var removeFlag = [[${@permission.hasPermi('enterprise:enterprise:remove')}]];
+    var intoFormDatas = [[${@dict.getType('sys_residence_form')}]];
+    var isRegulatedDatas = [[${@dict.getType('yesorno')}]];
+    var isTechnologyDatas = [[${@dict.getType('yesorno')}]];
+    var isHighTechDatas = [[${@dict.getType('yesorno')}]];
+    var arealist = [[${@dict.getAreaList()}]];
+    var parklist = [[${@dict.getParkList()}]];
+
+    var prefix = ctx + "enterprise/enterprise";
+
+    $(function () {
+        var options = {
+            url: prefix + "/list",
+            createUrl: prefix + "/add",
+            updateUrl: prefix + "/edit/{id}",
+            removeUrl: prefix + "/remove",
+            exportUrl: prefix + "/export",
+            detailUrl: prefix + "/detail/{id}",
+            modalName: "企业信息",
+            columns: [{
+                checkbox: true
+            }, {
+                field: 'id',
+                title: 'id',
+                visible: false
+            }, {
+                field: 'enterpriseName',
+                title: '企业名称'
+            },
+                {
+                    field: 'smallId',
+                    title: '所属数字小微园',
+                    formatter: function (value, row, index) {
+                        return $.table.selectKey(parklist, value);
+                    }
+                },
+                {
+                    field: 'areaId',
+                    title: '所属区域',
+                    formatter: function (value, row, index) {
+                        return $.table.selectKey(arealist, value);
+                    }
+                },
+                // {
+                //     field : 'areaChildId',
+                //     title : '所属区域ID子级'
+                // },
+                {
+                    field: 'industryCode',
+                    title: '统一社会信用代码'
+                },
+
+                // {
+                //     field : 'intoForm',
+                //     title : '入驻形式',
+                //     formatter: function(value, row, index) {
+                //        return $.table.selectDictLabel(intoFormDatas, value);
+                //     }
+                // },
+                {
+                    field: 'intoTime',
+                    title: '入驻时间',
+                    formatter: function (value, row, index) {
+                        var date = new Date(value);
+                        return date.format("yyyy-MM-dd");
+                    }
+                },
+                {
+                    field: 'lastYearOutput',
+                    title: '上一年产值(万元)',
+                },
+                {
+                    field: 'isRegulated',
+                    title: '规上企业',
+                    formatter: function (value, row, index) {
+                        return $.table.selectDictLabel(isRegulatedDatas, value);
+                    }
+                },
+                {
+                    field: 'isTechnology',
+                    title: '科技型企业',
+                    formatter: function (value, row, index) {
+                        return $.table.selectDictLabel(isTechnologyDatas, value);
+                    }
+                },
+                {
+                    field: 'isHighTech',
+                    title: '高新企业',
+                    formatter: function (value, row, index) {
+                        return $.table.selectDictLabel(isHighTechDatas, value);
+                    }
+                },
+                {
+                    title: '操作',
+                    align: 'center',
+                    formatter: function (value, row, index) {
+                        var actions = [];
+                        actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="$.operate.edit_size(\'' + row.id + '\',1300,750)"><i class="fa fa-edit"></i>编辑</a> ');
+                        //actions.push('<a class="btn btn-warning btn-xs ' + detailFlag + '" href="javascript:void(0)" onclick="$.operate.detail(\'' + row.id + '\')"><i class="fa fa-edit"></i>查看</a> ');
+                        actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.id + '\')"><i class="fa fa-remove"></i>删除</a>');
+                        return actions.join('');
+                    }
+                }]
+        };
+        $.table.init(options);
+    });
+</script>
+</body>
+</html>

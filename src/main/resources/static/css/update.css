@@ -1,0 +1,274 @@
+.btn-primary {
+    background-color: #628ef2 !important;
+    border-color: #628ef2 !important;
+}
+
+.btn-success {
+    background-color: #628ef2 !important;
+    border-color: #628ef2 !important;
+}
+
+.btn-info {
+    background-color: rgb(102, 177, 255) !important;
+    border-color: rgb(102, 177, 255) !important;
+}
+
+.text-info {
+    color: rgb(24, 144, 255) !important;
+}
+
+body .layer-ext-moon .layui-layer-title {
+    background: #2a7bf2 !important;
+    color: #fff !important;
+    font-size: 17px !important;
+    font-family: "Microsoft YaHei";
+}
+
+.label-primary, .badge-primary {
+    background-color: #628ef2 !important;
+}
+
+.layui-layer-gray .layui-layer-title {
+    background: #6495ed !important;
+    color: #fff !important;
+}
+
+.switch-solid input:checked ~ span {
+    background-color: #628ef2 !important;
+    border-color: #628ef2 !important;
+}
+
+.fixed-table-container tbody td .th-inner, .fixed-table-container thead th .th-inner {
+    line-height: 45px !important;
+}
+
+.fixed-table-container input[type=checkbox] {
+    width: 18px;
+    height: 18px;
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 18px;
+    position: relative;
+
+}
+
+.fixed-table-container input[type=checkbox]::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: #fff;
+    width: 100%;
+    height: 100%;
+    border: 1px solid #c5cbee;
+}
+
+.fixed-table-container input[type=checkbox]:checked:before {
+    content: '\2713';
+    background-color: #fff;
+    line-height: 16px;
+    /*border: 1px solid #00C292;*/
+    color: #36a5ff;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.table td {
+    text-align: center;
+    border: 1px solid #dde2f6 !important;
+    height: 43px !important;
+    line-height: 43px !important;
+    color: #30343c;
+    font-size: 14px;
+    font-family: "Microsoft YaHei";
+}
+
+.fixed-table-body {
+    overflow: visible !important;;
+}
+
+.bs-checkbox .th-inner {
+    padding: 0 0;
+}
+
+.bootstrap-table .table:not(.table-condensed), .bootstrap-table .table:not(.table-condensed) > tbody > tr > td, .bootstrap-table .table:not(.table-condensed) > tbody > tr > th, .bootstrap-table .table:not(.table-condensed) > tfoot > tr > td, .bootstrap-table .table:not(.table-condensed) > tfoot > tr > th, .bootstrap-table .table:not(.table-condensed) > thead > tr > td {
+    padding: 0 !important;
+}
+
+.fixed-table-container tbody td .th-inner, .fixed-table-container thead th .th-inner {
+    padding: 0 20px !important;
+}
+
+.fixed-table-container .bs-checkbox .th-inner {
+    padding: 0 !important;
+}
+
+/*.form-horizontal {*/
+/*    background-color: #eaf4fe;*/
+/*    padding: 20px 20px;*/
+/*}*/
+
+.layer-ext-moon .layui-layer-title {
+    height: 45px !important;
+}
+body .layer-ext-moon .layui-layer-btn {
+    background-color: #fff!important;
+    border: none!important;
+    text-align: center!important;
+    display: flex;
+    justify-content: space-evenly;
+    height: 70px;
+}
+body .layer-ext-moon .layui-layer-btn .layui-layer-btn0{
+    width: 136px!important;
+    height: 40px!important;
+    background-color: #1998ff !important;
+    border: none!important;
+    font-family: "Microsoft YaHei"!important;
+    line-height: 40px!important;
+
+}
+
+body .layer-ext-moon .layui-layer-btn .layui-layer-btn1{
+    width: 136px!important;
+    height: 40px!important;
+    background-color: #fff !important;
+    border: 1px solid #77bdf5!important;
+    font-family: "Microsoft YaHei"!important;
+    line-height: 40px!important;
+    color: #008cfe!important;
+}
+body .layer-ext-moon .layui-layer-btn a{
+    padding: 0!important;
+    font-size: 15px !important;
+}
+
+.btn-rounded{
+    border-radius: 3px!important;
+}
+body{
+    font-family: "Microsoft YaHei"!important;
+}
+.table>thead>tr>th, .table>tbody>tr>td{
+    padding: 0!important;
+}
+.form-horizontal .Y128_title{
+    font-size: 0.89em;
+    color: #42474e;
+    line-height:2.5em;
+    /*height:2.5em;*/
+    background-color: #d2e9ff;
+    font-weight: bold;
+    margin: 1em;
+
+}
+.form-horizontal .Y128_title >.icon{
+    border-left:3px solid  #2a7bf2;
+    padding-left:1.5em;
+    margin-left:1.8em;
+    font-size:0.5em;
+}
+.main-content .Y128_title{
+    font-size: 0.89em;
+    color: #42474e;
+    line-height:2.5em;
+    height:2.5em;
+    background-color: #d2e9ff;
+    font-weight: bold;
+    margin-bottom: 1em;
+}
+.main-content .Y128_title >.icon{
+    border-left:3px solid  #2a7bf2;
+    padding-left:1.5em;
+    margin-left:1.8em;
+    font-size:0.5em;
+}
+.Y128_ditu{
+    width:100%;
+    height:100%;
+    border: solid 1px #c5cbee;
+    position: relative;
+    /*margin-bottom:1em;*/
+}
+.Y128_ditucx{
+    z-index: 999;
+    height:1.9em;
+    position: absolute;
+    top:5%;
+    left:5em;
+    right:1.3%;
+}
+.Y128_ditucx input{
+    background: url("../xwyjs/images/28/Y128_inputBg.png") no-repeat;
+    background-size: 100% 100%;
+    height:100%;
+    width:15vw;
+    padding-left: 1em;
+    font-size: 0.78em;
+    color: #999999;
+    border: none;
+}
+.Y128_ditucx .Y128_search{
+    border:none;
+    padding:0.6em 1.2em;
+    /*position: absolute;*/
+    top:-1px;
+    background: url("../xwyjs/images/28/Y128_anniu1.png") no-repeat;
+    background-size: 100% 100%;
+    font-size:0.78em;
+    color: #fff;
+    cursor: pointer;
+}
+.Y128_dituSearch{
+    position: relative;
+}
+.Y128_icon{
+    width:1em;
+    height:1em;
+    position: absolute;
+    left:13vw;
+    top:0.5em;
+}
+.Y128_jin{
+    padding:0.35em 1.2em;
+    background: url("../xwyjs/images/28/Y128_anniu2.png") no-repeat;
+    background-size: 100% 100%;
+    margin-left: 3vw;
+    font-size:0.78em;
+    color: #fff;
+    cursor: text;
+}
+
+.Y128_ditucx .Y128_baocun{
+    background: url("../xwyjs/images/28/Y128_anniu2.png") no-repeat;
+    background-size: 100% 100%;
+    padding:0.35em 1em;
+    top:3px;
+    cursor: pointer;
+}
+.mapIframe{
+    width:100%;
+    height:367px;
+    position: relative;
+    margin-bottom:1em;
+}
+.horizontal-row{
+    display: flex;
+    justify-content: space-around;
+}
+.notice_bg{
+    background: #EAF4FE;
+    border: 1px solid #CCE0F5;
+    padding: 1em;
+    display: inline-block;
+}
+.tree-bg{
+    background: white;
+    border: 1px solid #C2E1FF;
+    margin-top: 1em;
+    padding: 0.5em;
+}
+.mainBody{
+    text-indent: 2em;
+}

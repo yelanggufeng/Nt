@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.netintech.park.mapper.AreaMapper">
+
+    <resultMap type="com.netintech.park.domain.Area" id="AreaResult">
+        <result property="id"    column="id"    />
+        <result property="areaName"    column="area_name"    />
+        <result property="parentId"    column="parent_id"    />
+    </resultMap>
+
+    <sql id="selectAreaVo">
+        select id, area_name, parent_id from sys_area
+    </sql>
+
+    <select id="selectAreaList" parameterType="com.netintech.park.domain.Area" resultMap="AreaResult">
+        <include refid="selectAreaVo"/>
+        where del_flag=0
+        <if test="areaName != null  and areaName != ''"> and area_name like concat('%', #{areaName}, '%')</if>
+        <if test="parentId != null "> and parent_id = #{parentId}</if>
+    </select>
+
+    <select id="selectAreaById" parameterType="Long" resultMap="AreaResult">
+        <include refid="selectAreaVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertArea" parameterType="com.netintech.park.domain.Area">
+        insert into sys_area
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null ">id,</if>
+            <if test="areaName != null  and areaName != ''">area_name,</if>
+            <if test="parentId != null ">parent_id,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null ">#{id},</if>
+            <if test="areaName != null  and areaName != ''">#{areaName},</if>
+            <if test="parentId != null ">#{parentId},</if>
+        </trim>
+    </insert>
+
+    <update id="updateArea" parameterType="com.netintech.park.domain.Area">
+        update sys_area
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="areaName != null  and areaName != ''">area_name = #{areaName},</if>
+            <if test="parentId != null ">parent_id = #{parentId},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteAreaById" parameterType="Long">
+        delete from sys_area where id = #{id}
+    </delete>
+
+    <delete id="deleteAreaByIds" parameterType="String">
+        update sys_area set del_flag=2 where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

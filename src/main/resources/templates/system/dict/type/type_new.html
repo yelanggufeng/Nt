@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+	<th:block th:include="include :: header('字典类型列表')" />
+</head>
+<body class="gray-bg">
+	<div class="container-div">
+		<div class="row">
+			<div style="margin: 2px 15px;">
+				<form class="form-inline">
+					<input type="hidden" name="valid" value="1">
+					<div class="form-group clearfix">
+						<label for="exampleInput1" class="control-label query-label">关键字</label>
+						<div class="query-div">
+							<input type="text" class="form-control input-sm" style="width: 200px;" name="selectKey" id="exampleInput1" onkeydown="entersearch()">
+							<button type="button" class="btn btn-primary input-sm" onclick="queryData()">
+								<span class="glyphicon glyphicon-search"></span> 检索
+							</button>
+						</div>
+					</div>
+					<div class="form-group clearfix">
+						<label for="exampleInput4" class="control-label query-label">状态：</label>
+						<div class="query-div">
+							<select class="form-control input-sm" style="min-width: 100px;" name="status" id="exampleInput4">
+								<option value=""></option>
+								<option value="1">未提交</option>
+								<option value="2">已提交</option>
+								<option value="3">分配未完成</option>
+								<option value="4">分配完成</option>
+							</select>
+						</div>
+					</div>
+					<div class="pull-right">
+						<a class="btn btn-primary" href="javascript:void(0);" style="width: 98px;color: #fff;" onclick="add()">
+							<span class="glyphicon glyphicon-plus"></span> 新增
+						</a>
+						<a class="btn btn-danger" href="javascript:void(0);" style="width: 70px;color: #fff;" onclick="onclickDelete()">
+							<span class="glyphicon glyphicon-trash"></span> 删除
+						</a>
+					</div>
+				</form>
+			</div>
+
+			<div>
+				<div class="clone_container" style="margin-top: 40px;">
+					<div class="clone_container_main" id="clone_container_main">
+
+					</div>
+					<div class="clone_container_bar">
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<th:block th:include="include :: footer" />
+	<script th:inline="javascript">
+		var editFlag = [[${@permission.hasPermi('system:dict:edit')}]];
+		var listFlag = [[${@permission.hasPermi('system:dict:list')}]];
+		var removeFlag = [[${@permission.hasPermi('system:dict:remove')}]];
+		var datas = [[${@dict.getType('sys_normal_disable')}]];
+		var prefix = ctx + "system/dict";
+
+        var messageReport= new erClone({
+            title: [
+                {name: '',field: 'checkbox',con: 'checkbox',style: 'width: 5%;'},
+                {name: '',field: 'dictId',con: 'input','term': 'hidden',style: 'display: none;'},
+                {name: '字典名称',field: 'dictName',href: {even: 'onclick="edit({param})"', param: [{field: 'dictId'}]}},
+                {name: '字典类型',field: 'dictType'},
+                {name: '状态',field: 'status'},
+                {name: '备注',field: 'remark'},
+                {name: '创建时间',field: 'createTime'},
+            ],
+            conArea: '#clone_container_main',
+            pageArea: '.clone_container_bar',
+            pageSize: 10,
+            pageNumber: 1,
+            pageType: 'nt',
+            server: 'true',
+            checkAll: 'open',
+            striped: true,
+            serverFun: function(curr, size, self){
+                $.ajax({
+                    url: prefix + '/list',
+                    type: 'post',
+                    data: $('.form-inline').serialize() + '&curPage=' + curr + '&pageSize=' + size,
+                    dataType: 'json',
+                    contentType: 'application/x-www-form-urlencoded;charset=utf-8',
+                    success: function (e) {
+                        if (e.returnCode && e.returnCode == 10000) {
+                            let page = e.obj;
+                            Array.isArray(page.result) ? '' : page.result = [];
+                            self.setServerData(page.result, page.total ? page.total : 0);
+                            $('[data-toggle="popover"]').popover();
+                        }
+                    }
+                });
+            }
+        });
+
+        function searchPre() {
+            var data = {};
+            data.businessTypes = $.common.join($('#businessTypes').selectpicker('val'));
+            $.table.search('operlog-form', 'bootstrap-table', data);
+        }
+
+        function resetPre() {
+            $.form.reset();
+            $("#businessTypes").selectpicker('refresh');
+        }
+
+        //点击删除
+        function onclickDelete() {
+            //获取选中的数据
+            let $delObj = $('#clone_container_main tbody tr:has(td:first-child :checked)');
+            //未选中任何数据，提示用户
+            if ($delObj.length == 0) {
+                layer.msg('未选择任何数据!');
+                return false;
+            }
+
+            //声明一个ids变量
+            let ids = '';
+            //遍历选中数据，拼接id
+            $delObj.each(function (index, el) {
+                let id = $(el).find("input[name='id']").val();
+                ids += (id + ',');
+            });
+
+            //声明参数对象变量
+            let param = {
+                'ids': ids,
+            };
+
+            layer.open({
+                content: '是否要删除所选数据？删除后不可恢复！',
+                btn: ['确定', '取消'],
+                btnAlign: 'c',
+                yes: function (index, layero) {
+                    //关闭确认弹窗
+                    layer.close(index);
+                    //请求删除接口
+                    $.post('/consumableManage/receive/deleteBatch', param,
+                        function (data) {
+                            if (data.returnCode == 10000) {
+                                //删除成功后，弹窗提示
+                                layer.msg('成功删除' + data.obj + '条数据！');
+                                //重新加载页面数据
+                                $('.form-inline .form-group :input:not(button)').val('');
+                                queryData();
+                            }
+                        }, 'json');
+                }
+            });
+        };
+
+		/*字典列表-详细*/
+		function detail(dictId) {
+		    var url = prefix + '/detail/' + dictId;
+		    $.modal.openTab("字典数据", url);
+		}
+
+        /**
+         * 查看编辑
+         */
+        function edit(id){
+            layer.open({
+                type: 2,
+                title: '编辑',
+                area: ['80%', '600px'],
+                fixed: false, //不固定
+                btn: ['修改', '提交', '关闭'],
+                btnAlign: 'c',
+                content: prefix + '/edit/'+id
+            })
+        }
+	</script>
+</body>
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="include :: header('人事审批')"/>
+    <th:block th:include="include :: datetimepicker-css"/>
+    <th:block th:include="include :: select2-css"/>
+    <link th:href="@{/css/update.css}" rel="stylesheet"/>
+</head>
+
+<style scoped>
+    .search-collapse, .select-table{
+        box-shadow: none;
+    }
+</style>
+
+<body class="white-bg">
+<div class="wrapper wrapper-content animated fadeInRight ibox-content">
+    <form class="form-horizontal m" id="form-leave-edit" th:object="${bizLeave}">
+        <input name="id" th:field="*{id}" type="hidden">
+        <input name="taskId" th:field="*{taskId}" type="hidden">
+        <input type="hidden" name="p_COM_comment"/>
+        <input name="p_B_applyer" th:value="*{applyUser}" type="hidden">
+        <div class="form-group">
+            <label class="col-sm-3 control-label">报修企业：</label>
+            <div class="col-sm-8">
+                <input name="applyUserName" th:field="*{enterpriseName}" class="form-control" type="text" readonly>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">申请人：</label>
+            <div class="col-sm-8">
+                <input name="title" th:field="*{applyUser}" class="form-control" type="text" readonly>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">申请时间：</label>
+            <div class="col-sm-8">
+                <div class="input-group date">
+                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                    <input name="applyTime" th:value="${#dates.format(bizLeave.applyTime, 'yyyy-MM-dd HH:mm')}"
+                           class="form-control" type="text" disabled>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">年用电（万度）：</label>
+            <div class="col-sm-8">
+                <input name="yearElectricity" th:field="*{yearElectricity}" class="form-control" type="text" readonly>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">年用地（亩）：</label>
+            <div class="col-sm-8">
+                <input name="yearLand" th:field="*{yearLand}" class="form-control" type="text" readonly>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">年用工（人）：</label>
+            <div class="col-sm-8">
+                <input name="title" th:field="*{yearWorker}" class="form-control" type="text" readonly>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">人均亩产值（万元）：</label>
+            <div class="col-sm-8">
+                <input name="title" th:field="*{perCapitaMuOutput}" class="form-control" type="text" readonly>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">建筑面积（平方）：</label>
+            <div class="col-sm-8">
+                <input name="title" th:field="*{builtUpArea}" class="form-control" type="text" readonly>
+            </div>
+        </div>
+        <div>
+            <div class="col-sm-12 select-table table-striped">
+                <table id="bootstrap-table" data-mobile-responsive="true">
+                    <div class="fixed-table-container" style="padding-bottom: 0px;">
+                        <div class="fixed-table-body">
+                            <table id="bootstrap-tabled" class="table table-hover">
+                                <thead>
+                                <tr>
+                                    <th style="" data-field="2" tabindex="0">
+                                        <div class="th-inner ">序号</div>
+                                        <div class="fht-cell"></div>
+                                    </th>
+                                    <th style="" data-field="2" tabindex="0">
+                                        <div class="th-inner sortable both">附件名称</div>
+                                        <div class="fht-cell"></div>
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody id="tablist">
+                                <tr th:each="temp : ${bizLeave.attachlist}" id="temps">
+                                    <td th:text="${tempStat.count}"></td>
+
+                                    <td><a th:href="${temp.filePath}" download="" th:text="${temp.fileName}"
+                                           th:value="${temp.filePath}"></a></td>
+
+                                </tr>
+
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </div>
+                </table>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label" style="text-align: right;" for="hrApproved">审批意见：</label>
+            <div class="col-sm-8">
+                <select name="p_B_Approved" id="hrApproved" class="form-control m-b">
+                    <option value="1">同意</option>
+                    <option value="3">拒绝</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label" style="text-align: right;">批注：</label>
+            <div class="col-sm-8">
+                <textarea name="comment" class="form-control"></textarea>
+            </div>
+        </div>
+
+
+    </form>
+</div>
+<th:block th:include="include :: footer"/>
+<th:block th:include="include :: datetimepicker-js"/>
+<th:block th:include="include :: select2-js"/>
+<script th:inline="javascript">
+    var prefix = ctx + "upgrade/upgrade";
+    $("#form-leave-edit").validate({
+        focusCleanup: true
+    });
+
+    function submitHandler() {
+        if ($.validate.form()) {
+            if ($('textarea[name="comment"]').val()) {
+                $('input[name="p_COM_comment"]').val($('textarea[name="comment"]').val());
+            }
+            var taskId = [[${taskId}]];
+            $.operate.save(prefix + "/completeupgrade/" + taskId, $('#form-leave-edit').serialize());
+        }
+    }
+
+    $("input[name='startTime']").datetimepicker({
+        autoclose: true
+    });
+
+    $("input[name='endTime']").datetimepicker({
+        autoclose: true
+    });
+
+    $(function () {
+        var leave = [[${bizLeave}]];
+        var dateSub = $.common.formatTotalDateSub(leave.totalTime);
+        $('input[name="totalTimeText"]').val(dateSub);
+
+        // $('select[name="type"]').prop('disabled', true);
+    });
+</script>
+</body>
+</html>

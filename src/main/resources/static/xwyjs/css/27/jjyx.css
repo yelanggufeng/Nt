@@ -1,0 +1,200 @@
+/* 经济运行*/
+.D126_wapper .J127_main{
+    width: 100%;
+    height: 100%;
+}
+.D126_wapper .J127_main>div::after{
+    display: block;
+    clear: both;
+    content: '';
+}
+.J127_main_left{
+    width: 22.5%;
+    height: 100%;
+    float: left;
+    background: url('../../images/27/J127_bg1_jjyx.png') no-repeat;
+    background-size: 100% 100%;
+    box-sizing: border-box;
+    padding: 0.35em;
+}
+.J127_main_right{
+    width: 22.5%;
+    height: 100%;
+    float: left;
+    background: url('../../images/27/J127_bg1_jjyx.png') no-repeat;
+    background-size: 100% 100%;
+    box-sizing: border-box;
+    padding: 0.35em;
+}
+.J127_main_center{
+    width: 55%;
+    height: 100%;
+    float: left;
+    box-sizing: border-box;
+    padding: 0 0.5em;
+}
+.J127_main_center>div{
+    width: 100%;
+    height: 100%;
+}
+.J127_main_center1{
+    width: 100%;
+    height: 22%;
+    background: url('../../images/27/J127_bg2_jjyx.png') no-repeat;
+    background-size: 100% 100%;
+    margin-bottom: 0.5%;
+}
+.J127_main_center2{
+    width: 100%;
+    height: 77.5%;
+    background: url('../../images/27/J127_bg3_jjyx.png') no-repeat;
+    background-size: 100% 100%;
+    box-sizing: border-box;
+    padding: 4px 3px;
+}
+.J127_main_center2>div{
+    width: 100%;
+    height: 100%;
+    /*background: url('../../images/27/I127_dt_yqzl.png') no-repeat;*/
+    background-size: 100% 100%;
+}
+.J127_main_left>div{
+    width: 100%;
+    height: 50%;
+}
+.J127_main_left1{
+    width: 58%;
+    height: 8%;
+    background: url('../../images/27/J127_bg4_jjyx.png');
+    box-sizing: border-box;
+    padding: 0 2em;
+    line-height: 2em;
+    font-size: 1em;
+}
+.J127_main_left2{
+    width: 100%;
+    height: 92%;
+}
+#J127_echart1,#J127_echart2{
+    width: 100%;
+    height: 100%;
+}
+.J127_main_right1{
+    width: 100%;
+    height: 33.3%;
+}
+.J127_main_right1_up{
+    width: 65%;
+    height: 12%;
+    background: url('../../images/27/J127_bg4_jjyx.png');
+    box-sizing: border-box;
+    padding: 0 2em;
+    line-height: 2em;
+    font-size: 1em;
+}
+.J127_main_right1_down{
+    width: 100%;
+    height: 88%;
+    box-sizing: border-box;
+    padding: 0.3em 0 0.8em 0;
+}
+.J127_main_right1_down0{
+    width: 100%;
+    height: 88%;
+    box-sizing: border-box;
+    padding: 0.3em 0 0.8em 0;
+}
+#J127_echart3,#J127_echart4{
+    width: 100%;
+    height: 100%;
+}
+.J127_main_right1_down::after{
+    display: block;
+    content: '';
+    clear: both;
+}
+.J127_main_right1_down>div{
+    width: 50%;
+    height: 31%;
+    float: left;
+    box-sizing: border-box;
+    padding: 1.4em 1.2em 0 1.2em;
+}
+.J127_main_right1_down>div>div{
+    width: 100%;
+    height: 55%;
+}
+.J127_main_right1_down_sp1{
+    float: left;
+    color: #01a0ec;
+    font-size: 0.95em;
+}
+.J127_main_right1_down_sp2{
+    float: right;
+    color: #33eae5;
+    font-size: 0.95em;
+}
+.J127_main_right1_down>div>.J127_main_right1_down2{
+    width: 100%;
+    height: 45%;
+    box-sizing: border-box;
+    padding: 0.8em 0 0 0;
+}
+.J127_main_right1_down>div>.J127_main_right1_down1{
+    box-sizing: border-box;
+    padding: 0.2em 0 0 0;
+}
+.layui-progress{
+    background-color: #242a65 !important;
+}
+.J127_pro1 .layui-progress-bar{
+    background-color: #b8323e;
+}
+.J127_pro2 .layui-progress-bar{
+    background-color: #0dbd8a;
+}
+.J127_pro3 .layui-progress-bar{
+    background-color: #f39800;
+}
+.J127_pro4 .layui-progress-bar{
+    background-color: #a7ff0d;
+}
+.J127_pro5 .layui-progress-bar{
+    background-color: #6ce2a8;
+}
+.J127_pro6 .layui-progress-bar{
+    background-color: #b21b21;
+}
+.J127_main_center1>div{
+    width: 33.33%;
+    height: 100%;
+    float: left;
+}
+.J127_m_c1_div{
+    position: relative;
+}
+.J127_main_center1_title{
+    color: #00ECFC;
+    font-size: 1rem;
+    font-weight: bold;
+    width: 100%;
+    height: 25%;
+    text-align: center;
+    box-sizing: border-box;
+    padding: 0.6em;
+}
+.J127_main_center1_title1{
+    width: 100%;
+    height: 16%;
+    color: #fff;
+    font-size: 0.9rem;
+    text-align: center;
+}
+#J127_echart5,#J127_echart6{
+    width: 100%;
+    height: 59%;
+}
+#J127_echart7{
+    width: 100%;
+    height: 65%;
+}

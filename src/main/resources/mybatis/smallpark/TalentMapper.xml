@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.netintech.park.mapper.TalentMapper">
+
+    <resultMap type="com.netintech.park.domain.dto.AttachmentTalentDto" id="ListTalentResult">
+        <result property="id"    column="id"    />
+        <result property="fileUuid"    column="file_uuid"    />
+        <result property="name"    column="name"    />
+        <result property="sex"    column="sex"    />
+        <result property="birthday"    column="birthday"    />
+        <result property="mobile"    column="mobile"    />
+        <result property="email"    column="email"    />
+        <result property="location"    column="location"    />
+        <result property="degreeId"    column="degree_id"    />
+        <result property="workYear"    column="work_year"    />
+        <result property="unitName"    column="unit_name"    />
+        <result property="position"    column="position"    />
+        <result property="title"    column="title"    />
+        <result property="technicalField"    column="technical_field"    />
+        <result property="educationBackground"    column="education_background"    />
+        <result property="workExperience"    column="work_experience"    />
+        <result property="technologyAchievement"    column="technology_achievement"    />
+        <result property="projectExperience"    column="project_experience"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <collection  property="attachmentTalentList"   javaType="java.util.List"  ofType="com.netintech.park.domain.AttachmentTalent" >
+            <result property="id"    column="attachmentTalentId"    />
+            <result property="talentId"    column="talent_id"    />
+            <result property="fileUuid"    column="file_uuid"    />
+            <result property="fileName"    column="file_name"    />
+            <result property="fileAlias"    column="file_alias"    />
+            <result property="filePath"    column="file_path"    />
+            <result property="delFlag"    column="del_flag"    />
+            <result property="createBy"    column="create_by"    />
+            <result property="createTime"    column="create_time"    />
+        </collection>
+    </resultMap>
+
+    <resultMap type="com.netintech.park.domain.Talent" id="TalentResult">
+        <result property="id"    column="id"    />
+        <result property="fileUuid"    column="file_uuid"    />
+        <result property="name"    column="name"    />
+        <result property="sex"    column="sex"    />
+        <result property="birthday"    column="birthday"    />
+        <result property="mobile"    column="mobile"    />
+        <result property="email"    column="email"    />
+        <result property="location"    column="location"    />
+        <result property="degreeId"    column="degree_id"    />
+        <result property="workYear"    column="work_year"    />
+        <result property="unitName"    column="unit_name"    />
+        <result property="position"    column="position"    />
+        <result property="title"    column="title"    />
+        <result property="technicalField"    column="technical_field"    />
+        <result property="educationBackground"    column="education_background"    />
+        <result property="workExperience"    column="work_experience"    />
+        <result property="technologyAchievement"    column="technology_achievement"    />
+        <result property="projectExperience"    column="project_experience"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectTalentVo">
+        select id, file_uuid, name, sex, birthday, mobile, email, location, degree_id, work_year, unit_name, position, title, technical_field, education_background, work_experience, technology_achievement, project_experience, del_flag, create_by, create_time, update_by, update_time from sys_talent
+    </sql>
+
+    <select id="ListTalent"  parameterType="com.netintech.park.domain.dto.AttachmentTalentDto" resultMap="ListTalentResult">
+      SELECT
+	a.id,
+	a.file_uuid as fileUuid,
+	a.NAME,
+	a.sex,
+	a.birthday,
+	a.mobile,
+	a.email,
+	a.location,
+	a.degree_id,
+	a.work_year,
+	a.unit_name,
+	a.position,
+	a.title,
+	a.technical_field,
+	a.education_background,
+	a.work_experience,
+	a.technology_achievement,
+	a.project_experience,
+	a.del_flag,
+	a.create_by,
+	a.create_time,
+	a.update_by,
+	a.update_time,
+	b.id AS attachmentTalentId,
+	b.talent_id,
+	b.file_uuid,
+	b.file_name,
+	b.file_alias,
+	b.file_path
+FROM
+	sys_talent a
+	LEFT JOIN attachment_talent b ON a.id = b.talent_id
+WHERE
+	a.del_flag = 0
+	AND b.del_flag = 0
+        <if test="fileUuid != null  and fileUuid != ''"> and a.file_uuid = #{fileUuid}</if>
+        <if test="name != null  and name != ''"> and a.name like concat('%', #{name}, '%')</if>
+        <if test="sex != null  and sex != ''"> and a.sex = #{sex}</if>
+        <if test="birthday != null  and birthday != ''"> and a.birthday = #{birthday}</if>
+        <if test="mobile != null  and mobile != ''"> and a.mobile = #{mobile}</if>
+        <if test="email != null  and email != ''"> and a.email = #{email}</if>
+        <if test="location != null  and location != ''"> and a.location = #{location}</if>
+        <if test="degreeId != null "> and a.degree_id = #{degreeId}</if>
+        <if test="workYear != null "> and a.work_year = #{workYear}</if>
+        <if test="unitName != null  and unitName != ''"> and a.unit_name like concat('%', #{unitName}, '%')</if>
+        <if test="position != null  and position != ''"> and a.position = #{position}</if>
+        <if test="title != null  and title != ''"> and a.title = #{title}</if>
+        <if test="technicalField != null  and technicalField != ''"> and a.technical_field = #{technicalField}</if>
+        <if test="educationBackground != null  and educationBackground != ''"> and a.education_background = #{educationBackground}</if>
+        <if test="workExperience != null  and workExperience != ''"> and a.work_experience = #{workExperience}</if>
+        <if test="technologyAchievement != null  and technologyAchievement != ''"> and a.technology_achievement = #{technologyAchievement}</if>
+        <if test="projectExperience != null  and projectExperience != ''"> and a.project_experience = #{projectExperience}</if>
+    </select>
+    <select id="ListTalentById"  parameterType="Long" resultMap="ListTalentResult">
+        SELECT
+        a.id,
+        a.file_uuid as fileUuid,
+        a.NAME,
+        a.sex,
+        a.birthday,
+        a.mobile,
+        a.email,
+        a.location,
+        a.degree_id,
+        a.work_year,
+        a.unit_name,
+        a.position,
+        a.title,
+        a.technical_field,
+        a.education_background,
+        a.work_experience,
+        a.technology_achievement,
+        a.project_experience,
+        a.del_flag,
+        a.create_by,
+        a.create_time,
+        a.update_by,
+        a.update_time,
+        b.id AS attachmentTalentId,
+        b.talent_id,
+        b.file_uuid,
+        b.file_name,
+        b.file_alias,
+        b.file_path
+        FROM
+        sys_talent a
+        LEFT JOIN attachment_talent b ON a.id = b.talent_id
+        WHERE
+        a.del_flag = 0
+        AND b.del_flag = 0
+       AND a.id = #{id}
+    </select>
+
+    <select id="selectTalentList" parameterType="com.netintech.park.domain.Talent" resultMap="TalentResult">
+        <include refid="selectTalentVo"/>
+        where del_flag=0
+        <if test="fileUuid != null  and fileUuid != ''"> and file_uuid = #{fileUuid}</if>
+        <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+        <if test="sex != null  and sex != ''"> and sex = #{sex}</if>
+        <if test="birthday != null  and birthday != ''"> and birthday = #{birthday}</if>
+        <if test="mobile != null  and mobile != ''"> and mobile = #{mobile}</if>
+        <if test="email != null  and email != ''"> and email = #{email}</if>
+        <if test="location != null  and location != ''"> and location = #{location}</if>
+        <if test="degreeId != null "> and degree_id = #{degreeId}</if>
+        <if test="workYear != null "> and work_year = #{workYear}</if>
+        <if test="unitName != null  and unitName != ''"> and unit_name like concat('%', #{unitName}, '%')</if>
+        <if test="position != null  and position != ''"> and position = #{position}</if>
+        <if test="title != null  and title != ''"> and title = #{title}</if>
+        <if test="technicalField != null  and technicalField != ''"> and technical_field = #{technicalField}</if>
+        <if test="educationBackground != null  and educationBackground != ''"> and education_background = #{educationBackground}</if>
+        <if test="workExperience != null  and workExperience != ''"> and work_experience = #{workExperience}</if>
+        <if test="technologyAchievement != null  and technologyAchievement != ''"> and technology_achievement = #{technologyAchievement}</if>
+        <if test="projectExperience != null  and projectExperience != ''"> and project_experience = #{projectExperience}</if>
+    </select>
+
+    <select id="selectTalentById" parameterType="Long" resultMap="TalentResult">
+        <include refid="selectTalentVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertTalent" parameterType="com.netintech.park.domain.Talent" useGeneratedKeys="true" keyProperty="id">
+        insert into sys_talent
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="fileUuid != null  and fileUuid != ''">file_uuid,</if>
+            <if test="name != null  and name != ''">name,</if>
+            <if test="sex != null  and sex != ''">sex,</if>
+            <if test="birthday != null  and birthday != ''">birthday,</if>
+            <if test="mobile != null  and mobile != ''">mobile,</if>
+            <if test="email != null  and email != ''">email,</if>
+            <if test="location != null  and location != ''">location,</if>
+            <if test="degreeId != null ">degree_id,</if>
+            <if test="workYear != null ">work_year,</if>
+            <if test="unitName != null  and unitName != ''">unit_name,</if>
+            <if test="position != null  and position != ''">position,</if>
+            <if test="title != null  and title != ''">title,</if>
+            <if test="technicalField != null  and technicalField != ''">technical_field,</if>
+            <if test="educationBackground != null  and educationBackground != ''">education_background,</if>
+            <if test="workExperience != null  and workExperience != ''">work_experience,</if>
+            <if test="technologyAchievement != null  and technologyAchievement != ''">technology_achievement,</if>
+            <if test="projectExperience != null  and projectExperience != ''">project_experience,</if>
+            <if test="delFlag != null  and delFlag != ''">del_flag,</if>
+            <if test="createBy != null  and createBy != ''">create_by,</if>
+            <if test="createTime != null ">create_time,</if>
+            <if test="updateBy != null  and updateBy != ''">update_by,</if>
+            <if test="updateTime != null ">update_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="fileUuid != null  and fileUuid != ''">#{fileUuid},</if>
+            <if test="name != null  and name != ''">#{name},</if>
+            <if test="sex != null  and sex != ''">#{sex},</if>
+            <if test="birthday != null  and birthday != ''">#{birthday},</if>
+            <if test="mobile != null  and mobile != ''">#{mobile},</if>
+            <if test="email != null  and email != ''">#{email},</if>
+            <if test="location != null  and location != ''">#{location},</if>
+            <if test="degreeId != null ">#{degreeId},</if>
+            <if test="workYear != null ">#{workYear},</if>
+            <if test="unitName != null  and unitName != ''">#{unitName},</if>
+            <if test="position != null  and position != ''">#{position},</if>
+            <if test="title != null  and title != ''">#{title},</if>
+            <if test="technicalField != null  and technicalField != ''">#{technicalField},</if>
+            <if test="educationBackground != null  and educationBackground != ''">#{educationBackground},</if>
+            <if test="workExperience != null  and workExperience != ''">#{workExperience},</if>
+            <if test="technologyAchievement != null  and technologyAchievement != ''">#{technologyAchievement},</if>
+            <if test="projectExperience != null  and projectExperience != ''">#{projectExperience},</if>
+            <if test="delFlag != null  and delFlag != ''">#{delFlag},</if>
+            <if test="createBy != null  and createBy != ''">#{createBy},</if>
+            <if test="createTime != null ">#{createTime},</if>
+            <if test="updateBy != null  and updateBy != ''">#{updateBy},</if>
+            <if test="updateTime != null ">#{updateTime},</if>
+        </trim>
+    </insert>
+
+    <update id="updateTalent" parameterType="com.netintech.park.domain.Talent">
+        update sys_talent
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="fileUuid != null  and fileUuid != ''">file_uuid = #{fileUuid},</if>
+            <if test="name != null  and name != ''">name = #{name},</if>
+            <if test="sex != null  and sex != ''">sex = #{sex},</if>
+            <if test="birthday != null  and birthday != ''">birthday = #{birthday},</if>
+            <if test="mobile != null  and mobile != ''">mobile = #{mobile},</if>
+            <if test="email != null  and email != ''">email = #{email},</if>
+            <if test="location != null  and location != ''">location = #{location},</if>
+            <if test="degreeId != null ">degree_id = #{degreeId},</if>
+            <if test="workYear != null ">work_year = #{workYear},</if>
+            <if test="unitName != null  and unitName != ''">unit_name = #{unitName},</if>
+            <if test="position != null  and position != ''">position = #{position},</if>
+            <if test="title != null  and title != ''">title = #{title},</if>
+            <if test="technicalField != null  and technicalField != ''">technical_field = #{technicalField},</if>
+            <if test="educationBackground != null  and educationBackground != ''">education_background = #{educationBackground},</if>
+            <if test="workExperience != null  and workExperience != ''">work_experience = #{workExperience},</if>
+            <if test="technologyAchievement != null  and technologyAchievement != ''">technology_achievement = #{technologyAchievement},</if>
+            <if test="projectExperience != null  and projectExperience != ''">project_experience = #{projectExperience},</if>
+            <if test="delFlag != null  and delFlag != ''">del_flag = #{delFlag},</if>
+            <if test="createBy != null  and createBy != ''">create_by = #{createBy},</if>
+            <if test="createTime != null ">create_time = #{createTime},</if>
+            <if test="updateBy != null  and updateBy != ''">update_by = #{updateBy},</if>
+            <if test="updateTime != null ">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTalentById" parameterType="Long">
+        delete from sys_talent where id = #{id}
+    </delete>
+
+    <delete id="deleteTalentByIds" parameterType="String">
+        update sys_talent set del_flag=2 where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

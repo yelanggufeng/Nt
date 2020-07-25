@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <link th:href="@{/css/update.css}" rel="stylesheet"/>
+    <th:block th:include="include :: header('新增人才需求信息')" />
+    <style>
+        .control-label {
+            padding-right: 0 !important;;
+            padding-left: 0 !important;
+            font-size: 15px;
+            color: #3e434a;
+        }
+
+        .form-group > div {
+            padding-left: 4px !important;
+            padding-right: 4px !important;;
+        }
+
+        .form-control {
+            border-radius: 4px !important;
+            border: 1px solid #c5cbee;
+        }
+        form{
+            background-color: #eaf4fe;
+            padding: 20px 40px!important;
+            margin: 10px 0 !important;
+            border: 1px solid #cbdff4;
+        }
+        .content-title{
+            display: flex;
+            height: 20px;
+            align-items: center;
+        }
+        .content-title>span{
+            font-size: 16px;
+            color: #3e434a;
+            font-family: "Microsoft YaHei";
+            font-weight: bold;
+            margin-left: 6px;
+        }
+        .content-icon{
+            height: 15px;
+            width: 5px;
+            background-color: #2a7bf2;
+        }
+        .ibox-content{
+            padding: 20px 40px!important;
+        }
+    </style>
+</head>
+<body class="white-bg">
+<div class="wrapper wrapper-content animated fadeInRight ibox-content">
+    <div class="content-title">
+        <div class="content-icon"></div>
+        <span>人才需求信息</span>
+    </div>
+    <form class="form-horizontal m" id="form-requirement-add">
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label is-required">标题：</label>
+                    <div class="col-sm-9">
+                        <input name="title" class="form-control" placeholder="请输入标题" type="text">
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label is-required">需求类型ID：</label>
+                    <div class="col-sm-9">
+                        <input name="
+requireTypeId" class="form-control" placeholder="请输入需求类型ID" type="text">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label is-required">项目估价：</label>
+                    <div class="col-sm-9">
+                        <input name="projectValuation" class="form-control" placeholder="请输入项目估价" type="text">
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label is-required">产业分类ID：</label>
+                    <div class="col-sm-9">
+                        <input name="industryId" class="form-control" placeholder="请输入产业分类ID" type="text">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label is-required">学历要求ID：</label>
+                    <div class="col-sm-9">
+                        <input name="degreeId" class="form-control" placeholder="请输入学历要求ID" type="text">
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label is-required">经验要求ID：</label>
+                    <div class="col-sm-9">
+                        <input name="experienceId" class="form-control" placeholder="请输入经验要求ID" type="text">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label is-required">需求描述：</label>
+                    <div class="col-sm-9">
+                        <input name="description" class="form-control" placeholder="请输入需求描述" type="text">
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label is-required">所属小微园ID：</label>
+                    <div class="col-sm-9">
+                        <input name="parkId" class="form-control" placeholder="请输入所属小微园ID" type="text">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label is-required">所属企业ID：</label>
+                    <div class="col-sm-9">
+                        <input name="enterpriseId" class="form-control" placeholder="请输入所属企业ID" type="text">
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-sm-6">
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label is-required">状态 0待审核 1已发布 2审核驳回：</label>
+                    <div class="col-sm-9">
+                        <div class="radio-box">
+                            <input type="radio" name="status" value="">
+                            <label th:for="status" th:text="未知"></label>
+                        </div>
+                        <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 代码生成请选择字典属性</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label is-required">删除标志：</label>
+                    <div class="col-sm-9">
+                        <input name="delFlag" class="form-control" placeholder="请输入删除标志" type="text">
+                    </div>
+                </div>
+            </div>
+
+
+    </form>
+</div>
+<th:block th:include="include :: footer" />
+<script type="text/javascript">
+    var prefix = ctx + "netintech/requirement"
+    $("#form-requirement-add").validate({
+        focusCleanup: true
+    });
+
+    function submitHandler() {
+        if ($.validate.form()) {
+            $.operate.save(prefix + "/add", $('#form-requirement-add').serialize());
+        }
+    }
+</script>
+</body>
+</html>

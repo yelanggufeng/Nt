@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <link th:href="@{/css/update.css}" rel="stylesheet"/>
+    <th:block th:include="include :: header('创新众包需求信息列表')"/>
+</head>
+<body class="gray-bg">
+<div class="container-div">
+
+    <div class="row">
+        <div class="col-sm-12 search-collapse">
+            <form id="formId">
+                <div class="select-list">
+                    <ul>
+                        <li>
+                            <p>标题：</p>
+                            <input type="text" name="title"/>
+                        </li>
+                        <li>
+                            <p>技术领域：</p>
+                            <select name="fieldId" th:with="type=${@dict.getType('sys_industry_sort')}">
+                                <option value="">所有</option>
+                                <option th:each="dict : ${type}" th:text="${dict.dictLabel}"
+                                        th:value="${dict.dictValue}"></option>
+                            </select>
+                        </li>
+                        <li class="select-time">
+                            <p>截止日期：</p>
+                            <input type="text" class="time-input" id="startTime" placeholder="开始时间"
+                                   name="params[beginClosingDate]"/>
+                            <span>-</span>
+                            <input type="text" class="time-input" id="endTime" placeholder="结束时间"
+                                   name="params[endClosingDate]"/>
+                        </li>
+                        <li>
+                            <p>发布者：</p>
+                            <input type="text" name="enterpriseId"/>
+                        </li>
+                        <li>
+                            <p>结果：</p>
+                            <select name="result">
+                                <option value="">所有</option>
+                                <option value="0">未解决</option>
+                                <option value="0">已解决</option>
+                            </select>
+                        </li>
+                        <li>
+                            <p>状态：</p>
+                            <select name="status"
+                                    th:with="type=${@dict.getType('sys_technical_status')}">
+                                <option value="">所有</option>
+                                <option th:each="dict : ${type}" th:text="${dict.dictLabel}"
+                                        th:value="${dict.dictValue}"></option>
+                            </select>
+                        </li>
+                        <li>
+                            <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i
+                                    class="fa fa-search"></i>&nbsp;搜索</a>
+                            <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i
+                                    class="fa fa-refresh"></i>&nbsp;重置</a>
+                        </li>
+                    </ul>
+                </div>
+            </form>
+        </div>
+
+        <div class="btn-group-sm" id="toolbar" role="group">
+            <a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="crowdsourcing:requirement:add">
+                <i class="fa fa-plus"></i> 发布众包需求
+            </a>
+        </div>
+        <div class="col-sm-12 select-table table-striped">
+            <table id="bootstrap-table" data-mobile-responsive="true"></table>
+        </div>
+    </div>
+</div>
+<th:block th:include="include :: footer"/>
+<script th:inline="javascript">
+    var editFlag = [[${@permission.hasPermi('crowdsourcing:requirement:edit')}]];
+    var removeFlag = [[${@permission.hasPermi('crowdsourcing:requirement:remove')}]];
+    var detailFlag = [[${@permission.hasPermi('crowdsourcing:requirement:detail')}]];
+    var switchFlag = [[${@permission.hasPermi('crowdsourcing:requirement:switch')}]];
+    var auditFlag = [[${@permission.hasPermi('crowdsourcing:requirement:audit')}]];
+    var auditListFlag = [[${@permission.hasPermi('crowdsourcing:requirement:auditlist')}]];
+
+    //企业列表权限
+    var flagList = [[${@permission.isPermitted('crowdsourcing:requirement:elist')}]];
+    //园区列表权限
+    var adminList = [[${@permission.isPermitted('crowdsourcing:requirement:list')}]];
+
+    var transactionStatusDatas = [[${@dict.getType('sys_technical_status')}]];
+    var fieldIdDatas = [[${@dict.getType('sys_industry_sort')}]];
+    var parkData = [[${@dict.getDeptList()}]];
+    var prefix = ctx + "crowdsourcing/requirement";
+
+    $(function () {
+        var listUrl = "/elist";
+        if (adminList) {
+            listUrl = "/list";
+        }
+        var options = {
+            url: prefix + listUrl,
+            createUrl: prefix + "/add",
+            updateUrl: prefix + "/edit/{id}",
+            removeUrl: prefix + "/remove",
+            exportUrl: prefix + "/export",
+            detailUrl: prefix + "/view/{id}",
+            modalName: "创新众包需求信息",
+            columns: [{
+                checkbox: true
+            },
+                {
+                    field: 'id',
+                    title: '创新众包需求ID',
+                    visible: false
+                },
+                {
+                    field: 'title',
+                    title: '标题'
+                },
+                {
+                    field: 'fieldId',
+                    title: '技术领域',
+                    formatter: function (value, row, index) {
+                        return $.table.selectDictLabel(fieldIdDatas, value);
+                    }
+                },
+                {
+                    field: 'rewardAmount',
+                    title: '悬赏金额'
+                },
+                {
+                    field: 'enterpriseId',
+                    title: '所属企业',
+                    formatter: function (value, row, index) {
+                        return $.table.selectKey(parkData, value);
+                    }
+                },
+                {
+                    field: 'createTime',
+                    title: '发布日期'
+                },
+                {
+                    field: 'closingDate',
+                    title: '截止日期'
+                },
+
+                {
+                    field: 'pageviews',
+                    title: '浏览量'
+                },
+                {
+                    field: 'status',
+                    title: '状态',
+                    formatter: function (value, row, index) {
+                        return $.table.selectDictLabel(transactionStatusDatas, value);
+                    }
+                },
+                {
+                    field: 'result',
+                    title: '结果',
+                    formatter: function (value, row, index) {
+                        if (value == 1) {
+                            return "已解决";
+                        } else {
+                            return "未解决";
+                        }
+                    }
+                },
+                {
+                    title: '操作',
+                    align: 'center',
+                    formatter: function (value, row, index) {
+                        var actions = [];
+                        if (row.status != "1") {//未发布
+                            actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="$.operate.edit(\'' + row.id + '\')"><i class="fa fa-edit"></i>编辑</a> ');
+                        }
+                        if (row.status == 0) {//待审核
+                            actions.push('<a class="btn btn-success btn-xs ' + auditFlag + '" href="javascript:void(0)" onclick="auditSave(\'' + row.id + '\')"><i class="fa fa-edit"></i>审核</a> ');
+                        }
+                        if (row.status == "0" || row.status == "3") {//待审核或失效
+                            actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.id + '\')"><i class="fa fa-remove"></i>删除</a>');
+                        }
+                        if (row.status == 1) {
+                            actions.push('<a class="btn btn-success btn-xs ' + switchFlag + '" href="javascript:void(0)" onclick="editStatus(\'' + row.id + '\',' + 3 + ')"><i class="fa fa-edit"></i>失效</a> ');
+                        }
+                        if (row.status == 3) {
+                            actions.push('<a class="btn btn-success btn-xs ' + switchFlag + '" href="javascript:void(0)" onclick="editStatus(\'' + row.id + '\',' + 1 + ')"><i class="fa fa-edit"></i>生效</a> ');
+                        }
+                        actions.push('<a class="btn btn-warning btn-xs ' + detailFlag + '" href="javascript:void(0)" onclick="$.operate.detail(\'' + row.id + '\')"><i class="fa fa-edit"></i>查看</a> ');
+                        actions.push('<a class="btn btn-warning btn-xs ' + auditListFlag + '" href="javascript:void(0)" onclick="auditList(\'' + row.id + '\')"><i class="fa fa-edit"></i>审核记录</a> ');
+                        actions.push('<a class="btn btn-warning btn-xs ' + '" href="javascript:void(0)" onclick="solutionList(\'' + row.id + '\')"><i class="fa fa-edit"></i>解决方案</a> ');
+
+                        return actions.join('');
+                    }
+                }]
+        };
+        $.table.init(options);
+    });
+
+    function auditSave(id) {
+        var callback = function (index, layero) {
+            var body = layer.getChildFrame('body', index);
+            body.find('#auditResultId').val('1')//改为发布状态
+            var iframeWin = layero.find('iframe')[0];
+            iframeWin.contentWindow.submitHandler(index, layero);
+        }
+        layer.open({
+            type: 2,
+            area: [800 + 'px', ($(window).height() - 50) + 'px'],
+            fix: false,
+            //不固定
+            maxmin: true,
+            shade: 0.3,
+            title: "审核",
+            content: prefix + "/audit/" + id,
+            btn: ['审核', '驳回', '返回'],
+            // 弹层外区域关闭
+            shadeClose: true,
+            yes: callback,
+            btn2: function (index, layero) {
+                var body = layer.getChildFrame('body', index);
+                body.find('#auditResultId').val('2')//改为驳回状态
+                var iframeWin = layero.find('iframe')[0];
+                iframeWin.contentWindow.submitHandler(index, layero);
+            },
+            cancel: function (index) {
+                return true;
+            }
+        });
+    }
+
+
+    function editStatus(id, achievementStatus) {
+
+        var tap = achievementStatus == 1 ? "发布" : "失效";
+
+        $.modal.confirm("确定" + tap + "吗？", function () {
+            var formdata = new FormData();
+            formdata.append("id", id);
+            formdata.append("status", achievementStatus);
+            $.ajax({
+                url: prefix + '/switchSave',
+                data: formdata,
+                type: "post",
+                processData: false,
+                contentType: false,
+                success: function (result) {
+                    layer.alert(tap + "操作成功");
+                    $("#bootstrap-table").bootstrapTable('refresh');
+                }
+            })
+        });
+    }
+
+    function auditList(id) {
+        layer.open({
+            type: 2,
+            area: [800 + 'px', 400 + 'px'],
+            fix: false,
+            //不固定
+            maxmin: true,
+            shade: 0.3,
+            title: "审核记录",
+            content: prefix + "/auditList/" + id,
+            btn: ['关闭'],
+            // 弹层外区域关闭
+            shadeClose: true,
+            yes: function (index, layero) {
+                layer.close(index);
+            },
+            cancel: function (index) {
+                return true;
+            }
+        });
+    }
+
+    function solutionList(id) {
+        layer.open({
+            type: 2,
+            area: [1000 + 'px', ($(window).height() - 50) + 'px'],
+            fix: false,
+            //不固定
+            maxmin: true,
+            shade: 0.3,
+            title: "解决方案",
+            content: prefix + "/solutionList/" + id,
+            btn: ['已解决', '关闭'],
+            // 弹层外区域关闭
+            shadeClose: true,
+            yes: function (index, layero) {
+                var iframeWin = layero.find('iframe')[0];
+                iframeWin.contentWindow.submitHandler(index, layero);
+            },
+            cancel: function (index) {
+                return true;
+            }
+        });
+    }
+</script>
+</body>
+</html>

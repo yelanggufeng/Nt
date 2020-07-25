@@ -1,0 +1,77 @@
+<div class="modal" style="padding: 0 20px" ng-controller="KisBpmAssignmentPopupCtrl">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="close()">&times;</button>
+                <h2 translate>PROPERTY.ASSIGNMENT.TITLE</h2>
+            </div>
+            <div class="modal-body">
+            
+            	<div class="row row-no-gutter">
+            		<div class="form-group">
+            			<label for="assigneeField">{{'PROPERTY.ASSIGNMENT.ASSIGNEE' | translate}}</label>
+            			<input type="text" id="assigneeField" class="form-control" ng-model="assignment.assignee" placeholder="{{'PROPERTY.ASSIGNMENT.ASSIGNEE_PLACEHOLDER' | translate}}" />
+            		</div>
+            	</div>
+
+                <div ng-if="holdDialog" style="position: fixed;top: 0;left:0;bottom:0;right:0;margin: 30px auto;z-index: 9999;height: 540px;width: 660px;background-color: #fff;overflow:auto;border-radius: 8px;">
+                     <div style="height: 40px;font-size: 18px;width: 100%;padding: 10px 20px;background-color: #e8edf1" ng-if="dialogType==1">选择用户</div>
+                     <div style="height: 40px;font-size: 18px;width: 100%;padding: 10px 20px;background-color: #e8edf1" ng-if="dialogType==2">选择用户组</div>
+                    <div style="padding: 0 30px;font-size: 16px">
+                        <div class="sel_ed">
+                            <div style="width: 40px">已选:</div>
+                            <div class="select_area">
+                                <div class="selected"  ng-repeat="el in subList track by $index" ng-if="subList.length>0">
+                                    <div style="display: flex">
+                                        <div class="sel_name">{{el.name}}</div>
+                                        <img src="../../../../img/del.png" class="sel_img" ng-click="onDel($index)">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="text" style="margin: 10px 0" ng-model="searchVal" class="form-control" placeholder="请输入用户名称搜索" ng-change="onSearch(searchVal)" />
+
+                        <div class="sel_div">
+                            <div class="dialog_sel_item" ng-repeat="item in holdList" ng-click="onHold(item)">{{item.name}}</div>
+                        </div>
+                        <div style="float: right;margin: 20px">
+                            <button class="btn" ng-click="onCancel()">取消</button>
+                            <button class="btn btn-info" ng-click="onSub()">确定</button>
+                        </div>
+                    </div>
+                </div>
+            	
+                <div class="row row-no-gutter">
+                    <div class="form-group">
+                    	<label>{{'PROPERTY.ASSIGNMENT.CANDIDATE_USERS' | translate}}</label>
+                        <button type="button" class="btn btn-info" style="float: right" ng-click="holdDialogShow(1)">-请选择-</button>
+<!--                        <div ng-repeat="candidateUser in assignment.candidateUsers">-->
+<!--            	            <input id="userField" class="form-control" type="text" ng-model="candidateUser.value" />-->
+<!--            	            <i class="glyphicon glyphicon-minus clickable-property" ng-click="removeCandidateUserValue($index)"></i>-->
+<!--            	            <i ng-if="$index == (assignment.candidateUsers.length - 1)" class="glyphicon glyphicon-plus clickable-property" ng-click="addCandidateUserValue($index)"></i>-->
+<!--                        </div>-->
+                        <div><textarea id="userField" readonly="readonly" class="form-control" type="text" ng-model="candidateUsersStr" /></div>
+                   	</div>
+
+
+
+                    <div class="form-group">
+                    	<label>{{'PROPERTY.ASSIGNMENT.CANDIDATE_GROUPS' | translate}}</label>
+                        <button type="button" class="btn btn-info" style="float: right" ng-click="holdDialogShow(2)">-请选择-</button>
+<!--                        <div ng-repeat="candidateGroup in assignment.candidateGroups">-->
+<!--            	          	<input id="groupField" class="form-control" type="text" ng-model="candidateGroup.value" />-->
+<!--            	          	<i class="glyphicon glyphicon-minus clickable-property" ng-click="removeCandidateGroupValue($index)"></i>-->
+<!--            	          	<i ng-if="$index == (assignment.candidateGroups.length - 1)" class="glyphicon glyphicon-plus clickable-property" ng-click="addCandidateGroupValue($index)"></i>-->
+<!--                        </div>-->
+                        <div><textarea  readonly="readonly" class="form-control" type="text" ng-model="candidateGroupsStr" /></div>
+                    </div>
+                </div>
+            
+            </div>
+            <div class="modal-footer">
+                <button ng-click="close()" class="btn btn-primary" translate>ACTION.CANCEL</button>
+                <button ng-click="save()" class="btn btn-primary" translate>ACTION.SAVE</button>
+            </div>
+        </div>
+    </div>
+</div>

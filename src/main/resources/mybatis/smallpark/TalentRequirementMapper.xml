@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.netintech.park.mapper.TalentRequirementMapper">
+
+    <resultMap type="com.netintech.park.domain.dto.TalentRequirementDto" id="ListTalentRequirementResult">
+        <result property="id"    column="id"    />
+        <result property="title"    column="title"    />
+        <result property="requireTypeId"    column="require_type_id"    />
+        <result property="projectValuation"    column="project_valuation"    />
+        <result property="industryId"    column="industry_id"    />
+        <result property="degreeId"    column="degree_id"    />
+        <result property="experienceId"    column="experience_id"    />
+        <result property="description"    column="description"    />
+        <result property="parkId"    column="park_id"    />
+        <result property="enterpriseId"    column="enterprise_id"    />
+        <result property="status"    column="status"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <resultMap type="com.netintech.park.domain.TalentRequirement" id="TalentRequirementResult">
+        <result property="id"    column="id"    />
+        <result property="title"    column="title"    />
+        <result property="requireTypeId"    column="require_type_id"    />
+        <result property="projectValuation"    column="project_valuation"    />
+        <result property="industryId"    column="industry_id"    />
+        <result property="degreeId"    column="degree_id"    />
+        <result property="experienceId"    column="experience_id"    />
+        <result property="description"    column="description"    />
+        <result property="parkId"    column="park_id"    />
+        <result property="enterpriseId"    column="enterprise_id"    />
+        <result property="status"    column="status"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectTalentRequirementVo">
+        select id, title, require_type_id, project_valuation, industry_id, degree_id, experience_id, description, park_id, enterprise_id, status, del_flag, create_by, create_time, update_by, update_time from sys_talent_requirement
+    </sql>
+
+    <select id="findAll"  parameterType="com.netintech.park.domain.TalentRequirement" resultMap="ListTalentRequirementResult">
+        <include refid="selectTalentRequirementVo"/>
+        where del_flag=0
+        <if test="title != null  and title != ''"> and title = #{title}</if>
+        <if test="requireTypeId != null "> and require_type_id = #{requireTypeId}</if>
+        <if test="projectValuation != null "> and project_valuation = #{projectValuation}</if>
+        <if test="industryId != null "> and industry_id = #{industryId}</if>
+        <if test="degreeId != null "> and degree_id = #{degreeId}</if>
+        <if test="experienceId != null "> and experience_id = #{experienceId}</if>
+        <if test="description != null  and description != ''"> and description = #{description}</if>
+        <if test="parkId != null "> and park_id = #{parkId}</if>
+        <if test="enterpriseId != null "> and enterprise_id = #{enterpriseId}</if>
+        <if test="status != null  and status != ''"> and status = #{status}</if>
+    </select>
+    <select id="findById" parameterType="Long" resultMap="ListTalentRequirementResult">
+        <include refid="selectTalentRequirementVo"/>
+        where id = #{id}
+    </select>
+
+    <select id="selectTalentRequirementList" parameterType="com.netintech.park.domain.TalentRequirement" resultMap="TalentRequirementResult">
+        <include refid="selectTalentRequirementVo"/>
+        where del_flag=0
+        <if test="title != null  and title != ''"> and title = #{title}</if>
+        <if test="requireTypeId != null "> and require_type_id = #{requireTypeId}</if>
+        <if test="projectValuation != null "> and project_valuation = #{projectValuation}</if>
+        <if test="industryId != null "> and industry_id = #{industryId}</if>
+        <if test="degreeId != null "> and degree_id = #{degreeId}</if>
+        <if test="experienceId != null "> and experience_id = #{experienceId}</if>
+        <if test="description != null  and description != ''"> and description = #{description}</if>
+        <if test="parkId != null "> and park_id = #{parkId}</if>
+        <if test="enterpriseId != null "> and enterprise_id = #{enterpriseId}</if>
+        <if test="status != null  and status != ''"> and status = #{status}</if>
+    </select>
+
+    <select id="selectTalentRequirementById" parameterType="Long" resultMap="TalentRequirementResult">
+        <include refid="selectTalentRequirementVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertTalentRequirement" parameterType="com.netintech.park.domain.TalentRequirement" useGeneratedKeys="true" keyProperty="id">
+        insert into sys_talent_requirement
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="title != null  and title != ''">title,</if>
+            <if test="requireTypeId != null ">require_type_id,</if>
+            <if test="projectValuation != null ">project_valuation,</if>
+            <if test="industryId != null ">industry_id,</if>
+            <if test="degreeId != null ">degree_id,</if>
+            <if test="experienceId != null ">experience_id,</if>
+            <if test="description != null  and description != ''">description,</if>
+            <if test="parkId != null ">park_id,</if>
+            <if test="enterpriseId != null ">enterprise_id,</if>
+            <if test="status != null  and status != ''">status,</if>
+            <if test="delFlag != null  and delFlag != ''">del_flag,</if>
+            <if test="createBy != null  and createBy != ''">create_by,</if>
+            <if test="createTime != null ">create_time,</if>
+            <if test="updateBy != null  and updateBy != ''">update_by,</if>
+            <if test="updateTime != null ">update_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="title != null  and title != ''">#{title},</if>
+            <if test="requireTypeId != null ">#{requireTypeId},</if>
+            <if test="projectValuation != null ">#{projectValuation},</if>
+            <if test="industryId != null ">#{industryId},</if>
+            <if test="degreeId != null ">#{degreeId},</if>
+            <if test="experienceId != null ">#{experienceId},</if>
+            <if test="description != null  and description != ''">#{description},</if>
+            <if test="parkId != null ">#{parkId},</if>
+            <if test="enterpriseId != null ">#{enterpriseId},</if>
+            <if test="status != null  and status != ''">#{status},</if>
+            <if test="delFlag != null  and delFlag != ''">#{delFlag},</if>
+            <if test="createBy != null  and createBy != ''">#{createBy},</if>
+            <if test="createTime != null ">#{createTime},</if>
+            <if test="updateBy != null  and updateBy != ''">#{updateBy},</if>
+            <if test="updateTime != null ">#{updateTime},</if>
+        </trim>
+    </insert>
+
+    <update id="updateTalentRequirement" parameterType="com.netintech.park.domain.TalentRequirement">
+        update sys_talent_requirement
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="title != null  and title != ''">title = #{title},</if>
+            <if test="requireTypeId != null ">require_type_id = #{requireTypeId},</if>
+            <if test="projectValuation != null ">project_valuation = #{projectValuation},</if>
+            <if test="industryId != null ">industry_id = #{industryId},</if>
+            <if test="degreeId != null ">degree_id = #{degreeId},</if>
+            <if test="experienceId != null ">experience_id = #{experienceId},</if>
+            <if test="description != null  and description != ''">description = #{description},</if>
+            <if test="parkId != null ">park_id = #{parkId},</if>
+            <if test="enterpriseId != null ">enterprise_id = #{enterpriseId},</if>
+            <if test="status != null  and status != ''">status = #{status},</if>
+            <if test="delFlag != null  and delFlag != ''">del_flag = #{delFlag},</if>
+            <if test="createBy != null  and createBy != ''">create_by = #{createBy},</if>
+            <if test="createTime != null ">create_time = #{createTime},</if>
+            <if test="updateBy != null  and updateBy != ''">update_by = #{updateBy},</if>
+            <if test="updateTime != null ">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTalentRequirementById" parameterType="Long">
+        delete from sys_talent_requirement where id = #{id}
+    </delete>
+
+    <delete id="deleteTalentRequirementByIds" parameterType="String">
+        update sys_talent_requirement set del_flag=2 where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

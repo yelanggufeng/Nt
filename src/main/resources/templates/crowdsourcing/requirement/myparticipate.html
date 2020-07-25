@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <link th:href="@{/css/update.css}" rel="stylesheet"/>
+    <th:block th:include="include :: header('创新众包需求信息列表')"/>
+</head>
+<body class="gray-bg">
+<div class="container-div">
+
+    <div class="row">
+        <div class="col-sm-12 search-collapse">
+            <form id="formId">
+                <div class="select-list">
+                    <ul>
+                        <li>
+                            <p>标题：</p>
+                            <input type="text" name="title"/>
+                        </li>
+                        <li class="select-time">
+                            <p>截止日期：</p>
+                            <input type="text" class="time-input" id="startTime" placeholder="开始时间"
+                                   name="params[beginClosingDate]"/>
+                            <span>-</span>
+                            <input type="text" class="time-input" id="endTime" placeholder="结束时间"
+                                   name="params[endClosingDate]"/>
+                        </li>
+                        <li>
+                            <p>结果：</p>
+                            <select name="result">
+                                <option value="">所有</option>
+                                <option value="0">未解决</option>
+                                <option value="0">已解决</option>
+                            </select>
+                        </li>
+                        <li>
+                            <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i
+                                    class="fa fa-search"></i>&nbsp;搜索</a>
+                            <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i
+                                    class="fa fa-refresh"></i>&nbsp;重置</a>
+                        </li>
+                    </ul>
+                </div>
+            </form>
+        </div>
+        <div class="col-sm-12 select-table table-striped">
+            <table id="bootstrap-table" data-mobile-responsive="true"></table>
+        </div>
+    </div>
+</div>
+<th:block th:include="include :: footer"/>
+<script th:inline="javascript">
+    var detailFlag = [[${@permission.hasPermi('crowdsourcing:requirement:detail')}]];
+    var fieldIdDatas = [[${@dict.getType('sys_industry_sort')}]];
+    var prefix = ctx + "crowdsourcing/requirement";
+
+    $(function () {
+        var options = {
+            url: prefix + "/myview",
+            detailUrl: prefix + "/view/{id}",
+            modalName: "创新众包需求信息",
+            columns: [{
+                checkbox: true
+            },
+                {
+                    field: 'id',
+                    title: '创新众包需求ID',
+                    visible: false
+                },
+                {
+                    field: 'title',
+                    title: '标题'
+                },
+                {
+                    field: 'fieldId',
+                    title: '技术领域',
+                    formatter: function (value, row, index) {
+                        return $.table.selectDictLabel(fieldIdDatas, value);
+                    }
+                },
+                {
+                    field: 'rewardAmount',
+                    title: '悬赏金额'
+                },
+                {
+                    field: 'createTime',
+                    title: '发布日期'
+                },
+                {
+                    field: 'closingDate',
+                    title: '截止日期'
+                },
+                {
+                    field: 'result',
+                    title: '结果',
+                    formatter: function (value, row, index) {
+                        if (value == 1) {
+                            return "已解决";
+                        } else {
+                            return "未解决";
+                        }
+                    }
+                },
+                {
+                    title: '操作',
+                    align: 'center',
+                    formatter: function (value, row, index) {
+                        var actions = [];
+                        actions.push('<a class="btn btn-warning btn-xs ' + detailFlag + '" href="javascript:void(0)" onclick="$.operate.detail(\'' + row.id + '\')"><i class="fa fa-edit"></i>查看</a> ');
+                        actions.push('<a class="btn btn-warning btn-xs ' + '" href="javascript:void(0)" onclick="solutionList(\'' + row.id + '\')"><i class="fa fa-edit"></i>解决方案</a> ');
+                        return actions.join('');
+                    }
+                }]
+        };
+        $.table.init(options);
+    });
+
+    function solutionList(id) {
+        layer.open({
+            type: 2,
+            area: [1000 + 'px', ($(window).height() - 50) + 'px'],
+            fix: false,
+            //不固定
+            maxmin: true,
+            shade: 0.3,
+            title: "解决方案",
+            content: prefix + "/solutionList/" + id,
+            btn: ['关闭'],
+            // 弹层外区域关闭
+            shadeClose: true,
+            cancel: function (index) {
+                return true;
+            }
+        });
+    }
+</script>
+</body>
+</html>

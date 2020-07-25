@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.netintech.project.test.mapper.TestGenMapper">
+    
+    <resultMap type="TestGen" id="TestGenResult">
+        <result property="id"    column="id"    />
+        <result property="name"    column="name"    />
+        <result property="age"    column="age"    />
+    </resultMap>
+
+    <sql id="selectTestGenVo">
+        select id, name, age from test_gen
+    </sql>
+
+    <select id="selectTestGenList" parameterType="TestGen" resultMap="TestGenResult">
+        <include refid="selectTestGenVo"/>
+        <where>  
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="age != null "> and age = #{age}</if>
+        </where>
+    </select>
+    
+    <select id="selectTestGenById" parameterType="Integer" resultMap="TestGenResult">
+        <include refid="selectTestGenVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertTestGen" parameterType="TestGen">
+        insert into test_gen
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null ">id,</if>
+            <if test="name != null  and name != ''">name,</if>
+            <if test="age != null ">age,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null ">#{id},</if>
+            <if test="name != null  and name != ''">#{name},</if>
+            <if test="age != null ">#{age},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTestGen" parameterType="TestGen">
+        update test_gen
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null  and name != ''">name = #{name},</if>
+            <if test="age != null ">age = #{age},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTestGenById" parameterType="Integer">
+        delete from test_gen where id = #{id}
+    </delete>
+
+    <delete id="deleteTestGenByIds" parameterType="String">
+        delete from test_gen where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>

@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+    <title>党建服务</title>
+    <link rel="stylesheet" th:href="@{/xwyjs/css/all.css}">
+    <link rel="stylesheet" th:href="@{/xwyjs/css/style28.css}">
+    <link rel="stylesheet" th:href="@{/xwyjs/lib/layui/css/layui.css}">
+    <script th:src="@{/xwyjs/js/jquery.min.js}"></script>
+    <script th:src="@{/xwyjs/js/main.js}"></script>
+    <script th:src="@{/xwyjs/lib/layui/layui.js}"></script>
+    <script th:src="@{/xwyjs/js/28/W128_js.js}"></script>
+    <script th:src="@{/xwyjs/js/27/jquery.backgroundSize.js}"></script>
+</head>
+<body>
+<div class="W128_Container">
+    <div class="W128_content">
+        <div class="w128_inner">
+            <div class="X228_weizhi"><img src="/xwyjs/images/28/W228_dingwei.png" alt=""> 当前位置：首页>党建服务</div>
+            <div class="D128_content">
+                <div class="D128_left">
+                    <div>
+                        <div class="D128_lname">机构设置</div>
+                        <div class="D128_ljg D128_current D128_caidan"><img src="/xwyjs/images/28/D128_icon.png" alt="">组织机构</div>
+                        <div class="D128_ljg D128_caidan"><img src="/xwyjs/images/28/D128_icon.png" alt="">领导班子</div>
+                        <div class="D128_ljg D128_caidan"><img src="/xwyjs/images/28/D128_icon.png" alt="">机构职能</div>
+                    </div>
+                    <div style="margin-top:1em;">
+                        <div class="D128_lname">党建服务</div>
+                        <div class="D128_ljg D128_caidan1"><img src="" alt="">党建动态</div>
+                        <div class="D128_ljg D128_caidan1"><img src="" alt="">党建活动</div>
+                    </div>
+                </div>
+                <div class="D128_right">
+                    <div class="X228_top D128_rtop"><span>组织机构</span></div>
+                    <div class="D128_rcontent1" ><img id="tupian" style="max-width: 100%; max-height: 30em" th:src="@{${org}}" alt=""></div>
+                    <div class="D128_rcontent2" style="display: none;" >
+                        <div class="X228_content D128_content"  id="biu_list1">
+                        </div>
+
+                        <div id="fenye1" align="center" >
+                        </div>
+                    </div>
+                    <div class="D128_rcontent3" style="display: none;">
+                        <div class="X228_content D128_content3" id="biu_list2">
+                        </div>
+
+                        <div id="fenye2" align="center" >
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+</body>
+<script>
+
+    parent.changeScroll();
+    $(".D128_caidan").click(function(){
+        $(this).addClass('D128_current').siblings().removeClass('D128_current')
+        $(this).find('img').attr('src','/xwyjs/images/28/D128_icon1.png')
+        $(this).siblings().find('img').attr('src','/xwyjs/images/28/D128_icon.png')
+        $(".D128_caidan1").removeClass('D128_current')
+        $(".D128_caidan1").find('img').attr('src','/xwyjs/images/28/D128_icon.png')
+        $(".D128_rtop>span").text($(this).text())
+        var select =$(this).text()
+        $(".D128_rcontent1").show();
+        $(".D128_rcontent2").hide();
+        $(".D128_rcontent3").hide();
+        switch(select){
+            case "组织机构":
+                $("#tupian").attr('src', '[[${org}]]')
+                break;
+            case "领导班子":
+                $("#tupian").attr('src', '[[${ldbz}]]')
+                break;
+            case "机构职能":
+                $("#tupian").attr('src', '[[${jgzn}]]')
+                break;
+        }
+        setTimeout(conpare(),200)
+
+    })
+    $(".D128_caidan1").click(function(){
+        $(this).addClass('D128_current').siblings().removeClass('D128_current')
+        $(this).find('img').attr('src','/xwyjs/images/28/D128_icon1.png')
+        $(this).siblings().find('img').attr('src','/xwyjs/images/28/D128_icon.png')
+        $(".D128_caidan").removeClass('D128_current')
+        $(".D128_caidan").find('img').attr('src','/xwyjs/images/28/D128_icon.png')
+        $(".D128_rtop>span").text($(this).text())
+        var select1 =$(this).text()
+        switch(select1){
+            case "党建动态":
+                $(".D128_rcontent2").show()
+                $(".D128_rcontent1").hide()
+                $(".D128_rcontent3").hide()
+
+                var url = "/trend/trend/query/list";
+                var elem = "fenye1";
+                var id = 'biu_list1';
+                djdt(url,elem, id)
+                break;
+            case "党建活动":
+                $(".D128_rcontent3").show()
+                $(".D128_rcontent1").hide()
+                $(".D128_rcontent2").hide()
+                var url = "/partyactivity/partyactivity/query/list";
+                var elem = "fenye2";
+                var id = 'biu_list2';
+                djhd(url,elem, id)
+        }
+    })
+
+
+    function djdt(url, elem, id) {
+        $.ajax({
+            type: "POST",
+            url: url,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                layui.use(['laypage', 'layer'], function () {
+                    var laypage = layui.laypage,
+                        layer = layui.layer;
+                    //调用分页
+                    laypage.render({
+                        elem: elem,
+                        count: data.length,
+                        // limit: 10,
+                        // curr: 1,
+                        layout: ['count', 'prev', 'page', 'next', 'limit', 'refresh', 'skip'],
+                        jump: function (obj) {
+                            //模拟渲染
+                            document.getElementById(id).innerHTML = function () {
+                                var arr = [],
+                                    thisData = data.concat().splice(obj.curr * obj.limit - obj.limit, obj.limit);
+                                layui.each(thisData, function (index, item) {
+                                    var dayTime = new Date(item.publishTime);
+                                    var year = dayTime.getFullYear(); //获取当前年
+                                    var mon = dayTime.getMonth() + 1; //获取当前月
+                                    var date = dayTime.getDate(); //获取当前日
+                                    var str = item.trendContent;
+                                    if (str != null && str != '') {
+                                        str = str.replace(/(\n)/g, "");
+                                        str = str.replace(/(\t)/g, "");
+                                        str = str.replace(/(\r)/g, "");
+                                        str = str.replace(/<\/?[^>]*>/g, "");
+                                        str = str.replace(/\s*/g, "");
+                                        str = str.replace(/<[^>].*?>/g,"");
+                                        str=str.replace(/&nbsp;/ig,"")
+                                        if (str.length > 60) {
+                                            str = str.substring(0, 60) + ' ....'
+                                        }
+                                    }
+                                    arr.push('<div style="cursor:pointer;"><a href="/trend_conntent/' + item.id + ' "><div class="X228_c_time"><p class="X228_C_date" id="day">' + date + '</p><p class="X228_c_month" id="months">' + year + '/' + mon + '</p></div>' +
+                                        '<div class="X228_c_word D128_word"><p class="X228_c_name" id="title" >' + item.trendTitle +' </p>' +
+                                        '<p class="X228_c_content">' + str + '</p></div></a></div>');
+                                });
+                                return arr.join('');
+                            }();
+
+                            var height = $('.D128_right').position().top + $('.D128_right')[0].scrollHeight
+                            var leftHeight = $('.D128_left').position().top + $('.D128_left')[0].scrollHeight +50
+                            if(height > leftHeight){
+                                parent.changeIframe(height+'px')
+                            }else{
+                                parent.changeIframe(leftHeight+'px')
+                            }
+                        }
+                    });
+                });
+            }
+        });
+
+    }
+
+    function djhd(url, elem, id) {
+        $.ajax({
+            type: "POST",
+            url: url,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                layui.use(['laypage', 'layer'], function () {
+                    var laypage = layui.laypage,
+                        layer = layui.layer;
+                    //调用分页
+                    laypage.render({
+                        elem: elem,
+                        count: data.length,
+                        // limit: 10,
+                        // curr: 1,
+                        layout: ['count', 'prev', 'page', 'next', 'limit', 'refresh', 'skip'],
+                        jump: function (obj) {
+                            //模拟渲染
+                            document.getElementById(id).innerHTML = function () {
+                                var arr = [],
+                                    thisData = data.concat().splice(obj.curr * obj.limit - obj.limit, obj.limit);
+                                layui.each(thisData, function (index, item) {
+                                    var trendContent = item.theme;
+                                    if (trendContent != null && trendContent != '') {
+                                        trendContent = trendContent.replace(/<\/?[^>]*>/g,''); //去除HTML tag
+                                        trendContent = trendContent.replace(/[ | ]*\n/g,'\n'); //去除行尾空白
+                                        trendContent = trendContent.replace(/\n[\s| | ]*\r/g,'\n'); //去除多余空行
+                                        trendContent=trendContent.replace(/ /ig,'');//去掉
+                                        if (trendContent.length > 60) {
+                                            trendContent = trendContent.substring(0, 60) + ' ....'
+                                        }
+                                    }
+                                    var end=new Date(item.enterEndTime.replace("-", "/").replace("-", "/"));
+                                    arr.push('<div style="cursor:pointer;" class=" D128_word3"><a  href="/activity_conntent/' + item.id + '"><p class="D128_c_name">' + trendContent + '</p>' +
+                                        '<p class="D128_c_content">报名时间： ' + item.enterStartTime + '至' + item.enterEndTime +
+                                        '</p><p class="D128_c_content">活动地点：' + item.activityLocation + '</p>' +
+                                        '<div class="D128_c_img">')
+
+                                    if (end > new Date() ) {
+                                        arr.push('<img src="/xwyjs/images/28/D128_jxz.png" alt=""></div></a></div>')
+                                    } else {
+                                        arr.push('<img src="/xwyjs/images/28/D128_yjs.png" alt=""></div></a></div>')
+                                    }
+
+                                });
+                                return arr.join('');
+                            }();
+                            var height = $('.D128_right').position().top + $('.D128_right')[0].scrollHeight
+                            var leftHeight = $('.D128_left').position().top + $('.D128_left')[0].scrollHeight +50
+                            if(height > leftHeight){
+                                parent.changeIframe(height+'px')
+                            }else{
+                                parent.changeIframe(leftHeight+'px')
+                            }
+                        }
+                    });
+                });
+            }
+        });
+
+    }
+
+    $(document).ready(function(){
+        var select;
+        var myDate = new Date;
+        var year = myDate.getFullYear(); //获取当前年
+        var mon = myDate.getMonth() + 1; //获取当前月
+        var date = myDate.getDate(); //获取当前日
+        // var h = myDate.getHours();//获取当前小时数(0-23)
+        // var m = myDate.getMinutes();//获取当前分钟数(0-59)
+        // var s = myDate.getSeconds();//获取当前秒
+        var week = myDate.getDay();
+        var weeks = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"];
+        $("#time").html(year + "年" + mon + "月" + date + "日" + weeks[week]);
+
+        setTimeout(conpare(),200)
+
+        window.addEventListener('resize',function () {
+            setTimeout(function () {
+                var height = $('.D128_right').position().top + $('.D128_right')[0].scrollHeight
+                var leftHeight = $('.D128_left').position().top + $('.D128_left')[0].scrollHeight +50
+                if(height > leftHeight){
+                    parent.changeIframe(height+'px')
+                }else{
+                    parent.changeIframe(leftHeight+'px')
+                }
+            },100)
+        })
+    })
+
+    function conpare() {
+        // $('#tupian').load(function () {
+        //     $(this).fadeIn
+        //     var height = $('.D128_right').position().top + $('.D128_right')[0].scrollHeight
+        //     var leftHeight = $('.D128_left').position().top + $('.D128_left')[0].scrollHeight +50
+        //     console.log(height,leftHeight)
+        //     if(height > leftHeight){
+        //         parent.changeIframe(height+'px')
+        //     }else{
+        //         parent.changeIframe(leftHeight+'px')
+        //     }
+        // })
+
+        var height = $('.D128_right').position().top + $('.D128_right')[0].scrollHeight
+        var leftHeight = $('.D128_left').position().top + $('.D128_left')[0].scrollHeight +50
+        if(height > leftHeight){
+            parent.changeIframe(height+'px')
+        }else{
+            parent.changeIframe(leftHeight+'px')
+        }
+
+    }
+
+</script>
+</html>

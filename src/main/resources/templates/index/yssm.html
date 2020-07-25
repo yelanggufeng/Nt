@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+    <title>隐私声明</title>
+    <link rel="stylesheet" th:href="@{/xwyjs/css/all.css}">
+    <link rel="stylesheet" th:href="@{/xwyjs/css/style28.css}">
+    <link rel="stylesheet" th:href="@{/xwyjs/lib/layui/css/layui.css}">
+</head>
+<body>
+    <div class="W128_Container">
+        <div class="W128_content">
+            <div class="w128_inner">
+                <div class="X228_weizhi"><img src="/xwyjs/images/28/W228_dingwei.png" alt=""> 当前位置：首页>关于我们</div>
+                <div class="Y228_content">
+                    <p class="Y228_title">隐私声明</p>
+                    <p class="Y228_word">
+                        任何媒体、互联网站和商业机构不得利用本网站发布的内容进行商业性的原版原式地转载，也不得歪曲和篡改本网站所发布的内容。本网站所涉及到的版权归本网站所属。
+                    </p>
+                    <p class="Y228_word">
+                        本网站提供的资料如与相关纸质文本不符，以纸质文本为准。
+                    </p>
+                    <p class="Y228_word">
+                        任何媒体或互联网站不得擅自转载本网站由其他单位提供的信息和服务内容，如需转载，必须与相应提供单位直接联系获得合法授权。
+                    </p>
+                    <p class="Y228_word">
+                        本网站组织各类信息时会选用一些介绍永康的文章、图片等资料，被选用的文章、图片等资料的作者，如认为直接选用不妥，恳请及时与我们联系，我们将予以当即删除或妥当处理。一些单位和部门需要转载本网站上的文字图片等资料时，必须直接与作者联系征得同意，请勿直接转载。
+                    </p>
+                    <p class="Y228_tcsm">【特此声明】</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script th:src="@{/xwyjs/js/jquery.min.js}"></script>
+<script th:src="@{/xwyjs/js/main.js}"></script>
+<script th:src="@{/xwyjs/lib/layui/layui.js}"></script>
+<script th:src="@{/xwyjs/js/28/W128_js.js}"></script>
+<script th:src="@{/xwyjs/js/27/jquery.backgroundSize.js}"></script>
+
+<script th:inline="javascript">
+    $(document).ready(function () {
+        setTimeout(function () {
+            var height = $('.W128_Container').position().top + $('.W128_Container')[0].scrollHeight
+            parent.changeIframe(height+'px')
+            parent.changeScroll()
+        },200)
+    });
+</script>
+
+</html>

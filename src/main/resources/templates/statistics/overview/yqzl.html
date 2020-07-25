@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+  <title>永康市数字小微园政府监管应用</title>
+
+  <link rel="stylesheet" th:href="@{/xwyjs/css/all.css}">
+  <link rel="stylesheet" th:href="@{/xwyjs/css/style_06.css}">
+  <link rel="stylesheet" th:href="@{/xwyjs/css/style_27.css}">
+  <link rel="stylesheet" th:href="@{/xwyjs/lib/layui/css/layui.css}">
+
+
+  <style>
+    html{
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+  </style>
+</head>
+<body>
+<div class="L227_wrapper">
+  <div class="L227_content J106_content">
+    <div class="L227_content_left">
+      <div onclick="jumpPage('/statistics/overview/yqzl_zl')" class="L227_C_L_button J106_C_L_button L227_C_L_button1">
+        <span>小微园总览</span>
+      </div>
+      <div onclick="jumpPage('/statistics/overview/yqzl_jjyx')" class="L227_C_L_button J106_C_L_button J106_C_L_button2">
+        <span>经济运行</span>
+      </div>
+      <div class="L227_C_L_button J106_C_L_button J106_C_L_button2">
+        <span>项目推进</span>
+      </div>
+      <div class="L227_C_L_button J106_C_L_button J106_C_L_button2">
+        <span>运营服务</span>
+      </div>
+      <div onclick="jumpPage('/statistics/overview/realTime')" class="L227_C_L_button J106_C_L_button J106_C_L_button2">
+        <span>实时报表</span>
+      </div>
+    </div>
+    <div class="L227_content_right J106_content_right">
+      <iframe id="iframePage" class="L227_iframe j106_iframe" src="/statistics/overview/yqzl_zl" frameborder="0"></iframe>
+      <!-- <iframe class="L227_iframe" src="../27/tzfb27.html" frameborder="0"></iframe> -->
+      <!-- <iframe class="L227_iframe" src="../27/tsgl27.html" frameborder="0"></iframe> -->
+    </div>
+  </div>
+</div>
+<script th:src="@{/xwyjs/js/jquery.min.js}"></script>
+<script th:src="@{/xwyjs/js/main.js}"></script>
+<script th:src="@{/xwyjs/js/27/jquery.backgroundSize.js}"></script>
+<script th:src="@{/xwyjs/js/27/left27.js}"></script>
+<script th:src="@{/xwyjs/lib/layui/layui.js}"></script>
+<th:block th:include="include :: footer" />
+<script >
+  function jumpPage(url) {
+    $("#iframePage").attr('src', url);
+  }
+  function openTab (url) {
+    $.modal.openTab("园区总览二维", url);
+  }
+</script>
+</body>
+</html>

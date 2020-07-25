@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link th:href="@{/css/update.css}" rel="stylesheet"/>
+    <th:block th:include="include :: header('解决方案')"/>
+    <th:block th:include="include :: datetimepicker-css"/>
+</head>
+<style>
+    .control-label {
+        padding-right: 0 !important;;
+        padding-left: 0 !important;
+        font-size: 15px;
+        color: #3e434a;
+    }
+
+    .form-group > div {
+        padding-left: 4px !important;
+        padding-right: 4px !important;;
+    }
+
+    .form-control {
+        border-radius: 4px !important;
+        border: 1px solid #c5cbee;
+    }
+
+    form {
+        background-color: #eaf4fe;
+        padding: 20px 40px !important;
+        margin: 10px 0 !important;
+        border: 1px solid #cbdff4;
+    }
+
+    .content-title {
+        display: flex;
+        height: 20px;
+        align-items: center;
+    }
+
+    .content-title > span {
+        font-size: 16px;
+        color: #3e434a;
+        font-family: "Microsoft YaHei";
+        font-weight: bold;
+        margin-left: 6px;
+    }
+
+    .content-icon {
+        height: 15px;
+        width: 5px;
+        background-color: #2a7bf2;
+    }
+
+    .ibox-content {
+        padding: 20px 40px !important;
+    }
+</style>
+<body class="white-bg">
+<div class="wrapper wrapper-content animated ibox-content" th:object="${crowdsourcingRequirement}">
+    <form class="form-horizontal m" id="form-requirement-edit">
+        <input name="id" th:field="*{id}" type="hidden">
+        <input type="hidden" name="result" value="1">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label ">需求标题：</label>
+                    <div class="col-sm-9">
+                        <p class="form-control-static">[[*{title}]]</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label ">需求描述：</label>
+                    <div class="col-sm-9">
+                        <p class="form-control-static">[[*{detail}]]</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+<!--    <ol class="breadcrumb">-->
+<!--        <li><a href="#">问题一</a></li>-->
+<!--        <li><a href="#">问题二</a></li>-->
+<!--        <li class="active"><a href="#">问题三</a></li>-->
+<!--    </ol>-->
+    <ul class="nav nav-tabs">
+        <li role="presentation" class="active"><a href="javascript:void(0)" onclick="lookSolution(1)">问题一</a></li>
+        <li role="presentation"><a href="javascript:void(0)" onclick="lookSolution(2)">问题二</a></li>
+        <li role="presentation"><a href="javascript:void(0)" onclick="lookSolution(3)">问题三</a></li>
+    </ul>
+    <div class="main-content ">
+        <div class="col-sm-12 select-table table-striped" >
+            <table id="bootstrap-table" data-mobile-responsive="true"></table>
+        </div>
+    </div>
+</div>
+<th:block th:include="include :: footer"/>
+<th:block th:include="include :: datetimepicker-js"/>
+
+<script th:inline="javascript">
+    var prefix = ctx + "crowdsourcing/solution";
+    function submitHandler() {
+        if ($.validate.form()) {
+            $.operate.save("/crowdsourcing/requirement/resultSave", $('#form-requirement-edit').serialize());
+        }
+    }
+    var parkData = [[${@dict.getDeptList()}]];
+    $(function() {
+        var options = {
+            url: prefix + "/list?id="+[[${crowdsourcingRequirement.id}]],
+            modalName: "解决方案",
+            columns: [
+                {
+                    title: '回答内容',
+                    field : 'answerContent',
+                    align: 'center'
+                },
+                {
+                    title: '回答者',
+                    field : 'answerEnterpriseId',
+                    align: 'center',
+                    formatter: function (value, row, index) {
+                        return $.table.selectKey(parkData, value);
+                    }
+
+                },
+                {
+                    title: '联系方式',
+                    field : 'contractTel',
+                    align: 'center'
+                },
+                {
+                    title: '回答时间',
+                    field : 'answerTime',
+                    align: 'center'
+                },
+                {
+                    title: '状态',
+                    field : 'status',
+                    align: 'center',
+                    formatter: function (value, row, index) {
+                        if(value==0){
+                            return "未通过";
+                        }else{
+                            return "通过";
+                        }
+                    }
+                }]
+        };
+        $.table.init(options);
+
+        $(".fixed-table-toolbar").hide();
+    });
+
+    function lookSolution(noId) {
+        $("#bootstrap-table").bootstrapTable('refresh',{
+            query:
+                {
+                    questionNo:noId
+                }
+        });
+        $("[role='presentation']").removeAttr('class');
+        $(this).attr("class","active");
+    }
+</script>
+</body>
+</html>

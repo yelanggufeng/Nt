@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+    <title>企业端首页</title>
+    <link rel="stylesheet" th:href="@{/xwyjs/css/all.css}">
+    <link rel="stylesheet" th:href="@{/xwyjs/css/style28.css}">
+    <link rel="stylesheet" th:href="@{/xwyjs/lib/layui/css/layui.css}">
+
+    <style>
+        .modalIndex{ z-index: 999; }
+    </style>
+</head>
+<body class="gray-bg">
+<div class="Q128_container" >
+    <div class="Q128_top">
+        <div class="Q128_topinner">
+            <div class="Q128_img"><img th:src="@{/xwyjs/images/28/Q128_tongzhi.png}" alt=""></div>
+            <div class="Q128_title" th:object="${noticeList}">
+                <span  th:if="${not #lists.isEmpty(noticeList)}">
+                    <span th:if="${noticeList.get(0).publishUnit} == '0'"> 政府公告：[[${noticeList.get(0).title}]]</span>
+                    <span th:if="${noticeList.get(0).publishUnit} == '1'"> 园区公告：[[${noticeList.get(0).title}]]</span>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="Q128_content">
+        <div>
+            <div>
+                <div class="Q128_name">
+                    <div>园区指南<span class="more">
+                        <a class="btn btn-info" onclick="javascript:detail('/guide/guide/','园区指南')">
+                            <i class="fa fa-list"></i> 更多
+                        </a>
+                    </span></div>
+                </div>
+                <div class="Q128_list">
+                    <div>
+                        <div class="Q128_ysfwImg">
+                            <img th:src="@{/xwyjs/images/28/Q128_yqzn.png}"></img>
+                        </div>
+                        <div class="Q128_ysfwContent">
+                            <ul>
+                                <li th:each="item,itemStat : ${guideList}" th:if="${itemStat.count}<=5" th:onclick="parkDetail([[${item.id}]])">[[${item.guidTitle}]]<span class="more date"
+                                                               th:text="${#dates.format(item.effectiveTime,'yyyy-MM-dd')}"></span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row1_col2">
+                <div class="Q128_name">
+                    <div>政策服务<span class="more">
+                        <a class="btn btn-info"  onclick="javascript:detail('/categoryType/type','我要申报')">
+                            <i class="fa fa-list"></i> 更多
+                        </a>
+                    </span></div>
+                </div>
+                <div class="Q128_list">
+                    <div>
+                        <div class="Q128_zcfwContent">
+                            <ul >
+                                <li  id="win" th:each="item,itemStat : ${policyList}" th:if="${itemStat.count}<=5" th:onclick="policyDetail([[${item.id}]])">[[${item.typeName}]]<span class="more date"
+                                                           th:text="${#dates.format(item.createTime,'yyyy-MM-dd')}"></span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div>
+                <div class="Q128_name">
+                    <div>通知公告<span class="more">
+                        <a class="btn btn-info" onclick="javascript:detail('/notice/read','公告信息')">
+                            <i class="fa fa-list"></i> 更多
+                        </a>
+                    </span></div>
+                </div>
+                <div class="Q128_list">
+                    <div>
+                        <div class="Q128_zcfwContent">
+                            <ul >
+                                <li th:each="notice,itemStat : ${noticeList}"  th:if="${itemStat.count}<=5" th:onclick="noticeDetail([[${notice.noticeId}]], [[${notice.id}]], [[${notice.readStatus}]])">[[${notice.title}]]<span class="noread" th:if="${notice.readStatus == '0'}">未读</span>
+                                     <span class="more date" th:text="${#dates.format(notice.createTime,'yyyy-MM-dd')}"></span> </span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row1_col2">
+                <div class="Q128_name">
+                    <div class="qiehuan Q128_djdt box dt">党建动态</div>
+                    <div class="qiehuan Q128_djhd box hd">党建活动</div>
+                    <span class="more" style="right:5.8%;top:38%;">
+                       <a onclick="javascript:djDetail()"> 更多 </a>
+                    </span></div>
+                <div class="Q128_list">
+                    <div>
+                        <div class="Q128_djdtImg"><img th:src="@{/xwyjs/images/28/Q128_djhd.png}"></img></div>
+                        <div class="Q128_ysfwContent" id = "djdt">
+                            <ul class="dangjian0">
+                                <li class="dangjian" th:onclick="trendDetail([[${item.id}]])" th:each="item,itemStat : ${trendList}" th:if="${itemStat.count}<=5">[[${item.trendTitle}]]
+                                    <span class="more date" th:text="${#dates.format(item.publishTime,'yyyy-MM-dd')}"></span></li>
+                            </ul>
+                            <ul class="dangjian1" style="display: none;">
+                                <li class="dangjian" th:onclick="activeDetail([[${item.id}]])" th:each="item,itemStat : ${activityList}" th:if="${itemStat.count}<=5">[[${item.theme}]]
+                                    <span class="more date" th:text="${#dates.format(item.enterStartTime,'yyyy-MM-dd')}"></span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<th:block th:include="include :: footer" />
+<script>
+    $(window).ready(function () {
+        $(".Q128_topinner").css("backgroundSize", "100% 100%");
+        $(".Q128_content>div>div").css("backgroundSize", "100% 100%");
+        $(".box").on("click",function (e) {
+            var type = $(e.target).hasClass("dt");//党建动态 true = 1
+            if(type){//动态
+                $(".dangjian0").show();
+                $(".dangjian1").hide();
+            }else{// 活动
+                $(".dangjian1").show();
+                $(".dangjian0").hide();
+            }
+        });
+    })
+
+    $('.qiehuan').on('click', function (e) {
+        $(this).css('color', '#4e5486').siblings().css("color", "#a3a3a3");
+    });
+
+    /*列表-详细*/
+    function detail(url,title) {
+        $.modal.openTab(title, url);
+    }
+
+    function djDetail() {
+        if( $('.dangjian0').css("display")==='none') {
+            $.modal.openTab("活动报名", "partyactivity/partyactivity/activityapply");
+        } else {
+            $.modal.openTab("党建动态", "/trend/trend");
+        }
+    }
+
+    /* 政策服务详情*/
+    function commonDetail(title, url) {
+        var _width ='800' ;
+        var _height = '700';
+        //如果是移动端，就使用自适应大小弹窗
+        if (navigator.userAgent.match(/(iPhone|iPod|Android|ios)/i)) {
+            _width = 'auto';
+            _height = 'auto';
+        }
+        var options = {
+            title: title,
+            width: _width,
+            height: _height,
+            url: url,
+            skin: 'layui-layer-gray',
+            btn: ['关闭'],
+            yes: function (index, layero) {
+                layer.close(index);
+                window.location.reload();
+            }
+        };
+        $.modal.openOptions(options);
+    }
+
+    function policyDetail(id) {
+        var title = '政策服务详情';
+        var url = '/categoryType/type/view/' +id;
+        commonDetail(title,url);
+    }
+
+    /* 公告详情*/
+    function noticeDetail(noticeId, id, readStatus) {
+        var title = '公告详情';
+        var url = '/notice/read/detail/' + noticeId + "/" + id + "/" + readStatus;
+        commonDetail(title,url);
+    }
+
+    /* 园区详情*/
+    function parkDetail(id) {
+        var title = '园区指南详情';
+        var url = '/guide/guide/view/' + id;
+        commonDetail(title,url);
+    }
+
+    /* 党建动态*/
+    function trendDetail(id) {
+        var title = '党建动态详情';
+        var url = '/trend/trend/view/' + id;
+        commonDetail(title,url);
+    }
+
+    /* 党建活动*/
+    function activeDetail(id) {
+        var title = '党建活动详情';
+        var url = '/partyactivity/partyactivity/view/' + id;
+        commonDetail(title,url);
+    }
+</script>
+</body>
+</html>

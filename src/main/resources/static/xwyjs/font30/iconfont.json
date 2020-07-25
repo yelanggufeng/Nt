@@ -1,0 +1,16 @@
+{
+  "id": "1771793",
+  "name": "数字小微园",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "11673278",
+      "name": "日历",
+      "font_class": "rili",
+      "unicode": "e662",
+      "unicode_decimal": 58978
+    }
+  ]
+}

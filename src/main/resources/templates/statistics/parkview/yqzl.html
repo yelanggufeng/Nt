@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+    <title>园区总览</title>
+    <link rel="stylesheet" th:href="@{/xwyjs/css/all.css}">
+    <link rel="stylesheet" th:href="@{/xwyjs/css/particle.css}">
+    <link rel="stylesheet" th:href="@{/xwyjs/css/animate.css}">
+    <link rel="stylesheet" th:href="@{/xwyjs/css/style_26.css}">
+    <link rel="stylesheet" th:href="@{/xwyjs/lib/layui/css/layui.css}">
+    <link rel="stylesheet" th:href="@{/xwyjs/css/27/service.css}">
+    <link rel="stylesheet" th:href="@{/xwyjs/css/27/yqzl.css}">
+</head>
+<style>
+    .Y127_m_l1_div1{
+        line-height: 2.5rem;
+        font-size: 1.2rem;
+    }
+    .Y127_m_l1_div2{
+        font-size: 0.8rem;
+    }
+    .Y127_m_l1_div3{
+        font-size: 0.8rem;
+    }
+    .Y127_m_r1_div2_div2{
+        top: 50%;
+        left: 50%;
+        transform: translateX(-50%) translateY(-10%);
+    }
+    .Y127_m_r1_div2_div>div>img{
+        max-height: 75%;
+        width: auto;
+        left: 0;
+    }
+    .Y127_m_r1_div2_div{
+        padding: 1.6em 0 0 0;
+        height: 50%;
+    }
+    .Y127_m_r1_div2_div>div{
+        text-align: center;
+    }
+    .D126_wapper .Y127_main>div{
+        background-size: cover;
+    }
+</style>
+<body>
+<div class="D126_wapper">
+    <div class="D126_content animated bounceIn">
+        <div  class="Y127_main bg_27">
+            <div id="map" th:object="${overviewBean}">
+                <div class="Y127_main_left">
+                    <div class="Y127_main_left1 bg_27">
+                        <div>
+                            <div class="bg_27">
+                                <div class="Y127_m_l1_div1">[[${overviewBean.enterPark}]]</div>
+                                <div class="Y127_m_l1_div2">入园企业</div>
+                                <div class="Y127_m_l1_div3">(家)</div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="bg_27">
+                                <div class="Y127_m_l1_div1">[[${overviewBean.enterPerson}]]</div>
+                                <div class="Y127_m_l1_div2">入园人员</div>
+                                <div class="Y127_m_l1_div3">(万)</div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="bg_27">
+                                <div class="Y127_m_l1_div1">[[${overviewBean.income}]]</div>
+                                <div class="Y127_m_l1_div2">园区收入</div>
+                                <div class="Y127_m_l1_div3">(亿元)</div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="bg_27">
+                                <div class="Y127_m_l1_div1">[[${overviewBean.taxRevenue}]]</div>
+                                <div class="Y127_m_l1_div2">园区税收</div>
+                                <div class="Y127_m_l1_div3">(亿元)</div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="bg_27">
+                                <div class="Y127_m_l1_div1">[[${overviewBean.acreIncome}]]</div>
+                                <div class="Y127_m_l1_div2">亩均收入</div>
+                                <div class="Y127_m_l1_div3">(亿元)</div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="bg_27">
+                                <div class="Y127_m_l1_div1">[[${overviewBean.acreTax}]]</div>
+                                <div class="Y127_m_l1_div2">亩均税收</div>
+                                <div class="Y127_m_l1_div3">(亿元)</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="Y127_main_left2 bg_27">
+                        <div class="Y127_m_l2_div1">
+                            <span><span>园区概况</span></span>
+                        </div>
+                        <div class="Y127_m_l2_div2">
+                            <div class="Y127_m_l2_div2_d1" th:text="${#strings.abbreviate(overviewBean.parkDesc,230)}"></div>
+<!--                            <div class="Y127_m_l2_div2_d1">总建筑面积为169，362.42m²，其中标准厂房面积为111，963m²，定制厂房区32，840m²，物流区面积为24，007m²。</div>-->
+                        </div>
+                    </div>
+                </div>
+                <div class="Y127_main_right">
+                    <div class="Y127_main_right1 bg_27" th:object="${train}">
+                        <div class="Y127_m_r1_div1 bg_27">企业培育情况</div>
+                        <div class="Y127_m_r1_div2">
+                            <div class="bg_27">
+                                <div class="Y127_m_r1_div2_div">
+                                    <div>
+                                        <div class="Y127_m_r1_div2_div1">规上企业</div>
+                                        <img th:src="@{/xwyjs/images/27/Y127_bg8.png}" alt="">
+                                        <div class="Y127_m_r1_div2_div2">[[${train.regulated}]]</div>
+                                    </div>
+                                </div>
+                                <div class="Y127_m_r1_div2_div">
+                                    <div>
+                                        <div class="Y127_m_r1_div2_div1">高新技术</div>
+                                        <img th:src="@{/xwyjs/images/27/Y127_bg8.png}" alt="">
+                                        <div class="Y127_m_r1_div2_div2">[[${train.highTech}]]</div>
+                                    </div>
+                                </div>
+                                <div class="Y127_m_r1_div2_div">
+                                    <div>
+                                        <div class="Y127_m_r1_div2_div1">省科技企业</div>
+                                        <img th:src="@{/xwyjs/images/27/Y127_bg8.png}" alt="">
+                                        <div class="Y127_m_r1_div2_div2">[[${train.technology}]]</div>
+                                    </div>
+                                </div>
+                                <div class="Y127_m_r1_div2_div">
+                                    <div>
+                                        <div class="Y127_m_r1_div2_div1">专精特新</div>
+                                        <img th:src="@{/xwyjs/images/27/Y127_bg8.png}" alt="">
+                                        <div class="Y127_m_r1_div2_div2">[[${train.special}]]</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="Y127_main_right2 bg_27">
+                        <div class="Y127_m_r1_div1 bg_27">企业类型</div>
+                        <div class="Y127_m_r1_div2">
+                            <div class="bg_27" id="Y127_echart1"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script th:src="@{/xwyjs/js/jquery.min.js}"></script>
+<script th:src="@{/xwyjs/js/main.js}"></script>
+<script th:src="@{/xwyjs/js/jquery.backgroundSize.js}"></script>
+<script th:src="@{/xwyjs/js/echarts/echarts.js}"></script>
+<script th:src="@{/xwyjs/lib/layui/layui.js}"></script>
+<script th:src="@{/xwyjs/js/27/left27.js}" ></script>
+<script th:src="@{/xwyjs/js/echarts/Y127_echart1.js}"></script>
+<script type="text/javascript">
+
+    var liveView = '[[${overviewBean.liveView}]]'
+    if (liveView != '' && liveView != null) {
+        document.getElementById('map').style.background = "url(" + liveView + ") no-repeat";
+        document.getElementById('map').style.backgroundSize = "cover";
+    }else {
+        console.log(11111);
+        document.getElementById('map').style.background = "url('../../../xwyjs/images/28/W128_kjy.png') no-repeat ";
+        document.getElementById('map').style.backgroundSize = "cover";
+    }
+    $(document).ready(function() {
+
+    })
+</script>
+</html>

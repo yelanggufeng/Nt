@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+    <title>小微园区</title>
+    <link rel="stylesheet" th:href="@{/xwyjs/css/all.css}">
+    <link rel="stylesheet" th:href="@{/xwyjs/css/style28.css}">
+    <link rel="stylesheet" th:href="@{/xwyjs/css/style_27.css}">
+    <link rel="stylesheet" th:href="@{/xwyjs/lib/layui/css/layui.css}">
+</head>
+<body>
+<div class="W128_Container W127_xwyq">
+    <div class="W128_content">
+        <div class="w128_inner">
+            <div class="X228_weizhi"><img src="/xwyjs/images/28/W228_dingwei.png" alt=""> 当前位置：首页>小微园区</div>
+            <div class="X127_content">
+                <div>
+                    <div class="X127_content_left">
+                        <ul>
+                            <li class="I127_left1"><i></i><a th:onclick="parkDetail()" href="###" class="active">全部</a></li>
+                            <li class="I127_left2" th:each="item,itemStat : ${areaList}">
+                                <input id="id" name="id" th:value="${item.areaId}" type="hidden">
+                                <i></i>
+                                <a th:onclick="parkDetail([[${item.areaId}]])" href="###">[[${item.areaName}]]</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="X127_content_right">
+                        <div>
+                            <div class="X127_content_right_top">
+                                <div><span>全部</span></div>
+                            </div>
+                            <div class="X127_content_right_bottom" id="biu_list">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="fenye" align="center">
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script th:src="@{/xwyjs/js/jquery.min.js}"></script>
+<script th:src="@{/xwyjs/js/main.js}"></script>
+<script th:src="@{/xwyjs/lib/layui/layui.js}"></script>
+<script th:src="@{/xwyjs/lib/layui/lay/modules/laypage.js}"></script>
+<script>
+    $(function () {
+        $('.X127_content_left>ul>li').click(function () {
+            $(this).find('a').addClass('active')
+            $(this).siblings().find('a').removeClass('active')
+        })
+
+        parent.changeScroll()
+
+        var myDate = new Date;
+        var year = myDate.getFullYear(); //获取当前年
+        var mon = myDate.getMonth() + 1; //获取当前月
+        var date = myDate.getDate(); //获取当前日
+        var week = myDate.getDay();
+        var weeks = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"];
+        $("#time").html(year + "年" + mon + "月" + date + "日" + weeks[week]);
+
+        var data = new FormData();
+        toAjax(data);
+
+    })
+
+    function parkDetail(id) {
+        var data = new FormData();
+        if (id !=null) {
+            data.append("areaId", id);
+        }
+        toAjax(data);
+    }
+
+
+    function toAjax(data) {
+        $.ajax({
+            data: data,
+            type: "POST",
+            url: "/smallpark/park/info",
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                layui.use(['laypage', 'layer'], function(){
+                    var laypage = layui.laypage,
+                        layer = layui.layer;
+                    //调用分页
+                    laypage.render({
+                        elem: 'fenye',
+                        count: data.length,
+                        layout: ['count', 'prev', 'page', 'next', 'limit', 'refresh', 'skip'],
+                        jump: function(obj){
+                            //模拟渲染
+                            document.getElementById('biu_list').innerHTML = function(){
+                                var arr = [],
+                                    thisData = data.concat().splice(obj.curr*obj.limit - obj.limit, obj.limit);
+                                layui.each(thisData, function(index, item){
+                                    var zongbj = 0;
+                                    if (item.usedBuildingSpace != null) {
+                                        zongbj = item.usedBuildingSpace.toFixed(2);
+                                    }
+                                    var shengbj = 0;
+                                    var userd = 0
+                                    if (item.rentSituation != null) {
+                                        userd = item.rentSituation;
+                                    }
+                                    if (zongbj >= userd) {
+                                        shengbj = (zongbj- userd).toFixed(2);
+                                    }
+                                    var addr;
+                                    if (item.detailedAddress == null) {
+                                        addr = '';
+                                    } else {
+                                        addr = item.detailedAddress;
+                                    }
+
+                                    var img = item.filePath == null ? '/xwyjs/images/28/W128_zwtp.png' : item.filePath;
+
+                                    arr.push('<div class="X127_c_r_b">\n' +
+                                        '                                        <div class="X127_c_r_b_left">\n' +
+                                        '                                            <div class="X127_c_r_b_left1">\n' +
+                                        '                                                <a href="/xwyq_conntent/' + item.id +'"><img  src="' + img +'" alt=""> <a>\n' +
+                                        '                                            </div>\n' +
+                                        '                                            <div class="X127_c_r_b_left2">\n' +
+                                        '                                                <a href="/xwyq_conntent/' + item.id +'"> <div><span> ' + item.parkName + '</span></div>\n' +
+                                        '                                                <div><span>总建筑面积：' + zongbj + '万㎡</span></div>\n' +
+                                        '                                                <div><span>待出租面积：' + shengbj +'万㎡</span></div>\n' +
+                                        '                                                <div><span>地址：' + addr + '</span></div></a>\n' +
+                                        '                                            </div>\n' +
+                                        '                                        </div>\n' +
+                                        '                                    </div>')
+                                });
+                                return arr.join('');
+                            }();
+                            var height = $('#fenye').position().top + $('#fenye')[0].scrollHeight
+                            var height1 = $('.X127_content_left').position().top + $('.X127_content_left')[0].scrollHeight
+                            if(height > height1){
+                                parent.changeIframe(height+'px')
+                            }else{
+                                parent.changeIframe(height1+'px')
+                            }
+                        }
+                    });
+                });
+            }
+        });
+    }
+
+
+    // function detail(id) {
+    //     console.log(id)
+    //     $("#detail").attr('src', '/xwyq_conntent/' + id);
+    // }
+</script>
+</html>

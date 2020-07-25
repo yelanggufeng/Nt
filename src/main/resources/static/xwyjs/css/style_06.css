@@ -1,0 +1,121 @@
+/**
+ * 
+ * Author: wsp
+ * CreatDate: 2020-04-22
+ *
+ */
+@charset "UTF-8";
+/*园区总览-经济运行*/
+.j106_iframe {position: absolute; left: 0; right: 0; top: 0; bottom: 0;}
+.J106_content {background-color: #ffffff!important;}
+.J106_content_right {overflow: unset; height: auto!important; overflow-x: unset!important; min-height: 100%;}
+.J106_C_L_button {padding: 0 17px!important; height: 7em!important; position: relative;}
+.J106_C_L_button>span {width: 1em; position: absolute; top: 0; bottom: 0; left: 0; right: 0; margin: auto; height: 6.5em;}
+.J106_C_L_button2>span {height: 5em;}
+.J106_wrapper {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    padding: 0 1.2em;
+}
+.J106_up {
+    width: 100%;
+    height: 4.6%;
+    font-size: 0.9em;
+    color: #4d4d4d;
+    box-sizing: border-box;
+    padding: 0.5em 0.7em;
+    position: relative;
+}
+.J106_content {width: 100%; height: 94%; border: 1px solid #c7d8ee; padding: 0.7em;}
+.J106_top {padding-right: 23.37em; height: 77.45%;}
+.J106_topLeft {width: 100%; float: left; height: 100%;}
+.J106_topRight {width: 22.67em; margin-right: -23.37em; height: 100%; float: right; box-shadow: 0 0 0.4em #e4efff;}
+.J106_qqpy {width: 100%; height: 28.73%; box-shadow: 0 0 0.4em #e4efff;}
+.J106_middle {margin-top: 0.7em; padding-left: 20.98em; height: 69.74%;}
+.J106_middleLeft {margin-left: -20.98em; width: 20.28em; float: left; height: 100%;}
+.J106_middleRight {width: 100%; float: right; height: 100%;}
+.J106_yqgxl {height: 65.2%; box-shadow: 0 0 0.4em #e4efff;}
+.J106_yqmjss {height: 33.2%; box-shadow: 0 0 0.4em #e4efff; margin-top: 2.5%;}
+.J106_qzjjyx {height: 100%; box-shadow: 0 0 0.4em #e4efff;}
+.J106_bottom {margin-top: 0.7em; padding-left: 20.98em; height: 20.93%; margin-top: 1%;}
+.J106_bottomLeft {margin-left: -20.98em; width: 20.28em; float: left; height: 100%; box-shadow: 0 0 0.4em #e4efff;}
+.J106_bottomRight {width: 100%; float: right; height: 100%; box-shadow: 0 0 0.4em #e4efff;}
+.J106_item {padding-top: 2em;}
+.J106_itemTop {height: 2em; padding: 0 1em; margin-top: -2em;}
+.J106_itemTitle {color: #34383c; font-size: 1em; font-weight: bold; line-height: 1em; margin-top: 1em; float: left;}
+.J106_itemContent {border: 1px solid #2a7bf2; width: 68%; height: 80%; margin: 3% auto;}
+.J106_itemInfo {text-align: center; height: 50%; margin-top: 5%;}
+.J106_itemNumber {color: #2a7bf2; font-size: 1.67em;}
+.J106_itemUnit {font-size: 0.78em; color: #000000;}
+.J106_itemName {font-size: 0.89em; color: #000000; text-align: center;}
+.J106_imgBg {position: absolute; right: 0;bottom: 0;margin: auto; height: 100%; left: 0; top: 0; z-index: -1;}
+.J106_qqpyList {margin: 0 2%; height: 100%;}
+.J106_qqpyList>li {float: left; display: block; width: 25%; height: 100%; border-left: 1px solid #e1e1e1;}
+.J106_qqpyList>li:first-child {border-left: none;}
+.J106_qqpyInfo {position: relative; z-index: 0; height: 62%; margin: 7% auto 2%;}
+.J106_qqpyValue {width: 100%; height: 100%; line-height: 1; text-align: center; position: relative;}
+.J106_qqpyValue>div {position: absolute; left: 0; right: 0; top: 0; bottom: 0; margin: auto; height: 1.67em; text-align: center;}
+.J106_qqpyNumber {font-size: 1.67em;}
+.J106_qqpyNumber1 {color: #2a7bf2;}
+.J106_qqpyNumber2 {color: #ea6a02;}
+.J106_qqpyNumber3 {color: #018d1e;}
+.J106_qqpyNumber4 {color: #218aa4;}
+.J106_qqpyNumber5 {color: #9c46bc;}
+.J106_qqpyNumber6 {color: #f56580;}
+.J106_qqpyName {font-size: 1em; text-align: center;}
+.J106_yqgxlChart {height: 100%; width: 100%;}
+.J106_yqgxlGo {float: right; margin-top: 1.125em; font-size: 0.89em;}
+.J106_yqgxlDate {float: right; margin-top: 1em; margin-right: 0.5em;}
+.J106_yqgxlDateChoose {width: 2em; float: left; font-size: 0.89em; cursor: pointer; text-align: center;}
+.J106_yqgxlDateChoose:hover {color: #1e87f0;}
+.J106_yqgxlDateCur {border-bottom: 1px solid #6288f1; color: #1e87f0;}
+.J106_yqyysrph {height: 100%;}
+.J106_yqyysrphChart {height: 100%; width: 100%;}
+.J106_yqmjcz {height: 100%;}
+.J106_gdysjj {height: 100%;}
+.J106_gdysjjContent {height: 100%;}
+.J106_itemContent2 {width: 14.6%; float: left; margin: 1%; border: none; background-color: #f1f1f1;}
+.J106_qzjjyxMap {height: 92%; width: 96%; margin: 2%;}
+.J106_mapIcon {width: 27px; height: 39px; background: url(../images/06/J106_mapIcon.png) no-repeat center bottom;}
+.J106_mapIcon>svg {width: 100%; height: 100%;}
+/*总览*/
+.Z106_container {position: relative; width: 100%; height: 100%;}
+.Z106_mapOuter {width: 100%; height: 100%; border: 1px solid #e0e8f2;}
+.Z106_mapTips {position: absolute; bottom: 1%; right: 1%; height: 14.5%; width: 7.2em; background-color: #ffffff;box-shadow: 0 0 0.4em #e4efff; border: 1px solid #e4e4e4;}
+.Z106_mapTip {height: 25%; text-align: center;}
+.Z106_mapTip>span {color: #0f0f0f; font-size: 0.83em; display: inline-block; width: 4em; margin-left: 1em; text-align: left;}
+.Z106_item {padding-top: 2em; box-shadow: 0 0 0.4em #e4efff;}
+.Z106_itemTop {height: 2em; line-height: 2em; margin-top: -2em; background-color: #2a7bf2; padding: 0 0.5em;}
+.Z106_itemTitle {color: #ffffff; font-size: 0.83em; font-weight: bold; float: left;}
+.Z106_itemContent {height: 100%; background-color: #ffffff;}
+.Z106_zhhz {position: absolute; left: 1em; top: 1%; width: 22%; height: 55%;}
+.Z106_zhhzTableOuter {padding: 0.5em; height: 100%;}
+.Z106_zhhzTable {border-collapse: collapse; border: 1px solid #eaecf2; width: 100%; height: 100%;}
+.Z106_zhhzTable tr {height: 25%;}
+.Z106_zhhzTable tr>td {border: 1px solid #eaecf2; width: 50%; vertical-align: middle; text-align: center;}
+.Z106_zhhzIconOuter {display: inline-block; width: 38%; text-align: center; float: left; margin-top: 0.4em;}
+.Z106_zhhzIcon {width: 68%;}
+.Z106_zhhzInfo {display: inline-block; width: 62%; text-align: left; float: left;}
+.Z106_zhhzNumber {color: #000000; font-size: 1.67em; margin-top: 0.2em;}
+.Z106_zhhzName {color: #4c4c4c; font-size: 0.78em;}
+.Z106_ryqyqs {position: absolute; left: 1em; top: 59%; width: 22%; height: 38.5%;}
+.Z106_total {position: absolute; width: 71%; height: 14%; left: 24%; top: 1%; background-color: #ffffff;box-shadow: 0 0 0.4em #e4efff; padding: 0.8% 0;}
+.Z106_totalItem {width: 20%; float: left; border-left: 1px solid #e5edf7; height: 100%; text-align: center;}
+.Z106_total>.Z106_totalItem:first-child {border-left: none;}
+.Z106_totalNumber {height: 100%; display: inline-block; position: relative; z-index: 0; width: 40%; vertical-align: middle;}
+.Z106_totalNumber>span {position: absolute; left: 0; right: 0; top: 0; bottom: 0; margin: auto; text-align: center; color: #ffffff; font-size: 1.44em; height: 1.44em; display: inline-block;}
+.Z106_totalName {display: inline-block; color: #000000; font-size: 1em;}
+.Z106_xwyOuter {width: 55%;  position: absolute; left: 30%; bottom: 1%; background-color: #ffffff; background-color: rgba(255, 255, 255, .7); box-shadow: 0 0 0.4em #e4efff; padding: 0.8% 1%; border: 1px solid #bdd8ff;}
+.Z106_xwy {width: 100%; height: 100%; border: 1px solid #e8eff8; background-color: #ffffff; padding: 2%;}
+.Z106_xwyItem {width: 33.3%; float: left; height: 45%;}
+.Z106_xwyItemIcon {display: inline-block; text-align: right; width: 4em;}
+.Z106_xwyItemIcon>img {width: 0.56em;}
+.Z106_xwyItemName {display: inline-block; font-size: 0.89em; color: #1f1f1f; text-align: left;}
+.Z106_ryqyqsCharts {width: 100%; height: 100%;}
+
+
+
+
+
+

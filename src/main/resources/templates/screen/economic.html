@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+    <title>经济运行</title>
+    <link rel="stylesheet" th:href="@{/xwyjs/css/all.css}">
+    <link rel="stylesheet" th:href="@{/xwyjs/css/particle.css}">
+    <link rel="stylesheet" th:href="@{/xwyjs/css/animate.css}">
+    <link rel="stylesheet" th:href="@{/xwyjs/css/style_26.css}">
+    <link rel="stylesheet" th:href="@{/xwyjs/lib/layui/css/layui.css}">
+</head>
+<style>
+    .D126_bottom_right .R126_rightContent .R126_rightContent_item div>span:first-child{
+        max-width: 50%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+</style>
+<body>
+<div class="D126_wapper">
+    <div class="D126_content animated bounceIn">
+        <div msg-data="css漂浮的粒子" class="R126_cr_particle">
+            <div class="container">
+            </div>
+        </div>
+        <div class="R126_top">
+            <div class="R126_map">
+                <div class="D126_left_title">数字小微园分布</div>
+                <div class="R126_mapContain">
+                    <div id="map" style="width: 100%;height: 100%;"></div>
+                </div>
+            </div>
+            <div class="R126_top_right">
+                <div class="R126_top">
+                    <div class="D126_left_title">企业培育情况</div>
+                    <div id="R126_topChart" style="width: 100%;height: 90%;"></div>
+                </div>
+                <div class="R126_right_bottom">
+                    <div class="R126_tax">
+                        <div class="D126_left_title">园区亩均税收</div>
+                        <div id="R126_taxChart" class="R126_taxChart" style="width: 100%;height: 90%;"></div>
+                        <span>亩均税收总额</span>
+                    </div>
+                    <div class="R126_output">
+                        <div class="D126_left_title">园区亩均产值</div>
+                        <div id="R126_outputChart" class="R126_outputChart" style="width: 100%;height: 90%;"></div>
+                        <span>亩均产值总额</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="D126_bottom" style="height: 38%;">
+            <div class="D126_bottom_left">
+                <div class="D126_left_title" id = "R126_circle">园区就业贡献率</div>
+                <div class="R126_circle" th:object="${employment}" >
+                <div class="R126_circle1 R126_circle_stop">[[${employment.get(0).obtainRate}]]%</div>
+                <img th:src="@{/xwyjs/images/26/P126_left1.png}" class="R126_line1" />
+                <span class="P126_item1 P126_item">[[${employment.get(0).name}]]</span>
+                    <div th:if="${employment.size() > 1}">
+                        <div class="R126_circle2 R126_circle_stop" >[[${employment.get(1).obtainRate}]]%</div>
+                        <img th:src="@{/xwyjs/images/26/P126_topcenter.png}" class="R126_line2" />
+                        <span class="P126_item2 P126_item">[[${employment.get(1).name}]]</span>
+                    </div>
+                    <div th:if="${employment.size() > 2}">
+                        <div class="R126_circle3 R126_circle_stop">[[${employment.get(2).obtainRate}]]%</div>
+                        <img th:src="@{/xwyjs/images/26/P126_right2.png}" class="R126_line3" />
+                        <span class="P126_item3 P126_item">[[${employment.get(2).name}]]</span>
+                    </div>
+                    <div  th:if="${employment.size() > 3}">
+                        <div class="R126_circle4 R126_circle_stop">[[${employment.get(3).obtainRate}]]%</div>
+                        <img th:src="@{/xwyjs/images/26/P126_left2.png}" class="R126_line4" />
+                        <span class="P126_item4 P126_item">[[${employment.get(3).name}]]</span>
+                    </div>
+
+
+
+            </div>
+            </div>
+            <div class="D126_bottom_middle">
+                <div class="D126_left_title">园区营业收入</div>
+                <div id="table"></div>
+            </div>
+            <div class="D126_bottom_right">
+                <div class="D126_left_title">高端要素聚集</div>
+                <div class="R126_rightContent">
+                    <div class="R126_rightContent_item">
+                        <div>
+                            <span>人才密度</span>
+                            <span>[[${part.rcmd}]] %</span>
+                        </div>
+                        <div class="layui-progress R126_process R126_process1">
+                            <div class="layui-progress-bar" lay-percent="10%"></div>
+                        </div>
+                    </div>
+                    <div class="R126_rightContent_item">
+                        <div>
+                            <span>外资企业数</span>
+                            <span>[[${part.foreignCount}]]个</span>
+                        </div>
+                        <div class="layui-progress R126_process R126_process2">
+                            <div class="layui-progress-bar" lay-percent="20%"></div>
+                        </div>
+                    </div>
+                    <div class="R126_rightContent_item">
+                        <div>
+                            <span>获得风险投资</span>
+                            <span>23亿元</span>
+                        </div>
+                        <div class="layui-progress R126_process R126_process3">
+                            <div class="layui-progress-bar" lay-percent="40%"></div>
+                        </div>
+                    </div>
+                    <div class="R126_rightContent_item">
+                        <div>
+                            <span>产业基金投资</span>
+                            <span>23亿元</span>
+                        </div>
+                        <div class="layui-progress R126_process R126_process4">
+                            <div class="layui-progress-bar" lay-percent="70%"></div>
+                        </div>
+                    </div>
+                    <div class="R126_rightContent_item">
+                        <div>
+                            <span>企业平均专利数</span>
+                            <span>[[${part.patentAverage}]]个</span>
+                        </div>
+                        <div class="layui-progress R126_process R126_process5">
+                            <div class="layui-progress-bar" lay-percent="50%"></div>
+                        </div>
+                    </div>
+                    <div class="R126_rightContent_item">
+                        <div>
+                            <span>品牌部拥有总数</span>
+                            <span>[[${part.ownership}]]个</span>
+                        </div>
+                        <div class="layui-progress R126_process R126_process6">
+                            <div class="layui-progress-bar" lay-percent="30%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+<script src="//webapi.amap.com/maps?v=1.4.15&key=358df98d6a1422dc83713fddaa8d260c&plugin=AMap.DistrictSearch"></script>
+<script th:src="@{/xwyjs/js/jquery.min.js}"></script>
+<script th:src="@{/xwyjs/js/main.js}"></script>
+<script th:src="@{/xwyjs/js/jquery.backgroundSize.js}"></script>
+<script th:src="@{/xwyjs/js/echarts/echarts.js}"></script>
+<script th:src="@{/xwyjs/lib/layui/layui.js}"></script>
+<script th:inline="javascript">
+
+    $(document).ready(function() {
+        if ([[${employSize}]] ==1) {
+            init1()
+        } else if ([[${employSize}]] ==2) {
+            init2();
+        } else if ([[${employSize}]] ==3) {
+            init3();
+        }else if([[${employSize}]] >=4) {
+            init();
+        }
+
+    })
+    function init1(){
+        $('.R126_circle1').animate({top: 0,opacity: 0},2000).animate({top: '20%',opacity: 1},1000,function () {
+            init1()
+        })
+    }
+    function init2(){
+        $('.R126_circle1').animate({top: 0,opacity: 0},2000).animate({top: '20%',opacity: 1},1000,function () {
+            $('.R126_circle2').animate({top: 0,opacity: 0},2000).animate({top: '24%',opacity: 1},1000,function () {
+                init2()
+            })
+        })
+    }
+    function init3(){
+        $('.R126_circle1').animate({top: 0,opacity: 0},2000).animate({top: '20%',opacity: 1},1000,function () {
+            $('.R126_circle2').animate({top: 0,opacity: 0},2000).animate({top: '24%',opacity: 1},1000,function () {
+                $('.R126_circle3').animate({top: 0,opacity: 0},2000).animate({top: '18%',opacity: 1},1000,function () {
+                        init3();
+                })
+            })
+        })
+    }
+
+    function init(){
+        $('.R126_circle1').animate({top: 0,opacity: 0},2000).animate({top: '20%',opacity: 1},1000,function () {
+            $('.R126_circle2').animate({top: 0,opacity: 0},2000).animate({top: '24%',opacity: 1},1000,function () {
+                $('.R126_circle3').animate({top: 0,opacity: 0},2000).animate({top: '18%',opacity: 1},1000,function () {
+                    $('.R126_circle4').animate({top: 0,opacity: 0},2000).animate({top: '60%',opacity: 1},1000,function () {
+                                    init();
+                    })
+                })
+            })
+        })
+    }
+
+    layui.use(['element','table'], function(){
+        var element = layui.element;
+        var table = layui.table;
+        var yqyyData = [];
+        $.ajax({
+            cache: true,
+            contentType: "application/json",
+            dataType: "json",
+            type: "GET",
+            url: "/index/park/rank",
+            async: false,
+            error: function (request) {
+                $.modal.alertError("系统错误");
+            },
+            success: function (data) {
+                yqyyData = data;
+            }
+        });
+
+        table.render({
+            elem: '#table',
+            height: $('.D126_bottom_middle').height()*0.88,
+            cols: [
+                [
+                {field: 'ranking', title: '排名',align: 'center',templet:function (data) {
+                        if(data.LAY_INDEX > 3){
+                            return '<div class="R126_rank">' + 'NO.' + data.LAY_INDEX + '</div>'
+                        }else {
+                            return '<div class="R126_rank' + data.LAY_INDEX + '">' + 'NO.' + data.LAY_INDEX + '</div>'
+                        }
+                    }},
+                {field: 'NAME', title: '园区名称',align: 'center'},
+                {field: 'income', title: '收入',align: 'center',templet:function (data) {
+                        return '<div class="R126_num">' +data.income + '<span class="R126_type">亿元</span>' + '</div>'
+                    }},
+            ]
+            ],
+            data: yqyyData,
+            done: function () {
+                var speed = 50
+                var html = $('.layui-table-body').find('tbody').html()
+                function marQueen(){
+                    if ($('.layui-table-body')[0].scrollTop>=($('.layui-table-body')[0].scrollHeight/3)) {
+                        $('.layui-table-body').find('tbody').append(html)
+                    } else {
+                        $('.layui-table-body')[0].scrollTop++;
+                    }
+                }
+                var MyMar = setInterval(marQueen, speed);
+                $('.layui-table-body > tbody').mouseover(function () {
+                    clearInterval(MyMar);
+                })
+
+                $('.layui-table-body > tbody').mouseout(function () {
+                    MyMar = setInterval(marQueen, speed);
+                })
+            }
+        })
+        window.addEventListener('resize', function() {
+            table.reload("table", {height: $('.D126_bottom_middle').height()*0.88})
+        })
+    });
+    var map = new AMap.Map('map', {
+        center:[120.047356,28.88899],
+        mapStyle: 'amap://styles/blue',
+        zoom: 15
+    });
+
+    var district = null
+    var polygons = []
+    function drawBounds() {
+        //加载行政区划插件
+        if (!district) {
+            //实例化DistrictSearch
+            var opts = {
+                subdistrict: 0,   //获取边界不需要返回下级行政区
+                extensions: 'all',  //返回行政区边界坐标组等具体信息
+                level: 'district'  //查询行政级别为 市
+            }
+            district = new AMap.DistrictSearch(opts)
+        }
+        district.search('永康市', function(status, result) {
+            map.remove(polygons) // 清除上次结果
+            polygons = []
+            var bounds = result.districtList[0].boundaries
+            if (bounds) {
+                for (var i = 0, l = bounds.length; i < l; i++) {
+                    // 生成行政区划polygon
+                    var polygon = new AMap.Polygon({
+                        strokeWeight: 2,
+                        strokeStyle: 'dashed',
+                        path: bounds[i],
+                        fillOpacity: 0.1,
+                        fillColor: '#d7e2f4',
+                        strokeColor: '#6395fc'
+                    })
+                    polygons.push(polygon)
+                }
+            }
+            map.add(polygons)
+            map.setFitView(polygons, true, [20, 20, 20, 20], 12) // 视口自适应
+            map.setZoom(10)
+        })
+    }
+
+    drawBounds()
+
+    var points;
+    $.ajax({
+        cache: true,
+        contentType: "application/json",
+        dataType: "json",
+        type: "GET",
+        url: "/index/latitude/longitude",
+        async: false,
+        error: function (request) {
+            $.modal.alertError("系统错误");
+        },
+        success: function (data) {
+            points = data;
+        }
+    });
+
+    addMakers(points)
+    /**
+     * 加标记点
+     */
+    function addMakers(pointsList) {
+        var cluster = null;
+        var markers = [];
+        for (var i = 0; i < pointsList.length; i++) {
+            markers.push(addMaker(pointsList[i]));
+        }
+        map.add(markers);
+        // 聚合点
+        // thisMap.plugin(['AMap.MarkerClusterer'], function() {
+        //   cluster = new AMap.MarkerClusterer(thisMap, markers)
+        // })
+    }
+
+    /**
+     * 添加单个点
+     * @param data 数据源
+     * @return {AMap.Marker}
+     */
+    function addMaker(data) {
+        var marker = new AMap.Marker({
+            position: new AMap.LngLat(parseFloat(data.lon), parseFloat(data.lat)),
+            offset: new AMap.Pixel(-13, -39),
+            title:data.NAME,
+            content: `<div class="J106_mapIcon"><svg t="1587710885868" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1861" width="200" height="200"><path d="M466.596226 983.426415C373.856604 884.890566 207.698113 650.143396 160.362264 551.607547c-27.049057-57.962264-29.94717-72.45283-29.94717-160.362264 0-85.011321 2.898113-103.366038 26.083019-152.633962C193.207547 161.328302 269.524528 84.045283 346.807547 45.403774c58.928302-28.981132 69.554717-30.913208 165.192453-30.913208 88.875472 0 108.196226 2.898113 154.566038 25.116981 174.85283 82.113208 269.524528 280.150943 218.324528 456.935849-28.015094 94.671698-327.486792 515.864151-369.026415 516.830189-10.626415 0.966038-32.845283-13.524528-49.267925-29.94717z m119.78868-471.426415c59.89434-35.743396 82.113208-129.449057 45.403773-191.275472-21.25283-36.709434-79.215094-69.554717-119.788679-69.554717-50.233962 0-111.09434 40.573585-129.449057 86.943397-19.320755 49.267925-19.320755 62.792453 3.864151 113.026415 33.811321 75.350943 129.449057 104.332075 199.969812 60.860377z" p-id="1862" fill="${data.color}"></path></svg></div>`
+        });
+
+        marker.projectName = data.NAME;
+        marker.projectId = data.id;
+
+        marker.on('click',function (e) {
+            parent.changeIfra('/index/parks/parks/' +e.target.projectId)
+        })
+        return marker;
+    }
+
+    // 循环粒子100个dom
+    var htmlDom = '<div class="circle-container"><div class="circle"></div></div>';
+    for (var i = 0; i < 100; i++) {
+        $('.R126_cr_particle .container').append(htmlDom);
+    }
+
+    window.addEventListener('resize', function() {
+        mychart3.resize()
+        mychart4.resize()
+        mychart5.resize()
+    })
+
+    var option3 = {
+        title: {
+            text: [[${average.taxRate}]],
+            textStyle: {
+                color: '#fff',
+                fontSize: 22,
+                fontWeight: 'bold',
+            },
+            subtext: '万元',
+            subtextStyle: {
+                color: '#fff',
+                fontSize: 16,
+            },
+            left: 'center',
+            bottom: '45%',
+        },
+        tooltip: {
+            show: false,
+        },
+        legend: {
+            show:false
+        },
+        series: [
+            {
+                type: 'gauge',
+                name: '1',
+                radius: '90%',
+                clockwise: true,
+                startAngle: '180',
+                endAngle: '0',
+                splitNumber: 40,
+                detail: {
+                    show: false
+                },
+                pointer: {
+                    show: false
+                },
+                axisLine: {
+                    lineStyle: {
+                        width: 15,
+                        opacity: 0, //盘的颜色变成透明
+                    }
+                },
+                axisTick: {
+                    show: false
+                },
+                splitLine: {
+                    show: true,
+                    length: 20,
+                    lineStyle: {
+                        color: '#F5F704',
+                        width: 2
+                    }
+                },
+                axisLabel: {
+                    show: false
+                },
+                z: 2
+            },
+            {
+                type: 'gauge',
+                name: '2',
+                radius: '90%',
+                clockwise: true,
+                startAngle: '180',
+                endAngle: '0',
+                splitNumber: 40,
+                detail: {
+                    show: false
+                },
+                pointer: {
+                    show: false
+                },
+                axisLine: {
+                    lineStyle: {
+                        width: 15,
+                        opacity: 0, //盘的颜色变成透明
+                    }
+                },
+                axisTick: {
+                    show: false
+                },
+                splitLine: {
+                    show: true,
+                    length: 20,
+                    lineStyle: {
+                        color: '#58540A',
+                        width: 2
+                    }
+                },
+                axisLabel: {
+                    show: false
+                },
+                z: 1
+            },
+
+            {
+                name: '外圈',
+                type: 'pie',
+                startAngle: 360,
+                hoverAnimation: false,
+                radius: ["98%", "99%"],
+                label: {
+                    normal: {
+                        show: false,
+                        position: 'center'
+                    },
+                    emphasis: {
+                        show: true,
+                        textStyle: {
+                            fontSize: '10',
+                            fontWeight: 'bold'
+                        }
+                    }
+                },
+                labelLine: {
+                    normal: {
+                        show: false
+                    }
+                },
+                data: [{
+                    value: 50,
+                    itemStyle: {
+                        normal: {
+                            color: "rgba(0,0,0,0)"
+                        }
+                    }
+                },
+                    {
+                        value: 50,
+                        itemStyle: {
+                            normal: {
+                                color: "#F5F704"
+                            }
+                        }
+                    },
+                ]
+            }
+        ]
+    }
+    var mychart3 = echarts.init(document.getElementById('R126_taxChart'))
+    mychart3.setOption(option3)
+
+    var option4 = {
+        title: {
+            text: [[${average.outputRate}]],
+            textStyle: {
+                color: '#fff',
+                fontSize: 22,
+                fontWeight: 'bold',
+            },
+            subtext: '万元',
+            subtextStyle: {
+                color: '#fff',
+                fontSize: 16,
+            },
+            left: 'center',
+            bottom: '45%',
+        },
+        tooltip: {
+            show: false,
+        },
+        legend: {
+            show:false
+        },
+        series: [
+            {
+                type: 'gauge',
+                name: '1',
+                radius: '90%',
+                clockwise: true,
+                startAngle: '180',
+                endAngle: '0',
+                splitNumber: 40,
+                detail: {
+                    show: false
+                },
+                pointer: {
+                    show: false
+                },
+                axisLine: {
+                    lineStyle: {
+                        width: 15,
+                        opacity: 0, //盘的颜色变成透明
+                    }
+                },
+                axisTick: {
+                    show: false
+                },
+                splitLine: {
+                    show: true,
+                    length: 20,
+                    lineStyle: {
+                        color: '#00F0C3',
+                        width: 2
+                    }
+                },
+                axisLabel: {
+                    show: false
+                },
+                z: 2
+            },
+            {
+                type: 'gauge',
+                name: '2',
+                radius: '90%',
+                clockwise: true,
+                startAngle: '180',
+                endAngle: '0',
+                splitNumber: 40,
+                detail: {
+                    show: false
+                },
+                pointer: {
+                    show: false
+                },
+                axisLine: {
+                    lineStyle: {
+                        width: 15,
+                        opacity: 0, //盘的颜色变成透明
+                    }
+                },
+                axisTick: {
+                    show: false
+                },
+                splitLine: {
+                    show: true,
+                    length: 20,
+                    lineStyle: {
+                        color: '#01534B',
+                        width: 2
+                    }
+                },
+                axisLabel: {
+                    show: false
+                },
+                z: 1
+            },
+
+            {
+                name: '外圈',
+                type: 'pie',
+                startAngle: 360,
+                hoverAnimation: false,
+                radius: ["98%", "99%"],
+                label: {
+                    normal: {
+                        show: false,
+                        position: 'center'
+                    },
+                    emphasis: {
+                        show: true,
+                        textStyle: {
+                            fontSize: '10',
+                            fontWeight: 'bold'
+                        }
+                    }
+                },
+                labelLine: {
+                    normal: {
+                        show: false
+                    }
+                },
+                data: [{
+                    value: 50,
+                    itemStyle: {
+                        normal: {
+                            color: "rgba(0,0,0,0)"
+                        }
+                    }
+                },
+                    {
+                        value: 50,
+                        itemStyle: {
+                            normal: {
+                                color: "#00F0C3"
+                            }
+                        }
+                    },
+                ]
+            }
+        ]
+    }
+    var mychart4 = echarts.init(document.getElementById('R126_outputChart'))
+    mychart4.setOption(option4)
+
+    var sumCount = ([[${bean.regulated}]] +  [[${bean.highTech}]] + [[${bean.technology}]] + [[${bean.special}]]) * 2;
+    var option5 = {
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: { // 坐标轴指示器，坐标轴触发有效
+                type: 'none' // 默认为直线，可选为：'line' | 'shadow'
+            }
+        },
+        grid: {
+            // containLabel: true,
+            left: '0',
+            right:'5%',
+            top: "10%",
+            bottom: "5%",
+        },
+        xAxis: [{
+            position:'bottom',
+            data: [
+                {value:'规上企业',textStyle:{color:'#00C2FF'}},
+                {value:'高新技术',textStyle:{color:'#F7B75C'}},
+                {value:'省科技企业',textStyle:{color:'#D656C4'}},
+                {value:'专精特新',textStyle:{color:'#9C5AFF'}},
+            ],
+            axisTick: {
+                show: false
+            },
+            axisLabel: {
+                show: false,
+                interval: 0,
+                fontSize: 15
+            },
+            axisLine: {
+                show: false
+            }
+        },{
+            offset: -20,
+            position:'top',
+            data: [
+                {value:'规上企业',textStyle:{color:'#1CBFF6'}},
+                {value:'高新技术',textStyle:{color:'#1CBFF6'}},
+                {value:'省科技企业',textStyle:{color:'#1CBFF6'}},
+                {value:'专精特新',textStyle:{color:'#1CBFF6'}}
+            ],
+            axisTick: {
+                show: false
+            },
+            axisLabel: {
+                interval: 0,
+                fontSize: 16,
+                fontWeight:'bold'
+            },
+            axisLine: {
+                show:false
+            }
+        }],
+        yAxis: {
+            show:false
+        },
+        series: [{
+            type: 'pictorialBar',
+            name: '企业培育情况',
+            symbolSize: ['70%', '100%'],
+            // symbolPosition: 'center',
+            z: 10,
+            label: {
+                normal: {
+                    show: true,
+                    position: "top",
+                    // formatter:function (params) {
+                    //     console.log(params.value)
+                    //     return params.value
+                    // },
+                    color: "#3AFFE4",
+                    fontSize: 35,
+                    fontFamily: 'DS-DIGIB'
+                }
+            },
+            data: [{
+                value: [[${bean.regulated}]],
+                // symbolPosition: 'center',
+                symbolOffset: [0, -8],
+                // symbolRotate: -9,
+                // symbolPosition: 'start',
+                symbol: 'image://../../../xwyjs/images/26/P126_icon1.png',
+            }, {
+                value: [[${bean.highTech}]],
+                // symbolPosition: 'center',
+                symbolOffset: [0, -8],
+                symbol: 'image://../../../xwyjs/images/26/P126_icon1.png',
+            }, {
+                value: [[${bean.technology}]],
+                symbolOffset: [0, -8],
+                symbol: 'image://../../../xwyjs/images/26/P126_icon1.png',
+            }, {
+                value: [[${bean.special}]],
+                symbolOffset: [0, -8],
+                symbol: 'image://../../../xwyjs/images/26/P126_icon1.png',
+            }]
+        },{
+            type: 'pictorialBar',
+            name: '总数',
+            symbolSize: ['70%', '100%'],
+            // symbolPosition: 'center',
+            z: 5,
+            data: [{
+                value: sumCount,
+                // symbolPosition: 'center',
+                symbolOffset: [0, -8],
+                // symbolRotate: -9,
+                // symbolPosition: 'start',
+                symbol: 'image://../../../xwyjs/images/26/P126_icon3.png',
+            }, {
+                value: sumCount,
+                // symbolPosition: 'center',
+                symbolOffset: [0, -8],
+                symbol: 'image://../../../xwyjs/images/26/P126_icon3.png',
+            },  {
+                value: sumCount,
+                symbolOffset: [0, -8],
+                symbol: 'image://../../../xwyjs/images/26/P126_icon3.png',
+            }, {
+                value: sumCount,
+                symbolOffset: [0, -8],
+                symbol: 'image://../../../xwyjs/images/26/P126_icon3.png',
+            }]
+        }]
+    }
+    var mychart5 = echarts.init(document.getElementById('R126_topChart'))
+    mychart5.setOption(option5)
+</script>
+</html>

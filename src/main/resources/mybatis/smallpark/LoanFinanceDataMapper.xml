@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.netintech.park.mapper.LoanFinanceDataMapper">
+
+    <resultMap type="com.netintech.park.domain.LoanFinanceData" id="LoanFinanceDataResult">
+        <result property="id"    column="id"    />
+        <result property="requirementId"    column="requirement_id"    />
+        <result property="year"    column="year"    />
+        <result property="businessIncome"    column="business_income"    />
+        <result property="netProfit"    column="net_profit"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+    </resultMap>
+
+    <sql id="selectLoanFinanceDataVo">
+        select id, requirement_id, year, business_income, net_profit, del_flag, create_by, create_time from sys_loan_finance_data
+    </sql>
+
+    <select id="selectLoanFinanceDataList" parameterType="com.netintech.park.domain.LoanFinanceData" resultMap="LoanFinanceDataResult">
+        <include refid="selectLoanFinanceDataVo"/>
+        where del_flag=0
+        <if test="requirementId != null "> and requirement_id = #{requirementId}</if>
+        <if test="year != null "> and year = #{year}</if>
+        <if test="businessIncome != null "> and business_income = #{businessIncome}</if>
+        <if test="netProfit != null "> and net_profit = #{netProfit}</if>
+    </select>
+
+    <select id="selectLoanFinanceDataById" parameterType="Long" resultMap="LoanFinanceDataResult">
+        <include refid="selectLoanFinanceDataVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertLoanFinanceData" parameterType="com.netintech.park.domain.LoanFinanceData" useGeneratedKeys="true" keyProperty="id">
+        insert into sys_loan_finance_data
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="requirementId != null ">requirement_id,</if>
+            <if test="year != null ">year,</if>
+            <if test="businessIncome != null ">business_income,</if>
+            <if test="netProfit != null ">net_profit,</if>
+            <if test="delFlag != null  and delFlag != ''">del_flag,</if>
+            <if test="createBy != null  and createBy != ''">create_by,</if>
+            <if test="createTime != null ">create_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="requirementId != null ">#{requirementId},</if>
+            <if test="year != null ">#{year},</if>
+            <if test="businessIncome != null ">#{businessIncome},</if>
+            <if test="netProfit != null ">#{netProfit},</if>
+            <if test="delFlag != null  and delFlag != ''">#{delFlag},</if>
+            <if test="createBy != null  and createBy != ''">#{createBy},</if>
+            <if test="createTime != null ">#{createTime},</if>
+        </trim>
+    </insert>
+
+    <update id="updateLoanFinanceData" parameterType="com.netintech.park.domain.LoanFinanceData">
+        update sys_loan_finance_data
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="requirementId != null ">requirement_id = #{requirementId},</if>
+            <if test="year != null ">year = #{year},</if>
+            <if test="businessIncome != null ">business_income = #{businessIncome},</if>
+            <if test="netProfit != null ">net_profit = #{netProfit},</if>
+            <if test="delFlag != null  and delFlag != ''">del_flag = #{delFlag},</if>
+            <if test="createBy != null  and createBy != ''">create_by = #{createBy},</if>
+            <if test="createTime != null ">create_time = #{createTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteLoanFinanceDataById" parameterType="Long">
+        delete from sys_loan_finance_data where id = #{id}
+    </delete>
+
+    <delete id="deleteLoanFinanceDataByIds" parameterType="String">
+        update sys_loan_finance_data set del_flag=2 where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

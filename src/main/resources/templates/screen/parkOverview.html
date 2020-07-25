@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+    <title>小微园总览</title>
+    <link rel="stylesheet" th:href="@{/xwyjs/css/all.css}">
+    <link rel="stylesheet" th:href="@{/xwyjs/css/particle.css}">
+    <link rel="stylesheet" th:href="@{/xwyjs/css/animate.css}">
+    <link rel="stylesheet" th:href="@{/xwyjs/css/style_26.css}">
+    <link rel="stylesheet" th:href="@{/xwyjs/lib/layui/css/layui.css}">
+</head>
+<style scoped>
+    .D126_botContent .layui-carousel{
+        background: transparent;
+    }
+    .D126_botContent .layui-carousel>[carousel-item]>*  {
+        background: transparent;
+    }
+    .P126_carouselItem{
+        width: 31%;
+        float: left;
+        margin-left: 2%;
+    }
+    .D126_botContent .layui-carousel>[carousel-item]:before{
+        display: none;
+    }
+</style>
+<body>
+<div class="D126_wapper">
+    <div class="D126_content animated bounceIn">
+        <div msg-data="css漂浮的粒子" class="R126_cr_particle">
+            <div class="container">
+            </div>
+        </div>
+        <div class="D126_top" style="margin: 0;height: 100%;">
+            <div id="amap" style="width: 100%;height: 100%;"></div>
+            <div class="D126_topContent" style="height: 11%;"  th:object="${bean}">
+                <div class="D126_topContent_item">
+                    <p>总数</p>
+                    <div style="color: #1E90FF;">[[${bean.sumCount}]]</div>
+                </div>
+                <div class="D126_topContent_item">
+                    <p>开工</p>
+                    <div style="color: #3CFF00;">[[${bean.start}]]</div>
+                </div>
+                <div class="D126_topContent_item">
+                    <p>运营</p>
+                    <div style="color: #ff522a;">[[${bean.operate}]]</div>
+                </div>
+                <div class="D126_topContent_item">
+                    <p>拟建</p>
+                    <div style="color: #FFB90F;">[[${bean.proposed}]]</div>
+                </div>
+                <div class="D126_topContent_item">
+                    <p>挂牌中</p>
+                    <div style="color: #DA00FF;">[[${bean.listing}]]</div>
+                </div>
+            </div>
+<!--            <div class="D126_botContent" style="height: 12%;bottom: 32%;">-->
+<!--                &lt;!&ndash;/*@thymesVar id="list" type=""*/&ndash;&gt;-->
+<!--                <div class="D126_xwyItem layui-carousel" id="test" >-->
+<!--                    <div carousel-item >-->
+<!--                        <div th:each="mapEntry: ${map}">-->
+<!--                            <div class="P126_carouselItem" th:each="bean: ${mapEntry.value}">-->
+<!--                                <div class="D126_xwyItemIcon" >-->
+<!--                                    <img th:if="${bean.level > 0}" th:src="@{/xwyjs/images/26/D126_overview_star.png}" />-->
+<!--                                    <img th:if="${bean.level > 1}" th:src="@{/xwyjs/images/26/D126_overview_star.png}" />-->
+<!--                                    <img th:if="${bean.level > 2}" th:src="@{/xwyjs/images/26/D126_overview_star.png}" />-->
+<!--                                    <img th:if="${bean.level > 3}" th:src="@{/xwyjs/images/26/D126_overview_star.png}" />-->
+<!--                                    <img th:if="${bean.level > 4}" th:src="@{/xwyjs/images/26/D126_overview_star.png}" />-->
+<!--                                </div>-->
+<!--                                <a th:href="@{/index/parks/parks/{id}(id=${bean.id})}">-->
+<!--                                    <div class="D126_xwyItemName" th:text="${#strings.abbreviate(bean.name,13)}"></div>-->
+<!--                                </a>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+            <div class="D126_barContent" style="height: 14.5%;top: 2%;display: none;">
+                <div class="D126_bar_item2">开工</div>
+                <div class="D126_bar_item3">运营</div>
+                <div class="D126_bar_item1">拟建</div>
+                <div class="D126_bar_item4">挂牌中</div>
+            </div>
+            <div class="D126_bottom" style="position: absolute;bottom: 1%;padding: 0 1%;">
+                <div class="D126_bottom_left" style="padding: 0.4rem 1.5rem;" th:object="${bean}">
+                    <div class="D126_left_title">综合汇总</div>
+                    <div class="D126_left_content">
+                        <div class="D126_content_item" style="display: table;">
+                            <div style="display: table-cell;vertical-align: middle;">
+                                <p>8</p>
+                                <div>镇/街道</div>
+                                <div>(个)</div>
+                            </div>
+                        </div>
+                        <div class="D126_content_item" style="display: table;">
+                            <div style="display: table-cell;vertical-align: middle;">
+                                <p>25</p>
+                                <div>社区/行政村</div>
+                                <div>(个)</div>
+                            </div>
+                        </div>
+
+                        <div class="D126_content_item" style="display: table;">
+                            <div style="display: table-cell;vertical-align: middle;">
+                                <p th:text="${#numbers.formatDecimal(bean.bulidArea,1,2,'POINT')}"></p>
+                                <div>建筑面积</div>
+                                <div>(万平方米)</div>
+                            </div>
+
+                        </div>
+                        <div class="D126_content_item" style="display: table;">
+                            <div style="display: table-cell;vertical-align: middle;">
+                                <p th:text="${#numbers.formatDecimal(bean.coverdArea,1,0,'POINT')}"></p>
+                                <div>占地面积</div>
+                                <div>(亩)</div>
+                            </div>
+
+                        </div>
+                        <div class="D126_content_item" style="display: table;">
+                            <div style="display: table-cell;vertical-align: middle;">
+                                <p>[[${bean.enterPark}]]</p>
+                                <div>入园企业</div>
+                                <div>(家)</div>
+                            </div>
+
+                        </div>
+                        <div class="D126_content_item" style="display: table;">
+                            <div style="display: table-cell;vertical-align: middle;">
+                                <p>[[${bean.enterPerson}]]</p>
+                                <div>入园人员</div>
+                                <div>(万)</div>
+                            </div>
+
+                        </div>
+                        <div class="D126_content_item" style="display: table;">
+                            <div style="display: table-cell;vertical-align: middle;">
+                                <p>[[${bean.income}]]</p>
+                                <div>园区收入</div>
+                                <div>(亿元)</div>
+                            </div>
+
+                        </div>
+                        <div class="D126_content_item" style="display: table;">
+                            <div style="display: table-cell;vertical-align: middle;">
+                                <p>[[${bean.taxRevenue}]]</p>
+                                <div>园区税收</div>
+                                <div>(亿元)</div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+<!--                <div class="D126_bottom_middle" style="padding: 0.4rem 1.5rem;">-->
+<!--                    <div class="D126_left_title">入园企业趋势</div>-->
+<!--                    <div id="D126_trendChart"  style="width: 100%;height: 90%;"></div>-->
+<!--                </div>-->
+
+
+                <div class="D126_bottom_right" style="padding:0.5rem 1.5rem 0 1.5rem;">
+                    <div class="D126_left_title">园区列表</div>
+<!--                    <div id="D126_incomeChart" style="width: 100%;height: 90%;"></div>-->
+                    <div id="table"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+</body>
+
+<script src="//webapi.amap.com/maps?v=1.4.15&key=358df98d6a1422dc83713fddaa8d260c&plugin=AMap.DistrictSearch"></script>
+<script th:src="@{/xwyjs/js/jquery.min.js}"></script>
+<script th:src="@{/xwyjs/js/main.js}"></script>
+<script th:src="@{/xwyjs/js/jquery.backgroundSize.js}"></script>
+<script th:src="@{/xwyjs/js/26/main.js}"></script>
+<script th:src="@{/xwyjs/js/echarts/echarts.js}"></script>
+<script th:src="@{/xwyjs/lib/layui/layui.js}"></script>
+<script type="text/javascript">
+    layui.use(['carousel','table'], function(){
+        var carousel = layui.carousel;
+        var table = layui.table;
+        var parkList;
+
+        $.ajax({
+            cache: true,
+            contentType: "application/json",
+            dataType: "json",
+                type: "POST",
+            url: "/index/under/level",
+            async: false,
+            error: function (request) {
+                $.modal.alertError("系统错误");
+            },
+            success: function (data) {
+                parkList = data;
+            }
+        });
+        table.render({
+            elem: '#table',
+            limit: 500,
+            height: $('.D126_bottom_right').height(),
+            cols: [
+                [
+                    {field: 'level', title: '排名',align: 'center',templet:function (data) {
+                            var num = parseInt(data.level);
+                            var html = "<img src='../../../xwyjs/images/26/D126_overview_star.png' />";
+                            var str = '';
+                            for(var i=0;i<num;i++){
+                                str += html
+                            }
+                            return str
+                        }},
+
+                    {field: 'name', title: '园区名称',align: 'center',
+                        templet:function (data) {
+                            var id = parseInt(data.id);
+                            var html = "<a style='color: #02AAF4' href=\"/index/parks/parks/" + id + "\"> "+ data.name +"</a>";
+                            return html
+                        }
+                        },
+                    {field: 'id', title: 'id',hide : true}
+                ]
+            ],
+            data:parkList,
+            done: function () {
+                var speed = 50;
+                var html = $('.layui-table-body').find('tbody').html();
+                function marQueen(){
+                    if ($('.layui-table-body')[0].scrollTop>=($('.layui-table-body')[0].scrollHeight/3)) {
+                        $('.layui-table-body').find('tbody').append(html)
+                    } else {
+                        $('.layui-table-body')[0].scrollTop++;
+                    }
+                }
+                var MyMar = setInterval(marQueen, speed);
+                $('.layui-table-body > tbody').mouseover(function () {
+                    clearInterval(MyMar);
+                });
+
+                $('.layui-table-body > tbody').mouseout(function () {
+                    MyMar = setInterval(marQueen, speed);
+                })
+            }
+        });
+
+        window.addEventListener('resize', function() {
+            table.reload("table", {height: $('.D126_bottom_right').height()})
+        });
+
+        //建造实例
+        carousel.render({
+            elem: '#test',
+            width: '100%',
+            height: '100%',
+            arrow: 'always',
+            indicator: 'none'//始终显示箭头
+            //,anim: 'updown' //切换动画方式
+        });
+    });
+
+    var map = new AMap.Map('amap', {
+        center:[120.047356,28.88899],
+        mapStyle: 'amap://styles/blue',
+        zoom: 14
+    });
+    var district = null;
+    var polygons = [];
+    function drawBounds() {
+        //加载行政区划插件
+        if (!district) {
+            //实例化DistrictSearch
+            var opts = {
+                subdistrict: 0,   //获取边界不需要返回下级行政区
+                extensions: 'all',  //返回行政区边界坐标组等具体信息
+                level: 'district'  //查询行政级别为 市
+            };
+            district = new AMap.DistrictSearch(opts)
+        }
+        district.search('永康市', function(status, result) {
+            map.remove(polygons); // 清除上次结果
+            polygons = [];
+            var bounds = result.districtList[0].boundaries;
+            if (bounds) {
+                for (var i = 0, l = bounds.length; i < l; i++) {
+                    // 生成行政区划polygon
+                    var polygon = new AMap.Polygon({
+                        strokeWeight: 2,
+                        strokeStyle: 'dashed',
+                        path: bounds[i],
+                        fillOpacity: 0.1,
+                        fillColor: '#d7e2f4',
+                        strokeColor: '#6395fc'
+                    });
+                    polygons.push(polygon)
+                }
+            }
+            map.add(polygons);
+            map.setFitView(polygons, true, [20, 20, 20, 20]); // 视口自适应
+            map.setZoom(11)
+        })
+    }
+
+    drawBounds();
+
+    var points;
+    $.ajax({
+        cache: true,
+        contentType: "application/json",
+        dataType: "json",
+        type: "GET",
+        url: "/index/latitude/longitude",
+        async: false,
+        error: function (request) {
+            $.modal.alertError("系统错误");
+        },
+        success: function (data) {
+            points = data;
+        }
+    });
+
+
+    addMakers(points);
+    /**
+     * 加标记点
+     */
+    function addMakers(pointsList) {
+        var cluster = null;
+        var markers = [];
+        for (var i = 0; i < pointsList.length; i++) {
+            markers.push(addMaker(pointsList[i]));
+        }
+        map.add(markers);
+    }
+
+    /**
+     * 添加单个点
+     * @param data 数据源
+     * @return {AMap.Marker}
+     */
+    function addMaker(data) {
+        var marker = new AMap.Marker({
+            position: new AMap.LngLat(parseFloat(data.lon), parseFloat(data.lat)),
+            offset: new AMap.Pixel(-13, -39),
+            title:data.NAME,
+            content: `<div class="J106_mapIcon"><svg t="1587710885868" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1861" width="200" height="200"><path d="M466.596226 983.426415C373.856604 884.890566 207.698113 650.143396 160.362264 551.607547c-27.049057-57.962264-29.94717-72.45283-29.94717-160.362264 0-85.011321 2.898113-103.366038 26.083019-152.633962C193.207547 161.328302 269.524528 84.045283 346.807547 45.403774c58.928302-28.981132 69.554717-30.913208 165.192453-30.913208 88.875472 0 108.196226 2.898113 154.566038 25.116981 174.85283 82.113208 269.524528 280.150943 218.324528 456.935849-28.015094 94.671698-327.486792 515.864151-369.026415 516.830189-10.626415 0.966038-32.845283-13.524528-49.267925-29.94717z m119.78868-471.426415c59.89434-35.743396 82.113208-129.449057 45.403773-191.275472-21.25283-36.709434-79.215094-69.554717-119.788679-69.554717-50.233962 0-111.09434 40.573585-129.449057 86.943397-19.320755 49.267925-19.320755 62.792453 3.864151 113.026415 33.811321 75.350943 129.449057 104.332075 199.969812 60.860377z" p-id="1862" fill="${data.color}"></path></svg></div>`
+        });
+        marker.projectName = data.NAME;
+        marker.projectId = data.id;
+
+        marker.on('click',function (e) {
+            parent.changeIfra('/index/parks/parks/' +e.target.projectId)
+        });
+        return marker;
+    }
+</script>
+</html>

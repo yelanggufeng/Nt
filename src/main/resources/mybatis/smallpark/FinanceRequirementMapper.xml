@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.netintech.park.mapper.FinanceRequirementMapper">
+
+    <resultMap type="com.netintech.park.domain.dto.FinanceRequirementDto" id="ListFinanceRequirementResult">
+        <result property="id"    column="id"    />
+        <result property="fileUuid"    column="file_uuid"    />
+        <result property="projectName"    column="project_name"    />
+        <result property="overview"    column="overview"    />
+        <result property="fieldId"    column="field_id"    />
+        <result property="areaId"    column="area_id"    />
+        <result property="address"    column="address"    />
+        <result property="stage"    column="stage"    />
+        <result property="profile"    column="profile"    />
+        <result property="amount"    column="amount"    />
+        <result property="purpose"    column="purpose"    />
+        <result property="shareSellProp"    column="share_sell_prop"    />
+        <result property="parkId"    column="park_id"    />
+        <result property="enterpriseId"    column="enterprise_id"    />
+        <result property="status"    column="status"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <collection  property="attachmentFinanceRequirementList"   javaType="java.util.List"  ofType="com.netintech.park.domain.AttachmentLoanRequirement"  resultMap="AttachmentFinanceRequirementResult"/>
+    </resultMap>
+
+    <resultMap type="com.netintech.park.domain.FinanceRequirement" id="FinanceRequirementResult">
+        <result property="id"    column="id"    />
+        <result property="fileUuid"    column="file_uuid"    />
+        <result property="projectName"    column="project_name"    />
+        <result property="overview"    column="overview"    />
+        <result property="fieldId"    column="field_id"    />
+        <result property="areaId"    column="area_id"    />
+        <result property="address"    column="address"    />
+        <result property="stage"    column="stage"    />
+        <result property="profile"    column="profile"    />
+        <result property="amount"    column="amount"    />
+        <result property="purpose"    column="purpose"    />
+        <result property="shareSellProp"    column="share_sell_prop"    />
+        <result property="parkId"    column="park_id"    />
+        <result property="enterpriseId"    column="enterprise_id"    />
+        <result property="status"    column="status"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <resultMap type="com.netintech.park.domain.AttachmentFinanceRequirement" id="AttachmentFinanceRequirementResult">
+        <result property="id"    column="attachmentFinanceId"    />
+        <result property="requirementId"    column="requirement_id"    />
+        <result property="fileType"    column="file_type"    />
+        <result property="fileUuid"    column="file_uuid"    />
+        <result property="fileName"    column="file_name"    />
+        <result property="fileAlias"    column="file_alias"    />
+        <result property="filePath"    column="file_path"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+    </resultMap>
+
+    <sql id="selectFinanceRequirementVo">
+        select id, file_uuid, project_name, overview, field_id, area_id, address, stage, profile, amount, purpose, share_sell_prop, park_id, enterprise_id, status, del_flag, create_by, create_time, update_by, update_time from sys_finance_requirement
+    </sql>
+
+    <select id="selectListFinanceRequirement" parameterType="com.netintech.park.domain.dto.FinanceRequirementDto" resultMap="ListFinanceRequirementResult">
+        SELECT
+	a.id,
+	a.file_uuid AS fileUuid,
+	a.project_name,
+	a.overview,
+	a.field_id,
+	a.area_id,
+	a.address,
+	a.stage,
+	a.PROFILE,
+	a.amount,
+	a.purpose,
+	a.share_sell_prop,
+	a.park_id,
+	a.enterprise_id,
+	a.STATUS,
+	a.del_flag,
+	a.create_by,
+	a.create_time,
+	a.update_by,
+	a.update_time,
+	b.id AS attachmentFinanceId,
+	b.requirement_id,
+	b.file_type,
+	b.file_uuid,
+	b.file_name,
+	b.file_alias,
+	b.file_path
+FROM
+	sys_finance_requirement a
+	LEFT JOIN attachment_finance_requirement b ON a.id = b.requirement_id
+	 WHERE
+        a.del_flag = 0
+        AND b.del_flag = 0
+        <if test="fileUuid != null  and fileUuid != ''"> and a.file_uuid = #{fileUuid}</if>
+        <if test="projectName != null  and projectName != ''"> and a.project_name like concat('%', #{projectName}, '%')</if>
+        <if test="overview != null  and overview != ''"> and a.overview = #{overview}</if>
+        <if test="fieldId != null "> and a.field_id = #{fieldId}</if>
+        <if test="areaId != null "> and a.area_id = #{areaId}</if>
+        <if test="address != null  and address != ''"> and a.address = #{address}</if>
+        <if test="stage != null "> and a.stage = #{stage}</if>
+        <if test="profile != null  and profile != ''"> and a.profile = #{profile}</if>
+        <if test="amount != null "> and a.amount = #{amount}</if>
+        <if test="purpose != null  and purpose != ''"> and a.purpose = #{purpose}</if>
+        <if test="shareSellProp != null "> and a.share_sell_prop = #{shareSellProp}</if>
+        <if test="parkId != null "> and a.park_id = #{parkId}</if>
+        <if test="enterpriseId != null "> and a.enterprise_id = #{enterpriseId}</if>
+        <if test="status != null  and status != ''"> and a.status = #{status}</if>
+    </select>
+
+    <select id="selectFinanceRequirementList" parameterType="com.netintech.park.domain.FinanceRequirement" resultMap="FinanceRequirementResult">
+        <include refid="selectFinanceRequirementVo"/>
+        where del_flag=0
+        <if test="fileUuid != null  and fileUuid != ''"> and file_uuid = #{fileUuid}</if>
+        <if test="projectName != null  and projectName != ''"> and project_name like concat('%', #{projectName}, '%')</if>
+        <if test="overview != null  and overview != ''"> and overview = #{overview}</if>
+        <if test="fieldId != null "> and field_id = #{fieldId}</if>
+        <if test="areaId != null "> and area_id = #{areaId}</if>
+        <if test="address != null  and address != ''"> and address = #{address}</if>
+        <if test="stage != null "> and stage = #{stage}</if>
+        <if test="profile != null  and profile != ''"> and profile = #{profile}</if>
+        <if test="amount != null "> and amount = #{amount}</if>
+        <if test="purpose != null  and purpose != ''"> and purpose = #{purpose}</if>
+        <if test="shareSellProp != null "> and share_sell_prop = #{shareSellProp}</if>
+        <if test="parkId != null "> and park_id = #{parkId}</if>
+        <if test="enterpriseId != null "> and enterprise_id = #{enterpriseId}</if>
+        <if test="status != null  and status != ''"> and status = #{status}</if>
+    </select>
+
+    <select id="selectFinanceRequirementById" parameterType="Long" resultMap="FinanceRequirementResult">
+        <include refid="selectFinanceRequirementVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertFinanceRequirement" parameterType="com.netintech.park.domain.FinanceRequirement" useGeneratedKeys="true" keyProperty="id">
+        insert into sys_finance_requirement
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="fileUuid != null  and fileUuid != ''">file_uuid,</if>
+            <if test="projectName != null  and projectName != ''">project_name,</if>
+            <if test="overview != null  and overview != ''">overview,</if>
+            <if test="fieldId != null ">field_id,</if>
+            <if test="areaId != null ">area_id,</if>
+            <if test="address != null  and address != ''">address,</if>
+            <if test="stage != null ">stage,</if>
+            <if test="profile != null  and profile != ''">profile,</if>
+            <if test="amount != null ">amount,</if>
+            <if test="purpose != null  and purpose != ''">purpose,</if>
+            <if test="shareSellProp != null ">share_sell_prop,</if>
+            <if test="parkId != null ">park_id,</if>
+            <if test="enterpriseId != null ">enterprise_id,</if>
+            <if test="status != null  and status != ''">status,</if>
+            <if test="delFlag != null  and delFlag != ''">del_flag,</if>
+            <if test="createBy != null  and createBy != ''">create_by,</if>
+            <if test="createTime != null ">create_time,</if>
+            <if test="updateBy != null  and updateBy != ''">update_by,</if>
+            <if test="updateTime != null ">update_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="fileUuid != null  and fileUuid != ''">#{fileUuid},</if>
+            <if test="projectName != null  and projectName != ''">#{projectName},</if>
+            <if test="overview != null  and overview != ''">#{overview},</if>
+            <if test="fieldId != null ">#{fieldId},</if>
+            <if test="areaId != null ">#{areaId},</if>
+            <if test="address != null  and address != ''">#{address},</if>
+            <if test="stage != null ">#{stage},</if>
+            <if test="profile != null  and profile != ''">#{profile},</if>
+            <if test="amount != null ">#{amount},</if>
+            <if test="purpose != null  and purpose != ''">#{purpose},</if>
+            <if test="shareSellProp != null ">#{shareSellProp},</if>
+            <if test="parkId != null ">#{parkId},</if>
+            <if test="enterpriseId != null ">#{enterpriseId},</if>
+            <if test="status != null  and status != ''">#{status},</if>
+            <if test="delFlag != null  and delFlag != ''">#{delFlag},</if>
+            <if test="createBy != null  and createBy != ''">#{createBy},</if>
+            <if test="createTime != null ">#{createTime},</if>
+            <if test="updateBy != null  and updateBy != ''">#{updateBy},</if>
+            <if test="updateTime != null ">#{updateTime},</if>
+        </trim>
+    </insert>
+
+    <update id="updateFinanceRequirement" parameterType="com.netintech.park.domain.FinanceRequirement">
+        update sys_finance_requirement
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="fileUuid != null  and fileUuid != ''">file_uuid = #{fileUuid},</if>
+            <if test="projectName != null  and projectName != ''">project_name = #{projectName},</if>
+            <if test="overview != null  and overview != ''">overview = #{overview},</if>
+            <if test="fieldId != null ">field_id = #{fieldId},</if>
+            <if test="areaId != null ">area_id = #{areaId},</if>
+            <if test="address != null  and address != ''">address = #{address},</if>
+            <if test="stage != null ">stage = #{stage},</if>
+            <if test="profile != null  and profile != ''">profile = #{profile},</if>
+            <if test="amount != null ">amount = #{amount},</if>
+            <if test="purpose != null  and purpose != ''">purpose = #{purpose},</if>
+            <if test="shareSellProp != null ">share_sell_prop = #{shareSellProp},</if>
+            <if test="parkId != null ">park_id = #{parkId},</if>
+            <if test="enterpriseId != null ">enterprise_id = #{enterpriseId},</if>
+            <if test="status != null  and status != ''">status = #{status},</if>
+            <if test="delFlag != null  and delFlag != ''">del_flag = #{delFlag},</if>
+            <if test="createBy != null  and createBy != ''">create_by = #{createBy},</if>
+            <if test="createTime != null ">create_time = #{createTime},</if>
+            <if test="updateBy != null  and updateBy != ''">update_by = #{updateBy},</if>
+            <if test="updateTime != null ">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteFinanceRequirementById" parameterType="Long">
+        delete from sys_finance_requirement where id = #{id}
+    </delete>
+
+    <delete id="deleteFinanceRequirementByIds" parameterType="String">
+        update sys_finance_requirement set del_flag=2 where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

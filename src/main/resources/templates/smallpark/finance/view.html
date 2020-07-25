@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <link th:href="@{/css/update.css}" rel="stylesheet"/>
+    <th:block th:include="include :: header('查看融资需求信息')" />
+    <style>
+        .control-label {
+            padding-right: 0 !important;;
+            padding-left: 0 !important;
+            font-size: 15px;
+            color: #3e434a;
+        }
+
+        .form-group > div {
+            padding-left: 4px !important;
+            padding-right: 4px !important;;
+        }
+
+        .form-control {
+            border-radius: 4px !important;
+            border: 1px solid #c5cbee;
+        }
+        form{
+            background-color: #eaf4fe;
+            padding: 20px 40px!important;
+            margin: 10px 0 !important;
+            border: 1px solid #cbdff4;
+        }
+        .content-title{
+            display: flex;
+            height: 20px;
+            align-items: center;
+        }
+        .content-title>span{
+            font-size: 16px;
+            color: #3e434a;
+            font-family: "Microsoft YaHei";
+            font-weight: bold;
+            margin-left: 6px;
+        }
+        .content-icon{
+            height: 15px;
+            width: 5px;
+            background-color: #2a7bf2;
+        }
+        .ibox-content{
+            padding: 20px 40px!important;
+        }
+    </style>
+</head>
+<body class="white-bg">
+<div class="wrapper wrapper-content animated fadeInRight ibox-content">
+    <div class="content-title">
+        <div class="content-icon"></div>
+        <span>${BusinessName}</span>
+    </div>
+    <form class="form-horizontal m" id="form-requirement-edit" th:object="${financeRequirement}">
+        <input name="id" th:field="*{id}" type="hidden">
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label is-required">附件id：</label>
+                    <div class="col-sm-9">
+                        <input name="fileUuid" th:field="*{fileUuid}" placeholder="请输入附件id" class="form-control" readonly="true" type="text">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label is-required">项目名称：</label>
+                    <div class="col-sm-9">
+                        <input name="projectName" th:field="*{projectName}" placeholder="请输入项目名称" class="form-control" readonly="true" type="text">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label is-required">一句话概述：</label>
+                    <div class="col-sm-9">
+                        <input name="overview" th:field="*{overview}" placeholder="请输入一句话概述" class="form-control" readonly="true" type="text">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label is-required">项目领域：</label>
+                    <div class="col-sm-9">
+                        <input name="fieldId" th:field="*{fieldId}" placeholder="请输入项目领域" class="form-control" readonly="true" type="text">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label is-required">区域id：</label>
+                    <div class="col-sm-9">
+                        <input name="areaId" th:field="*{areaId}" placeholder="请输入区域id" class="form-control" readonly="true" type="text">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label is-required">详细地址：</label>
+                    <div class="col-sm-9">
+                        <input name="address" th:field="*{address}" placeholder="请输入详细地址" class="form-control" readonly="true" type="text">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label is-required">所属阶段：</label>
+                    <div class="col-sm-9">
+                        <input name="stage" th:field="*{stage}" placeholder="请输入所属阶段" class="form-control" readonly="true" type="text">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label is-required">项目简介：</label>
+                    <div class="col-sm-9">
+                        <input name="profile" th:field="*{profile}" placeholder="请输入项目简介" class="form-control" readonly="true" type="text">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label is-required">融资金额：</label>
+                    <div class="col-sm-9">
+                        <input name="amount" th:field="*{amount}" placeholder="请输入融资金额" class="form-control" readonly="true" type="text">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label is-required">融资用途：</label>
+                    <div class="col-sm-9">
+                        <input name="purpose" th:field="*{purpose}" placeholder="请输入融资用途" class="form-control" readonly="true" type="text">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label is-required">股权出让比例：</label>
+                    <div class="col-sm-9">
+                        <input name="shareSellProp" th:field="*{shareSellProp}" placeholder="请输入股权出让比例" class="form-control" readonly="true" type="text">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label is-required">所属小微园ID：</label>
+                    <div class="col-sm-9">
+                        <input name="parkId" th:field="*{parkId}" placeholder="请输入所属小微园ID" class="form-control" readonly="true" type="text">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label is-required">所属企业ID：</label>
+                    <div class="col-sm-9">
+                        <input name="enterpriseId" th:field="*{enterpriseId}" placeholder="请输入所属企业ID" class="form-control" readonly="true" type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label is-required">状态 0待审核 1已发布 2审核驳回 3已失效：</label>
+                    <div class="col-sm-9">
+                        <div class="radio-box">
+                            <input type="radio" name="status" value="">
+                            <label th:for="status" th:text="未知"></label>
+                        </div>
+                        <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 代码生成请选择字典属性</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<th:block th:include="include :: footer" />
+<script type="text/javascript">
+    var prefix = ctx + "netintech/requirement";
+    $("#form-requirement-edit").validate({
+        focusCleanup: true
+    });
+
+    function submitHandler() {
+        if ($.validate.form()) {
+            $.operate.save(prefix + "/edit", $('#form-requirement-edit').serialize());
+        }
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <link th:href="@{/css/update.css}" rel="stylesheet"/>
+    <th:block th:include="include :: header('修改人才信息')" />
+    <style>
+        .control-label {
+            padding-right: 0 !important;;
+            padding-left: 0 !important;
+            font-size: 15px;
+            color: #3e434a;
+        }
+
+        .form-group > div {
+            padding-left: 4px !important;
+            padding-right: 4px !important;;
+        }
+
+        .form-control {
+            border-radius: 4px !important;
+            border: 1px solid #c5cbee;
+        }
+        form{
+            background-color: #eaf4fe;
+            padding: 20px 40px!important;
+            margin: 10px 0 !important;
+            border: 1px solid #cbdff4;
+        }
+        .content-title{
+            display: flex;
+            height: 20px;
+            align-items: center;
+        }
+        .content-title>span{
+            font-size: 16px;
+            color: #3e434a;
+            font-family: "Microsoft YaHei";
+            font-weight: bold;
+            margin-left: 6px;
+        }
+        .content-icon{
+            height: 15px;
+            width: 5px;
+            background-color: #2a7bf2;
+        }
+        .ibox-content{
+            padding: 20px 40px!important;
+        }
+    </style>
+</head>
+<body class="white-bg">
+<div class="wrapper wrapper-content animated fadeInRight ibox-content">
+    <div class="content-title">
+        <div class="content-icon"></div>
+        <span>人才信息</span>
+    </div>
+    <form class="form-horizontal m" id="form-talent-edit" th:object="${talent}">
+        <input name="id" th:field="*{id}" type="hidden">
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label is-required">附件uuid：</label>
+                    <div class="col-sm-9">
+                        <input name="fileUuid" th:field="*{fileUuid}" placeholder="请输入附件uuid" class="form-control" type="text">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label is-required">姓名：</label>
+                    <div class="col-sm-9">
+                        <input name="name" th:field="*{name}" placeholder="请输入姓名" class="form-control" type="text">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label is-required">性别：</label>
+                    <div class="col-sm-9">
+                        <select name="sex" class="form-control m-b">
+                            <option value="">所有</option>
+                        </select>
+                        <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 代码生成请选择字典属性</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label is-required">出生日期：</label>
+                    <div class="col-sm-9">
+                        <input name="birthday" th:field="*{birthday}" placeholder="请输入出生日期" class="form-control" type="text">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label is-required">手机号：</label>
+                    <div class="col-sm-9">
+                        <input name="mobile" th:field="*{mobile}" placeholder="请输入手机号" class="form-control" type="text">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label is-required">邮箱：</label>
+                    <div class="col-sm-9">
+                        <input name="email" th:field="*{email}" placeholder="请输入邮箱" class="form-control" type="text">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label is-required">所在地：</label>
+                    <div class="col-sm-9">
+                        <input name="location" th:field="*{location}" placeholder="请输入所在地" class="form-control" type="text">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label is-required">学历ID：</label>
+                    <div class="col-sm-9">
+                        <input name="degreeId" th:field="*{degreeId}" placeholder="请输入学历ID" class="form-control" type="text">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label is-required">工作年限：</label>
+                    <div class="col-sm-9">
+                        <input name="workYear" th:field="*{workYear}" placeholder="请输入工作年限" class="form-control" type="text">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label is-required">单位名称：</label>
+                    <div class="col-sm-9">
+                        <input name="unitName" th:field="*{unitName}" placeholder="请输入单位名称" class="form-control" type="text">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label is-required">职务：</label>
+                    <div class="col-sm-9">
+                        <input name="position" th:field="*{position}" placeholder="请输入职务" class="form-control" type="text">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label is-required">职称：</label>
+                    <div class="col-sm-9">
+                        <input name="title" th:field="*{title}" placeholder="请输入职称" class="form-control" type="text">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label is-required">技术领域：</label>
+                    <div class="col-sm-9">
+                        <input name="technicalField" th:field="*{technicalField}" placeholder="请输入技术领域" class="form-control" type="text">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label is-required">教育背景：</label>
+                    <div class="col-sm-9">
+                        <input name="educationBackground" th:field="*{educationBackground}" placeholder="请输入教育背景" class="form-control" type="text">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label is-required">工作经历：</label>
+                    <div class="col-sm-9">
+                        <input name="workExperience" th:field="*{workExperience}" placeholder="请输入工作经历" class="form-control" type="text">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label is-required">科技成果：</label>
+                    <div class="col-sm-9">
+                        <input name="technologyAchievement" th:field="*{technologyAchievement}" placeholder="请输入科技成果" class="form-control" type="text">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label is-required">项目经验：</label>
+                    <div class="col-sm-9">
+                        <input name="projectExperience" th:field="*{projectExperience}" placeholder="请输入项目经验" class="form-control" type="text">
+                    </div>
+                </div>
+            </div>
+    </form>
+</div>
+<th:block th:include="include :: footer" />
+<script type="text/javascript">
+    var prefix = ctx + "netintech/talent";
+    $("#form-talent-edit").validate({
+        focusCleanup: true
+    });
+
+    function submitHandler() {
+        if ($.validate.form()) {
+            $.operate.save(prefix + "/edit", $('#form-talent-edit').serialize());
+        }
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+    <title>实时报警</title>
+    <link rel="stylesheet" th:href="@{/xwyjs/css/all.css}">
+    <link rel="stylesheet" th:href="@{/xwyjs/css/particle.css}">
+    <link rel="stylesheet" th:href="@{/xwyjs/css/animate.css}">
+    <link rel="stylesheet" th:href="@{/xwyjs/css/style_26.css}">
+    <link rel="stylesheet" th:href="@{/xwyjs/lib/layui/css/layui.css}">
+</head>
+<style>
+    .R226_list .R226_listItem{
+        width: 31%;
+        height: 38vh;
+    }
+    .R226_botList .R226_botItem{
+        height: 13vh;
+    }
+    .R126_left_coverage{
+        width: 25%;
+    }
+    .P210_coverage_item span{
+        font-size: 14px;
+        color: #fff;
+        margin-right: 0.5rem;
+    }
+    .P210_coverage_item .layui-form-checkbox[lay-skin=primary]{
+        width: 50%;
+    }
+    .P210_coverage_item{
+        border-bottom: 1px dashed #113B73;
+    }
+    .T226_zs{
+        text-shadow: 0 0 0.5rem #01ABE1;
+    }
+    .T226_bj{
+        text-shadow: 0 0 0.5rem red;
+    }
+</style>
+<body>
+<div class="R126_wapper">
+    <div msg-data="css漂浮的粒子" class="R126_cr_particle">
+        <div class="container">
+        </div>
+    </div>
+    <div class="R126_content animated bounceIn" style="background: url('../../../xwyjs/images/26/R226_mapBg.png') no-repeat;background-size: 100% 100%;">
+        <div class="R126_titleBar layui-form">
+            <div class="R126_titleBar_active R226_titleBar"><span>地图模式</span></div>
+            <div class="R226_titleBar"><span>列表模式</span></div>
+            <div class="layui-input-block R226_mapSelect R226_active">
+                <select id="parkId" lay-filter="park" th:with="type=${@dict.getParkList()}">
+                    <option value="">所有</option>
+                    <option th:each="ParamEntity : ${type}" th:text="${ParamEntity.key}"  th:value="${ParamEntity.value}" ></option>
+                </select>
+            </div>
+        </div>
+        <div id="map" style="width: calc(100% - 2rem);height: calc(100% - 5rem);margin: 1rem;"></div>
+        <div class="R126_left_coverage layui-collapse" style="top: 14%;left: 2%;">
+            <div class="layui-colla-item">
+                <h2 class="layui-colla-title">图层控制</h2>
+                <div class="layui-colla-content layui-show layui-form">
+                    <div class="P210_coverage_item P210_item_icon1">
+                        <input type="checkbox" name="" lay-filter="select" lay-skin="primary" title="视频监控" checked="">
+                        <span class="T226_zs">总数</span>
+                        <span class="T226_zs" style="color: #01ABE1;">(20)</span>
+                        <span class="T226_bj">报警数</span>
+                        <span class="T226_bj" style="color: red;">(2)</span>
+                    </div>
+                    <div class="P210_coverage_item P210_item_icon2">
+                        <input type="checkbox" name="" lay-filter="select" lay-skin="primary" title="消防监控">
+                        <span class="T226_zs">总数</span>
+                        <span class="T226_zs" style="color: #01ABE1;">(20)</span>
+                        <span class="T226_bj">报警数</span>
+                        <span class="T226_bj" style="color: red;">(2)</span>
+                    </div>
+                    <div class="P210_coverage_item P210_item_icon3">
+                        <input type="checkbox" name="" lay-filter="select" lay-skin="primary" title="车行管理">
+                        <span class="T226_zs">总数</span>
+                        <span class="T226_zs" style="color: #01ABE1;">(20)</span>
+                        <span class="T226_bj">报警数</span>
+                        <span class="T226_bj" style="color: red;">(2)</span>
+                    </div>
+                    <div class="P210_coverage_item P210_item_icon4">
+                        <input type="checkbox" name="" lay-filter="select" lay-skin="primary" title="电梯监测">
+                        <span class="T226_zs">总数</span>
+                        <span class="T226_zs" style="color: #01ABE1;">(20)</span>
+                        <span class="T226_bj">报警数</span>
+                        <span class="T226_bj" style="color: red;">(2)</span>
+                    </div>
+                    <div class="P210_coverage_item P210_item_icon5">
+                        <input type="checkbox" name="" lay-filter="select" lay-skin="primary" title="安防管理">
+                        <span class="T226_zs">总数</span>
+                        <span class="T226_zs" style="color: #01ABE1;">(20)</span>
+                        <span class="T226_bj">报警数</span>
+                        <span class="T226_bj" style="color: red;">(2)</span>
+                    </div>
+                    <div class="P210_coverage_item P210_item_icon6">
+                        <input type="checkbox" name="" lay-filter="select" lay-skin="primary" title="环保监测">
+                        <span class="T226_zs">总数</span>
+                        <span class="T226_zs" style="color: #01ABE1;">(20)</span>
+                        <span class="T226_bj">报警数</span>
+                        <span class="T226_bj" style="color: red;">(2)</span>
+                    </div>
+                    <div class="P210_coverage_item P210_item_icon7">
+                        <input type="checkbox" name="" lay-filter="select" lay-skin="primary" title="人行管理">
+                        <span class="T226_zs">总数</span>
+                        <span class="T226_zs" style="color: #01ABE1;">(20)</span>
+                        <span class="T226_bj">报警数</span>
+                        <span class="T226_bj" style="color: red;">(2)</span>
+                    </div>
+                    <div class="P210_coverage_item P210_item_icon8">
+                        <input type="checkbox" name="" lay-filter="select" lay-skin="primary" title="能效管理">
+                        <span class="T226_zs">总数</span>
+                        <span class="T226_zs" style="color: #01ABE1;">(20)</span>
+                        <span class="T226_bj">报警数</span>
+                        <span class="T226_bj" style="color: red;">(2)</span>
+                    </div>
+                    <div class="P210_coverage_item P210_item_icon9">
+                        <input type="checkbox" name="" lay-filter="select" lay-skin="primary" title="动环监测">
+                        <span class="T226_zs">总数</span>
+                        <span class="T226_zs" style="color: #01ABE1;">(20)</span>
+                        <span class="T226_bj">报警数</span>
+                        <span class="T226_bj" style="color: red;">(2)</span>
+                    </div>
+                    <div class="P210_coverage_item P210_item_icon10">
+                        <input type="checkbox" name="" lay-filter="select" lay-skin="primary" title="楼宇自控">
+                        <span class="T226_zs">总数</span>
+                        <span class="T226_zs" style="color: #01ABE1;">(20)</span>
+                        <span class="T226_bj">报警数</span>
+                        <span class="T226_bj" style="color: red;">(2)</span>
+                    </div>
+                    <div class="P210_coverage_item P210_item_icon11">
+                        <input type="checkbox" name="" lay-filter="select" lay-skin="primary" title="充电桩管理">
+                        <span class="T226_zs">总数</span>
+                        <span class="T226_zs" style="color: #01ABE1;">(20)</span>
+                        <span class="T226_bj">报警数</span>
+                        <span class="T226_bj" style="color: red;">(2)</span>
+                    </div>
+                    <div class="P210_coverage_item P210_item_icon12">
+                        <input type="checkbox" name="" lay-filter="select" lay-skin="primary" title="智能快递柜">
+                        <span class="T226_zs">总数</span>
+                        <span class="T226_zs" style="color: #01ABE1;">(20)</span>
+                        <span class="T226_bj">报警数</span>
+                        <span class="T226_bj" style="color: red;">(2)</span>
+                    </div>
+                    <div class="P210_coverage_item P210_item_icon13">
+                        <input type="checkbox" name="" lay-filter="select" lay-skin="primary" title="快递驿站">
+                        <span class="T226_zs">总数</span>
+                        <span class="T226_zs" style="color: #01ABE1;">(20)</span>
+                        <span class="T226_bj">报警数</span>
+                        <span class="T226_bj" style="color: red;">(2)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="R226_list R226_active">
+            <div class="R226_listItem">
+                <p>视频监控</p>
+                <div class="R226_listContent">
+                    <div class="R226_topList">
+                        <div>总数</div>
+                        <div>
+                            <span>0</span>
+                            <span>7</span>
+                            <span>0</span>
+                            <span>0</span>
+                        </div>
+                        <div>个</div>
+                    </div>
+                    <div class="R226_botList">
+                        <div class="R226_botItem">
+                            <div>在线</div>
+                            <p style="color: #1EF901;">
+                                <span>560</span>
+                                <span>个</span>
+                            </p>
+                        </div>
+                        <div class="R226_botItem">
+                            <div>离线</div>
+                            <p style="color: #C9C9C9;">
+                                <span>8</span>
+                                <span>个</span>
+                            </p>
+                        </div>
+                        <div class="R226_botItem">
+                            <div>报警</div>
+                            <p style="color: #F60103;">
+                                <span>8</span>
+                                <span>个</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="R226_listItem">
+                <p>消防监控</p>
+                <div class="R226_listContent">
+                    <div class="R226_topList">
+                        <div>总数</div>
+                        <div>
+                            <span>0</span>
+                            <span>7</span>
+                            <span>0</span>
+                            <span>0</span>
+                        </div>
+                        <div>个</div>
+                    </div>
+                    <div class="R226_botList">
+                        <div class="R226_botItem">
+                            <div>在线</div>
+                            <p style="color: #1EF901;">
+                                <span>560</span>
+                                <span>个</span>
+                            </p>
+                        </div>
+                        <div class="R226_botItem">
+                            <div>离线</div>
+                            <p style="color: #C9C9C9;">
+                                <span>8</span>
+                                <span>个</span>
+                            </p>
+                        </div>
+                        <div class="R226_botItem">
+                            <div>报警</div>
+                            <p style="color: #F60103;">
+                                <span>8</span>
+                                <span>个</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="R226_listItem">
+                <p>环保监测</p>
+                <div class="R226_listContent">
+                    <div class="R226_topList">
+                        <div>总数</div>
+                        <div>
+                            <span>0</span>
+                            <span>7</span>
+                            <span>0</span>
+                            <span>0</span>
+                        </div>
+                        <div>个</div>
+                    </div>
+                    <div class="R226_botList">
+                        <div class="R226_botItem">
+                            <div>在线</div>
+                            <p style="color: #1EF901;">
+                                <span>560</span>
+                                <span>个</span>
+                            </p>
+                        </div>
+                        <div class="R226_botItem">
+                            <div>离线</div>
+                            <p style="color: #C9C9C9;">
+                                <span>8</span>
+                                <span>个</span>
+                            </p>
+                        </div>
+                        <div class="R226_botItem">
+                            <div>报警</div>
+                            <p style="color: #F60103;">
+                                <span>8</span>
+                                <span>个</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="R226_listItem">
+                <p>安防管理</p>
+                <div class="R226_listContent">
+                    <div class="R226_topList">
+                        <div>总数</div>
+                        <div>
+                            <span>0</span>
+                            <span>7</span>
+                            <span>0</span>
+                            <span>0</span>
+                        </div>
+                        <div>个</div>
+                    </div>
+                    <div class="R226_botList">
+                        <div class="R226_botItem">
+                            <div>在线</div>
+                            <p style="color: #1EF901;">
+                                <span>560</span>
+                                <span>个</span>
+                            </p>
+                        </div>
+                        <div class="R226_botItem">
+                            <div>离线</div>
+                            <p style="color: #C9C9C9;">
+                                <span>8</span>
+                                <span>个</span>
+                            </p>
+                        </div>
+                        <div class="R226_botItem">
+                            <div>报警</div>
+                            <p style="color: #F60103;">
+                                <span>8</span>
+                                <span>个</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="R226_listItem">
+                <p>智慧用水</p>
+                <div class="R226_listContent">
+                    <div class="R226_topList">
+                        <div>总数</div>
+                        <div>
+                            <span>0</span>
+                            <span>7</span>
+                            <span>0</span>
+                            <span>0</span>
+                        </div>
+                        <div>个</div>
+                    </div>
+                    <div class="R226_botList">
+                        <div class="R226_botItem">
+                            <div>在线</div>
+                            <p style="color: #1EF901;">
+                                <span>560</span>
+                                <span>个</span>
+                            </p>
+                        </div>
+                        <div class="R226_botItem">
+                            <div>离线</div>
+                            <p style="color: #C9C9C9;">
+                                <span>8</span>
+                                <span>个</span>
+                            </p>
+                        </div>
+                        <div class="R226_botItem">
+                            <div>报警</div>
+                            <p style="color: #F60103;">
+                                <span>8</span>
+                                <span>个</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="R226_listItem">
+                <p>智慧用电</p>
+                <div class="R226_listContent">
+                    <div class="R226_topList">
+                        <div>总数</div>
+                        <div>
+                            <span>0</span>
+                            <span>7</span>
+                            <span>0</span>
+                            <span>0</span>
+                        </div>
+                        <div>个</div>
+                    </div>
+                    <div class="R226_botList">
+                        <div class="R226_botItem">
+                            <div>在线</div>
+                            <p style="color: #1EF901;">
+                                <span>560</span>
+                                <span>个</span>
+                            </p>
+                        </div>
+                        <div class="R226_botItem">
+                            <div>离线</div>
+                            <p style="color: #C9C9C9;">
+                                <span>8</span>
+                                <span>个</span>
+                            </p>
+                        </div>
+                        <div class="R226_botItem">
+                            <div>报警</div>
+                            <p style="color: #F60103;">
+                                <span>8</span>
+                                <span>个</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="R226_listItem">
+                <p>智慧用电</p>
+                <div class="R226_listContent">
+                    <div class="R226_topList">
+                        <div>总数</div>
+                        <div>
+                            <span>0</span>
+                            <span>7</span>
+                            <span>0</span>
+                            <span>0</span>
+                        </div>
+                        <div>个</div>
+                    </div>
+                    <div class="R226_botList">
+                        <div class="R226_botItem">
+                            <div>在线</div>
+                            <p style="color: #1EF901;">
+                                <span>560</span>
+                                <span>个</span>
+                            </p>
+                        </div>
+                        <div class="R226_botItem">
+                            <div>离线</div>
+                            <p style="color: #C9C9C9;">
+                                <span>8</span>
+                                <span>个</span>
+                            </p>
+                        </div>
+                        <div class="R226_botItem">
+                            <div>报警</div>
+                            <p style="color: #F60103;">
+                                <span>8</span>
+                                <span>个</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+
+<script src="//webapi.amap.com/maps?v=1.4.15&key=358df98d6a1422dc83713fddaa8d260c&plugin=AMap.DistrictSearch"></script>
+<script th:src="@{/xwyjs/js/jquery.min.js}"></script>
+<script th:src="@{/xwyjs/js/main.js}"></script>
+<script th:src="@{/xwyjs/js/jquery.backgroundSize.js}"></script>
+<script th:src="@{/xwyjs/js/echarts/echarts.js}"></script>
+<script th:src="@{/xwyjs/lib/layui/layui.js}"></script>
+<script th:inline="javascript">
+
+    $(document).ready(function() {
+
+        // 循环粒子100个dom
+        var htmlDom = '<div class="circle-container"><div class="circle"></div></div>';
+        for (var i = 0; i < 100; i++) {
+            $('.R126_cr_particle .container').append(htmlDom);
+        }
+
+        $('.R226_topList div span').mouseenter(function(){
+            $(this).removeClass('animated bounce').addClass('animated flip');
+        });
+        $('.R226_topList div span').mouseleave(function(){
+            $(this).removeClass('animated flip').addClass('animated bounce');
+        });
+
+        $('.R226_titleBar').on('click',function () {
+            $('.R126_titleBar div').removeClass('R126_titleBar_active');
+            $(this).addClass('R126_titleBar_active');
+            if($(this).text() == '列表模式'){
+                if ([[${user}]] != null ) {
+                    if ([[${user.userLevel}]] == '2') {
+                        parent.changeIfra('/index/monitor/detail/' +[[${user.deptId}]])
+                    } else {
+                        $('.R226_mapSelect').removeClass('R226_active');
+                        $('.R226_list').removeClass('R226_active');
+                        $('#map').addClass('R226_active');
+                        $('.R126_topContent').addClass('R226_active');
+                        $('.R126_feature').addClass('R226_active');
+                        $('.R126_left_coverage').addClass('R226_active')
+                    }
+                } else {
+                    $('.R226_mapSelect').removeClass('R226_active');
+                    $('.R226_list').removeClass('R226_active');
+                    $('#map').addClass('R226_active');
+                    $('.R126_topContent').addClass('R226_active');
+                    $('.R126_feature').addClass('R226_active');
+                    $('.R126_left_coverage').addClass('R226_active')
+                }
+
+            }
+            else {
+                $('.R226_mapSelect').addClass('R226_active');
+                $('.R226_list').addClass('R226_active');
+                $('#map').removeClass('R226_active');
+                $('.R126_topContent').removeClass('R226_active');
+                $('.R126_feature').removeClass('R226_active');
+                $('.R126_left_coverage').removeClass('R226_active')
+            }
+        });
+
+        layui.use(['element', 'form'], function() {
+            var $ = layui.jquery
+                , element = layui.element //Tab的切换功能，切换事件监听等，需要依赖element模块
+                , form = layui.form;
+
+            form.on('checkbox(select)', function(data) {
+                var index = pointsName.indexOf(data.elem.title);
+                if (data.elem.checked) {
+                    points[index] = pointsTest[index];
+                    addMakers(points[index], index, pointsName[index])
+                } else {
+                    removeMakers(index);
+                    points[index] = null
+                }
+            });
+
+            form.on('select(park)', function(obj){
+                  if (obj.value !='' && obj.value != null){
+                      parent.changeIfra('/index/monitor/detail/' +obj.value)
+                  }
+            });
+        })
+    });
+
+    var points = [null, null, null, null, null, null, null, null, null, null, null, null, null];
+    var markers = [
+        [
+
+        ], [
+
+        ], [
+
+        ], [
+
+        ], [
+
+        ], [
+
+        ], [
+
+        ], [
+
+        ], [
+
+        ], [
+
+        ], [
+
+        ], [
+
+        ], [
+
+        ]
+    ];
+    // 模拟数据
+    var pointsTest = [
+        [
+            {
+                lat: 28.88899,
+                lon: 120.047356,
+            },
+            {
+                lat: 28.88899,
+                lon: 120.017156,
+            },
+            {
+                lat: 28.88822,
+                lon: 120.047356,
+            },
+        ],
+        [
+            {
+                lat: 28.91957,
+                lon: 119.97322,
+            }
+        ],
+        [
+            {
+                lat: 28.90991,
+                lon: 119.96417,
+            }
+        ],
+        [
+            {
+                lat: 28.98404,
+                lon: 120.07781,
+            }
+        ],
+        [
+            {
+                lat: 29.02307,
+                lon: 120.1209,
+            }
+        ],
+        [
+            {
+                lat: 28.91426,
+                lon: 120.03782,
+            }
+        ],
+        [
+            {
+                lat: 28.89555,
+                lon: 120.03696,
+            }
+        ],
+        [
+            {
+                lat: 28.88939,
+                lon: 120.03112,
+            }
+        ],
+        [
+            {
+                lat: 28.94134,
+                lon: 120.13687,
+            }
+        ],
+        [
+            {
+                lat: 28.9383,
+                lon: 120.14078,
+            }
+        ],
+        [
+            {
+                lat: 28.94367,
+                lon: 120.1409,
+            }
+        ],
+        [
+            {
+                lat: 28.91811,
+                lon: 119.97051,
+            }],
+        [
+            {
+                lat: 28.92034,
+                lon: 119.97035,
+            }]
+    ];
+    var pointsName = [
+        '视频监控',
+        '消防监控',
+        '车行管理',
+        '电梯监测',
+        '安防管理',
+        '环保监测',
+        '人行管理',
+        '能效管理',
+        '动环监测',
+        '楼宇自控',
+        '充电桩管理',
+        '智能快递柜',
+        '快递驿站'];
+    var map = new AMap.Map('map', {
+        resizeEnable: true, // 是否监控地图容器尺寸变化
+        dragEnable: true, // 地图是否可通过鼠标拖拽平移，默认为true
+        keyboardEnable: true, // 地图是否可通过键盘控制，默认为true
+        doubleClickZoom: true, // 地图是否可通过双击鼠标放大地图，默认为true
+        center:[120.047356,28.88899],
+        mapStyle: 'amap://styles/blue',
+        zoom: 15
+    });
+    // 页面打开时默认选中第一个(即视频监控)
+    points[0] = pointsTest[0];
+    addMakers(points[0], 0, pointsName[0]);
+
+    var district = null;
+    var polygons = [];
+    function drawBounds() {
+        //加载行政区划插件
+        if (!district) {
+            //实例化DistrictSearch
+            var opts = {
+                subdistrict: 0,   //获取边界不需要返回下级行政区
+                extensions: 'all',  //返回行政区边界坐标组等具体信息
+                level: 'district'  //查询行政级别为 市
+            };
+            district = new AMap.DistrictSearch(opts)
+        }
+        district.search('永康市', function(status, result) {
+            map.remove(polygons); // 清除上次结果
+            polygons = [];
+            var bounds = result.districtList[0].boundaries;
+            if (bounds) {
+                for (var i = 0, l = bounds.length; i < l; i++) {
+                    // 生成行政区划polygon
+                    var polygon = new AMap.Polygon({
+                        strokeWeight: 2,
+                        strokeStyle: 'dashed',
+                        path: bounds[i],
+                        fillOpacity: 0.1,
+                        fillColor: '#d7e2f4',
+                        strokeColor: '#6395fc'
+                    });
+                    polygons.push(polygon)
+                }
+            }
+            map.add(polygons);
+            map.setFitView(polygons, true, [20, 20, 20, 20]); // 视口自适应
+            map.setZoom(11)
+        })
+    }
+
+    drawBounds();
+
+    /**
+     * 添加单个点
+     * @param data 数据源
+     * @return {AMap.Marker}
+     */
+    function addMaker(data, index, name) {
+        var marker = new AMap.Marker({
+            position: new AMap.LngLat(parseFloat(data.lon), parseFloat(data.lat)),
+            offset: new AMap.Pixel(-13, -45),
+            content: `<div class="P210_mapIcon"><img src="../../../xwyjs/images/10/P210_coverage_icon` + (index + 1) +
+                `-1.png"></div>`
+        });
+        marker.type = name;
+
+
+        //鼠标点击marker弹出自定义的信息窗体
+        AMap.event.addListener(marker, 'click', function (e) {
+            console.log(e.target.type);
+            if(e.target.type == '消防监控'){
+                infoWindow.setContent(content.join(""));
+                infoWindow.open(map, marker.getPosition())
+            }
+            if(e.target.type == '能效管理'){
+                infoWindow.setContent(content1.join(""));
+                infoWindow.open(map, marker.getPosition())
+            }
+            if(e.target.type == '电梯监测'){
+                infoWindow.setContent(content2.join(""));
+                infoWindow.open(map, marker.getPosition())
+            }
+            if(e.target.type == '安防管理'){
+                infoWindow.setContent(content3.join(""));
+                infoWindow.open(map, marker.getPosition())
+            }
+            // if(e.target.type == '人行管理'){
+            //     infoWindow1.setContent(content4.join(""))
+            //     infoWindow1.open(map, marker.getPosition())
+            // }
+        });
+
+        return marker
+    }
+
+    //实例化信息窗体
+    var content = [
+        '   <div class="R226_mapPop">   '+
+        '   <div class="R226_mapClose"></div>    '+
+        '   <div class="R226_mapPop_content">   '+
+        '   <p class="R226_mapPop_title">道明安防产业园--1号楼B1层道明安防产业园道明安防产业园</p>    '+
+        '   <div class="R226_content">  '+
+        '   <div class="R226_content1"> '+
+        '   <p>2020年6月22日 11：14：51</p>  '+
+        '   <div class="R226_content2"> '+
+        '   <p><span>设备名称：</span><span>压力容器水压试验机</span></p> '+
+        '   <p><span>水压：</span><span>11</span></p> '+
+        '   <p><span>水位：</span><span>11</span></p> '+
+        '   </div>  '+
+        '   </div>     '+
+        '   </div>    '+
+        '   </div>    '+
+        '   </div>    '
+    ];
+    var content1 = [
+        '   <div class="R226_mapPop">   '+
+        '   <div class="R226_mapClose"></div>    '+
+        '   <div class="R226_mapPop_content">   '+
+        '   <p class="R226_mapPop_title">道明安防产业园--1号楼B1层道明安防产业园道明安防产业园</p>    '+
+        '   <div class="R226_content">  '+
+        '   <div class="R226_content1" style="background: rgba(4,28,112,0.6);"> '+
+        '   <p style="text-align: left;margin-bottom: 0.5rem;">2020年6月22日 11：14：51</p>  '+
+        '   <div class="T226_content"> '+
+        '   <div class="T226_left"><img src="/xwyjs/images/26/A226_leftIcon.png" /></div>   '+
+        '   <div class="T226_left"><p>运行状态</p><p>正常</p></div>  '+
+        '   </div>  '+
+        '   <div class="T226_content" style="float: right;"> '+
+        '   <div class="T226_left"><img src="/xwyjs/images/26/A226_rightIcon.png" /></div>   '+
+        '   <div class="T226_left"><p>电压</p><p>12</p></div>  '+
+        '   <p>参考值：10-15</p>  '+
+        '   </div>  '+
+        '   <p style="margin-top: 0.5rem; color: #65A8E7;">一号楼负一楼电梯口</p>  '+
+        '   </div>     '+
+        '   </div>    '+
+        '   </div>    '+
+        '   </div>    '
+    ];
+    var content2 = [
+        '   <div class="R226_mapPop">   '+
+        '   <div class="R226_mapClose"></div>    '+
+        '   <div class="R226_mapPop_content">   '+
+        '   <p class="R226_mapPop_title">道明安防产业园--1号楼B1层道明安防产业园道明安防产业园</p>    '+
+        '   <div class="R226_content">  '+
+        '   <div class="R226_content1" style="background: rgba(4,28,112,0.6);"> '+
+        '   <p style="text-align: left;margin-bottom: 0.5rem;">2020年6月22日 11：14：51</p>  '+
+        '   <div class="T226_leftContent"><img src="/xwyjs/images/26/T226_pic1.png" /><p>一号楼1号电梯</p></div>    '+
+        '   <div class="T226_rightContent"><p>运行状态</p><p>正常</p></div>    '+
+        '   </div>     '+
+        '   </div>    '+
+        '   </div>    '+
+        '   </div>    '
+    ];
+    var content3 = [
+        '   <div class="R226_mapPop">   '+
+        '   <div class="R226_mapClose"></div>    '+
+        '   <div class="R226_mapPop_content">   '+
+        '   <p class="R226_mapPop_title">道明安防产业园--1号楼B1层道明安防产业园道明安防产业园</p>    '+
+        '   <div class="R226_content">  '+
+        '   <div class="R226_content1" style="background: rgba(4,28,112,0.6);"> '+
+        '   <p style="text-align: left;margin-bottom: 0.5rem;">2020年6月22日 11：14：51</p>  '+
+        '   <div class="T226_main">  '+
+        '   <p>非法入侵</p>  '+
+        '   <div class="T226_leftItem T226_ycl"><p><img src="/xwyjs/images/26/R226_camera.png"/><span>道明安防产业园-东大门</span></p><img src="/xwyjs/images/26/T226_pic1.png" /></div>   '+
+        '   <div class="T226_leftItem T226_wcl"><p><img src="/xwyjs/images/26/R226_camera.png"/><span>道明安防产业园-东大门</span></p><img src="/xwyjs/images/26/T226_pic1.png" /></div>   '+
+        '   </div>     '+
+        '   </div>     '+
+        '   </div>    '+
+        '   </div>    '+
+        '   </div>    '
+    ];
+    var content4 = [
+        '<div class="A226_mapPop"></div>'
+    ];
+    var infoWindow = new AMap.InfoWindow({
+        isCustom: true,  //使用自定义窗体
+        content: content.join(""),
+        // offset: new AMap.Pixel(235, 110)
+    });
+
+    var infoWindow1 = new AMap.InfoWindow({
+        isCustom: true,  //使用自定义窗体
+        // content: content.join(""),
+        offset: new AMap.Pixel(235, 110)
+    });
+
+    $(document).on('click','div.R226_mapClose',function(){
+        map.clearInfoWindow();
+    });
+
+    /**
+     * 加标记点
+     */
+    function addMakers(pointsList, index, name) {
+        for (var i = 0; i < pointsList.length; i++) {
+            markers[index].push(addMaker(pointsList[i], index, name))
+        }
+        map.add(markers[index])
+    }
+
+    /**
+     * 删除标记点
+     * @param data 数据源
+     * @return {AMap.Marker}
+     */
+    function removeMakers(index) {
+        map.remove(markers[index])
+    }
+</script>
+</html>

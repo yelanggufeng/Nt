@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <link th:href="@{/css/update.css}" rel="stylesheet"/>
+    <th:block th:include="include :: header('查看数字小微园信息')" />
+    <th:block th:include="include :: datetimepicker-css" />
+</head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-park-edit" th:object="${smallPark}">
+            <input name="id" th:field="*{id}" type="hidden">
+
+        <div class="row">
+    <div class="col-sm-6">
+                    <div class="form-group">    
+                <label class="col-sm-3 control-label">数字小微园名称：</label>
+                <div class="col-sm-8">
+                    <input name="parkName" th:field="*{parkName}" class="form-control" readonly="true" type="text">
+                </div>
+            </div>
+    </div>
+                <div class="col-sm-6">
+                <div class="form-group">    
+                <label class="col-sm-3 control-label">数字小微园建设状态：</label>
+                <div class="col-sm-8">
+                    <select name="constructionState" class="form-control m-b" readonly="true" th:with="type=${@dict.getType('construction_state')}">
+                        <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}" th:field="*{constructionState}"></option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+            <div class="row">
+    <div class="col-sm-6">
+                    <div class="form-group">    
+                <label class="col-sm-3 control-label">所属区域ID：</label>
+                <div class="col-sm-8">
+                    <select name="areaId" class="form-control m-b">
+                        <option value="">所有</option>
+                    </select>
+                    <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 代码生成请选择字典属性</span>
+                </div>
+            </div>
+    </div>
+    
+            <div class="col-sm-6">
+                <div class="form-group">    
+                <label class="col-sm-3 control-label">数字小微园地址：</label>
+                <div class="col-sm-8">
+                    <input name="detailedAddress" th:field="*{detailedAddress}" class="form-control" readonly="true" type="text">
+                </div>
+            </div>
+        </div>
+    </div>
+            <div class="row">
+    <div class="col-sm-6">
+                    <div class="form-group">    
+                <label class="col-sm-3 control-label">开工时间：</label>
+                <div class="col-sm-8">
+                    <div class="input-group date">
+                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                        <input name="startTime" th:value="${#dates.format(smallPark.startTime, 'yyyy-MM-dd')}" readonly="true" class="form-control" placeholder="yyyy-MM-dd" type="text">
+                    </div>
+                </div>
+            </div>
+    </div>
+                <div class="col-sm-6">
+                <div class="form-group">    
+                <label class="col-sm-3 control-label">竣工时间：</label>
+                <div class="col-sm-8">
+                    <div class="input-group date">
+                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                        <input name="completionTime" th:value="${#dates.format(smallPark.completionTime, 'yyyy-MM-dd')}" readonly="true" class="form-control" placeholder="yyyy-MM-dd" type="text">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+            <div class="row">
+    <div class="col-sm-6">
+                    <div class="form-group">    
+                <label class="col-sm-3 control-label">投运时间：</label>
+                <div class="col-sm-8">
+                    <div class="input-group date">
+                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                        <input name="commissioningTime" th:value="${#dates.format(smallPark.commissioningTime, 'yyyy-MM-dd')}" readonly="true" class="form-control" placeholder="yyyy-MM-dd" type="text">
+                    </div>
+                </div>
+            </div>
+    </div>
+                <div class="col-sm-6">
+                <div class="form-group">    
+                <label class="col-sm-3 control-label">主导产业id：</label>
+                <div class="col-sm-8">
+                    <select name="leadingIndustryId" class="form-control m-b" readonly="true" th:with="type=${@dict.getType('leading_industry')}">
+                        <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}" th:field="*{leadingIndustryId}"></option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+        <div class="row">
+    <div class="col-sm-6">
+                    <div class="form-group">    
+                <label class="col-sm-3 control-label">入驻企业数量：</label>
+                <div class="col-sm-8">
+                    <input name="enterpriseQuantity" th:field="*{enterpriseQuantity}" class="form-control" readonly="true" type="text">
+                </div>
+            </div>
+    </div>
+    
+            <div class="col-sm-6">
+                <div class="form-group">    
+                <label class="col-sm-3 control-label">规划建筑面积：</label>
+                <div class="col-sm-8">
+                    <input name="planBuildingSpace" th:field="*{planBuildingSpace}" class="form-control" readonly="true" type="text">
+                </div>
+            </div>
+        </div>
+    </div>
+    
+        <div class="row">
+    <div class="col-sm-6">
+                    <div class="form-group">    
+                <label class="col-sm-3 control-label">占地面积：</label>
+                <div class="col-sm-8">
+                    <input name="landSpace" th:field="*{landSpace}" class="form-control" readonly="true" type="text">
+                </div>
+            </div>
+    </div>
+    
+            <div class="col-sm-6">
+                <div class="form-group">    
+                <label class="col-sm-3 control-label">已建建筑面积：</label>
+                <div class="col-sm-8">
+                    <input name="usedBuildingSpace" th:field="*{usedBuildingSpace}" class="form-control" readonly="true" type="text">
+                </div>
+            </div>
+        </div>
+    </div>
+    
+        <div class="row">
+    <div class="col-sm-6">
+                    <div class="form-group">    
+                <label class="col-sm-3 control-label">宿舍面积：</label>
+                <div class="col-sm-8">
+                    <input name="dormitorySpace" th:field="*{dormitorySpace}" class="form-control" readonly="true" type="text">
+                </div>
+            </div>
+    </div>
+    
+            <div class="col-sm-6">
+                <div class="form-group">    
+                <label class="col-sm-3 control-label">进度情况：</label>
+                <div class="col-sm-8">
+                    <input name="progress" th:field="*{progress}" class="form-control" readonly="true" type="text">
+                </div>
+            </div>
+        </div>
+    </div>
+    
+        <div class="row">
+    <div class="col-sm-6">
+                    <div class="form-group">    
+                <label class="col-sm-3 control-label">建设：</label>
+                <div class="col-sm-8">
+                    <input name="buildMode" th:field="*{buildMode}" class="form-control" readonly="true" type="text">
+                </div>
+            </div>
+    </div>
+    
+            <div class="col-sm-6">
+                <div class="form-group">    
+                <label class="col-sm-3 control-label">租金情况：</label>
+                <div class="col-sm-8">
+                    <input name="rentSituation" th:field="*{rentSituation}" class="form-control" readonly="true" type="text">
+                </div>
+            </div>
+        </div>
+    </div>
+    
+        <div class="row">
+    <div class="col-sm-6">
+                    <div class="form-group">    
+                <label class="col-sm-3 control-label">计划投资总额：</label>
+                <div class="col-sm-8">
+                    <input name="planInvestmentTotal" th:field="*{planInvestmentTotal}" class="form-control" readonly="true" type="text">
+                </div>
+            </div>
+    </div>
+    
+            <div class="col-sm-6">
+                <div class="form-group">    
+                <label class="col-sm-3 control-label">国有投资：</label>
+                <div class="col-sm-8">
+                    <input name="stateOwnedInvestment" th:field="*{stateOwnedInvestment}" class="form-control" readonly="true" type="text">
+                </div>
+            </div>
+        </div>
+    </div>
+    
+        <div class="row">
+    <div class="col-sm-6">
+                    <div class="form-group">    
+                <label class="col-sm-3 control-label">集体投资：</label>
+                <div class="col-sm-8">
+                    <input name="collectiveInvestment" th:field="*{collectiveInvestment}" class="form-control" readonly="true" type="text">
+                </div>
+            </div>
+    </div>
+    
+            <div class="col-sm-6">
+                <div class="form-group">    
+                <label class="col-sm-3 control-label">民营投资：</label>
+                <div class="col-sm-8">
+                    <input name="privateInvestment" th:field="*{privateInvestment}" class="form-control" readonly="true" type="text">
+                </div>
+            </div>
+        </div>
+    </div>
+    
+        <div class="row">
+    <div class="col-sm-6">
+                    <div class="form-group">    
+                <label class="col-sm-3 control-label">其他投资：</label>
+                <div class="col-sm-8">
+                    <input name="otherInvestment" th:field="*{otherInvestment}" class="form-control" readonly="true" type="text">
+                </div>
+            </div>
+    </div>
+    
+            <div class="col-sm-6">
+                <div class="form-group">    
+                <label class="col-sm-3 control-label">实际投资总额：</label>
+                <div class="col-sm-8">
+                    <input name="actualInvestmentTotal" th:field="*{actualInvestmentTotal}" class="form-control" readonly="true" type="text">
+                </div>
+            </div>
+        </div>
+    </div>
+    
+        <div class="row">
+    <div class="col-sm-6">
+                    <div class="form-group">    
+                <label class="col-sm-3 control-label">建设单位名称：</label>
+                <div class="col-sm-8">
+                    <input name="buildUnitName" th:field="*{buildUnitName}" class="form-control" readonly="true" type="text">
+                </div>
+            </div>
+    </div>
+    
+            <div class="col-sm-6">
+                <div class="form-group">    
+                <label class="col-sm-3 control-label">联系人：</label>
+                <div class="col-sm-8">
+                    <input name="buildContactName" th:field="*{buildContactName}" class="form-control" readonly="true" type="text">
+                </div>
+            </div>
+        </div>
+    </div>
+    
+        <div class="row">
+    <div class="col-sm-6">
+                    <div class="form-group">    
+                <label class="col-sm-3 control-label">联系方式：</label>
+                <div class="col-sm-8">
+                    <input name="buildContactTel" th:field="*{buildContactTel}" class="form-control" readonly="true" type="text">
+                </div>
+            </div>
+    </div>
+    
+            <div class="col-sm-6">
+                <div class="form-group">    
+                <label class="col-sm-3 control-label">联系邮箱：</label>
+                <div class="col-sm-8">
+                    <input name="buildContactMail" th:field="*{buildContactMail}" class="form-control" readonly="true" type="text">
+                </div>
+            </div>
+        </div>
+    </div>
+    
+        <div class="row">
+    <div class="col-sm-6">
+                    <div class="form-group">    
+                <label class="col-sm-3 control-label">运营单位名称：</label>
+                <div class="col-sm-8">
+                    <input name="operationUnitName" th:field="*{operationUnitName}" class="form-control" readonly="true" type="text">
+                </div>
+            </div>
+    </div>
+    
+            <div class="col-sm-6">
+                <div class="form-group">    
+                <label class="col-sm-3 control-label">联系人：</label>
+                <div class="col-sm-8">
+                    <input name="operationContactName" th:field="*{operationContactName}" class="form-control" readonly="true" type="text">
+                </div>
+            </div>
+        </div>
+    </div>
+    
+        <div class="row">
+    <div class="col-sm-6">
+                    <div class="form-group">    
+                <label class="col-sm-3 control-label">联系方式：</label>
+                <div class="col-sm-8">
+                    <input name="operationContactTel" th:field="*{operationContactTel}" class="form-control" readonly="true" type="text">
+                </div>
+            </div>
+    </div>
+    
+            <div class="col-sm-6">
+                <div class="form-group">    
+                <label class="col-sm-3 control-label">联系邮箱：</label>
+                <div class="col-sm-8">
+                    <input name="operationContactMail" th:field="*{operationContactMail}" class="form-control" readonly="true" type="text">
+                </div>
+            </div>
+        </div>
+    </div>
+            </form>
+    </div>
+    <th:block th:include="include :: footer" />
+    <th:block th:include="include :: datetimepicker-js" />
+    <script type="text/javascript">
+        var prefix = ctx + "smallpark/park";
+        $("#form-park-edit").validate({
+            focusCleanup: true
+        });
+
+        function submitHandler() {
+            if ($.validate.form()) {
+                $.operate.save(prefix + "/edit", $('#form-park-edit').serialize());
+            }
+        }
+
+        $("input[name='startTime']").datetimepicker({
+            format: "yyyy-mm-dd",
+            minView: "month",
+            autoclose: true
+        });
+    </script>
+</body>
+</html>
